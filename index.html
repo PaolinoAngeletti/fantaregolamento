@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="style.css">
+		<script src="scripts.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Crea il tuo Fanta Regolamento</h1>
+		</div>
+		
+		<!-- tipo competizione -->
+		<div class="macro">
+			<div class="container">
+				<h2>Tipo di competizione</h2>
+			</div>
+			<div class="container">
+				<center><p>Imposta il tipo di competizione da affrontare</p></center>
+			</div>
+			<br>
+			<div class="container">
+				<form>
+					<label>
+						<input type="radio" name="radio" value="La competizione sarà una classica competizione a calendario, con inizio che verrà stabilito dai partecipanti ogni anno e con fine combaciante alla conclusione del campionato italiano reale. L’inizio sarebbe ideale dopo la conclusione del calcio mercato, ma, come detto sopra, tale decisione sarà presa dai partecipanti alla competizione." checked />
+						<span>Competizione a calendario</span>
+					</label>
+					<label>
+						<input type="radio" name="radio" />
+						<span>Competizione a formula 1</span>
+					</label>
+				</form>
+			</div>
+			<br>
+		</div>
+		<br>
+		
+		<!-- struttura rose -->
+		<div class="macro">
+			<div class="container">
+				<h2>Struttura rose</h2>
+			</div>
+			<div class="container">
+				<center><p>Imposta il numero di giocatori necessari per la competizione</p></center>
+			</div>
+			<br>
+			<center><p>Portieri</p></center>
+			<div class="container">
+				<div class="form-group">
+					<input type="text" data-rule="required" value="3"/>
+				</div>
+			</div>
+			<center><p>Difensori</p></center>
+			<div class="container">
+				<div class="form-group">
+					<input type="text" data-rule="required" value="8"/>
+				</div>
+			</div>
+			<center><p>Centrocampisti</p></center>
+			<div class="container">
+				<div class="form-group">
+					<input type="text" data-rule="required" value="8"/>
+				</div>
+			</div>
+			<center><p>Attaccanti</p></center>
+			<div class="container">
+				<div class="form-group">
+					<input type="text" data-rule="required" value="6"/>
+				</div>
+			</div>
+			<br>
+			<div class="container">
+				<h4>Giocatori condivisi</h4>
+			</div>
+			<div class="container">
+				<center><p>Indica se sono permessi giocatori condivisi tra più squadre</p></center>
+			</div>
+			<br>
+			<div class="container">
+				<form>
+					<label>
+						<input type="radio" name="radio" />
+						<span>Si</span>
+					</label>
+					<label>
+						<input type="radio" name="radio" checked />
+						<span>No</span>
+					</label>
+				</form>
+			</div>
+			<br>
+		</div>
+		<br>
+		
+		<!-- mercato -->
+		<div class="macro">
+			<div class="container">
+				<h2>Gestione mercato</h2>
+			</div>
+			<div class="container">
+				<h4>Numero crediti</h4>
+			</div>
+			<div class="container">
+				<center><p>Imposta il numero di fanta milioni che ogni squadra avrà a disposizione all'inizio della competizione</p></center>
+			</div>
+			<br>
+			<div class="container">
+				<div class="form-group">
+					<input type="text" data-rule="required" value="500"/>
+				</div>
+			</div>
+			<div class="container">
+				<center><p>Imposta il numero di fanta milioni che verranno aggiunti ad ogni sessione di mercato per ogni squadra</p></center>
+			</div>
+			<br>
+			<div class="container">
+				<div class="form-group">
+					<input type="text" data-rule="required" value="30"/>
+				</div>
+			</div>
+			<div class="container">
+				<h4>Scambio crediti</h4>
+			</div>
+			<div class="container">
+				<center><p>Indica se saranno permessi gli scambi di crediti tra partecipanti (esempio Totti per Del Piero più 50 fanta milioni)</p></center>
+			</div>
+			<br>
+			<div class="container">
+				<form>
+					<label>
+						<input type="radio" name="radio" />
+						<span>Si</span>
+					</label>
+					<label>
+						<input type="radio" name="radio" checked />
+						<span>No</span>
+					</label>
+				</form>
+			</div>
+			<div class="container">
+				<h4>Cambio ruolo</h4>
+			</div>
+			<div class="container">
+				<center><p>Indica se supportare il cambio ruolo (esempio un attaccante che tutti decidono di rendere un centrocampista)</p></center>
+			</div>
+			<br>
+			<div class="container">
+				<form>
+					<label>
+						<input type="radio" name="radio" />
+						<span>Si</span>
+					</label>
+					<label>
+						<input type="radio" name="radio" checked/>
+						<span>No</span>
+					</label>
+				</form>
+			</div>
+			<br>
+		</div>
+		<br>
+		
+		<!-- svincoli ed infortuni -->
+		<div class="macro">
+			<div class="container">
+				<h2>Gestione infortuni e svincoli</h2>
+			</div>
+			<div class="container">
+				<h4>Svincolo giocatori</h4>
+			</div>
+			<div class="container">
+				<center><p>Indica come gestire lo svincolo di un giocatore da parte di una qualsiasi squadra</p></center>
+			</div>
+			<br>
+			<div class="container">
+				<form>
+					<label>
+						<input type="radio" name="radio" checked/>
+						<span>Non ricevere nessun credito</span>
+					</label>
+					<label>
+						<input type="radio" name="radio"/>
+						<span>Ricevi un solo credito</span>
+					</label>
+					<label>
+						<input type="radio" name="radio"/>
+						<span>Ricevi crediti pari alla metà della quotazione di acquisto</span>
+					</label>
+					<label>
+						<input type="radio" name="radio"/>
+						<span>Ricevi crediti pari alla quotazione di acquisto</span>
+					</label>
+				</form>
+			</div>
+			<br>
+		</div>
+		<br>
+		
+		<!-- inserimento formazione -->
+		<div class="macro">
+			<div class="container">
+				<h2>Inserimento formazione</h2>
+			</div>
+			<div class="container">
+				<h4>Tolleranza ritardo</h4>
+			</div>
+			<div class="container">
+				<center><p>Imposta il numero di minuti entro cui bisogna inserire la formazione prima dell'inizio della giornata</p></center>
+			</div>
+			<br>
+			<div class="container">
+				<div class="form-group">
+					<input type="text" data-rule="required" value="1"/>
+				</div>
+			</div>
+			<div class="container">
+				<h4>Moduli supportati</h4>
+			</div>
+			<center>
+			<div class="container_pill">
+				<ul class="ks-cboxtags">
+					<li><input type="checkbox" id="checkboxOne" value="Rainbow Dash" checked><label for="checkboxOne">4-4-2</label></li>
+					<li><input type="checkbox" id="checkboxTwo" value="Cotton Candy" checked><label for="checkboxTwo">4-3-3</label></li>
+					<li><input type="checkbox" id="checkboxThree" value="Rarity" checked><label for="checkboxThree">4-5-1</label></li>
+					<li><input type="checkbox" id="checkboxFour" value="Moondancer" checked><label for="checkboxFour">3-4-3</label></li>
+					<li><input type="checkbox" id="checkboxFive" value="Surprise" checked><label for="checkboxFive">3-5-2</label></li>
+					<li><input type="checkbox" id="checkboxSix" value="Twilight Sparkle" checked><label for="checkboxSix">5-3-2</label></li>
+					<li><input type="checkbox" id="checkboxSeven" value="Fluttershy" checked><label for="checkboxSeven">5-4-1</label></li>
+					<li><input type="checkbox" id="checkboxEight" value="Derpy Hooves"><label for="checkboxEight">6-3-1</label></li>
+					<li><input type="checkbox" id="checkboxNine" value="Princess Celestia"><label for="checkboxNine">6-2-2</label></li>
+				</ul>
+			</div>
+			</center>
+			<div class="container">
+				<h4>Mancato inserimento</h4>
+			</div>
+			<div class="container">
+				<center><p>Decidi come gestire la situazione in cui un partecipante non inserisce la formazione per una giornata</p></center>
+			</div>
+			<br>
+			<div class="container">
+				<form>
+					<label>
+						<input type="radio" name="radio" checked />
+						<span>Inserimento formazione nulla (punteggio zero)<br>Se mi preoccupo di mettere la squadra, non è bello perdere contro chi si dimentica.</span>
+					</label>
+					<label>
+						<input type="radio" name="radio"/>
+						<span>Recupera la formazione della giornata precedente</span>
+					</label>
+				</form>
+			</div>
+			<div class="container">
+				<h4>Struttura panchina</h4>
+			</div>
+			<div class="container">
+				<center><p>Indica la struttura e l'ordinamento della panchina</p></center>
+			</div>
+			<br>
+			<div class="container">
+				<div class="form-group">
+					<input type="text" data-rule="required" value="PP-DDD-CCC-AAA"/>
+				</div>
+			</div>
+			<div class="container">
+				<h4>Formazioni invisibili</h4>
+			</div>
+			<div class="container">
+				<center><p>Decidi se permettere le formazioni invisibili, ossia che appariranno solamente con l'inizio della giornata</p></center>
+			</div>
+			<br>
+			<div class="container">
+				<form>
+					<label>
+						<input type="radio" name="radio" checked />
+						<span>Si</span>
+					</label>
+					<label>
+						<input type="radio" name="radio"/>
+						<span>No</span>
+					</label>
+				</form>
+			</div>
+		</div>
+		<br>
+		
+		<!-- sostituzioni -->
+		<div class="macro">
+			<div class="container">
+				<h2>Gestione sostituzioni</h2>
+			</div>
+			<div class="container">
+				<h4>Numero sostituzioni</h4>
+			</div>
+			<div class="container">
+				<center><p>Indica il numero massimo di sostituzioni consentite per ciascuna giornata</p></center>
+			</div>
+			<br>
+			<div class="container">
+				<form>
+					<label>
+						<input type="radio" name="radio" checked />
+						<span>Nessun limite</span>
+					</label>
+					<label>
+						<input type="radio" name="radio"/>
+						<span>Massimo 3 sostituzioni</span>
+					</label>
+					<label>
+						<input type="radio" name="radio"/>
+						<span>Massimo 5 sostituzioni</span>
+					</label>
+				</form>
+			</div>
+			<br>
+			<div class="container">
+				<h4>Subentrato senza voto ammonito</h4>
+			</div>
+			<div class="container">
+				<center><p>Indica come gestire un giocatore senza voto ammonito</p></center>
+			</div>
+			<br>
+			<div class="container">
+				<form>
+					<label>
+						<input type="radio" name="radio" checked />
+						<span>L'ammonizione viene ignorata ed il subentrato ottiene voto pieno</span>
+					</label>
+					<label>
+						<input type="radio" name="radio"/>
+						<span>L'ammonizione viene scalata dal giocatore subentrato</span>
+					</label>
+				</form>
+			</div>
+			<br>
+		</div>
+		<br>
+		
+		<!-- calcolo giornate -->
+		<div class="macro">
+			<div class="container">
+				<h2>Calcolo giornate</h2>
+			</div>
+			<div class="container">
+				<h4>Punteggio calcolo</h4>
+			</div>
+			<div class="container">
+				<center><p>Indica i valori con cui eseguire il calcolo delle giornate</p></center>
+			</div>
+			<br>
+			<center><p>Vittoria</p></center>
+			<div class="container">
+				<div class="form-group">
+					<input type="text" data-rule="required" value="3"/>
+				</div>
+			</div>
+			<br>
+			<center><p>Pareggio</p></center>
+			<div class="container">
+				<div class="form-group">
+					<input type="text" data-rule="required" value="1"/>
+				</div>
+			</div>
+			<br>
+			<center><p>Sconfitta</p></center>
+			<div class="container">
+				<div class="form-group">
+					<input type="text" data-rule="required" value="0"/>
+				</div>
+			</div>
+			<br>
+			<center><p>Gol segnato</p></center>
+			<div class="container">
+				<div class="form-group">
+					<input type="text" data-rule="required" value="3"/>
+				</div>
+			</div>
+			<br>
+			<center><p>Rigore segnato</p></center>
+			<div class="container">
+				<div class="form-group">
+					<input type="text" data-rule="required" value="3"/>
+				</div>
+			</div>
+			<br>
+			<center><p>Rigore sbagliato</p></center>
+			<div class="container">
+				<div class="form-group">
+					<input type="text" data-rule="required" value="-3"/>
+				</div>
+			</div>
+			<br>
+			<center><p>Assist</p></center>
+			<div class="container">
+				<div class="form-group">
+					<input type="text" data-rule="required" value="1"/>
+				</div>
+			</div>
+			<br>
+			<center><p>Porta inviolata (portiere)</p></center>
+			<div class="container">
+				<div class="form-group">
+					<input type="text" data-rule="required" value="1"/>
+				</div>
+			</div>
+			<br>
+			<center><p>Gol subito (portiere)</p></center>
+			<div class="container">
+				<div class="form-group">
+					<input type="text" data-rule="required" value="-1"/>
+				</div>
+			</div>
+			<br>
+			<center><p>Rigore parato (portiere)</p></center>
+			<div class="container">
+				<div class="form-group">
+					<input type="text" data-rule="required" value="3"/>
+				</div>
+			</div>
+			<br>
+			<center><p>Ammonizione</p></center>
+			<div class="container">
+				<div class="form-group">
+					<input type="text" data-rule="required" value="-0.5"/>
+				</div>
+			</div>
+			<br>
+			<center><p>Espulsione</p></center>
+			<div class="container">
+				<div class="form-group">
+					<input type="text" data-rule="required" value="-1"/>
+				</div>
+			</div>
+			<br>
+			<center><p>Autogol</p></center>
+			<div class="container">
+				<div class="form-group">
+					<input type="text" data-rule="required" value="-3"/>
+				</div>
+			</div>
+			<br>
+			<div class="container">
+				<h4>Soglie gol</h4>
+			</div>
+			<div class="container">
+				<center><p>Indica l'intervallo di larghezza di ciascuna soglia gol prevista<br>Nota che più il valore è alto, più la probabilità di pareggi aumenterà, esempi:<br>Soglia da 4: 66 - 69.5 (1 goal), 70 - 73.5 (2 goal), ..<br>Soglia da 5: 66 - 70.5 (1 goal), 71 - 75.5 (2 goal), ..</p></center>
+			</div>
+			<br>
+			<div class="container">
+				<div class="form-group">
+					<input type="text" data-rule="required" value="4"/>
+				</div>
+			</div>
+			<br>
+			<div class="container">
+				<h4>Fattore campo</h4>
+			</div>
+			<div class="container">
+				<center><p>Indica se applicare il fattore campo nel calcolo giornate</p></center>
+			</div>
+			<br>
+			<div class="container">
+				<form>
+					<label>
+						<input type="radio" name="radio" />
+						<span>Si</span>
+					</label>
+					<label>
+						<input type="radio" name="radio" checked />
+						<span>No</span>
+					</label>
+				</form>
+			</div>
+			<br>
+			<div class="container">
+				<h4>Rinvio partite</h4>
+			</div>
+			<div class="container">
+				<center><p>Indica come gestire eventuali rinvii di partite a date da destinarsi</p></center>
+			</div>
+			<br>
+			<div class="container">
+				<form>
+					<label>
+						<input type="radio" name="radio" />
+						<span>Non aspettare mai, in ogni caso 6 politico</span>
+					</label>
+					<label>
+						<input type="radio" name="radio" checked />
+						<span>Attendi la partita solamente se giocata entro la prossima giornata di campionato</span>
+					</label>
+					<label>
+						<input type="radio" name="radio" />
+						<span>Attendi che la partita venga rigiocata, anche se a mesi di distanza<br>Se un giocatore non potrà, per qualsiasi motivo, giocare la partita rinviata, accederà al 6 politico</span>
+					</label>
+					<label>
+						<input type="radio" name="radio" />
+						<span>Attendi che la partita venga rigiocata, anche se a mesi di distanza<br>Se un giocatore non potrà, per qualsiasi motivo, giocare la partita rinviata, entrerà la sostituzione</span>
+					</label>
+				</form>
+			</div>
+			<br>
+			<div class="container">
+				<h4>Modificatore di difesa</h4>
+			</div>
+			<div class="container">
+				<center><p>Indica se applicare il calcolo aggiuntivo dato dal modificatore di difesa</p></center>
+			</div>
+			<br>
+			<div class="container">
+				<form>
+					<label>
+						<input type="radio" name="radio" onclick="applicaModificatore(false);" checked />
+						<span>Non applicare</span>
+					</label>
+					<label>
+						<input type="radio" name="radio" onclick="applicaModificatore(true);" />
+						<span>Applica il modificatore</span>
+					</label>
+				</form>
+			</div>
+			<div id = "punti_modificatore" style = "display:none;">
+				<br>
+				<div class="container">
+					<h4>Punti modificatore</h4>
+				</div>
+				<div class="container">
+					<center><p>Indica gli scaglioni con cui eseguire il calcolo del modificatore in base alla media della difesa</p></center>
+				</div>
+				<br>
+				<center><p>da 0 a 5.99</p></center>
+				<div class="container">
+					<div class="form-group">
+						<input type="text" data-rule="required" value="0"/>
+					</div>
+				</div>
+				<br>
+				<center><p>da 6 a 6.24</p></center>
+				<div class="container">
+					<div class="form-group">
+						<input type="text" data-rule="required" value="0.5"/>
+					</div>
+				</div>
+				<br>
+				<center><p>da 6.25 a 6.49</p></center>
+				<div class="container">
+					<div class="form-group">
+						<input type="text" data-rule="required" value="1"/>
+					</div>
+				</div>
+				<br>
+				<center><p>da 6.5 a 6.74</p></center>
+				<div class="container">
+					<div class="form-group">
+						<input type="text" data-rule="required" value="1.5"/>
+					</div>
+				</div>
+				<br>
+				<center><p>da 6.75 a 6.99</p></center>
+				<div class="container">
+					<div class="form-group">
+						<input type="text" data-rule="required" value="2"/>
+					</div>
+				</div>
+				<br>
+				<center><p>da 7 a 7.24</p></center>
+				<div class="container">
+					<div class="form-group">
+						<input type="text" data-rule="required" value="2.5"/>
+					</div>
+				</div>
+				<br>
+				<center><p>da 7.25 a 7.49</p></center>
+				<div class="container">
+					<div class="form-group">
+						<input type="text" data-rule="required" value="3"/>
+					</div>
+				</div>
+				<br>
+				<center><p>da 7.5 a salire</p></center>
+				<div class="container">
+					<div class="form-group">
+						<input type="text" data-rule="required" value="3.5"/>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		
+		<!-- classifica -->
+		<div class="macro">
+			<div class="container">
+				<h2>Classifica</h2>
+			</div>
+			<div class="container">
+				<center><p>La classifica verrà calcolata in base al seguente criterio</p></center>
+			</div>
+			<div class="container">
+				<center><p>1. Punti in classifica</p></center>
+			</div>
+			<div class="container">
+				<center><p>2. Somma punti totale</p></center>
+			</div>
+			<div class="container">
+				<center><p>3. Differenza reti</p></center>
+			</div>
+			<div class="container">
+				<center><p>4. Gol fatti</p></center>
+			</div>
+			<div class="container">
+				<center><p>5. Gol subiti</p></center>
+			</div>
+			<div class="container">
+				<center><p>6. Classifica avulsa</p></center>
+			</div>
+			<div class="container">
+				<center><p>In caso di parità perfetta, verrano sommati i premi previsti e divisi per le squadre che rilevano la perfetta parità.</p></center>
+			</div>
+			<br>
+		</div>
+		<br>
+		
+		<!-- quota e premi finali -->
+		<div class="macro">
+			<div class="container">
+				<h2>Quota e premi finali</h2>
+			</div>
+			<div class="container">
+				<center><p>Inserisci la quota di iscrizione prevista per ciascun partecipante</p></center>
+			</div>
+			<br>
+			<div class="container">
+				<div class="form-group">
+					<input type="text" data-rule="required" value="100" />
+				</div>
+			</div>
+			<br>
+			<div class="container">
+				<center><p>Inserisci una descrizione testuale che indica la ripartizione dei premi finali, tenendo anche conto di eventuali coppe aggiuntive o altro</p></center>
+			</div>
+			<br>
+			<p><span class="textarea" role="textbox" contenteditable>Primo posto : - euro
+			Secondo posto: - euro
+			Terzo posto: - euro
+			</span></p>
+			<br>
+		</div>
+		<br><br>
+		
+		<!-- crea regolamento -->
+		<button class="button-46" role="button" onclick="generaDocumento();">Avvia creazione regolamento</button>
+		
+		<!-- fine -->
+		<br><br>
+	</body>
+</html>
