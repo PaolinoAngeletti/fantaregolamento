@@ -47,25 +47,25 @@
 			<center><p>Portieri</p></center>
 			<div class="container">
 				<div class="form-group">
-					<input id = "etPortieri" type="text" data-rule="required" value="3"/>
+					<input id = "etPortieri" type="number" data-rule="required" min = "1" value="3"/>
 				</div>
 			</div>
 			<center><p>Difensori</p></center>
 			<div class="container">
 				<div class="form-group">
-					<input id = "etDifensori" type="text" data-rule="required" value="8"/>
+					<input id = "etDifensori" type="number" data-rule="required" min = "1" value="8"/>
 				</div>
 			</div>
 			<center><p>Centrocampisti</p></center>
 			<div class="container">
 				<div class="form-group">
-					<input id = "etCentrocampisti" type="text" data-rule="required" value="8"/>
+					<input id = "etCentrocampisti" type="number" data-rule="required" min = "1" value="8"/>
 				</div>
 			</div>
 			<center><p>Attaccanti</p></center>
 			<div class="container">
 				<div class="form-group">
-					<input id = "etAttaccanti" type="text" data-rule="required" value="6"/>
+					<input id = "etAttaccanti" type="number" data-rule="required" min = "1" value="6"/>
 				</div>
 			</div>
 			<br>
@@ -79,11 +79,11 @@
 			<div class="container">
 				<form>
 					<label>
-						<input type="radio" name="radio" />
+						<input id = "cbCondivisiSi" type="radio" name="radio" />
 						<span>Si</span>
 					</label>
 					<label>
-						<input type="radio" name="radio" checked />
+						<input id = "cbCondivisiNo" type="radio" name="radio" checked />
 						<span>No</span>
 					</label>
 				</form>
@@ -106,7 +106,7 @@
 			<br>
 			<div class="container">
 				<div class="form-group">
-					<input type="text" data-rule="required" value="500"/>
+					<input id = "etCrediti" type="number" data-rule="required" min = "1" value="500"/>
 				</div>
 			</div>
 			<div class="container">
@@ -115,7 +115,7 @@
 			<br>
 			<div class="container">
 				<div class="form-group">
-					<input type="text" data-rule="required" value="30"/>
+					<input id = "etCreditiSessione" type="number" data-rule="required" min = "0" value="30"/>
 				</div>
 			</div>
 			<div class="container">
@@ -128,11 +128,11 @@
 			<div class="container">
 				<form>
 					<label>
-						<input type="radio" name="radio" />
+						<input id = "cbScambioCreditiSi" type="radio" name="radio" />
 						<span>Si</span>
 					</label>
 					<label>
-						<input type="radio" name="radio" checked />
+						<input id = "cbScambioCreditiNo" type="radio" name="radio" checked />
 						<span>No</span>
 					</label>
 				</form>
@@ -147,11 +147,11 @@
 			<div class="container">
 				<form>
 					<label>
-						<input type="radio" name="radio" />
+						<input id = "cbCambioRuoloSi" type="radio" name="radio" />
 						<span>Si</span>
 					</label>
 					<label>
-						<input type="radio" name="radio" checked/>
+						<input id = "cbCambioRuoloNo" type="radio" name="radio" checked/>
 						<span>No</span>
 					</label>
 				</form>
@@ -175,19 +175,19 @@
 			<div class="container">
 				<form>
 					<label>
-						<input type="radio" name="radio" checked/>
+						<input id = "cbSvincoloNessun" type="radio" name="radio" checked/>
 						<span>Non ricevere nessun credito</span>
 					</label>
 					<label>
-						<input type="radio" name="radio"/>
+						<input id = "cbSvincoloUno" type="radio" name="radio"/>
 						<span>Ricevi un solo credito</span>
 					</label>
 					<label>
-						<input type="radio" name="radio"/>
+						<input id = "cbSvincoloMeta" type="radio" name="radio"/>
 						<span>Ricevi crediti pari alla metà della quotazione di acquisto</span>
 					</label>
 					<label>
-						<input type="radio" name="radio"/>
+						<input id = "cbSvincoloQuotazione" type="radio" name="radio"/>
 						<span>Ricevi crediti pari alla quotazione di acquisto</span>
 					</label>
 				</form>
@@ -203,11 +203,11 @@
 			<div class="container">
 				<form>
 					<label>
-						<input type="radio" name="radio" checked/>
+						<input id = "cbInfortunioNessun" type="radio" name="radio" checked/>
 						<span>Non applicare nessun prestito, in nessun caso</span>
 					</label>
 					<label>
-						<input type="radio" name="radio"/>
+						<input id = "cbInfortunioPrestito" type="radio" name="radio"/>
 						<span>Prevedi il prestito di un calciatore svincolato fino al prossimo mercato<br>Questa regola verrà applicata solo ad infortuni che superano i sei mesi<br>Questa regola verrà applicata solo se mancano almeno dieci giornate dalla fine</span>
 					</label>
 				</form>
@@ -223,11 +223,11 @@
 			<div class="container">
 				<form>
 					<label>
-						<input type="radio" name="radio" checked/>
+						<input id = "cbCovidPolitico" type="radio" name="radio" checked/>
 						<span>Un calciatore positivo accederà al 6 politico</span>
 					</label>
 					<label>
-						<input type="radio" name="radio"/>
+						<input id = "cbCovidPanchina" type="radio" name="radio"/>
 						<span>Un calciatore positivo verrà sostituito con il panchinaro previsto<br>Questa opzione può essere pericolosa per multiple positività</span>
 					</label>
 				</form>
@@ -250,7 +250,7 @@
 			<br>
 			<div class="container">
 				<div class="form-group">
-					<input type="text" data-rule="required" value="1"/>
+					<input id = "etTolleranza" type="number" data-rule="required" min = "1" value="1" />
 				</div>
 			</div>
 			<div class="container">
@@ -259,15 +259,15 @@
 			<center>
 			<div class="container_pill">
 				<ul class="ks-cboxtags">
-					<li><input type="checkbox" id="checkboxOne" value="Rainbow Dash" checked><label for="checkboxOne">4-4-2</label></li>
-					<li><input type="checkbox" id="checkboxTwo" value="Cotton Candy" checked><label for="checkboxTwo">4-3-3</label></li>
-					<li><input type="checkbox" id="checkboxThree" value="Rarity" checked><label for="checkboxThree">4-5-1</label></li>
-					<li><input type="checkbox" id="checkboxFour" value="Moondancer" checked><label for="checkboxFour">3-4-3</label></li>
-					<li><input type="checkbox" id="checkboxFive" value="Surprise" checked><label for="checkboxFive">3-5-2</label></li>
-					<li><input type="checkbox" id="checkboxSix" value="Twilight Sparkle" checked><label for="checkboxSix">5-3-2</label></li>
-					<li><input type="checkbox" id="checkboxSeven" value="Fluttershy" checked><label for="checkboxSeven">5-4-1</label></li>
-					<li><input type="checkbox" id="checkboxEight" value="Derpy Hooves"><label for="checkboxEight">6-3-1</label></li>
-					<li><input type="checkbox" id="checkboxNine" value="Princess Celestia"><label for="checkboxNine">6-2-2</label></li>
+					<li><input id = "cb442" type="checkbox" id="checkboxOne" value="Rainbow Dash" checked><label for="checkboxOne">4-4-2</label></li>
+					<li><input id = "cb433" type="checkbox" id="checkboxTwo" value="Cotton Candy" checked><label for="checkboxTwo">4-3-3</label></li>
+					<li><input id = "cb451" type="checkbox" id="checkboxThree" value="Rarity" checked><label for="checkboxThree">4-5-1</label></li>
+					<li><input id = "cb343" type="checkbox" id="checkboxFour" value="Moondancer" checked><label for="checkboxFour">3-4-3</label></li>
+					<li><input id = "cb352" type="checkbox" id="checkboxFive" value="Surprise" checked><label for="checkboxFive">3-5-2</label></li>
+					<li><input id = "cb532" type="checkbox" id="checkboxSix" value="Twilight Sparkle" checked><label for="checkboxSix">5-3-2</label></li>
+					<li><input id = "cb541" type="checkbox" id="checkboxSeven" value="Fluttershy" checked><label for="checkboxSeven">5-4-1</label></li>
+					<li><input id = "cb631" type="checkbox" id="checkboxEight" value="Derpy Hooves"><label for="checkboxEight">6-3-1</label></li>
+					<li><input id = "cb622" type="checkbox" id="checkboxNine" value="Princess Celestia"><label for="checkboxNine">6-2-2</label></li>
 				</ul>
 			</div>
 			</center>
