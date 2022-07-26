@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" href="style.css">
 		<script src="scripts.js"></script>
+		<link rel="stylesheet" href="style.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body>
 		<div class="container">
 			<h1>Crea il tuo Fanta Regolamento</h1>
 		</div>
-		
+
 		<!-- tipo competizione -->
 		<div class="macro">
 			<div class="container">
@@ -21,11 +22,11 @@
 			<div class="container">
 				<form>
 					<label>
-						<input type="radio" name="radio" value="La competizione sarà una classica competizione a calendario, con inizio che verrà stabilito dai partecipanti ogni anno e con fine combaciante alla conclusione del campionato italiano reale. L’inizio sarebbe ideale dopo la conclusione del calcio mercato, ma, come detto sopra, tale decisione sarà presa dai partecipanti alla competizione." checked />
+						<input id = "cbCalendario" type="radio" name="radio" checked />
 						<span>Competizione a calendario</span>
 					</label>
 					<label>
-						<input type="radio" name="radio" />
+						<input id = "cbFormulaUno" type="radio" name="radio" />
 						<span>Competizione a formula 1</span>
 					</label>
 				</form>
@@ -33,7 +34,7 @@
 			<br>
 		</div>
 		<br>
-		
+
 		<!-- struttura rose -->
 		<div class="macro">
 			<div class="container">
@@ -46,25 +47,25 @@
 			<center><p>Portieri</p></center>
 			<div class="container">
 				<div class="form-group">
-					<input type="text" data-rule="required" value="3"/>
+					<input id = "etPortieri" type="text" data-rule="required" value="3"/>
 				</div>
 			</div>
 			<center><p>Difensori</p></center>
 			<div class="container">
 				<div class="form-group">
-					<input type="text" data-rule="required" value="8"/>
+					<input id = "etDifensori" type="text" data-rule="required" value="8"/>
 				</div>
 			</div>
 			<center><p>Centrocampisti</p></center>
 			<div class="container">
 				<div class="form-group">
-					<input type="text" data-rule="required" value="8"/>
+					<input id = "etCentrocampisti" type="text" data-rule="required" value="8"/>
 				</div>
 			</div>
 			<center><p>Attaccanti</p></center>
 			<div class="container">
 				<div class="form-group">
-					<input type="text" data-rule="required" value="6"/>
+					<input id = "etAttaccanti" type="text" data-rule="required" value="6"/>
 				</div>
 			</div>
 			<br>
@@ -90,7 +91,7 @@
 			<br>
 		</div>
 		<br>
-		
+
 		<!-- mercato -->
 		<div class="macro">
 			<div class="container">
@@ -158,7 +159,7 @@
 			<br>
 		</div>
 		<br>
-		
+
 		<!-- svincoli ed infortuni -->
 		<div class="macro">
 			<div class="container">
@@ -192,9 +193,49 @@
 				</form>
 			</div>
 			<br>
+			<div class="container">
+				<h4>Gestione infortuni</h4>
+			</div>
+			<div class="container">
+				<center><p>Indica come gestire gli infortuni di calciatori durante la stagione</p></center>
+			</div>
+			<br>
+			<div class="container">
+				<form>
+					<label>
+						<input type="radio" name="radio" checked/>
+						<span>Non applicare nessun prestito, in nessun caso</span>
+					</label>
+					<label>
+						<input type="radio" name="radio"/>
+						<span>Prevedi il prestito di un calciatore svincolato fino al prossimo mercato<br>Questa regola verrà applicata solo ad infortuni che superano i sei mesi<br>Questa regola verrà applicata solo se mancano almeno dieci giornate dalla fine</span>
+					</label>
+				</form>
+			</div>
+			<br>
+			<div class="container">
+				<h4>Gestione COVID-19</h4>
+			</div>
+			<div class="container">
+				<center><p>Indica come gestire eventuali positività da COVID-19</p></center>
+			</div>
+			<br>
+			<div class="container">
+				<form>
+					<label>
+						<input type="radio" name="radio" checked/>
+						<span>Un calciatore positivo accederà al 6 politico</span>
+					</label>
+					<label>
+						<input type="radio" name="radio"/>
+						<span>Un calciatore positivo verrà sostituito con il panchinaro previsto<br>Questa opzione può essere pericolosa per multiple positività</span>
+					</label>
+				</form>
+			</div>
+			<br>
 		</div>
 		<br>
-		
+
 		<!-- inserimento formazione -->
 		<div class="macro">
 			<div class="container">
@@ -282,7 +323,7 @@
 			</div>
 		</div>
 		<br>
-		
+
 		<!-- sostituzioni -->
 		<div class="macro">
 			<div class="container">
@@ -334,7 +375,7 @@
 			<br>
 		</div>
 		<br>
-		
+
 		<!-- calcolo giornate -->
 		<div class="macro">
 			<div class="container">
@@ -585,7 +626,7 @@
 			</div>
 		</div>
 		<br>
-		
+
 		<!-- classifica -->
 		<div class="macro">
 			<div class="container">
@@ -618,7 +659,7 @@
 			<br>
 		</div>
 		<br>
-		
+
 		<!-- quota e premi finali -->
 		<div class="macro">
 			<div class="container">
@@ -645,10 +686,10 @@
 			<br>
 		</div>
 		<br><br>
-		
+
 		<!-- crea regolamento -->
-		<button class="button-46" role="button" onclick="generaDocumento();">Avvia creazione regolamento</button>
-		
+		<button class="button-46" role="button" onclick="avviaAnteprimaDocumento();">Avvia creazione regolamento</button>
+
 		<!-- fine -->
 		<br><br>
 	</body>
