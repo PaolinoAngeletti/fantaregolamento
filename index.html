@@ -259,15 +259,15 @@
 			<center>
 			<div class="container_pill">
 				<ul class="ks-cboxtags">
-					<li><input id = "cb442" type="checkbox" id="checkboxOne" value="Rainbow Dash" checked><label for="checkboxOne">4-4-2</label></li>
-					<li><input id = "cb433" type="checkbox" id="checkboxTwo" value="Cotton Candy" checked><label for="checkboxTwo">4-3-3</label></li>
-					<li><input id = "cb451" type="checkbox" id="checkboxThree" value="Rarity" checked><label for="checkboxThree">4-5-1</label></li>
-					<li><input id = "cb343" type="checkbox" id="checkboxFour" value="Moondancer" checked><label for="checkboxFour">3-4-3</label></li>
-					<li><input id = "cb352" type="checkbox" id="checkboxFive" value="Surprise" checked><label for="checkboxFive">3-5-2</label></li>
-					<li><input id = "cb532" type="checkbox" id="checkboxSix" value="Twilight Sparkle" checked><label for="checkboxSix">5-3-2</label></li>
-					<li><input id = "cb541" type="checkbox" id="checkboxSeven" value="Fluttershy" checked><label for="checkboxSeven">5-4-1</label></li>
-					<li><input id = "cb631" type="checkbox" id="checkboxEight" value="Derpy Hooves"><label for="checkboxEight">6-3-1</label></li>
-					<li><input id = "cb622" type="checkbox" id="checkboxNine" value="Princess Celestia"><label for="checkboxNine">6-2-2</label></li>
+					<li><input type="checkbox" id="checkboxOne" value="Rainbow Dash" checked><label for="checkboxOne">4-4-2</label></li>
+					<li><input type="checkbox" id="checkboxTwo" value="Cotton Candy" checked><label for="checkboxTwo">4-3-3</label></li>
+					<li><input type="checkbox" id="checkboxThree" value="Rarity" checked><label for="checkboxThree">4-5-1</label></li>
+					<li><input type="checkbox" id="checkboxFour" value="Moondancer" checked><label for="checkboxFour">3-4-3</label></li>
+					<li><input type="checkbox" id="checkboxFive" value="Surprise" checked><label for="checkboxFive">3-5-2</label></li>
+					<li><input type="checkbox" id="checkboxSix" value="Twilight Sparkle" checked><label for="checkboxSix">5-3-2</label></li>
+					<li><input type="checkbox" id="checkboxSeven" value="Fluttershy" checked><label for="checkboxSeven">5-4-1</label></li>
+					<li><input type="checkbox" id="checkboxEight" value="Derpy Hooves"><label for="checkboxEight">6-3-1</label></li>
+					<li><input type="checkbox" id="checkboxNine" value="Princess Celestia"><label for="checkboxNine">6-2-2</label></li>
 				</ul>
 			</div>
 			</center>
@@ -281,11 +281,11 @@
 			<div class="container">
 				<form>
 					<label>
-						<input type="radio" name="radio" checked />
+						<input id = "cbMancataNulla" type="radio" name="radio" checked />
 						<span>Inserimento formazione nulla (punteggio zero)<br>Se mi preoccupo di mettere la squadra, non è bello perdere contro chi si dimentica.</span>
 					</label>
 					<label>
-						<input type="radio" name="radio"/>
+						<input id = "cbMancataPrecedente" type="radio" name="radio"/>
 						<span>Recupera la formazione della giornata precedente</span>
 					</label>
 				</form>
@@ -299,7 +299,7 @@
 			<br>
 			<div class="container">
 				<div class="form-group">
-					<input type="text" data-rule="required" value="PP-DDD-CCC-AAA"/>
+					<input id = "etPanchina" type="text" data-rule="required" value="PP-DDD-CCC-AAA"/>
 				</div>
 			</div>
 			<div class="container">
@@ -312,11 +312,11 @@
 			<div class="container">
 				<form>
 					<label>
-						<input type="radio" name="radio" checked />
+						<input id = "cbInvisibiliSi" type="radio" name="radio" checked />
 						<span>Si</span>
 					</label>
 					<label>
-						<input type="radio" name="radio"/>
+						<input id = "cbInvisibiliNo" type="radio" name="radio"/>
 						<span>No</span>
 					</label>
 				</form>
@@ -339,15 +339,15 @@
 			<div class="container">
 				<form>
 					<label>
-						<input type="radio" name="radio" checked />
+						<input id = "cbNessunLimite" type="radio" name="radio" checked />
 						<span>Nessun limite</span>
 					</label>
 					<label>
-						<input type="radio" name="radio"/>
+						<input id = "cbTreCambi" type="radio" name="radio"/>
 						<span>Massimo 3 sostituzioni</span>
 					</label>
 					<label>
-						<input type="radio" name="radio"/>
+						<input id = "cbCinqueCambi" type="radio" name="radio"/>
 						<span>Massimo 5 sostituzioni</span>
 					</label>
 				</form>
@@ -363,11 +363,11 @@
 			<div class="container">
 				<form>
 					<label>
-						<input type="radio" name="radio" checked />
+						<input id = "cbAmmIgnorata" type="radio" name="radio" checked />
 						<span>L'ammonizione viene ignorata ed il subentrato ottiene voto pieno</span>
 					</label>
 					<label>
-						<input type="radio" name="radio"/>
+						<input id = "cbAmmScalata" type="radio" name="radio"/>
 						<span>L'ammonizione viene scalata dal giocatore subentrato</span>
 					</label>
 				</form>
@@ -391,91 +391,91 @@
 			<center><p>Vittoria</p></center>
 			<div class="container">
 				<div class="form-group">
-					<input type="text" data-rule="required" value="3"/>
+					<input id = "etVittoria" type="number" data-rule="required" value="3"/>
 				</div>
 			</div>
 			<br>
 			<center><p>Pareggio</p></center>
 			<div class="container">
 				<div class="form-group">
-					<input type="text" data-rule="required" value="1"/>
+					<input id = "etPareggio" type="number" data-rule="required" value="1"/>
 				</div>
 			</div>
 			<br>
 			<center><p>Sconfitta</p></center>
 			<div class="container">
 				<div class="form-group">
-					<input type="text" data-rule="required" value="0"/>
+					<input id = "etSconfitta" type="number" data-rule="required" value="0"/>
 				</div>
 			</div>
 			<br>
 			<center><p>Gol segnato</p></center>
 			<div class="container">
 				<div class="form-group">
-					<input type="text" data-rule="required" value="3"/>
+					<input id = "etGol" type="number" data-rule="required" value="3"/>
 				</div>
 			</div>
 			<br>
 			<center><p>Rigore segnato</p></center>
 			<div class="container">
 				<div class="form-group">
-					<input type="text" data-rule="required" value="3"/>
+					<input id = "etRigore" type="number" data-rule="required" value="3"/>
 				</div>
 			</div>
 			<br>
 			<center><p>Rigore sbagliato</p></center>
 			<div class="container">
 				<div class="form-group">
-					<input type="text" data-rule="required" value="-3"/>
+					<input id = "etRigoreSbagliato" type="number" data-rule="required" value="-3"/>
 				</div>
 			</div>
 			<br>
 			<center><p>Assist</p></center>
 			<div class="container">
 				<div class="form-group">
-					<input type="text" data-rule="required" value="1"/>
+					<input id = "etAssist" type="number" data-rule="required" value="1"/>
 				</div>
 			</div>
 			<br>
 			<center><p>Porta inviolata (portiere)</p></center>
 			<div class="container">
 				<div class="form-group">
-					<input type="text" data-rule="required" value="1"/>
+					<input id = "etCleansheet" type="number" data-rule="required" value="1"/>
 				</div>
 			</div>
 			<br>
 			<center><p>Gol subito (portiere)</p></center>
 			<div class="container">
 				<div class="form-group">
-					<input type="text" data-rule="required" value="-1"/>
+					<input id = "etGolSubito" type="number" data-rule="required" value="-1"/>
 				</div>
 			</div>
 			<br>
 			<center><p>Rigore parato (portiere)</p></center>
 			<div class="container">
 				<div class="form-group">
-					<input type="text" data-rule="required" value="3"/>
+					<input id = "etRigoreParato" type="number" data-rule="required" value="3"/>
 				</div>
 			</div>
 			<br>
 			<center><p>Ammonizione</p></center>
 			<div class="container">
 				<div class="form-group">
-					<input type="text" data-rule="required" value="-0.5"/>
+					<input id = "etAmmonizione" type="number" data-rule="required" value="-0.5"/>
 				</div>
 			</div>
 			<br>
 			<center><p>Espulsione</p></center>
 			<div class="container">
 				<div class="form-group">
-					<input type="text" data-rule="required" value="-1"/>
+					<input id = "etEspulsione" type="number" data-rule="required" value="-1"/>
 				</div>
 			</div>
 			<br>
 			<center><p>Autogol</p></center>
 			<div class="container">
 				<div class="form-group">
-					<input type="text" data-rule="required" value="-3"/>
+					<input id = "etAutogol" type="number" data-rule="required" value="-3"/>
 				</div>
 			</div>
 			<br>
@@ -488,7 +488,7 @@
 			<br>
 			<div class="container">
 				<div class="form-group">
-					<input type="text" data-rule="required" value="4"/>
+					<input id = "etSoglie" type="number" data-rule="required" min = "1" value="4"/>
 				</div>
 			</div>
 			<br>
@@ -502,11 +502,11 @@
 			<div class="container">
 				<form>
 					<label>
-						<input type="radio" name="radio" />
+						<input id="cbFattoreSi" type="radio" name="radio" />
 						<span>Si</span>
 					</label>
 					<label>
-						<input type="radio" name="radio" checked />
+						<input id = "cbFattoreNo" type="radio" name="radio" checked />
 						<span>No</span>
 					</label>
 				</form>
@@ -522,19 +522,19 @@
 			<div class="container">
 				<form>
 					<label>
-						<input type="radio" name="radio" />
+						<input id = "cbRinvioMai" type="radio" name="radio" />
 						<span>Non aspettare mai, in ogni caso 6 politico</span>
 					</label>
 					<label>
-						<input type="radio" name="radio" checked />
+						<input id = "cbRinvioProssima" type="radio" name="radio" checked />
 						<span>Attendi la partita solamente se giocata entro la prossima giornata di campionato</span>
 					</label>
 					<label>
-						<input type="radio" name="radio" />
+						<input id = "cbRinvioPolitico" type="radio" name="radio" />
 						<span>Attendi che la partita venga rigiocata, anche se a mesi di distanza<br>Se un giocatore non potrà, per qualsiasi motivo, giocare la partita rinviata, accederà al 6 politico</span>
 					</label>
 					<label>
-						<input type="radio" name="radio" />
+						<input id = "cbRinvioPanchina" type="radio" name="radio" />
 						<span>Attendi che la partita venga rigiocata, anche se a mesi di distanza<br>Se un giocatore non potrà, per qualsiasi motivo, giocare la partita rinviata, entrerà la sostituzione</span>
 					</label>
 				</form>
@@ -550,11 +550,11 @@
 			<div class="container">
 				<form>
 					<label>
-						<input type="radio" name="radio" onclick="applicaModificatore(false);" checked />
+						<input id="cbModificatoreNo" type="radio" name="radio" onclick="applicaModificatore(false);" checked />
 						<span>Non applicare</span>
 					</label>
 					<label>
-						<input type="radio" name="radio" onclick="applicaModificatore(true);" />
+						<input id = "cbModificatoreSi" type="radio" name="radio" onclick="applicaModificatore(true);" />
 						<span>Applica il modificatore</span>
 					</label>
 				</form>
@@ -571,56 +571,56 @@
 				<center><p>da 0 a 5.99</p></center>
 				<div class="container">
 					<div class="form-group">
-						<input type="text" data-rule="required" value="0"/>
+						<input id = "et0599" type="number" data-rule="required" min = "0" value="0"/>
 					</div>
 				</div>
 				<br>
 				<center><p>da 6 a 6.24</p></center>
 				<div class="container">
 					<div class="form-group">
-						<input type="text" data-rule="required" value="0.5"/>
+						<input id = "et6624" type="number" data-rule="required" min = "0" value="0.5"/>
 					</div>
 				</div>
 				<br>
 				<center><p>da 6.25 a 6.49</p></center>
 				<div class="container">
 					<div class="form-group">
-						<input type="text" data-rule="required" value="1"/>
+						<input id = "et625649" type="number" data-rule="required" min = "0" value="1"/>
 					</div>
 				</div>
 				<br>
 				<center><p>da 6.5 a 6.74</p></center>
 				<div class="container">
 					<div class="form-group">
-						<input type="text" data-rule="required" value="1.5"/>
+						<input id = "et65674" type="number" data-rule="required" min = "0" value="1.5"/>
 					</div>
 				</div>
 				<br>
 				<center><p>da 6.75 a 6.99</p></center>
 				<div class="container">
 					<div class="form-group">
-						<input type="text" data-rule="required" value="2"/>
+						<input id = "et675699" type="number" data-rule="required" min = "0" value="2"/>
 					</div>
 				</div>
 				<br>
 				<center><p>da 7 a 7.24</p></center>
 				<div class="container">
 					<div class="form-group">
-						<input type="text" data-rule="required" value="2.5"/>
+						<input id = "et7724" type="number" data-rule="required" min = "0" value="2.5"/>
 					</div>
 				</div>
 				<br>
 				<center><p>da 7.25 a 7.49</p></center>
 				<div class="container">
 					<div class="form-group">
-						<input type="text" data-rule="required" value="3"/>
+						<input id = "et725749" type="number" data-rule="required" min = "0" value="3"/>
 					</div>
 				</div>
 				<br>
 				<center><p>da 7.5 a salire</p></center>
 				<div class="container">
 					<div class="form-group">
-						<input type="text" data-rule="required" value="3.5"/>
+						<input id = "et75" type="number" data-rule="required" min = "0" value="3.5"/>
 					</div>
 				</div>
 			</div>
@@ -671,24 +671,24 @@
 			<br>
 			<div class="container">
 				<div class="form-group">
-					<input type="text" data-rule="required" value="100" />
+					<input id = "etQuota" type="number" data-rule="required" min = "1" value="100" />
 				</div>
 			</div>
 			<br>
 			<div class="container">
-				<center><p>Inserisci una descrizione testuale che indica la ripartizione dei premi finali, tenendo anche conto di eventuali coppe aggiuntive o altro</p></center>
+				<center><p>Inserisci una descrizione testuale che indica la ripartizione dei premi finali, tenendo anche conto di eventuali coppe aggiuntive o altro.<br>Usa la parola chiave <i>newline</i> per andare a capo</p></center>
 			</div>
 			<br>
-			<p><span class="textarea" role="textbox" contenteditable>Primo posto : - euro
-			Secondo posto: - euro
-			Terzo posto: - euro
+			<p id = "etPremi"><span class="textarea" role="textbox" contenteditable>Primo posto : - euro newline
+			Secondo posto: - euro newline
+			Terzo posto: - euro newline
 			</span></p>
 			<br>
 		</div>
 		<br><br>
 
 		<!-- crea regolamento -->
-		<button class="button-46" role="button" onclick="avviaAnteprimaDocumento();">Avvia creazione regolamento</button>
+		<button class="ripple" role="button" onclick="avviaAnteprimaDocumento();">Avvia creazione regolamento</button>
 
 		<!-- fine -->
 		<br><br>
