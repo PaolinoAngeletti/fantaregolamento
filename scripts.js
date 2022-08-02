@@ -104,6 +104,7 @@ function estraiInformazioniMercato()
 	toReturn = toReturn + estraiNumeroCrediti();
 	toReturn = toReturn + estraiAbilitazioneScambioCrediti();
 	toReturn = toReturn + estraiAbilitazioneCambioRuolo();
+	toReturn = toReturn + estraiGestioneSvincoliMercato();
 	return toReturn;
 }
 
@@ -142,6 +143,26 @@ function estraiAbilitazioneCambioRuolo()
 		toReturn = aggiungiRigaTesto("Sono permessi i cambi ruolo dei giocatori, ossia tutti i partecipanti possono decidere la modifica del ruolo di uno o più calciatori ignorando quelli messi a disposizione dalla piattaforma usata.");
 	} else {
 		toReturn = aggiungiRigaTesto("Non verranno applicati cambi ruolo dei giocatori, ma verranno utilizzati quelli forniti dalla piattaforma su cui verrà applicata la competizione.");
+	}
+	return toReturn;
+}
+
+function estraiGestioneSvincoliMercato()
+{
+	var toReturn = "";
+	var campoSvincolo = estraiElementoDom("cbSvincoloAcquisto");
+	if (campoSvincolo.checked) {
+		toReturn = "Prevista l'applicazione dello svincolo su acquisto, ossia ogni partecipante dovrà comunicare lo svincolo solamente dopo aver eseguito un acquisto. Per la gestione del singolo svincolo invece vi è una regola specifica.";
+	} else {
+		campoSvincolo = estraiElementoDom("cbSvincoloInizioSi");
+		if (campoSvincolo.checked) {
+			toReturn = "Ad ogni sessione di mercato, una squadra interessata ad acquistare dovrà comunicare in anticipo i giocatori da svincolare, potendo poi però partecipare all'asta anche di giocatori svincolati da se stesso.";
+		} else {
+				campoSvincolo = estraiElementoDom("cbSvincoloInizioNo");
+				if (campoSvincolo.checked) {
+					toReturn = "Ad ogni sessione di mercato, una squadra interessata ad acquistare dovrà comunicare in anticipo i giocatori da svincolare, NON potendo poi però partecipare all'asta anche di giocatori svincolati da se stesso.";
+				}
+		}
 	}
 	return toReturn;
 }
