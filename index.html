@@ -34,6 +34,24 @@
 				</form>
 			</div>
 			<br>
+			<div class="container">
+				<h4>Durata competizione</h4>
+			</div>
+			<div class="container">
+				<center><p>Indica la durata della competizione, impostando la giornata di inizio e fine rispetto al reale campionato</p></center>
+			</div>
+			<br>
+			<center><p>Inizio</p></center>
+			<div class="container">
+				<div class="form-group">
+					<input id = "etInizio" type="number" data-rule="required" min = "1" value="1"/>
+				</div>
+			</div><center><p>Fine</p></center>
+			<div class="container">
+				<div class="form-group">
+					<input id = "etFine" type="number" data-rule="required" min = "1" value="38"/>
+				</div>
+			</div>
 		</div>
 		<br>
 
@@ -216,6 +234,30 @@
 					<label>
 						<input id = "cbSvincoloQuotazione" type="radio" name="radio"/>
 						<span>Ricevi crediti pari alla quotazione di acquisto</span>
+					</label>
+				</form>
+			</div>
+			<br>
+			<div class="container">
+				<h4>Gestione mercato aperto</h4>
+			</div>
+			<div class="container">
+				<center><p>In base all'inizio della competizione deciso, alcune giornate potrebbero essere giocate prima della conclusione del reale mercato.<br>Come vuoi gestire eventuali cessioni?</p></center>
+			</div>
+			<br>
+			<div class="container">
+				<form>
+					<label>
+						<input id = "cbPreMercatoSvincolo" type="radio" name="radio" checked/>
+						<span>Applica regola svincolo decisa</span>
+					</label>
+					<label>
+						<input id = "cbPreMercatoPrestito" type="radio" name="radio"/>
+						<span>Prendi in prestito uno svincolato fino al prossimo mercato</span>
+					</label>
+					<label>
+						<input id = "cbPreMercatoQuotazioneIntera" type="radio" name="radio"/>
+						<span>Ricevi l'intera quotazione di acquisto</span>
 					</label>
 				</form>
 			</div>

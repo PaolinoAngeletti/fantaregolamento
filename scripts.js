@@ -48,14 +48,31 @@ function estraiInformazioneCompetizione()
 {
 	var tipo = "";
 	var toReturn = creaNuovoTitoloParagrafo("Tipologia competizione");
+	toReturn = toReturn + estraiTipoCompetizione();
+	toReturn = toReturn + estraiDurataCompetizione();
+	return toReturn;
+}
+
+function estraiTipoCompetizione()
+{
+	var toReturn = "";
 	var cbCalendario = estraiElementoDom("cbCalendario");
 	var cbFormulaUno = estraiElementoDom("cbFormulaUno");
 	if(cbCalendario.checked){
-			tipo = "La competizione sarà una classica competizione a calendario, con inizio che verrà stabilito dai partecipanti ogni anno e con fine combaciante alla conclusione del campionato italiano reale. L’inizio sarebbe ideale dopo la conclusione del calcio mercato, ma, come detto sopra, tale decisione sarà presa dai partecipanti alla competizione.";
+			tipo = "La competizione sarà una classica competizione a calendario.";
 	} else {
 			tipo = "La competizione sarà una competizione con stile Formula Uno, in cui ad ogni giornata ci saranno una griglia dei migliori punteggi da cui trarre i punti da aggiungere in classifica.";
 	}
 	toReturn = toReturn + aggiungiRigaTesto(tipo);
+	return toReturn;
+}
+
+function estraiDurataCompetizione()
+{
+	var toReturn = "";
+	var etFine = estraiElementoDom("etFine");
+	var etInizio = estraiElementoDom("etInizio");
+	toReturn = "L'inizio e la fine della competizione corrisponderanno rispettivamente con la giornata " + etInizio.value + " e con la giornata " + etFine.value + " del campionato reale.";
 	return toReturn;
 }
 
@@ -171,6 +188,7 @@ function estraiInformazioniInfortuniSvincoli()
 {
 	var toReturn = creaNuovoTitoloParagrafo("Gestione infortuni e svincoli");
 	toReturn = toReturn + estraiGestioneSvincoli();
+	toReturn = toReturn + estraiGestioneInizioPreFineMercato();
 	toReturn = toReturn + estraiGestioneInfortuni();
 	toReturn = toReturn + estraiGestoneCovid();
 	return toReturn;
@@ -195,6 +213,26 @@ function estraiGestioneSvincoli()
 				if (cbQuotazione.checked) {
 					toReturn = aggiungiRigaTesto("In caso di svincolo di giocatori acquistati in mercati precedenti, la squadra riceverà crediti pari alla quotazione di acquisto.");
 				}
+			}
+		}
+	}
+	return toReturn;
+}
+
+function estraiGestioneInizioPreFineMercato()
+{
+	var toReturn = "In base all'inizio della competizione deciso, alcune giornate potrebbero essere giocate prima della conclusione del reale mercato. In tal caso ";
+	let cbPreMercatoSvincolo = estraiElementoDom("cbPreMercatoSvincolo");
+	if (cbPreMercatoSvincolo.checked) {
+		toReturn = toReturn + "verranno applicate le regole scelte per uno svincolo generico di calciatori.";
+	} else {
+		let cbPreMercatoPrestito = estraiElementoDom("cbPreMercatoPrestito");
+		if (cbPreMercatoPrestito.checked) {
+			toReturn = toReturn + "verrà prevista la possibilità di acquisire un calciatore svincolato fino alla prossima sessione di mercato.";
+		} else {
+			let cbPreMercatoQuotazioneIntera = estraiElementoDom("cbPreMercatoQuotazioneIntera");
+			if (cbPreMercatoQuotazioneIntera.checked) {
+				toReturn = toReturn + "verranno recuperati i crediti spesi per il suo acquisto.";
 			}
 		}
 	}
