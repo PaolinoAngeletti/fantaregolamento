@@ -196,27 +196,32 @@ function estraiInformazioniInfortuniSvincoli()
 
 function estraiGestioneSvincoli()
 {
-	var toReturn = "";
+	var toReturn = "In caso di svincolo di giocatori acquistati in mercati precedenti, ";
 	let cbNessunCredito = estraiElementoDom("cbSvincoloNessun");
 	if (cbNessunCredito.checked) {
-		toReturn = aggiungiRigaTesto("In caso di svincolo di giocatori acquistati in mercati precedenti, non verrà recuperato alcun credito.");
+		toReturn = toReturn + "non verrà recuperato alcun credito.";
 	} else {
 		let cbUnCredito = estraiElementoDom("cbSvincoloUno");
 		if (cbUnCredito.checked) {
-			toReturn = aggiungiRigaTesto("In caso di svincolo di giocatori acquistati in mercati precedenti, la squadra riceverà un solo credito in ogni caso, solamente per permettere eventuali acquisti a quotazione uno di svincolati.");
+			toReturn = toReturn + "la squadra riceverà un solo credito in ogni caso, solamente per permettere eventuali acquisti a quotazione uno di svincolati.";
 		} else {
 			let cbMeta = estraiElementoDom("cbSvincoloMeta");
 			if (cbMeta.checked) {
-				toReturn = aggiungiRigaTesto("In caso di svincolo di giocatori acquistati in mercati precedenti, la squadra riceverà crediti pari alla metà della quotazione di acquisto.");
+				toReturn = toReturn + "la squadra riceverà crediti pari alla metà della quotazione di acquisto.";
 			} else {
 				let cbQuotazione = estraiElementoDom("cbSvincoloQuotazione");
 				if (cbQuotazione.checked) {
-					toReturn = aggiungiRigaTesto("In caso di svincolo di giocatori acquistati in mercati precedenti, la squadra riceverà crediti pari alla quotazione di acquisto.");
+					toReturn = toReturn + "la squadra riceverà crediti pari alla quotazione di acquisto.";
+				} else {
+					let cbMedia = estraiElementoDom("cbSvincoloMedia");
+					if (cbMedia.checked) {
+						toReturn = toReturn + "la squadra riceverà un numero di crediti pari alla media tra la quotazione attuale del giocatore e il suo valore di acquisto. Esempio se la quotazione attuale è 50 e la spesa per l'acquisto è stata di 10, allora i crediti ricevuti saranno 30 (50 + 10 / 2)";
+					}
 				}
 			}
 		}
 	}
-	return toReturn;
+	return aggiungiRigaTesto(toReturn);
 }
 
 function estraiGestioneInizioPreFineMercato()
