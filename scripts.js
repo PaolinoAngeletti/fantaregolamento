@@ -269,6 +269,11 @@ function estraiGestoneCovid()
 		let cbCovidPanchina = estraiElementoDom("cbCovidPanchina");
 		if (cbCovidPanchina.checked) {
 			toReturn = aggiungiRigaTesto("In caso di calciatore schierato in formazione risultante positivo al COVID-19, esso verrà semplicemente sostituito dal panchinaro in maniera classica. Nota che questa situazione può essere però pericolosa in caso di positività multiple.");
+		} else {
+			let cbCovidScaglioni = estraiElementoDom("cbCovidScaglioni");
+			if (cbCovidScaglioni.checked) {
+				toReturn = aggiungiRigaTesto("In caso di positività Covid, verranno assegnati votazioni politiche con questo schema:<br>PORTIERI<br>Se tutti i portieri sono positivi, si accede ad 1 voto d'ufficio .<br>GIOCATORI DI MOVIMENTO<br>Se si hanno 3 calciatori positivi si può accedere ad un voto d’ufficio.<br>Se i calciatori positivi sono almeno 5, i voti d’ufficio a cui si può accedere diventano 2.<br>Ovviamente, il conteggio dei positivi va raggruppato per ruolo, e non per rosa completa.");
+			}
 		}
 	}
 	return toReturn;
@@ -437,6 +442,8 @@ function estraiBonusMalus()
 	toReturn = verificaSingoloBonus(toReturn, "etAmmonizione", "Ammonizione");
 	toReturn = verificaSingoloBonus(toReturn, "etEspulsione", "Espulsione");
 	toReturn = verificaSingoloBonus(toReturn, "etAutogol", "Autogol");
+	toReturn = verificaSingoloBonus(toReturn, "etGolVittoria", "Gol decisivo per la vittoria");
+	toReturn = verificaSingoloBonus(toReturn, "etGolPareggio", "Gol decisivo per il pareggio");
 	return toReturn;
 }
 

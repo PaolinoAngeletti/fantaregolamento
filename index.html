@@ -303,6 +303,16 @@
 						<input id = "cbCovidPanchina" type="radio" name="radio"/>
 						<span>Un calciatore positivo verrà sostituito con il panchinaro previsto<br>Questa opzione può essere pericolosa per multiple positività</span>
 					</label>
+					<label>
+						<input id = "cbCovidScaglioni" type="radio" name="radio"/>
+						<span>Verranno assegnati votazioni politiche con questo schema:
+							<br>PORTIERI
+							<br>Se tutti i portieri sono positivi, si accede ad 1 voto d'ufficio .
+							<br>GIOCATORI DI MOVIMENTO
+							<br>Se si hanno 3 calciatori positivi si può accedere ad un voto d’ufficio.
+							<br>Se i calciatori positivi sono almeno 5, i voti d’ufficio a cui si può accedere diventano 2.
+							<br>Ovviamente, il conteggio dei positivi va raggruppato per ruolo, e non per rosa completa.</span>
+					</label>
 				</form>
 			</div>
 			<br>
@@ -549,6 +559,20 @@
 			<div class="container">
 				<div class="form-group">
 					<input id = "etAutogol" type="number" data-rule="required" value="-3"/>
+				</div>
+			</div>
+			<br>
+			<center><p>Gol decisivo vittoria</p></center>
+			<div class="container">
+				<div class="form-group">
+					<input id = "etGolVittoria" type="number" data-rule="required" value="0" step="0.5"/>
+				</div>
+			</div>
+			<br>
+			<center><p>Gol decisivo pareggio</p></center>
+			<div class="container">
+				<div class="form-group">
+					<input id = "etGolPareggio" type="number" data-rule="required" value="0" step="0.5"/>
 				</div>
 			</div>
 			<br>
