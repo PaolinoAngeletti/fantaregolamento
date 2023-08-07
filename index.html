@@ -15,7 +15,7 @@
 		<!-- tipo competizione -->
 		<div class="macro">
 			<div class="container">
-				<h2>Tipo di competizioneDEV</h2>
+				<h2>Tipo di competizione</h2>
 			</div>
 			<div class="container">
 				<center><p>Imposta il tipo di competizione da affrontare</p></center>
@@ -30,6 +30,10 @@
 					<label>
 						<input id = "cbFormulaUno" type="radio" name="radio" />
 						<span>Competizione a formula 1</span>
+					</label>
+					<label>
+						<input id = "cbListone" type="radio" name="radio" />
+						<span>Competizione a listone<br>(uno contro tutti)</span>
 					</label>
 				</form>
 			</div>
@@ -201,6 +205,23 @@
 					</label>
 				</form>
 			</div>
+			<div class="container">
+				<h4>Numero scambi massimi</h4>
+			</div>
+			<div class="container">
+				<center><p>Imposta il numero massimo di giocatori che è possibile modificare durante la competizione.</p><br>Inserisci il valore zero per non impostare nessun limite.</center>
+			</div>
+			<br>
+			<div class="container">
+				<div class="form-group">
+					<input id = "etMassimoScambi" type="number" data-rule="required" min = "0" value="0"/>
+				</div>
+			</div>
+			<div class="container">
+				<center><p>Inserisci eventuali note aggiuntive per le sessioni di mercato<br>Usa la parola chiave <i>newline</i> per andare a capo.</p></center>
+			</div>
+			<br>
+			<center><p id = "etNoteMercato"><span class="textarea" role="textbox" style="width:75%;" contenteditable> </span></p></center>
 			<br>
 		</div>
 		<br>
@@ -234,6 +255,10 @@
 					<label>
 						<input id = "cbSvincoloQuotazione" type="radio" name="radio"/>
 						<span>Ricevi crediti pari alla quotazione di acquisto</span>
+					</label>
+					<label>
+						<input id = "cbSvincoloAttuale" type="radio" name="radio"/>
+						<span>Ricevi crediti pari alla quotazione attuale</span>
 					</label>
 					<label>
 						<input id = "cbSvincoloMedia" type="radio" name="radio"/>

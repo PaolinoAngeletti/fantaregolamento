@@ -10,9 +10,9 @@ function applicaModificatore(daApplicare)
 
 function avviaAnteprimaDocumento()
 {
-		var tab = window.open('', '_blank');
-		tab.document.write(creaCodiceHTML());
-		tab.document.close();
+	var tab = window.open('', '_blank');
+	tab.document.write(creaCodiceHTML());
+	tab.document.close();
 }
 
 function creaCodiceHTML()
@@ -56,12 +56,15 @@ function estraiInformazioneCompetizione()
 function estraiTipoCompetizione()
 {
 	var toReturn = "";
-	var cbCalendario = estraiElementoDom("cbCalendario");
-	var cbFormulaUno = estraiElementoDom("cbFormulaUno");
+	let cbListone = estraiElementoDom("cbListone");
+	let cbCalendario = estraiElementoDom("cbCalendario");
+	let cbFormulaUno = estraiElementoDom("cbFormulaUno");
 	if(cbCalendario.checked){
-			tipo = "La competizione sarà una classica competizione a calendario.";
-	} else {
-			tipo = "La competizione sarà una competizione con stile Formula Uno, in cui ad ogni giornata ci saranno una griglia dei migliori punteggi da cui trarre i punti da aggiungere in classifica.";
+		tipo = "La competizione sarà una classica competizione a calendario.";
+	} else if(cbFormulaUno.checked){
+		tipo = "La competizione sarà una competizione con stile Formula Uno, in cui ad ogni giornata ci saranno una griglia dei migliori punteggi da cui trarre i punti da aggiungere in classifica.";
+	} else if(cbListone.checked){ 
+		tipo = "La competizione sarà una competizione a listone, in cui ogni squadra potrà comporre la propria rosa usando i crediti massimi previsti.";
 	}
 	toReturn = toReturn + aggiungiRigaTesto(tipo);
 	return toReturn;
@@ -122,6 +125,8 @@ function estraiInformazioniMercato()
 	toReturn = toReturn + estraiAbilitazioneScambioCrediti();
 	toReturn = toReturn + estraiAbilitazioneCambioRuolo();
 	toReturn = toReturn + estraiGestioneSvincoliMercato();
+	toReturn = toReturn + estraiNumeroMassimoCambiConsentiti();
+	toReturn = toReturn + estraiEventualiNoteAggiuntiveMercato();
 	return toReturn;
 }
 
@@ -184,6 +189,33 @@ function estraiGestioneSvincoliMercato()
 	return toReturn;
 }
 
+function estraiNumeroMassimoCambiConsentiti()
+{
+	var toReturn = "";
+	let campoCambiMassimi = estraiElementoDom("etMassimoScambi");
+	let numeroCambi = campoCambiMassimi.value;
+	if(numeroCambi > 0){
+		toReturn = aggiungiRigaTesto("Ogni squadra potrà effettuare un numero massimo di cambio giocatori pari a " + numeroCambi + ".");
+	} else {
+		toReturn = aggiungiRigaTesto("Non ci sono limiti relativi al massimo numero di giocatori modificabili in una rosa.");
+	}
+	return toReturn;
+}
+
+function estraiEventualiNoteAggiuntiveMercato()
+{
+	var toReturn = "";
+	let etNoteMercato = estraiElementoDom("etNoteMercato");
+	if(etNoteMercato != null){
+		var testoNote = etNoteMercato.textContent;
+		if (testoNote.trim() !== "") {
+			testoNote = testoNote.replace(/newline/g, "<br>");
+			toReturn = aggiungiRigaTesto(testoNote);
+		}
+	}
+	return toReturn;
+}
+
 function estraiInformazioniInfortuniSvincoli()
 {
 	var toReturn = creaNuovoTitoloParagrafo("Gestione infortuni e svincoli");
@@ -213,9 +245,14 @@ function estraiGestioneSvincoli()
 				if (cbQuotazione.checked) {
 					toReturn = toReturn + "la squadra riceverà crediti pari alla quotazione di acquisto.";
 				} else {
-					let cbMedia = estraiElementoDom("cbSvincoloMedia");
-					if (cbMedia.checked) {
-						toReturn = toReturn + "la squadra riceverà un numero di crediti pari alla media tra la quotazione attuale del giocatore e il suo valore di acquisto. Esempio se la quotazione attuale è 50 e la spesa per l'acquisto è stata di 10, allora i crediti ricevuti saranno 30 (50 + 10 / 2)";
+					let cbSvincoloAttuale = estraiElementoDom("cbSvincoloAttuale");
+					if (cbSvincoloAttuale.checked) {
+						toReturn = toReturn + "la squadra riceverà crediti pari alla quotazione attuale del calciatore.";
+					} else {
+						let cbMedia = estraiElementoDom("cbSvincoloMedia");
+						if (cbMedia.checked) {
+							toReturn = toReturn + "la squadra riceverà un numero di crediti pari alla media tra la quotazione attuale del giocatore e il suo valore di acquisto. Esempio se la quotazione attuale è 50 e la spesa per l'acquisto è stata di 10, allora i crediti ricevuti saranno 30 (50 + 10 / 2)";
+						}
 					}
 				}
 			}
@@ -272,7 +309,7 @@ function estraiGestoneCovid()
 		} else {
 			let cbCovidScaglioni = estraiElementoDom("cbCovidScaglioni");
 			if (cbCovidScaglioni.checked) {
-				toReturn = aggiungiRigaTesto("In caso di positività Covid, verranno assegnati votazioni politiche con questo schema:<br>PORTIERI<br>Se tutti i portieri sono positivi, si accede ad 1 voto d'ufficio .<br>GIOCATORI DI MOVIMENTO<br>Se si hanno 3 calciatori positivi si può accedere ad un voto d’ufficio.<br>Se i calciatori positivi sono almeno 5, i voti d’ufficio a cui si può accedere diventano 2.<br>Ovviamente, il conteggio dei positivi va raggruppato per ruolo, e non per rosa completa.");
+				toReturn = aggiungiRigaTesto("In caso di positività Covid, verranno assegnati votazioni politiche con questo schema:<br>PORTIERI<br>Se tutti i portieri sono positivi, si accede ad 1 voto d'ufficio.<br>GIOCATORI DI MOVIMENTO<br>Se si hanno 3 calciatori positivi si può accedere ad un voto d’ufficio.<br>Se i calciatori positivi sono almeno 5, i voti d’ufficio a cui si può accedere diventano 2.<br>Ovviamente, il conteggio dei positivi va raggruppato per ruolo, e non per rosa completa.");
 			}
 		}
 	}
