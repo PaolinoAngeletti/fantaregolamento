@@ -48,12 +48,12 @@
 			<center><p>Inizio</p></center>
 			<div class="container">
 				<div class="form-group">
-					<input id = "etInizio" type="number" data-rule="required" min = "1" value="1"/>
+					<input id = "etInizio" type="number" data-rule="required" min = "1" value="1" />
 				</div>
 			</div><center><p>Fine</p></center>
 			<div class="container">
 				<div class="form-group">
-					<input id = "etFine" type="number" data-rule="required" min = "1" value="38"/>
+					<input id = "etFine" type="number" data-rule="required" min = "1" value="38" />
 				</div>
 			</div>
 		</div>
@@ -218,10 +218,12 @@
 				</div>
 			</div>
 			<div class="container">
-				<center><p>Inserisci eventuali note aggiuntive per le sessioni di mercato<br>Usa la parola chiave <i>newline</i> per andare a capo.</p></center>
+				<center><p>Inserisci eventuali note aggiuntive per le sessioni di mercato.</p></center>
 			</div>
 			<br>
-			<center><p id = "etNoteMercato"><span class="textarea" role="textbox" style="width:75%;" contenteditable> </span></p></center>
+			<center>
+				<textarea id="etNoteMercato" class="textarea" style="width:75%;"></textarea>
+			</center>
 			<br>
 		</div>
 		<br>
@@ -798,13 +800,13 @@
 			</div>
 			<br>
 			<div class="container">
-				<center><p>Inserisci una descrizione testuale che indica la ripartizione dei premi finali, tenendo anche conto di eventuali coppe aggiuntive o altro.<br>Usa la parola chiave <i>newline</i> per andare a capo</p></center>
+				<center><p>Inserisci una descrizione testuale che indichi la ripartizione dei premi finali.<br> 
+					Sfrutta questo spazio anche per descrivere eventuali competizioni aggiuntive o altro.</p></center>
 			</div>
 			<br>
-			<p id = "etPremi"><span class="textarea" role="textbox" contenteditable>Primo posto : - euro newline
-			Secondo posto: - euro newline
-			Terzo posto: - euro newline
-			</span></p>
+			<center>
+				<textarea id="taPremi" class="textarea" style="width:75%;"></textarea>
+			</center>
 			<br>
 		</div>
 		<br><br>
