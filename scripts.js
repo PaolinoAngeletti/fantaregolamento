@@ -1,5 +1,48 @@
-function applicaModificatore(daApplicare)
-{
+/*
+Document on-load procedures.
+*/
+
+window.addEventListener('DOMContentLoaded', setup);
+
+function setup() {
+	loadRequiredScripts();
+	setupDefaultPrizesValue();
+}
+
+function loadRequiredScripts() {
+	loadScript("utils/Utils.js");
+	loadSectionsScripts();
+}
+
+function loadSectionsScripts() {
+	loadScript("sections/CompetitionType.js");
+	loadScript("sections/TeamRules.js");
+}
+
+function loadScript(fileName) {
+	const script = document.createElement('script');
+	script.src = fileName;
+	script.onload = () => {
+		console.log("File " + fileName + " correctly loaded");
+	};
+	document.head.appendChild(script);
+}
+
+function setupDefaultPrizesValue() {
+	const taPremi = estraiElementoDom("taPremi");
+	const defaultValue = [
+		"Primo posto: - euro",
+		"Secondo posto: - euro",
+		"Terzo posto: - euro"
+	].join('\n');
+	taPremi.value = defaultValue;
+}
+
+/*
+Regulation creation.
+*/
+
+function applicaModificatore(daApplicare) {
 	var x = document.getElementById("punti_modificatore");
 	if (x.style.display === "none") {
 		x.style.display = "block";
@@ -8,15 +51,13 @@ function applicaModificatore(daApplicare)
 	}
 }
 
-function avviaAnteprimaDocumento()
-{
+function avviaAnteprimaDocumento() {
 	var tab = window.open('', '_blank');
 	tab.document.write(creaCodiceHTML());
 	tab.document.close();
 }
 
-function creaCodiceHTML()
-{
+function creaCodiceHTML() {
 	var toReturn = "<!DOCTYPE html>";
 	toReturn = toReturn + "<html>";
 
@@ -27,8 +68,8 @@ function creaCodiceHTML()
 	toReturn = toReturn + "<body style='font-family:sans-serif'>";
 	toReturn = toReturn + "<h1>Regolamento Fantacalcio</h1>";
 
-	toReturn = toReturn + estraiInformazioneCompetizione();
-	toReturn = toReturn + estraiInformazioneRose();
+	toReturn = toReturn + CompetitionType.produce();
+	toReturn = toReturn + TeamRules.produce();
 	toReturn = toReturn + estraiInformazioniMercato();
 	toReturn = toReturn + estraiInformazioniInfortuniSvincoli();
 	toReturn = toReturn + estraiInformazioniInserimentoFormazione();
@@ -44,82 +85,7 @@ function creaCodiceHTML()
 	return toReturn;
 }
 
-function estraiInformazioneCompetizione()
-{
-	var tipo = "";
-	var toReturn = creaNuovoTitoloParagrafo("Tipologia competizione");
-	toReturn = toReturn + estraiTipoCompetizione();
-	toReturn = toReturn + estraiDurataCompetizione();
-	return toReturn;
-}
-
-function estraiTipoCompetizione()
-{
-	var toReturn = "";
-	let cbListone = estraiElementoDom("cbListone");
-	let cbCalendario = estraiElementoDom("cbCalendario");
-	let cbFormulaUno = estraiElementoDom("cbFormulaUno");
-	if(cbCalendario.checked){
-		tipo = "La competizione sarà una classica competizione a calendario.";
-	} else if(cbFormulaUno.checked){
-		tipo = "La competizione sarà una competizione con stile Formula Uno, in cui ad ogni giornata ci saranno una griglia dei migliori punteggi da cui trarre i punti da aggiungere in classifica.";
-	} else if(cbListone.checked){ 
-		tipo = "La competizione sarà una competizione a listone, in cui ogni squadra potrà comporre la propria rosa usando i crediti massimi previsti.";
-	}
-	toReturn = toReturn + aggiungiRigaTesto(tipo);
-	return toReturn;
-}
-
-function estraiDurataCompetizione()
-{
-	var toReturn = "";
-	var etFine = estraiElementoDom("etFine");
-	var etInizio = estraiElementoDom("etInizio");
-	toReturn = "L'inizio e la fine della competizione corrisponderanno rispettivamente con la giornata " + etInizio.value + " e con la giornata " + etFine.value + " del campionato reale.";
-	return toReturn;
-}
-
-function estraiInformazioneRose()
-{
-	var toReturn = creaNuovoTitoloParagrafo("Struttura rose");
-	toReturn = toReturn + estraiNumeroGiocatoriRosa();
-	toReturn = toReturn + estraiAbilitazioneGiocatoriCondivisi();
-	return toReturn;
-}
-
-function estraiNumeroGiocatoriRosa()
-{
-	var toReturn = "";
-	let etPortieri = estraiElementoDom("etPortieri");
-	let etDifensori = estraiElementoDom("etDifensori");
-	let etCentrocampisti = estraiElementoDom("etCentrocampisti");
-	let etAttaccanti = estraiElementoDom("etAttaccanti");
-	toReturn = toReturn + aggiungiRigaTesto("Le rose dovranno essere cosi composte:");
-	toReturn = toReturn + etPortieri.value + " portieri";
-	toReturn = toReturn + "<br>";
-	toReturn = toReturn + etDifensori.value + " difensori";
-	toReturn = toReturn + "<br>";
-	toReturn = toReturn + etCentrocampisti.value + " centrocampisti";
-	toReturn = toReturn + "<br>";
-	toReturn = toReturn + etAttaccanti.value + " attaccanti";
-	toReturn = toReturn + "<br>";
-	return toReturn;
-}
-
-function estraiAbilitazioneGiocatoriCondivisi()
-{
-	var toReturn = "";
-	let cbCondivisiSi = estraiElementoDom("cbCondivisiSi");
-	if (cbCondivisiSi.checked) {
-		toReturn = aggiungiRigaTesto("Le rose composte potranno avere giocatori condivisi (stessi giocatori per più squadre).");
-	} else {
-		toReturn = aggiungiRigaTesto("Le rose composte NON potranno avere giocatori condivisi (stessi giocatori per più squadre).");
-	}
-	return toReturn;
-}
-
-function estraiInformazioniMercato()
-{
+function estraiInformazioniMercato() {
 	var toReturn = creaNuovoTitoloParagrafo("Gestione mercato");
 	toReturn = toReturn + estraiNumeroCrediti();
 	toReturn = toReturn + estraiAbilitazioneScambioCrediti();
@@ -130,14 +96,13 @@ function estraiInformazioniMercato()
 	return toReturn;
 }
 
-function estraiNumeroCrediti()
-{
+function estraiNumeroCrediti() {
 	var toReturn = "";
 	let etCrediti = estraiElementoDom("etCrediti");
 	let etCreditiSessione = estraiElementoDom("etCreditiSessione");
 	toReturn = toReturn + aggiungiRigaTesto("Per il mercato iniziale sono previsti " + etCrediti.value + " fantamilioni, utili a comporre la rosa iniziale.");
 	let numeroCreditiSessione = etCreditiSessione.value;
-	if(numeroCreditiSessione > 0){
+	if (numeroCreditiSessione > 0) {
 		toReturn = toReturn + aggiungiRigaTesto("Per le successive sessioni di mercato invece sono previsti " + numeroCreditiSessione + " fantamilioni da aggiungere ad ogni squadra, in modo da permettere transazioni per tutti.");
 	} else {
 		toReturn = toReturn + aggiungiRigaTesto("Per le successive sessioni di mercato invece non sono previste aggiunte di crediti, quindi si opererà sempre con il residuo del mercato precedente o comunque risultante da altre operazioni.");
@@ -145,8 +110,7 @@ function estraiNumeroCrediti()
 	return toReturn;
 }
 
-function estraiAbilitazioneScambioCrediti()
-{
+function estraiAbilitazioneScambioCrediti() {
 	var toReturn = "";
 	let campoVerifica = estraiElementoDom("cbScambioCreditiSi");
 	if (campoVerifica.checked) {
@@ -157,8 +121,7 @@ function estraiAbilitazioneScambioCrediti()
 	return toReturn;
 }
 
-function estraiAbilitazioneCambioRuolo()
-{
+function estraiAbilitazioneCambioRuolo() {
 	var toReturn = "";
 	let campoVerifica = estraiElementoDom("cbCambioRuoloSi");
 	if (campoVerifica.checked) {
@@ -169,8 +132,7 @@ function estraiAbilitazioneCambioRuolo()
 	return toReturn;
 }
 
-function estraiGestioneSvincoliMercato()
-{
+function estraiGestioneSvincoliMercato() {
 	var toReturn = "";
 	var campoSvincolo = estraiElementoDom("cbSvincoloAcquisto");
 	if (campoSvincolo.checked) {
@@ -180,21 +142,20 @@ function estraiGestioneSvincoliMercato()
 		if (campoSvincolo.checked) {
 			toReturn = "Ad ogni sessione di mercato, una squadra interessata ad acquistare dovrà comunicare in anticipo i giocatori da svincolare, potendo poi però partecipare all'asta anche di giocatori svincolati da se stesso.";
 		} else {
-				campoSvincolo = estraiElementoDom("cbSvincoloInizioNo");
-				if (campoSvincolo.checked) {
-					toReturn = "Ad ogni sessione di mercato, una squadra interessata ad acquistare dovrà comunicare in anticipo i giocatori da svincolare, NON potendo poi però partecipare all'asta anche di giocatori svincolati da se stesso.";
-				}
+			campoSvincolo = estraiElementoDom("cbSvincoloInizioNo");
+			if (campoSvincolo.checked) {
+				toReturn = "Ad ogni sessione di mercato, una squadra interessata ad acquistare dovrà comunicare in anticipo i giocatori da svincolare, NON potendo poi però partecipare all'asta anche di giocatori svincolati da se stesso.";
+			}
 		}
 	}
 	return toReturn;
 }
 
-function estraiNumeroMassimoCambiConsentiti()
-{
+function estraiNumeroMassimoCambiConsentiti() {
 	var toReturn = "";
 	let campoCambiMassimi = estraiElementoDom("etMassimoScambi");
 	let numeroCambi = campoCambiMassimi.value;
-	if(numeroCambi > 0){
+	if (numeroCambi > 0) {
 		toReturn = aggiungiRigaTesto("Ogni squadra potrà effettuare un numero massimo di cambio giocatori pari a " + numeroCambi + ".");
 	} else {
 		toReturn = aggiungiRigaTesto("Non ci sono limiti relativi al massimo numero di giocatori modificabili in una rosa.");
@@ -202,22 +163,19 @@ function estraiNumeroMassimoCambiConsentiti()
 	return toReturn;
 }
 
-function estraiEventualiNoteAggiuntiveMercato()
-{
+function estraiEventualiNoteAggiuntiveMercato() {
 	var toReturn = "";
 	let etNoteMercato = estraiElementoDom("etNoteMercato");
-	if(etNoteMercato != null){
-		var testoNote = etNoteMercato.textContent;
+	if (etNoteMercato != null) {
+		var testoNote = etNoteMercato.value;
 		if (testoNote.trim() !== "") {
-			testoNote = testoNote.replace(/newline/g, "<br>");
-			toReturn = aggiungiRigaTesto(testoNote);
+			toReturn = aggiungiRigaTesto(resolveEscapes(testoNote));
 		}
 	}
 	return toReturn;
 }
 
-function estraiInformazioniInfortuniSvincoli()
-{
+function estraiInformazioniInfortuniSvincoli() {
 	var toReturn = creaNuovoTitoloParagrafo("Gestione infortuni e svincoli");
 	toReturn = toReturn + estraiGestioneSvincoli();
 	toReturn = toReturn + estraiGestioneInizioPreFineMercato();
@@ -226,8 +184,7 @@ function estraiInformazioniInfortuniSvincoli()
 	return toReturn;
 }
 
-function estraiGestioneSvincoli()
-{
+function estraiGestioneSvincoli() {
 	var toReturn = "In caso di svincolo di giocatori acquistati in mercati precedenti, ";
 	let cbNessunCredito = estraiElementoDom("cbSvincoloNessun");
 	if (cbNessunCredito.checked) {
@@ -261,8 +218,7 @@ function estraiGestioneSvincoli()
 	return aggiungiRigaTesto(toReturn);
 }
 
-function estraiGestioneInizioPreFineMercato()
-{
+function estraiGestioneInizioPreFineMercato() {
 	var toReturn = "In base all'inizio della competizione deciso, alcune giornate potrebbero essere giocate prima della conclusione del reale mercato. In tal caso ";
 	let cbPreMercatoSvincolo = estraiElementoDom("cbPreMercatoSvincolo");
 	if (cbPreMercatoSvincolo.checked) {
@@ -281,8 +237,7 @@ function estraiGestioneInizioPreFineMercato()
 	return toReturn;
 }
 
-function estraiGestioneInfortuni()
-{
+function estraiGestioneInfortuni() {
 	var toReturn = "";
 	let cbInfortunioNessunPrestito = estraiElementoDom("cbInfortunioNessun");
 	if (cbInfortunioNessunPrestito.checked) {
@@ -296,8 +251,7 @@ function estraiGestioneInfortuni()
 	return toReturn;
 }
 
-function estraiGestoneCovid()
-{
+function estraiGestoneCovid() {
 	var toReturn = "";
 	let cbCovidPolitico = estraiElementoDom("cbCovidPolitico");
 	if (cbCovidPolitico.checked) {
@@ -316,8 +270,7 @@ function estraiGestoneCovid()
 	return toReturn;
 }
 
-function estraiInformazioniInserimentoFormazione()
-{
+function estraiInformazioniInserimentoFormazione() {
 	var toReturn = creaNuovoTitoloParagrafo("Inserimento formazione");
 	toReturn = toReturn + estraiMinutiTolleranza();
 	toReturn = toReturn + estraiModuliConsentiti();
@@ -327,8 +280,7 @@ function estraiInformazioniInserimentoFormazione()
 	return toReturn;
 }
 
-function estraiMinutiTolleranza()
-{
+function estraiMinutiTolleranza() {
 	var toReturn = "";
 	let etTolleranza = estraiElementoDom("etTolleranza");
 	let numeroMinuti = etTolleranza.value;
@@ -340,8 +292,7 @@ function estraiMinutiTolleranza()
 	return toReturn;
 }
 
-function estraiModuliConsentiti()
-{
+function estraiModuliConsentiti() {
 	var toReturn = "";
 	toReturn = toReturn + aggiungiRigaTesto("I moduli consentiti per le formazioni sono:");
 	toReturn = verificaSingoloModulo(toReturn, "checkboxOne", "4-4-2");
@@ -356,20 +307,18 @@ function estraiModuliConsentiti()
 	return toReturn;
 }
 
-function verificaSingoloModulo(toReturn, idModulo, descrizione)
-{
+function verificaSingoloModulo(toReturn, idModulo, descrizione) {
 	let etModulo = estraiElementoDom(idModulo);
-	if(etModulo.checked){
+	if (etModulo.checked) {
 		toReturn = toReturn + descrizione + "<br>";
 	}
 	return toReturn;
 }
 
-function estraiGestioneFormazioneNonInserita()
-{
+function estraiGestioneFormazioneNonInserita() {
 	var toReturn = "";
 	let cbVuota = estraiElementoDom("cbMancataNulla");
-	if(cbVuota.checked) {
+	if (cbVuota.checked) {
 		toReturn = aggiungiRigaTesto("Se la formazione, per qualsiasi motivo, non viene inserita, NON viene recuperata quella della giornata precedente, ma verrà usata una formazione nulla con punteggio totale pari a ZERO. Se io mi preoccupo di mettere la squadra, non è bello perdere contro chi si dimentica.");
 	} else {
 		toReturn = aggiungiRigaTesto("Se la formazione, per qualsiasi motivo, non viene inserita, verrà recuperata la formazione della giornata precedente.");
@@ -377,19 +326,17 @@ function estraiGestioneFormazioneNonInserita()
 	return toReturn;
 }
 
-function estraiStrutturaPanchina()
-{
+function estraiStrutturaPanchina() {
 	var toReturn = "";
 	let etStruttura = estraiElementoDom("etPanchina");
 	toReturn = aggiungiRigaTesto("La panchina dovrà avere la seguente struttura: " + etStruttura.value + ".");
 	return toReturn;
 }
 
-function estraiAbilitazioneFormazioniInvisibili()
-{
+function estraiAbilitazioneFormazioniInvisibili() {
 	var toReturn = "";
 	let cbInvisibiliSi = estraiElementoDom("cbInvisibiliSi");
-	if(cbInvisibiliSi.checked){
+	if (cbInvisibiliSi.checked) {
 		toReturn = aggiungiRigaTesto("Sono ammesse le formazioni invisibili.");
 	} else {
 		toReturn = aggiungiRigaTesto("Non sono ammesse le formazioni invisibili.");
@@ -397,27 +344,25 @@ function estraiAbilitazioneFormazioniInvisibili()
 	return toReturn;
 }
 
-function estraiGestioneSostituzioni()
-{
+function estraiGestioneSostituzioni() {
 	var toReturn = creaNuovoTitoloParagrafo("Gestione sostituzioni");
 	toReturn = toReturn + estraiNumeroCambi();
 	toReturn = toReturn + estraiGestioneAmmonizioneSenzaVoto();
 	return toReturn;
 }
 
-function estraiNumeroCambi()
-{
+function estraiNumeroCambi() {
 	var toReturn = "";
 	let cbNessunLimite = estraiElementoDom("cbNessunLimite");
-	if(cbNessunLimite.checked){
+	if (cbNessunLimite.checked) {
 		toReturn = aggiungiRigaTesto("Non vi è nessun limite sul numero di sostituzioni, per cui tutta la panchina può entrare.");
 	} else {
 		let cbTreCambi = estraiElementoDom("cbTreCambi");
-		if(cbTreCambi.checked){
+		if (cbTreCambi.checked) {
 			toReturn = aggiungiRigaTesto("Sono previste 3 sostituzioni massime, dopodichè si otterrà per le eccedenze un punteggio nullo. L'ordine di entrata sarà dal portiere agli attaccanti.");
 		} else {
 			let cbCinqueCambi = estraiElementoDom("cbCinqueCambi");
-			if(cbCinqueCambi.checked){
+			if (cbCinqueCambi.checked) {
 				toReturn = aggiungiRigaTesto("Sono previste 5 sostituzioni massime, dopodichè si otterrà per le eccedenze un punteggio nullo. L'ordine di entrata sarà dal portiere agli attaccanti.");
 			}
 		}
@@ -425,23 +370,21 @@ function estraiNumeroCambi()
 	return toReturn;
 }
 
-function estraiGestioneAmmonizioneSenzaVoto()
-{
+function estraiGestioneAmmonizioneSenzaVoto() {
 	var toReturn = "";
 	let cbAmmIgnorata = estraiElementoDom("cbAmmIgnorata");
-	if(cbAmmIgnorata.checked){
+	if (cbAmmIgnorata.checked) {
 		toReturn = aggiungiRigaTesto("Nel caso in cui un giocatore SV (senza voto) venga ammonito, quella ammonizione non avrà alcun impatto né sul giocatore stesso né sul giocatore subentrato; quindi, il subentrato accederà al suo voto in maniera regolare.");
 	} else {
 		let cbAmmScalata = estraiElementoDom("cbAmmScalata");
-		if(cbAmmScalata.checked){
+		if (cbAmmScalata.checked) {
 			toReturn = aggiungiRigaTesto("Nel caso in cui un giocatore SV (senza voto) venga ammonito il malus della ammonizione ricevuta verrà riflesso sul giocatore subentrato, che dunque entrerà con la sua votazione minorata.");
 		}
 	}
 	return toReturn;
 }
 
-function estraiDatiCalcoloGiornate()
-{
+function estraiDatiCalcoloGiornate() {
 	var toReturn = creaNuovoTitoloParagrafo("Calcolo giornate");
 	toReturn = toReturn + estraiPunteggiVittoriaPareggio();
 	toReturn = toReturn + estraiBonusMalus();
@@ -452,8 +395,7 @@ function estraiDatiCalcoloGiornate()
 	return toReturn;
 }
 
-function estraiPunteggiVittoriaPareggio()
-{
+function estraiPunteggiVittoriaPareggio() {
 	var toReturn = "";
 	let etVittoria = estraiElementoDom("etVittoria");
 	let etPareggio = estraiElementoDom("etPareggio");
@@ -465,8 +407,7 @@ function estraiPunteggiVittoriaPareggio()
 	return toReturn;
 }
 
-function estraiBonusMalus()
-{
+function estraiBonusMalus() {
 	var toReturn = "";
 	toReturn = toReturn + aggiungiRigaTesto("I bonus e malus previsti dalla competizione saranno:");
 	toReturn = verificaSingoloBonus(toReturn, "etGol", "Gol segnato");
@@ -484,26 +425,23 @@ function estraiBonusMalus()
 	return toReturn;
 }
 
-function verificaSingoloBonus(toReturn, idBonus, descrizione)
-{
+function verificaSingoloBonus(toReturn, idBonus, descrizione) {
 	let etElemento = estraiElementoDom(idBonus);
 	toReturn = toReturn + descrizione + ": " + etElemento.value + " punti.<br>";
 	return toReturn;
 }
 
-function estraiLarghezzaSoglie()
-{
+function estraiLarghezzaSoglie() {
 	var toReturn = "";
 	let etSoglie = estraiElementoDom("etSoglie");
 	toReturn = aggiungiRigaTesto("Le soglie per il calcolo del numero di gol saranno ciascuna da " + etSoglie.value + " punti.");
 	return toReturn;
 }
 
-function estraiAbilitazioneFattoreCampo()
-{
+function estraiAbilitazioneFattoreCampo() {
 	var toReturn = "";
 	let etFattoreSi = estraiElementoDom("cbFattoreSi");
-	if(etFattoreSi.checked){
+	if (etFattoreSi.checked) {
 		toReturn = aggiungiRigaTesto("E' previsto un fattore campo, ossia giocare in casa oppure fuori casa ha influenza sul calcolo della giornata.");
 	} else {
 		toReturn = aggiungiRigaTesto("Non verrà applicato mai nessun fattore campo, ossia giocare in casa oppure fuori casa non ha influenza sul calcolo della giornata.");
@@ -511,40 +449,38 @@ function estraiAbilitazioneFattoreCampo()
 	return toReturn;
 }
 
-function estraiGestioneRinvio()
-{
+function estraiGestioneRinvio() {
 	var toReturn = "";
 	let cbRinvioMai = estraiElementoDom("cbRinvioMai");
-	if(cbRinvioMai.checked) {
+	if (cbRinvioMai.checked) {
 		toReturn = aggiungiRigaTesto("Nel caso in cui una o più partite vengano rinviate per qualsiasi motivo, NON si attenderà MAI la sua conclusione, ma si accederà sempre alle votazioni politiche.");
 	} else {
-			let cbRinvioProssima = estraiElementoDom("cbRinvioProssima");
-			if(cbRinvioProssima.checked){
-				toReturn = aggiungiRigaTesto("Se una partita, per qualsiasi motivo, viene rinviata, si attenderà che essa venga recuperata al massimo fino alla prossima giornata, dopodichè si ricorrerà alle votazioni politiche. Questa decisione viene presa nell’ottica di evitare accavvallamenti di calcoli giornate, che, in caso di coppe aggiuntive, porterebbero ad ulteriori difficoltà di gestione.");
+		let cbRinvioProssima = estraiElementoDom("cbRinvioProssima");
+		if (cbRinvioProssima.checked) {
+			toReturn = aggiungiRigaTesto("Se una partita, per qualsiasi motivo, viene rinviata, si attenderà che essa venga recuperata al massimo fino alla prossima giornata, dopodichè si ricorrerà alle votazioni politiche. Questa decisione viene presa nell’ottica di evitare accavvallamenti di calcoli giornate, che, in caso di coppe aggiuntive, porterebbero ad ulteriori difficoltà di gestione.");
+		} else {
+			let cbRinvioPolitico = estraiElementoDom("cbRinvioPolitico");
+			if (cbRinvioPolitico.checked) {
+				toReturn = aggiungiRigaTesto("Se una partita, per qualsiasi motivo, viene rinviata, si attenderà che la partita venga rigiocata, anche se a mesi di distanza. Nel caso in cui però un giocatore non sarà abilitato a recuperare la partita, accederà in ogni caso alla votazione politica.");
 			} else {
-					let cbRinvioPolitico = estraiElementoDom("cbRinvioPolitico");
-					if(cbRinvioPolitico.checked){
-						toReturn = aggiungiRigaTesto("Se una partita, per qualsiasi motivo, viene rinviata, si attenderà che la partita venga rigiocata, anche se a mesi di distanza. Nel caso in cui però un giocatore non sarà abilitato a recuperare la partita, accederà in ogni caso alla votazione politica.");
-					} else {
-						let cbRinvioPanchina = estraiElementoDom("cbRinvioPanchina");
-						if(cbRinvioPanchina.checked){
-							toReturn = aggiungiRigaTesto("Se una partita, per qualsiasi motivo, viene rinviata, si attenderà che la partita venga rigiocata, anche se a mesi di distanza. Nel caso in cui però un giocatore non sarà abilitato a recuperare la partita, entrerà in ogni caso il panchinaro previsto.");
-						}
-					}
+				let cbRinvioPanchina = estraiElementoDom("cbRinvioPanchina");
+				if (cbRinvioPanchina.checked) {
+					toReturn = aggiungiRigaTesto("Se una partita, per qualsiasi motivo, viene rinviata, si attenderà che la partita venga rigiocata, anche se a mesi di distanza. Nel caso in cui però un giocatore non sarà abilitato a recuperare la partita, entrerà in ogni caso il panchinaro previsto.");
+				}
 			}
+		}
 	}
 	return toReturn;
 }
 
-function estraiGestioneModificatore()
-{
+function estraiGestioneModificatore() {
 	var toReturn = "";
 	let cbModificatoreNo = estraiElementoDom("cbModificatoreNo");
-	if(cbModificatoreNo.checked){
+	if (cbModificatoreNo.checked) {
 		toReturn = aggiungiRigaTesto("Il calcolo della giornata non prevede nessun modificatore di difesa");
 	} else {
 		let cbModificatoreSi = estraiElementoDom("cbModificatoreSi");
-		if(cbModificatoreSi.checked){
+		if (cbModificatoreSi.checked) {
 			toReturn = aggiungiRigaTesto("Il calcolo della giornata prevede il modificatore di difesa, con i seguenti scaglioni:");
 			toReturn = verificaSingoloBonus(toReturn, "et0599", "Da 0 punti a 5,99 punti");
 			toReturn = verificaSingoloBonus(toReturn, "et6624", "Da 6 punti a 6,24 punti");
@@ -559,8 +495,7 @@ function estraiGestioneModificatore()
 	return toReturn;
 }
 
-function estraiDatiClassifica()
-{
+function estraiDatiClassifica() {
 	var toReturn = creaNuovoTitoloParagrafo("Classifica");
 	toReturn = toReturn + aggiungiRigaTesto("La classifica verrà calcolata in base al seguente criterio:");
 	toReturn = toReturn + "1. Punti in classifica" + "<br>";
@@ -573,50 +508,44 @@ function estraiDatiClassifica()
 	return toReturn;
 }
 
-function estraiQuotePremiFinali()
-{
+function estraiQuotePremiFinali() {
 	var toReturn = creaNuovoTitoloParagrafo("Quote squadre e premi finali");
 	toReturn = toReturn + estraiQuotaSquadra();
 	toReturn = toReturn + estraiDivisionePremi();
 	return toReturn;
 }
 
-function estraiQuotaSquadra()
-{
+function estraiQuotaSquadra() {
 	var toReturn = "";
 	let etQuota = estraiElementoDom("etQuota");
 	toReturn = aggiungiRigaTesto("La quota di partecipazione prevista per ciascuna squadra è di " + etQuota.value + " euro.");
 	return toReturn;
 }
 
-function estraiDivisionePremi()
-{
+function estraiDivisionePremi() {
 	var toReturn = "";
-	let etPremi = estraiElementoDom("etPremi");
-	if(etPremi != null){
+	let etPremi = estraiElementoDom("taPremi");
+	if (etPremi != null) {
 		toReturn = aggiungiRigaTesto("I premi totali inoltre saranno cosi suddivisi:");
-		toReturn = toReturn + etPremi.textContent.replace(/newline/g, "<br>");
+		toReturn = toReturn + resolveEscapes(etPremi.value);
 	}
 	return toReturn;
 }
 
-function creaNuovoTitoloParagrafo(titolo)
-{
+function creaNuovoTitoloParagrafo(titolo) {
 	return "<h2>" + titolo + "</h2>";
 }
 
-function aggiungiRigaTesto(testo)
-{
+function aggiungiRigaTesto(testo) {
 	return "<p>" + testo + "</p>";
 }
 
-function estraiElementoDom(idElemento)
-{
-	return document.getElementById(idElemento);
+function inviaMailSupporto() {
+	var link = "mailto:paolinoangeletti@gmail.com?subject=FantaRegolamento | Richiesto supporto&body=Hai bisogno di supporto oppure vuoi aiutarci a completare la pagina? Scrivi qui quello di cui hai bisogno!";
+	window.location.href = link;
 }
 
-function inviaMailSupporto()
-{
-    var link = "mailto:paolinoangeletti@gmail.com?subject=FantaRegolamento | Richiesto supporto&body=Hai bisogno di supporto oppure vuoi aiutarci a completare la pagina? Scrivi qui quello di cui hai bisogno!";
-    window.location.href = link;
+function resolveEscapes(stringWithEscapes) {
+	stringWithEscapes.replace(/newline/g, "\n");
+	return stringWithEscapes.replace(/\n/g, "<br>");
 }
