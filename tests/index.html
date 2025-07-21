@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Regulation Creation Test</title>
+    <link rel="stylesheet" href="https://unpkg.com/jasmine-core/lib/jasmine-core/jasmine.css" />
+</head>
+
+<body>
+
+    <!-- important for uploading the final report -->
+    <div id="jasmine_content"></div>
+
+    <!-- including jasmine libraries -->
+    <script src="https://unpkg.com/jasmine-core/lib/jasmine-core/jasmine.js"></script>
+    <script src="https://unpkg.com/jasmine-core/lib/jasmine-core/jasmine-html.js"></script>
+    <script src="https://unpkg.com/jasmine-core/lib/jasmine-core/boot0.js"></script>
+    <script src="https://unpkg.com/jasmine-core/lib/jasmine-core/boot1.js"></script>
+
+    <!-- including real scripts -->
+    <script src="../scripts.js"></script>
+    <script src="../utils/Utils.js"></script>
+    <script src="../sections/CompetitionType.js"></script>
+    <script src="../sections/TeamRules.js"></script>
+    <script src="../sections/TransferMarketRules.js"></script>
+    <script src="../sections/AccidentReleaseRules.js"></script>
+    <script src="../sections/InsertTeamRules.js"></script>
+    <script src="../sections/SubstitutionsRules.js"></script>
+    <script src="../sections/ResultsCalculationRules.js"></script>
+    <script src="../sections/RankingDataRules.js"></script>
+    <script src="../sections/FeeAndPrizesRule.js"></script>
+
+    <!-- including the JS files containing the tests -->
+    <script src="scriptTest.js"></script>
+    <script src="utils/UtilsTest.js"></script>
+    <script src="sections/CompetitionTypeTest.js"></script>
+    <script src="sections/TeamRulesTest.js"></script>
+    <script src="sections/TransferMarketRulesTest.js"></script>
+    <script src="sections/AccidentReleaseRulesTest.js"></script>
+    <script src="sections/InsertTeamRulesTest.js"></script>
+    <script src="sections/SubstituitionRulesTest.js"></script>
+    <script src="sections/ResultCalculationRulesTest.js"></script>
+    <script src="sections/RankingDataRulesTest.js"></script>
+    <script src="sections/FeeAndPrizesRuleTest.js"></script>
+
+    <!-- load the real HTML to run tests on the real DOM -->
+    <iframe id="realDom" src="../index.html" style="display:none;"></iframe>
+
+    <script>
+        let realDomDoc = null;
+
+        // Wait for the iframe to load and be ready
+        document.getElementById('realDom').onload = function () {
+            realDomDoc = this.contentDocument || this.contentWindow.document;
+            if (!realDomDoc) {
+                console.error('Iframe DOM not loaded yet');
+                return;
+            }
+
+            // Override functions to test with the real DOM provided by the iframe.
+            Utils.retrieveDomElement = id => realDomDoc.getElementById(id);
+
+            // tests run
+            runMainScriptTests();
+            runUtilsTests();
+            runCompetitionTypeTests();
+            runTeamRulesTests();
+            runTransferMarketRulesTests();
+            runAccidentReleaseRulesTests();
+            runInsertTeamRuleTests();
+            runSubstituionRulesTests();
+            runResultCalculationTests();
+            runRankingRulesTests();
+            runFeePrizesTests();
+        };
+    </script>
+
+</body>
+
+</html>
