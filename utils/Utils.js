@@ -17,6 +17,6 @@ const Utils = {
     },
 
     isValidString: function (string) {
-        return string && string.trim() !== "";
+        return string != null && string.trim() !== "";
     }
 };
