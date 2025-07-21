@@ -1,29 +1,28 @@
 const InsertTeamRules = {
-    produce: function () {
-        var toReturn = Utils.addSectionTitle("Inserimento formazione");
-        toReturn = toReturn + this.estraiMinutiTolleranza();
-        toReturn = toReturn + this.estraiModuliConsentiti();
-        toReturn = toReturn + this.estraiGestioneFormazioneNonInserita();
-        toReturn = toReturn + this.estraiStrutturaPanchina();
-        toReturn = toReturn + this.estraiAbilitazioneFormazioniInvisibili();
+    produce: function (sectionIndex) {
+        var toReturn = Utils.addSectionTitle(sectionIndex, "Inserimento formazione");
+        toReturn = toReturn + this.estraiMinutiTolleranza(sectionIndex);
+        toReturn = toReturn + this.estraiModuliConsentiti(sectionIndex);
+        toReturn = toReturn + this.estraiGestioneFormazioneNonInserita(sectionIndex);
+        toReturn = toReturn + this.estraiStrutturaPanchina(sectionIndex);
+        toReturn = toReturn + this.estraiAbilitazioneFormazioniInvisibili(sectionIndex);
         return toReturn;
     },
 
-    estraiMinutiTolleranza: function () {
+    estraiMinutiTolleranza: function (sectionIndex) {
         var toReturn = "";
         let etTolleranza = Utils.retrieveDomElement("etTolleranza");
         let numeroMinuti = etTolleranza.value;
         if (numeroMinuti <= 1) {
-            toReturn = Utils.addTextRow("Le formazioni devono essere inserite entro un minuto dall’inizio della giornata reale del campionato italiano.");
+            toReturn = "Le formazioni devono essere inserite entro un minuto dall’inizio della giornata reale del campionato italiano.";
         } else {
-            toReturn = Utils.addTextRow("Le formazioni devono essere inserite entro " + numeroMinuti + " minuti dall’inizio della giornata reale del campionato italiano.");
+            toReturn = "Le formazioni devono essere inserite entro " + numeroMinuti + " minuti dall’inizio della giornata reale del campionato italiano.";
         }
-        return toReturn;
+        return Utils.addTextRow(sectionIndex, 1, toReturn);
     },
 
-    estraiModuliConsentiti: function () {
-        var toReturn = "";
-        toReturn = toReturn + Utils.addTextRow("I moduli consentiti per le formazioni sono:");
+    estraiModuliConsentiti: function (sectionIndex) {
+        var toReturn = Utils.addTextRow(sectionIndex, 2, "I moduli consentiti per le formazioni sono:");
         toReturn = this.verificaSingoloModulo(toReturn, "checkboxOne", "4-4-2");
         toReturn = this.verificaSingoloModulo(toReturn, "checkboxTwo", "4-3-3");
         toReturn = this.verificaSingoloModulo(toReturn, "checkboxThree", "4-5-1");
@@ -44,32 +43,30 @@ const InsertTeamRules = {
         return toReturn;
     },
 
-    estraiGestioneFormazioneNonInserita: function () {
+    estraiGestioneFormazioneNonInserita: function (sectionIndex) {
         var toReturn = "";
         let cbVuota = Utils.retrieveDomElement("cbMancataNulla");
         if (cbVuota.checked) {
-            toReturn = Utils.addTextRow("Se la formazione, per qualsiasi motivo, non viene inserita, NON viene recuperata quella della giornata precedente, ma verrà usata una formazione nulla con punteggio totale pari a ZERO. Se io mi preoccupo di mettere la squadra, non è bello perdere contro chi si dimentica.");
+            toReturn = "Se la formazione, per qualsiasi motivo, non viene inserita, NON viene recuperata quella della giornata precedente, ma verrà usata una formazione nulla con punteggio totale pari a ZERO. Se io mi preoccupo di mettere la squadra, non è bello perdere contro chi si dimentica.";
         } else {
-            toReturn = Utils.addTextRow("Se la formazione, per qualsiasi motivo, non viene inserita, verrà recuperata la formazione della giornata precedente.");
+            toReturn = "Se la formazione, per qualsiasi motivo, non viene inserita, verrà recuperata la formazione della giornata precedente.";
         }
-        return toReturn;
+        return Utils.addTextRow(sectionIndex, 3, toReturn);
     },
 
-    estraiStrutturaPanchina: function () {
-        var toReturn = "";
+    estraiStrutturaPanchina: function (sectionIndex) {
         let etStruttura = Utils.retrieveDomElement("etPanchina");
-        toReturn = Utils.addTextRow("La panchina dovrà avere la seguente struttura: " + etStruttura.value + ".");
-        return toReturn;
+        return Utils.addTextRow(sectionIndex, 4, "La panchina dovrà avere la seguente struttura: " + etStruttura.value + ".");;
     },
 
-    estraiAbilitazioneFormazioniInvisibili: function () {
+    estraiAbilitazioneFormazioniInvisibili: function (sectionIndex) {
         var toReturn = "";
         let cbInvisibiliSi = Utils.retrieveDomElement("cbInvisibiliSi");
         if (cbInvisibiliSi.checked) {
-            toReturn = Utils.addTextRow("Sono ammesse le formazioni invisibili.");
+            toReturn = "Sono ammesse le formazioni invisibili.";
         } else {
-            toReturn = Utils.addTextRow("Non sono ammesse le formazioni invisibili.");
+            toReturn = "Non sono ammesse le formazioni invisibili.";
         }
-        return toReturn;
+        return Utils.addTextRow(sectionIndex, 5, toReturn);
     }
 };

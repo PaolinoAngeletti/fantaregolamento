@@ -53,15 +53,6 @@ function setupDefaultPrizesValue() {
 Regulation creation.
 */
 
-function applicaModificatore(daApplicare) {
-	var x = document.getElementById("punti_modificatore");
-	if (x.style.display === "none") {
-		x.style.display = "block";
-	} else {
-		x.style.display = "none";
-	}
-}
-
 function avviaAnteprimaDocumento() {
 	var tab = window.open('', '_blank');
 	tab.document.write(creaCodiceHTML());
@@ -79,21 +70,39 @@ function creaCodiceHTML() {
 	toReturn = toReturn + "<body style='font-family:sans-serif'>";
 	toReturn = toReturn + "<h1>Regolamento Fantacalcio</h1>";
 
-	toReturn = toReturn + CompetitionType.produce();
-	toReturn = toReturn + TeamRules.produce();
-	toReturn = toReturn + TransferMarketRules.produce();
-	toReturn = toReturn + AccidentReleaseRules.produce();
-	toReturn = toReturn + InsertTeamRules.produce();
-	toReturn = toReturn + SubstitutionRules.produce();
-	toReturn = toReturn + ResultCalculationRules.produce();
-	toReturn = toReturn + RankingDataRules.produce();
-	toReturn = toReturn + FeeAndPrizesRule.produce();
+	let sectionsList = retrieveSections();
+	sectionsList.forEach((section, index) => {
+		toReturn = toReturn + section.produce(index + 1);
+	});
 
 	toReturn = toReturn + "</br>";
 	toReturn = toReturn + "</body>";
 	toReturn = toReturn + "</html>";
 
 	return toReturn;
+}
+
+function retrieveSections() {
+	return [
+		CompetitionType,
+		TeamRules,
+		TransferMarketRules,
+		AccidentReleaseRules,
+		InsertTeamRules,
+		SubstitutionRules,
+		ResultCalculationRules,
+		RankingDataRules,
+		FeeAndPrizesRule
+	];
+}
+
+function applicaModificatore(daApplicare) {
+	var x = document.getElementById("punti_modificatore");
+	if (x.style.display === "none") {
+		x.style.display = "block";
+	} else {
+		x.style.display = "none";
+	}
 }
 
 function inviaMailSupporto() {

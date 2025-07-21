@@ -3,12 +3,12 @@ const Utils = {
         return document.getElementById(elementId);
     },
 
-    addSectionTitle: function (title) {
-        return "<h2>" + title + "</h2>";
+    addSectionTitle: function (index = undefined, title) {
+        return "<h2>" + index + ". " + title + "</h2>";
     },
 
-    addTextRow: function (text) {
-        return "<p>" + text + "</p>";
+    addTextRow: function (sectionIndex = null, ruleIndex = null, text) {
+        return "<p>" + sectionIndex + "." + ruleIndex + ". " + text + "</p>";
     },
 
     resolveEscapes: function (stringWithEscapes) {

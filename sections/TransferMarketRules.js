@@ -1,52 +1,55 @@
 const TransferMarketRules = {
-    produce: function () {
-        var toReturn = Utils.addSectionTitle("Gestione mercato");
-        toReturn = toReturn + this.estraiNumeroCrediti();
-        toReturn = toReturn + this.estraiAbilitazioneScambioCrediti();
-        toReturn = toReturn + this.estraiAbilitazioneCambioRuolo();
-        toReturn = toReturn + this.estraiGestioneSvincoliMercato();
-        toReturn = toReturn + this.estraiNumeroMassimoCambiConsentiti();
-        toReturn = toReturn + this.estraiEventualiNoteAggiuntiveMercato();
+    produce: function (sectionIndex) {
+        var toReturn = Utils.addSectionTitle(sectionIndex, "Gestione mercato");
+        toReturn = toReturn + this.estraiNumeroCrediti(sectionIndex);
+        toReturn = toReturn + this.estraiAbilitazioneScambioCrediti(sectionIndex);
+        toReturn = toReturn + this.estraiAbilitazioneCambioRuolo(sectionIndex);
+        toReturn = toReturn + this.estraiGestioneSvincoliMercato(sectionIndex);
+        toReturn = toReturn + this.estraiNumeroMassimoCambiConsentiti(sectionIndex);
+        toReturn = toReturn + this.estraiEventualiNoteAggiuntiveMercato(sectionIndex);
         return toReturn;
     },
 
-    estraiNumeroCrediti: function () {
-        var toReturn = "";
+    estraiNumeroCrediti: function (sectionIndex) {
         let etCrediti = Utils.retrieveDomElement("etCrediti");
+        var toReturn = Utils.addTextRow(sectionIndex, 1, "Per il mercato iniziale sono previsti " + etCrediti.value + " fantamilioni, utili a comporre la rosa iniziale.");
+        return toReturn + this.estraiNumeroCreditiSuccessivi(sectionIndex);
+    },
+
+    estraiNumeroCreditiSuccessivi: function (sectionIndex) {
         let etCreditiSessione = Utils.retrieveDomElement("etCreditiSessione");
-        toReturn = toReturn + Utils.addTextRow("Per il mercato iniziale sono previsti " + etCrediti.value + " fantamilioni, utili a comporre la rosa iniziale.");
         let numeroCreditiSessione = etCreditiSessione.value;
         if (numeroCreditiSessione > 0) {
-            toReturn = toReturn + Utils.addTextRow("Per le successive sessioni di mercato invece sono previsti " + numeroCreditiSessione + " fantamilioni da aggiungere ad ogni squadra, in modo da permettere transazioni per tutti.");
+            toReturn = "Per le successive sessioni di mercato invece sono previsti " + numeroCreditiSessione + " fantamilioni da aggiungere ad ogni squadra, in modo da permettere transazioni per tutti.";
         } else {
-            toReturn = toReturn + Utils.addTextRow("Per le successive sessioni di mercato invece non sono previste aggiunte di crediti, quindi si opererà sempre con il residuo del mercato precedente o comunque risultante da altre operazioni.");
+            toReturn = "Per le successive sessioni di mercato invece non sono previste aggiunte di crediti, quindi si opererà sempre con il residuo del mercato precedente o comunque risultante da altre operazioni.";
         }
-        return toReturn;
+        return Utils.addTextRow(sectionIndex, 2, toReturn);
     },
 
-    estraiAbilitazioneScambioCrediti: function () {
+    estraiAbilitazioneScambioCrediti: function (sectionIndex) {
         var toReturn = "";
         let campoVerifica = Utils.retrieveDomElement("cbScambioCreditiSi");
         if (campoVerifica.checked) {
-            toReturn = Utils.addTextRow("Sono permessi gli scambi di crediti tra i partecipanti, esempio si potrà fare Totti per Del Piero + 100 crediti.");
+            toReturn = "Sono permessi gli scambi di crediti tra i partecipanti, esempio si potrà fare Totti per Del Piero + 100 crediti.";
         } else {
-            toReturn = Utils.addTextRow("Non sono permessi gli scambi di crediti tra i partecipanti, esempio non si potrà fare Totti per Del Piero + 100 crediti.");
+            toReturn = "Non sono permessi gli scambi di crediti tra i partecipanti, esempio non si potrà fare Totti per Del Piero + 100 crediti.";
         }
-        return toReturn;
+        return Utils.addTextRow(sectionIndex, 3, toReturn);
     },
 
-    estraiAbilitazioneCambioRuolo: function () {
+    estraiAbilitazioneCambioRuolo: function (sectionIndex) {
         var toReturn = "";
         let campoVerifica = Utils.retrieveDomElement("cbCambioRuoloSi");
         if (campoVerifica.checked) {
-            toReturn = Utils.addTextRow("Sono permessi i cambi ruolo dei giocatori, ossia tutti i partecipanti possono decidere la modifica del ruolo di uno o più calciatori ignorando quelli messi a disposizione dalla piattaforma usata.");
+            toReturn = "Sono permessi i cambi ruolo dei giocatori, ossia tutti i partecipanti possono decidere la modifica del ruolo di uno o più calciatori ignorando quelli messi a disposizione dalla piattaforma usata.";
         } else {
-            toReturn = Utils.addTextRow("Non verranno applicati cambi ruolo dei giocatori, ma verranno utilizzati quelli forniti dalla piattaforma su cui verrà applicata la competizione.");
+            toReturn = "Non verranno applicati cambi ruolo dei giocatori, ma verranno utilizzati quelli forniti dalla piattaforma su cui verrà applicata la competizione.";
         }
-        return toReturn;
+        return Utils.addTextRow(sectionIndex, 4, toReturn);
     },
 
-    estraiGestioneSvincoliMercato: function () {
+    estraiGestioneSvincoliMercato: function (sectionIndex) {
         var toReturn = "";
         var campoSvincolo = Utils.retrieveDomElement("cbSvincoloAcquisto");
         if (campoSvincolo.checked) {
@@ -62,28 +65,28 @@ const TransferMarketRules = {
                 }
             }
         }
-        return toReturn;
+        return Utils.addTextRow(sectionIndex, 5, toReturn);
     },
 
-    estraiNumeroMassimoCambiConsentiti: function () {
+    estraiNumeroMassimoCambiConsentiti: function (sectionIndex) {
         var toReturn = "";
         let campoCambiMassimi = Utils.retrieveDomElement("etMassimoScambi");
         let numeroCambi = campoCambiMassimi.value;
         if (numeroCambi > 0) {
-            toReturn = Utils.addTextRow("Ogni squadra potrà effettuare un numero massimo di cambio giocatori pari a " + numeroCambi + ".");
+            toReturn = "Ogni squadra potrà effettuare un numero massimo di cambio giocatori pari a " + numeroCambi + ".";
         } else {
-            toReturn = Utils.addTextRow("Non ci sono limiti relativi al massimo numero di giocatori modificabili in una rosa.");
+            toReturn = "Non ci sono limiti relativi al massimo numero di giocatori modificabili in una rosa.";
         }
-        return toReturn;
+        return Utils.addTextRow(sectionIndex, 6, toReturn);
     },
 
-    estraiEventualiNoteAggiuntiveMercato: function () {
+    estraiEventualiNoteAggiuntiveMercato: function (sectionIndex) {
         var toReturn = "";
         let etNoteMercato = Utils.retrieveDomElement("etNoteMercato");
         if (etNoteMercato != null) {
             var testoNote = etNoteMercato.value;
             if (testoNote.trim() !== "") {
-                toReturn = Utils.addTextRow(Utils.resolveEscapes(testoNote));
+                toReturn = Utils.addTextRow(sectionIndex, 7, Utils.resolveEscapes(testoNote));
             }
         }
         return toReturn;

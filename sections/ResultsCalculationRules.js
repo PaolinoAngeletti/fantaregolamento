@@ -1,30 +1,30 @@
 const ResultCalculationRules = {
-    produce: function () {
-        var toReturn = Utils.addSectionTitle("Calcolo giornate");
-        toReturn = toReturn + this.estraiPunteggiVittoriaPareggio();
-        toReturn = toReturn + this.estraiBonusMalus();
-        toReturn = toReturn + this.estraiLarghezzaSoglie();
-        toReturn = toReturn + this.estraiAbilitazioneFattoreCampo();
-        toReturn = toReturn + this.estraiGestioneRinvio();
-        toReturn = toReturn + this.estraiGestioneModificatore();
+    produce: function (sectionIndex) {
+        var toReturn = Utils.addSectionTitle(sectionIndex, "Calcolo giornate");
+        toReturn = toReturn + this.estraiPunteggiVittoriaPareggio(sectionIndex);
+        toReturn = toReturn + this.estraiBonusMalus(sectionIndex);
+        toReturn = toReturn + this.estraiLarghezzaSoglie(sectionIndex);
+        toReturn = toReturn + this.estraiAbilitazioneFattoreCampo(sectionIndex);
+        toReturn = toReturn + this.estraiGestioneRinvio(sectionIndex);
+        toReturn = toReturn + this.estraiGestioneModificatore(sectionIndex);
         return toReturn;
     },
 
-    estraiPunteggiVittoriaPareggio: function () {
+    estraiPunteggiVittoriaPareggio: function (sectionIndex) {
         var toReturn = "";
         let etVittoria = Utils.retrieveDomElement("etVittoria");
         let etPareggio = Utils.retrieveDomElement("etPareggio");
         let etSconfitta = Utils.retrieveDomElement("etSconfitta");
-        toReturn = toReturn + Utils.addTextRow("I punteggi rilevati da una singola partita saranno:");
+        toReturn = toReturn + Utils.addTextRow(sectionIndex, 1, "I punteggi rilevati da una singola partita saranno:");
         toReturn = toReturn + "Vittoria: " + etVittoria.value + " punti.<br>";
         toReturn = toReturn + "Pareggio: " + etPareggio.value + " punti.<br>";
         toReturn = toReturn + "Sconfitta: " + etSconfitta.value + " punti.<br>";
         return toReturn;
     },
 
-    estraiBonusMalus: function () {
+    estraiBonusMalus: function (sectionIndex) {
         var toReturn = "";
-        toReturn = toReturn + Utils.addTextRow("I bonus e malus previsti dalla competizione saranno:");
+        toReturn = toReturn + Utils.addTextRow(sectionIndex, 2, "I bonus e malus previsti dalla competizione saranno:");
         toReturn = this.verificaSingoloBonus(toReturn, "etGol", "Gol segnato");
         toReturn = this.verificaSingoloBonus(toReturn, "etRigore", "Rigore segnato");
         toReturn = this.verificaSingoloBonus(toReturn, "etRigoreSbagliato", "Rigore sbagliato");
@@ -46,57 +46,55 @@ const ResultCalculationRules = {
         return toReturn;
     },
 
-    estraiLarghezzaSoglie: function () {
-        var toReturn = "";
+    estraiLarghezzaSoglie: function (sectionIndex) {
         let etSoglie = Utils.retrieveDomElement("etSoglie");
-        toReturn = Utils.addTextRow("Le soglie per il calcolo del numero di gol saranno ciascuna da " + etSoglie.value + " punti.");
-        return toReturn;
+        return Utils.addTextRow(sectionIndex, 3, "Le soglie per il calcolo del numero di gol saranno ciascuna da " + etSoglie.value + " punti.");;
     },
 
-    estraiAbilitazioneFattoreCampo: function () {
+    estraiAbilitazioneFattoreCampo: function (sectionIndex) {
         var toReturn = "";
         let etFattoreSi = Utils.retrieveDomElement("cbFattoreSi");
         if (etFattoreSi.checked) {
-            toReturn = Utils.addTextRow("E' previsto un fattore campo, ossia giocare in casa oppure fuori casa ha influenza sul calcolo della giornata.");
+            toReturn = "E' previsto un fattore campo, ossia giocare in casa oppure fuori casa ha influenza sul calcolo della giornata.";
         } else {
-            toReturn = Utils.addTextRow("Non verrà applicato mai nessun fattore campo, ossia giocare in casa oppure fuori casa non ha influenza sul calcolo della giornata.");
+            toReturn = "Non verrà applicato mai nessun fattore campo, ossia giocare in casa oppure fuori casa non ha influenza sul calcolo della giornata.";
         }
-        return toReturn;
+        return Utils.addTextRow(sectionIndex, 4, toReturn);
     },
 
-    estraiGestioneRinvio: function () {
+    estraiGestioneRinvio: function (sectionIndex) {
         var toReturn = "";
         let cbRinvioMai = Utils.retrieveDomElement("cbRinvioMai");
         if (cbRinvioMai.checked) {
-            toReturn = Utils.addTextRow("Nel caso in cui una o più partite vengano rinviate per qualsiasi motivo, NON si attenderà MAI la sua conclusione, ma si accederà sempre alle votazioni politiche.");
+            toReturn = "Nel caso in cui una o più partite vengano rinviate per qualsiasi motivo, NON si attenderà MAI la sua conclusione, ma si accederà sempre alle votazioni politiche.";
         } else {
             let cbRinvioProssima = Utils.retrieveDomElement("cbRinvioProssima");
             if (cbRinvioProssima.checked) {
-                toReturn = Utils.addTextRow("Se una partita, per qualsiasi motivo, viene rinviata, si attenderà che essa venga recuperata al massimo fino alla prossima giornata, dopodichè si ricorrerà alle votazioni politiche. Questa decisione viene presa nell’ottica di evitare accavvallamenti di calcoli giornate, che, in caso di coppe aggiuntive, porterebbero ad ulteriori difficoltà di gestione.");
+                toReturn = "Se una partita, per qualsiasi motivo, viene rinviata, si attenderà che essa venga recuperata al massimo fino alla prossima giornata, dopodichè si ricorrerà alle votazioni politiche. Questa decisione viene presa nell’ottica di evitare accavvallamenti di calcoli giornate, che, in caso di coppe aggiuntive, porterebbero ad ulteriori difficoltà di gestione.";
             } else {
                 let cbRinvioPolitico = Utils.retrieveDomElement("cbRinvioPolitico");
                 if (cbRinvioPolitico.checked) {
-                    toReturn = Utils.addTextRow("Se una partita, per qualsiasi motivo, viene rinviata, si attenderà che la partita venga rigiocata, anche se a mesi di distanza. Nel caso in cui però un giocatore non sarà abilitato a recuperare la partita, accederà in ogni caso alla votazione politica.");
+                    toReturn = "Se una partita, per qualsiasi motivo, viene rinviata, si attenderà che la partita venga rigiocata, anche se a mesi di distanza. Nel caso in cui però un giocatore non sarà abilitato a recuperare la partita, accederà in ogni caso alla votazione politica.";
                 } else {
                     let cbRinvioPanchina = Utils.retrieveDomElement("cbRinvioPanchina");
                     if (cbRinvioPanchina.checked) {
-                        toReturn = Utils.addTextRow("Se una partita, per qualsiasi motivo, viene rinviata, si attenderà che la partita venga rigiocata, anche se a mesi di distanza. Nel caso in cui però un giocatore non sarà abilitato a recuperare la partita, entrerà in ogni caso il panchinaro previsto.");
+                        toReturn = "Se una partita, per qualsiasi motivo, viene rinviata, si attenderà che la partita venga rigiocata, anche se a mesi di distanza. Nel caso in cui però un giocatore non sarà abilitato a recuperare la partita, entrerà in ogni caso il panchinaro previsto.";
                     }
                 }
             }
         }
-        return toReturn;
+        return Utils.addTextRow(sectionIndex, 5, toReturn);
     },
 
-    estraiGestioneModificatore: function () {
+    estraiGestioneModificatore: function (sectionIndex) {
         var toReturn = "";
         let cbModificatoreNo = Utils.retrieveDomElement("cbModificatoreNo");
         if (cbModificatoreNo.checked) {
-            toReturn = Utils.addTextRow("Il calcolo della giornata non prevede nessun modificatore di difesa");
+            toReturn = Utils.addTextRow(sectionIndex, 6, "Il calcolo della giornata non prevede nessun modificatore di difesa");
         } else {
             let cbModificatoreSi = Utils.retrieveDomElement("cbModificatoreSi");
             if (cbModificatoreSi.checked) {
-                toReturn = Utils.addTextRow("Il calcolo della giornata prevede il modificatore di difesa, con i seguenti scaglioni:");
+                toReturn = Utils.addTextRow(sectionIndex, 6, "Il calcolo della giornata prevede il modificatore di difesa, con i seguenti scaglioni:");
                 toReturn = this.verificaSingoloBonus(toReturn, "et0599", "Da 0 punti a 5,99 punti");
                 toReturn = this.verificaSingoloBonus(toReturn, "et6624", "Da 6 punti a 6,24 punti");
                 toReturn = this.verificaSingoloBonus(toReturn, "et625649", "Da 6,25 punti a 6,49 punti");

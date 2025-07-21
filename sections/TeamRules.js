@@ -1,19 +1,19 @@
 const TeamRules = {
-    produce: function () {
-        var toReturn = Utils.addSectionTitle("Struttura rose");
-        toReturn = toReturn + this.estraiNumeroGiocatoriRosa();
-        toReturn = toReturn + this.estraiAbilitazioneGiocatoriCondivisi();
+    produce: function (sectionIndex) {
+        var toReturn = Utils.addSectionTitle(sectionIndex, "Struttura rose");
+        toReturn = toReturn + this.estraiNumeroGiocatoriRosa(sectionIndex);
+        toReturn = toReturn + this.estraiAbilitazioneGiocatoriCondivisi(sectionIndex);
         return toReturn;
     },
 
-    estraiNumeroGiocatoriRosa: function () {
+    estraiNumeroGiocatoriRosa: function (sectionIndex) {
         var toReturn = "";
         let etPortieri = Utils.retrieveDomElement("etPortieri");
         let etDifensori = Utils.retrieveDomElement("etDifensori");
         let etCentrocampisti = Utils.retrieveDomElement("etCentrocampisti");
         let etAttaccanti = Utils.retrieveDomElement("etAttaccanti");
 
-        toReturn = toReturn + Utils.addTextRow("Le rose dovranno essere cosi composte:");
+        toReturn = toReturn + Utils.addTextRow(sectionIndex, 1, "Le rose dovranno essere cosi composte:");
         toReturn = toReturn + etPortieri.value + " portieri";
         toReturn = toReturn + "<br>";
         toReturn = toReturn + etDifensori.value + " difensori";
@@ -25,14 +25,14 @@ const TeamRules = {
         return toReturn;
     },
 
-    estraiAbilitazioneGiocatoriCondivisi: function () {
+    estraiAbilitazioneGiocatoriCondivisi: function (sectionIndex) {
         var toReturn = "";
         let cbCondivisiSi = Utils.retrieveDomElement("cbCondivisiSi");
         if (cbCondivisiSi.checked) {
-            toReturn = Utils.addTextRow("Le rose composte potranno avere giocatori condivisi (stessi giocatori per più squadre).");
+            toReturn = "Le rose potranno avere giocatori condivisi (stessi giocatori per più squadre).";
         } else {
-            toReturn = Utils.addTextRow("Le rose composte NON potranno avere giocatori condivisi (stessi giocatori per più squadre).");
+            toReturn = "Le rose NON potranno avere giocatori condivisi (stessi giocatori per più squadre).";
         }
-        return toReturn;
+        return Utils.addTextRow(sectionIndex, 2, toReturn);
     }
 };
