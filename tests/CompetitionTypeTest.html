@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>CompetitionType Test</title>
+    <link rel="stylesheet" href="https://unpkg.com/jasmine-core/lib/jasmine-core/jasmine.css" />
+</head>
+
+<body>
+
+    <div id="jasmine_content"></div>
+
+    <script src="https://unpkg.com/jasmine-core/lib/jasmine-core/jasmine.js"></script>
+    <script src="https://unpkg.com/jasmine-core/lib/jasmine-core/jasmine-html.js"></script>
+    <script src="https://unpkg.com/jasmine-core/lib/jasmine-core/boot0.js"></script>
+    <script src="https://unpkg.com/jasmine-core/lib/jasmine-core/boot1.js"></script>
+
+    <script src="../utils/Utils.js"></script>
+    <script src="../sections/CompetitionType.js"></script>
+
+    <iframe id="realDom" src="../index.html" style="display:none;"></iframe>
+
+    <script>
+        let realDomDoc = null;
+
+        // Attendi che l'iframe sia caricato e pronto
+        document.getElementById('realDom').onload = function () {
+            realDomDoc = this.contentDocument || this.contentWindow.document;
+
+            if (!realDomDoc || !realDomDoc.getElementById('cbListone')) {
+                console.error('Iframe DOM non pronto');
+                return;
+            }
+
+            // Override funzioni per testare col DOM reale
+            window.estraiElementoDom = id => realDomDoc.getElementById(id);
+            Utils.retrieveDomElement = id => realDomDoc.getElementById(id);
+            window.aggiungiRigaTesto = testo => testo + "\n";
+            window.creaNuovoTitoloParagrafo = testo => "<h2>" + testo + "</h2>\n";
+            Utils.addTextRow = window.aggiungiRigaTesto;
+            Utils.addSectionTitle = window.creaNuovoTitoloParagrafo;
+
+            // Definisci i test ORA che realDomDoc è pronto
+            describe("CompetitionType con DOM reale", function () {
+                beforeEach(function () {
+                    ['cbListone', 'cbCalendario', 'cbFormulaUno', 'etInizio', 'etFine'].forEach(id => {
+                        if (!realDomDoc.getElementById(id)) {
+                            throw new Error('Elemento mancante nel DOM reale: ' + id);
+                        }
+                    });
+
+                    realDomDoc.getElementById("cbListone").checked = false;
+                    realDomDoc.getElementById("cbCalendario").checked = false;
+                    realDomDoc.getElementById("cbFormulaUno").checked = false;
+                    realDomDoc.getElementById("etInizio").value = "1";
+                    realDomDoc.getElementById("etFine").value = "10";
+                });
+
+                it("estraiTipoCompetizione con Calendario checked", function () {
+                    realDomDoc.getElementById("cbCalendario").checked = true;
+                    const result = CompetitionType.estraiTipoCompetizione();
+                    expect(result).toContain("classica competizione a calendario");
+                });
+
+
+                it("estraiTipoCompetizione con FormulaUno checked", function () {
+                    realDomDoc.getElementById("cbFormulaUno").checked = true;
+                    const result = CompetitionType.estraiTipoCompetizione();
+                    expect(result).toContain("competizione con stile Formula Uno");
+                });
+
+                it("estraiTipoCompetizione con Listone checked", function () {
+                    realDomDocÁ.getElementById("cbListone").checked = true;
+                    const result = CompetitionType.estraiTipoCompetizione();
+                    expect(result).toContain("competizione a listone");
+                });
+
+                it("estraiDurataCompetizione restituisce testo corretto", function () {
+                    realDomDoc.getElementById("etInizio").value = "3";
+                    realDomDoc.getElementById("etFine").value = "8";
+                    const result = CompetitionType.estraiDurataCompetizione();
+                    expect(result).toBe("L'inizio e la fine della competizione corrisponderanno rispettivamente con la giornata 3 e con la giornata 8 del campionato reale.");
+                });
+
+                it("produce costruisce stringa completa", function () {
+                    realDomDoc.getElementById("cbListone").checked = true;
+                    realDomDoc.getElementById("etInizio").value = "2";
+                    realDomDoc.getElementById("etFine").value = "6";
+
+                    console.log("pre");
+
+                    const result = CompetitionType.produce();
+
+                    console.log("post " + result);
+
+                    expect(result).toContain("<h2>Tipologia competizione</h2>");
+                    expect(result).toContain("competizione a listone");
+                    expect(result).toContain("giornata 2");
+                    expect(result).toContain("giornata 6");
+                });
+
+
+            });
+        };
+    </script>
+
+</body>
+
+</html>

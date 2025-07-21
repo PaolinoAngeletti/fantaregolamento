@@ -6,11 +6,12 @@ window.addEventListener('DOMContentLoaded', setup);
 
 function setup() {
 	loadRequiredScripts();
-	setupDefaultPrizesValue();
 }
 
 function loadRequiredScripts() {
-	loadScript("utils/Utils.js");
+	loadScript("utils/Utils.js", () => {
+		setupDefaultPrizesValue();
+	});
 	loadSectionsScripts();
 }
 
@@ -19,17 +20,20 @@ function loadSectionsScripts() {
 	loadScript("sections/TeamRules.js");
 }
 
-function loadScript(fileName) {
+function loadScript(fileName, callback) {
 	const script = document.createElement('script');
 	script.src = fileName;
 	script.onload = () => {
 		console.log("File " + fileName + " correctly loaded");
+		if (typeof callback === 'function') {
+			callback();
+		}
 	};
 	document.head.appendChild(script);
 }
 
 function setupDefaultPrizesValue() {
-	const taPremi = estraiElementoDom("taPremi");
+	const taPremi = Utils.retrieveDomElement("taPremi");
 	const defaultValue = [
 		"Primo posto: - euro",
 		"Secondo posto: - euro",
@@ -530,14 +534,6 @@ function estraiDivisionePremi() {
 		toReturn = toReturn + resolveEscapes(etPremi.value);
 	}
 	return toReturn;
-}
-
-function creaNuovoTitoloParagrafo(titolo) {
-	return "<h2>" + titolo + "</h2>";
-}
-
-function aggiungiRigaTesto(testo) {
-	return "<p>" + testo + "</p>";
 }
 
 function inviaMailSupporto() {

@@ -1,6 +1,6 @@
 const CompetitionType = {
     produce: function () {
-        var toReturn = creaNuovoTitoloParagrafo("Tipologia competizione");
+        var toReturn = Utils.addSectionTitle("Tipologia competizione");
         toReturn = toReturn + this.estraiTipoCompetizione();
         toReturn = toReturn + this.estraiDurataCompetizione();
         return toReturn;
@@ -8,9 +8,9 @@ const CompetitionType = {
 
     estraiTipoCompetizione: function () {
         var toReturn = "";
-        let cbListone = Utils.estraiElementoDom("cbListone");
-        let cbCalendario = Utils.estraiElementoDom("cbCalendario");
-        let cbFormulaUno = Utils.estraiElementoDom("cbFormulaUno");
+        let cbListone = Utils.retrieveDomElement("cbListone");
+        let cbCalendario = Utils.retrieveDomElement("cbCalendario");
+        let cbFormulaUno = Utils.retrieveDomElement("cbFormulaUno");
         if (cbCalendario.checked) {
             tipo = "La competizione sarà una classica competizione a calendario.";
         } else if (cbFormulaUno.checked) {
@@ -18,14 +18,14 @@ const CompetitionType = {
         } else if (cbListone.checked) {
             tipo = "La competizione sarà una competizione a listone, in cui ogni squadra potrà comporre la propria rosa usando i crediti massimi previsti.";
         }
-        toReturn = toReturn + aggiungiRigaTesto(tipo);
+        toReturn = toReturn + Utils.addTextRow(tipo);
         return toReturn;
     },
 
     estraiDurataCompetizione: function () {
         var toReturn = "";
-        var etFine = estraiElementoDom("etFine");
-        var etInizio = estraiElementoDom("etInizio");
+        var etFine = Utils.retrieveDomElement("etFine");
+        var etInizio = Utils.retrieveDomElement("etInizio");
         toReturn = "L'inizio e la fine della competizione corrisponderanno rispettivamente con la giornata " + etInizio.value + " e con la giornata " + etFine.value + " del campionato reale.";
         return toReturn;
     }
