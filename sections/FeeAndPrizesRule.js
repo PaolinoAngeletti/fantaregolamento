@@ -17,8 +17,11 @@ const FeeAndPrizesRule = {
         var toReturn = "";
         let etPremi = Utils.retrieveDomElement("taPremi");
         if (etPremi != null) {
-            toReturn = Utils.addTextRow("I premi totali inoltre saranno cosi suddivisi:");
-            toReturn = toReturn + Utils.resolveEscapes(etPremi.value);
+            let prizesValue = Utils.resolveEscapes(etPremi.value);
+            if (Utils.isValidString(prizesValue)) {
+                toReturn = Utils.addTextRow("I premi totali inoltre saranno cosi suddivisi:");
+                toReturn = toReturn + prizesValue;
+            }
         }
         return toReturn;
     }

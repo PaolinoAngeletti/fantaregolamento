@@ -97,14 +97,14 @@ const ResultCalculationRules = {
             let cbModificatoreSi = Utils.retrieveDomElement("cbModificatoreSi");
             if (cbModificatoreSi.checked) {
                 toReturn = Utils.addTextRow("Il calcolo della giornata prevede il modificatore di difesa, con i seguenti scaglioni:");
-                toReturn = verificaSingoloBonus(toReturn, "et0599", "Da 0 punti a 5,99 punti");
-                toReturn = verificaSingoloBonus(toReturn, "et6624", "Da 6 punti a 6,24 punti");
-                toReturn = verificaSingoloBonus(toReturn, "et625649", "Da 6,25 punti a 6,49 punti");
-                toReturn = verificaSingoloBonus(toReturn, "et65674", "Da 6,5 punti a 6,74 punti");
-                toReturn = verificaSingoloBonus(toReturn, "et675699", "Da 6,75 punti a 6,99 punti");
-                toReturn = verificaSingoloBonus(toReturn, "et7724", "Da 7 punti a 7,24 punti");
-                toReturn = verificaSingoloBonus(toReturn, "et725749", "Da 7,25 punti a 7,49 punti");
-                toReturn = verificaSingoloBonus(toReturn, "et75", "Da 7,5 a salire");
+                toReturn = this.verificaSingoloBonus(toReturn, "et0599", "Da 0 punti a 5,99 punti");
+                toReturn = this.verificaSingoloBonus(toReturn, "et6624", "Da 6 punti a 6,24 punti");
+                toReturn = this.verificaSingoloBonus(toReturn, "et625649", "Da 6,25 punti a 6,49 punti");
+                toReturn = this.verificaSingoloBonus(toReturn, "et65674", "Da 6,5 punti a 6,74 punti");
+                toReturn = this.verificaSingoloBonus(toReturn, "et675699", "Da 6,75 punti a 6,99 punti");
+                toReturn = this.verificaSingoloBonus(toReturn, "et7724", "Da 7 punti a 7,24 punti");
+                toReturn = this.verificaSingoloBonus(toReturn, "et725749", "Da 7,25 punti a 7,49 punti");
+                toReturn = this.verificaSingoloBonus(toReturn, "et75", "Da 7,5 a salire");
             }
         }
         return toReturn;

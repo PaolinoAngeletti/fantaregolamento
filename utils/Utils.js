@@ -14,5 +14,9 @@ const Utils = {
     resolveEscapes: function (stringWithEscapes) {
         stringWithEscapes.replace(/newline/g, "\n");
         return stringWithEscapes.replace(/\n/g, "<br>");
+    },
+
+    isValidString: function (string) {
+        return string && string.trim() !== "";
     }
 };
