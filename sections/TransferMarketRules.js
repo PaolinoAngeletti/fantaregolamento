@@ -83,7 +83,7 @@ const TransferMarketRules = {
         if (etNoteMercato != null) {
             var testoNote = etNoteMercato.value;
             if (testoNote.trim() !== "") {
-                toReturn = Utils.addTextRow(resolveEscapes(testoNote));
+                toReturn = Utils.addTextRow(Utils.resolveEscapes(testoNote));
             }
         }
         return toReturn;

@@ -9,5 +9,10 @@ const Utils = {
 
     addTextRow: function (text) {
         return "<p>" + text + "</p>";
+    },
+
+    resolveEscapes: function (stringWithEscapes) {
+        stringWithEscapes.replace(/newline/g, "\n");
+        return stringWithEscapes.replace(/\n/g, "<br>");
     }
 };
