@@ -20,6 +20,7 @@ function loadSectionsScripts() {
 	loadScript("sections/TeamRules.js");
 	loadScript("sections/TransferMarketRules.js");
 	loadScript("sections/AccidentReleaseRules.js");
+	loadScript("sections/InsertTeamRules.js");
 }
 
 function loadScript(fileName, callback) {
@@ -78,7 +79,7 @@ function creaCodiceHTML() {
 	toReturn = toReturn + TeamRules.produce();
 	toReturn = toReturn + TransferMarketRules.produce();
 	toReturn = toReturn + AccidentReleaseRules.produce();
-	toReturn = toReturn + estraiInformazioniInserimentoFormazione();
+	toReturn = toReturn + InsertTeamRules.produce();
 	toReturn = toReturn + estraiGestioneSostituzioni();
 	toReturn = toReturn + estraiDatiCalcoloGiornate();
 	toReturn = toReturn + estraiDatiClassifica();
@@ -88,80 +89,6 @@ function creaCodiceHTML() {
 	toReturn = toReturn + "</body>";
 	toReturn = toReturn + "</html>";
 
-	return toReturn;
-}
-
-function estraiInformazioniInserimentoFormazione() {
-	var toReturn = Utils.addSectionTitle("Inserimento formazione");
-	toReturn = toReturn + estraiMinutiTolleranza();
-	toReturn = toReturn + estraiModuliConsentiti();
-	toReturn = toReturn + estraiGestioneFormazioneNonInserita();
-	toReturn = toReturn + estraiStrutturaPanchina();
-	toReturn = toReturn + estraiAbilitazioneFormazioniInvisibili();
-	return toReturn;
-}
-
-function estraiMinutiTolleranza() {
-	var toReturn = "";
-	let etTolleranza = Utils.retrieveDomElement("etTolleranza");
-	let numeroMinuti = etTolleranza.value;
-	if (numeroMinuti <= 1) {
-		toReturn = Utils.addTextRow("Le formazioni devono essere inserite entro un minuto dall’inizio della giornata reale del campionato italiano.");
-	} else {
-		toReturn = Utils.addTextRow("Le formazioni devono essere inserite entro " + numeroMinuti + " minuti dall’inizio della giornata reale del campionato italiano.");
-	}
-	return toReturn;
-}
-
-function estraiModuliConsentiti() {
-	var toReturn = "";
-	toReturn = toReturn + Utils.addTextRow("I moduli consentiti per le formazioni sono:");
-	toReturn = verificaSingoloModulo(toReturn, "checkboxOne", "4-4-2");
-	toReturn = verificaSingoloModulo(toReturn, "checkboxTwo", "4-3-3");
-	toReturn = verificaSingoloModulo(toReturn, "checkboxThree", "4-5-1");
-	toReturn = verificaSingoloModulo(toReturn, "checkboxFour", "3-4-3");
-	toReturn = verificaSingoloModulo(toReturn, "checkboxFive", "3-5-2");
-	toReturn = verificaSingoloModulo(toReturn, "checkboxSix", "5-3-2");
-	toReturn = verificaSingoloModulo(toReturn, "checkboxSeven", "5-4-1");
-	toReturn = verificaSingoloModulo(toReturn, "checkboxEight", "6-3-1");
-	toReturn = verificaSingoloModulo(toReturn, "checkboxNine", "6-2-2");
-	return toReturn;
-}
-
-function verificaSingoloModulo(toReturn, idModulo, descrizione) {
-	let etModulo = Utils.retrieveDomElement(idModulo);
-	if (etModulo.checked) {
-		toReturn = toReturn + descrizione + "<br>";
-	}
-	return toReturn;
-}
-
-function estraiGestioneFormazioneNonInserita() {
-	var toReturn = "";
-	let cbVuota = Utils.retrieveDomElement("cbMancataNulla");
-	if (cbVuota.checked) {
-		toReturn = Utils.addTextRow("Se la formazione, per qualsiasi motivo, non viene inserita, NON viene recuperata quella della giornata precedente, ma verrà usata una formazione nulla con punteggio totale pari a ZERO. Se io mi preoccupo di mettere la squadra, non è bello perdere contro chi si dimentica.");
-	} else {
-		toReturn = Utils.addTextRow("Se la formazione, per qualsiasi motivo, non viene inserita, verrà recuperata la formazione della giornata precedente.");
-	}
-	return toReturn;
-}
-
-function estraiStrutturaPanchina() {
-	var toReturn = "";
-	let etStruttura = Utils.retrieveDomElement("etPanchina");
-	toReturn = Utils.addTextRow("La panchina dovrà avere la seguente struttura: " + etStruttura.value + ".");
-	return toReturn;
-}
-
-function estraiAbilitazioneFormazioniInvisibili() {
-	var toReturn = "";
-	let cbInvisibiliSi = Utils.retrieveDomElement("cbInvisibiliSi");
-	if (cbInvisibiliSi.checked) {
-		toReturn = Utils.addTextRow("Sono ammesse le formazioni invisibili.");
-	} else {
-		toReturn = Utils.addTextRow("Non sono ammesse le formazioni invisibili.");
-	}
 	return toReturn;
 }
 
