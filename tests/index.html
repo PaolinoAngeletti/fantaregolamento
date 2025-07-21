@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>CompetitionType Test</title>
+    <title>Regulation Creation Test</title>
     <link rel="stylesheet" href="https://unpkg.com/jasmine-core/lib/jasmine-core/jasmine.css" />
 </head>
 
@@ -34,6 +34,10 @@
     <!-- including the JS files containing the tests -->
     <script src="scriptTest.js"></script>
     <script src="sections/CompetitionTypeTest.js"></script>
+    <script src="sections/TeamRulesTest.js"></script>
+    <script src="sections/TransferMarketRulesTest.js"></script>
+    <script src="sections/AccidentReleaseRulesTest.js"></script>
+    <script src="sections/InsertTeamRulesTest.js"></script>
 
     <!-- load the real HTML to run tests on the real DOM -->
     <iframe id="realDom" src="../index.html" style="display:none;"></iframe>
@@ -55,6 +59,10 @@
             // tests run
             runMainScriptTests();
             runCompetitionTypeTests();
+            runTeamRulesTests();
+            runTransferMarketRulesTests();
+            runAccidentReleaseRulesTests();
+            runInsertTeamRuleTests();
         };
     </script>
 
