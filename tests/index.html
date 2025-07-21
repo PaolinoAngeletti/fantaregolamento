@@ -19,10 +19,13 @@
     <script src="https://unpkg.com/jasmine-core/lib/jasmine-core/boot1.js"></script>
 
     <!-- including real scripts -->
+    <script src="../scripts.js"></script>
     <script src="../utils/Utils.js"></script>
     <script src="../sections/CompetitionType.js"></script>
+    <script src="../sections/TeamRules.js"></script>
 
     <!-- including the JS files containing the tests -->
+    <script src="scriptTest.js"></script>
     <script src="sections/CompetitionTypeTest.js"></script>
 
     <!-- load the real HTML to run tests on the real DOM -->
@@ -43,6 +46,7 @@
             Utils.retrieveDomElement = id => realDomDoc.getElementById(id);
 
             // tests run
+            runMainScriptTests();
             runCompetitionTypeTests();
         };
     </script>
