@@ -64,8 +64,8 @@ function runTransferMarketRulesTests() {
         it("correctly add rows for etNoteMercato inserted", function () {
             realDomDoc.getElementById("etNoteMercato").value = "hello1 hello2-hello3";
 
-            const html = TransferMarketRules.estraiEventualiNoteAggiuntiveMercato();
-            expect(html).toBe("<p>hello1 hello2-hello3</p>");
+            const html = TransferMarketRules.estraiEventualiNoteAggiuntiveMercato(6);
+            expect(html).toBe("<p>6.7. hello1 hello2-hello3</p>");
         });
     });
 }

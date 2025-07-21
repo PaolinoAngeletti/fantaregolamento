@@ -6,7 +6,7 @@ function runFeePrizesTests() {
             const result = FeeAndPrizesRule.produce();
             expect(result).toContain("Quote squadre e premi finali");
             expect(result).toContain("La quota di partecipazione prevista per ciascuna squadra è di 100 euro.");
-            expect(result).toContain("I premi totali inoltre saranno cosi suddivisi:");
+            expect(result).toContain("I premi totali saranno cosi suddivisi:");
             expect(result).toContain("price-list");
         });
 

@@ -23,15 +23,15 @@ function runUtilsTests() {
 
         describe("addSectionTitle", function () {
             it("should wrap the title in an h2 tag", function () {
-                let result = Utils.addSectionTitle("Test Title");
-                expect(result).toBe("<h2>Test Title</h2>");
+                let result = Utils.addSectionTitle(23, "Test Title");
+                expect(result).toBe("<h2>23. Test Title</h2>");
             });
         });
 
         describe("addTextRow", function () {
             it("should wrap the text in a p tag", function () {
-                let result = Utils.addTextRow("Sample text");
-                expect(result).toBe("<p>Sample text</p>");
+                let result = Utils.addTextRow(10, 4, "Sample text");
+                expect(result).toBe("<p>10.4. Sample text</p>");
             });
         });
 

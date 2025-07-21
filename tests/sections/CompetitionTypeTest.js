@@ -30,8 +30,8 @@ function runCompetitionTypeTests() {
         it("estraiDurataCompetizione restituisce testo corretto", function () {
             realDomDoc.getElementById("etInizio").value = "3";
             realDomDoc.getElementById("etFine").value = "8";
-            const result = CompetitionType.estraiDurataCompetizione();
-            expect(result).toBe("L'inizio e la fine della competizione corrisponderanno rispettivamente con la giornata 3 e con la giornata 8 del campionato reale.");
+            const result = CompetitionType.estraiDurataCompetizione(23);
+            expect(result).toBe("<p>23.2. L'inizio e la fine della competizione corrisponderanno rispettivamente con la giornata 3 e con la giornata 8 del campionato reale.</p>");
         });
 
         it("produce costruisce stringa completa", function () {
@@ -39,8 +39,8 @@ function runCompetitionTypeTests() {
             realDomDoc.getElementById("etInizio").value = "2";
             realDomDoc.getElementById("etFine").value = "6";
 
-            const result = CompetitionType.produce();
-            expect(result).toContain("<h2>Tipologia competizione</h2>");
+            const result = CompetitionType.produce(4);
+            expect(result).toContain("<h2>4. Tipologia competizione</h2>");
             expect(result).toContain("competizione a listone");
             expect(result).toContain("giornata 2");
             expect(result).toContain("giornata 6");
