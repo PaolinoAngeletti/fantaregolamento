@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>CompetitionType Test</title>
+    <link rel="stylesheet" href="https://unpkg.com/jasmine-core/lib/jasmine-core/jasmine.css" />
+</head>
+
+<body>
+
+    <!-- important for uploading the final report -->
+    <div id="jasmine_content"></div>
+
+    <!-- including jasmine libraries -->
+    <script src="https://unpkg.com/jasmine-core/lib/jasmine-core/jasmine.js"></script>
+    <script src="https://unpkg.com/jasmine-core/lib/jasmine-core/jasmine-html.js"></script>
+    <script src="https://unpkg.com/jasmine-core/lib/jasmine-core/boot0.js"></script>
+    <script src="https://unpkg.com/jasmine-core/lib/jasmine-core/boot1.js"></script>
+
+    <!-- including real scripts -->
+    <script src="../utils/Utils.js"></script>
+    <script src="../sections/CompetitionType.js"></script>
+
+    <!-- including the JS files containing the tests -->
+    <script src="sections/CompetitionTypeTest.js"></script>
+
+    <!-- load the real HTML to run tests on the real DOM -->
+    <iframe id="realDom" src="../index.html" style="display:none;"></iframe>
+
+    <script>
+        let realDomDoc = null;
+
+        // Wait for the iframe to load and be ready
+        document.getElementById('realDom').onload = function () {
+            realDomDoc = this.contentDocument || this.contentWindow.document;
+            if (!realDomDoc) {
+                console.error('Iframe DOM not loaded yet');
+                return;
+            }
+
+            // Override functions to test with the real DOM provided by the iframe.
+            Utils.retrieveDomElement = id => realDomDoc.getElementById(id);
+
+            // tests run
+            runCompetitionTypeTests();
+        };
+    </script>
+
+</body>
+
+</html>
