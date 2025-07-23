@@ -75,6 +75,30 @@ function runResultCalculationTests() {
                 const result = ResultCalculationRules.estraiLarghezzaSoglie();
                 expect(result).toContain("ciascuna da 5 punti");
             });
+
+            it("soglie value cannot be negative", function () {
+                realDomDoc.getElementById('etSoglie').value = "-1";
+                try {
+                    ResultCalculationRules.estraiLarghezzaSoglie();
+                    fail("Should be thrown an exception");
+                } catch (error) {
+                    expect(error.message).toContain("Calcolo giornate");
+                    expect(error.message).toContain("Soglie gol");
+                    expect(error.message).toContain(FieldValidation.NO_NEGATIVE_ERR);
+                }
+            });
+
+            it("soglie value cannot be zero", function () {
+                realDomDoc.getElementById('etSoglie').value = "0";
+                try {
+                    ResultCalculationRules.estraiLarghezzaSoglie();
+                    fail("Should be thrown an exception");
+                } catch (error) {
+                    expect(error.message).toContain("Calcolo giornate");
+                    expect(error.message).toContain("Soglie gol");
+                    expect(error.message).toContain(FieldValidation.NO_ZERO_ERR);
+                }
+            });
         });
 
         describe("estraiGestioneRinvio", function () {

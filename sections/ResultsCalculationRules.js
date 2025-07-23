@@ -1,6 +1,8 @@
 const ResultCalculationRules = {
+    sectionName: "Calcolo giornate",
+
     produce: function (sectionIndex) {
-        var toReturn = Utils.addSectionTitle(sectionIndex, "Calcolo giornate");
+        var toReturn = Utils.addSectionTitle(sectionIndex, this.sectionName);
         toReturn = toReturn + this.estraiPunteggiVittoriaPareggio(sectionIndex);
         toReturn = toReturn + this.estraiBonusMalus(sectionIndex);
         toReturn = toReturn + this.estraiLarghezzaSoglie(sectionIndex);
@@ -48,7 +50,10 @@ const ResultCalculationRules = {
 
     estraiLarghezzaSoglie: function (sectionIndex) {
         let etSoglie = Utils.retrieveDomElement("etSoglie");
-        return Utils.addTextRow(sectionIndex, 3, "Le soglie per il calcolo del numero di gol saranno ciascuna da " + etSoglie.value + " punti.");;
+        let soglieValue = etSoglie.value;
+        FieldValidation.validateInt(this.sectionName, "Soglie gol", soglieValue, false, false);
+
+        return Utils.addTextRow(sectionIndex, 3, "Le soglie per il calcolo del numero di gol saranno ciascuna da " + soglieValue + " punti.");;
     },
 
     estraiAbilitazioneFattoreCampo: function (sectionIndex) {
