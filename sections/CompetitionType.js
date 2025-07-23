@@ -1,6 +1,8 @@
 const CompetitionType = {
+    sectionName: "Tipologia competizione",
+
     produce: function (sectionIndex) {
-        var toReturn = Utils.addSectionTitle(sectionIndex, "Tipologia competizione");
+        var toReturn = Utils.addSectionTitle(sectionIndex, this.sectionName);
         toReturn = toReturn + this.estraiTipoCompetizione(sectionIndex);
         toReturn = toReturn + this.estraiDurataCompetizione(sectionIndex);
         return toReturn;
@@ -26,7 +28,14 @@ const CompetitionType = {
         var toReturn = "";
         var etFine = Utils.retrieveDomElement("etFine");
         var etInizio = Utils.retrieveDomElement("etInizio");
-        toReturn = "L'inizio e la fine della competizione corrisponderanno rispettivamente con la giornata " + etInizio.value + " e con la giornata " + etFine.value + " del campionato reale.";
+
+        let endValue = parseInt(etFine.value);
+        let startValue = parseInt(etInizio.value);
+        FieldValidation.validateInt(this.sectionName, "Fine competizione", endValue, false, false, 38);
+        FieldValidation.validateInt(this.sectionName, "Inizio competizione", startValue, false, false, 38);
+        FieldValidation.compareMinorToMajor(this.sectionName, "Inizio competizione", "Fine competizione", startValue, endValue);
+
+        toReturn = "L'inizio e la fine della competizione corrisponderanno rispettivamente con la giornata " + startValue + " e con la giornata " + endValue + " del campionato reale.";
         return Utils.addTextRow(sectionIndex, 2, toReturn);
     }
 };

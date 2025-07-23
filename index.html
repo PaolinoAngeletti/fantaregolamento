@@ -980,6 +980,23 @@
 	</div>
 	<br><br>
 
+	<!-- validation error area -->
+	<div id="errorSection" style="display: none;">
+		<div class="macro" style="background-color:rgb(204, 85, 0);">
+			<div class="container">
+				<h2 style="color: white;">Errore</h2>
+			</div>
+			<div class="container">
+				<center>
+					<p id="errorMessage" style="color: white;">Error text</p>
+					<br>
+					<button onclick="hideErrorSection()">Ok</button>
+				</center>
+			</div>
+		</div>
+		<br><br>
+	</div>
+
 	<!-- crea regolamento -->
 	<button class="ripple" role="button" onclick="avviaAnteprimaDocumento();">Avvia creazione regolamento</button>
 
@@ -991,7 +1008,6 @@
 	</div>
 
 	<!-- fine -->
-	<br><br>
+	<br><br><br>
 </body>
-
 </html>

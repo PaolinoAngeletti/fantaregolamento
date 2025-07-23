@@ -1,6 +1,8 @@
 const TeamRules = {
+    sectionName: "Struttura rose",
+
     produce: function (sectionIndex) {
-        var toReturn = Utils.addSectionTitle(sectionIndex, "Struttura rose");
+        var toReturn = Utils.addSectionTitle(sectionIndex, this.sectionName);
         toReturn = toReturn + this.estraiNumeroGiocatoriRosa(sectionIndex);
         toReturn = toReturn + this.estraiAbilitazioneGiocatoriCondivisi(sectionIndex);
         return toReturn;
@@ -13,15 +15,20 @@ const TeamRules = {
         let etCentrocampisti = Utils.retrieveDomElement("etCentrocampisti");
         let etAttaccanti = Utils.retrieveDomElement("etAttaccanti");
 
+        let goalkeeperNumber = etPortieri.value;
+        let defensorNumber = etDifensori.value;
+        let midfieldersNumber = etCentrocampisti.value;
+        let attackersNumber = etAttaccanti.value;
+        FieldValidation.validateInt(this.sectionName, "Portieri", goalkeeperNumber, false, false);
+        FieldValidation.validateInt(this.sectionName, "Difensori", defensorNumber, false, false);
+        FieldValidation.validateInt(this.sectionName, "Centrocampisti", midfieldersNumber, false, false);
+        FieldValidation.validateInt(this.sectionName, "Attaccanti", attackersNumber, false, false);
+
         toReturn = toReturn + Utils.addTextRow(sectionIndex, 1, "Le rose dovranno essere cosi composte:");
-        toReturn = toReturn + etPortieri.value + " portieri";
-        toReturn = toReturn + "<br>";
-        toReturn = toReturn + etDifensori.value + " difensori";
-        toReturn = toReturn + "<br>";
-        toReturn = toReturn + etCentrocampisti.value + " centrocampisti";
-        toReturn = toReturn + "<br>";
-        toReturn = toReturn + etAttaccanti.value + " attaccanti";
-        toReturn = toReturn + "<br>";
+        toReturn = toReturn + goalkeeperNumber + " portieri<br>";
+        toReturn = toReturn + defensorNumber + " difensori<br>";
+        toReturn = toReturn + midfieldersNumber + " centrocampisti<br>";
+        toReturn = toReturn + attackersNumber + " attaccanti<br>";
         return toReturn;
     },
 

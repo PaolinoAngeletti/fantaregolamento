@@ -18,5 +18,9 @@ const Utils = {
 
     isValidString: function (string) {
         return string != null && string.trim() !== "";
+    },
+
+    setElementDisplay: function (elementId, displayValue) {
+        this.retrieveDomElement(elementId).style.display = displayValue;
     }
 };

@@ -27,5 +27,85 @@ function runTeamRulesTests() {
 
             expect(html).toContain("NON potranno avere giocatori condivisi");
         });
+
+        it("goalkeeper number cannot be negative", function () {
+            realDomDoc.getElementById("etPortieri").value = "-1";
+            try {
+                TeamRules.estraiNumeroGiocatoriRosa(12);
+                fail("Should be thrown an exception");
+            } catch (error) {
+                expect(error.message).toContain(FieldValidation.NO_NEGATIVE_ERR);
+            }
+        });
+
+        it("goalkeeper number cannot be zero", function () {
+            realDomDoc.getElementById("etPortieri").value = "0";
+            try {
+                TeamRules.estraiNumeroGiocatoriRosa(4);
+                fail("Should be thrown an exception");
+            } catch (error) {
+                expect(error.message).toContain(FieldValidation.NO_ZERO_ERR);
+            }
+        });
+
+        it("defensors number cannot be negative", function () {
+            realDomDoc.getElementById("etDifensori").value = "-1";
+            try {
+                TeamRules.estraiNumeroGiocatoriRosa(3);
+                fail("Should be thrown an exception");
+            } catch (error) {
+                expect(error.message).toContain(FieldValidation.NO_NEGATIVE_ERR);
+            }
+        });
+
+        it("defensors number cannot be zero", function () {
+            realDomDoc.getElementById("etDifensori").value = "0";
+            try {
+                TeamRules.estraiNumeroGiocatoriRosa();
+                fail("Should be thrown an exception");
+            } catch (error) {
+                expect(error.message).toContain(FieldValidation.NO_ZERO_ERR);
+            }
+        });
+
+        it("midfielders number cannot be negative", function () {
+            realDomDoc.getElementById("etCentrocampisti").value = "-1";
+            try {
+                TeamRules.estraiNumeroGiocatoriRosa();
+                fail("Should be thrown an exception");
+            } catch (error) {
+                expect(error.message).toContain(FieldValidation.NO_NEGATIVE_ERR);
+            }
+        });
+
+        it("midfielders number cannot be zero", function () {
+            realDomDoc.getElementById("etCentrocampisti").value = "0";
+            try {
+                TeamRules.estraiNumeroGiocatoriRosa(0);
+                fail("Should be thrown an exception");
+            } catch (error) {
+                expect(error.message).toContain(FieldValidation.NO_ZERO_ERR);
+            }
+        });
+
+        it("attackers number cannot be negative", function () {
+            realDomDoc.getElementById("etAttaccanti").value = "-1";
+            try {
+                TeamRules.estraiNumeroGiocatoriRosa();
+                fail("Should be thrown an exception");
+            } catch (error) {
+                expect(error.message).toContain(FieldValidation.NO_NEGATIVE_ERR);
+            }
+        });
+
+        it("attackers number cannot be zero", function () {
+            realDomDoc.getElementById("etAttaccanti").value = "0";
+            try {
+                TeamRules.estraiNumeroGiocatoriRosa(0);
+                fail("Should be thrown an exception");
+            } catch (error) {
+                expect(error.message).toContain(FieldValidation.NO_ZERO_ERR);
+            }
+        });
     });
 }
