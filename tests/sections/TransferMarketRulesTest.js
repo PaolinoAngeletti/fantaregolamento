@@ -67,5 +67,76 @@ function runTransferMarketRulesTests() {
             const html = TransferMarketRules.estraiEventualiNoteAggiuntiveMercato(6);
             expect(html).toBe("<p>6.7. hello1 hello2-hello3</p>");
         });
+
+        it("credits number cannot be negative", function () {
+            realDomDoc.getElementById("etCrediti").value = "-10";
+            try {
+                TransferMarketRules.estraiNumeroCrediti();
+                fail("Should be thrown an exception");
+            } catch (error) {
+                expect(error.message).toContain(FieldValidation.NO_NEGATIVE_ERR);
+            }
+        });
+
+        it("credits number cannot be zero", function () {
+            realDomDoc.getElementById("etCrediti").value = "0";
+            try {
+                TransferMarketRules.estraiNumeroCrediti();
+                fail("Should be thrown an exception");
+            } catch (error) {
+                expect(error.message).toContain(FieldValidation.NO_ZERO_ERR);
+            }
+        });
+
+        it("additional credits number cannot be negative", function () {
+            realDomDoc.getElementById("etCreditiSessione").value = "-1";
+            try {
+                TransferMarketRules.estraiNumeroCreditiSuccessivi();
+                fail("Should be thrown an exception");
+            } catch (error) {
+                expect(error.message).toContain(FieldValidation.NO_NEGATIVE_ERR);
+            }
+        });
+
+        it("additional credits number can be zero", function () {
+            realDomDoc.getElementById("etCreditiSessione").value = "0";
+            expect(function () {
+                TransferMarketRules.estraiNumeroCreditiSuccessivi();
+            }).not.toThrow();
+        });
+
+        it("testing credits swap enabled", function () {
+            realDomDoc.getElementById("cbScambioCreditiSi").checked = true;
+            const html = TransferMarketRules.estraiAbilitazioneScambioCrediti(2);
+            expect(html).toContain("Sono permessi gli scambi di crediti tra i partecipanti");
+        });
+
+        it("testing credits swap disabled", function () {
+            realDomDoc.getElementById("cbScambioCreditiSi").checked = false;
+            const html = TransferMarketRules.estraiAbilitazioneScambioCrediti(3);
+            expect(html).toContain("Non sono permessi gli scambi di crediti tra i partecipanti");
+        });
+
+        it("testing role change enabled", function () {
+            realDomDoc.getElementById("cbCambioRuoloSi").checked = true;
+            const html = TransferMarketRules.estraiAbilitazioneCambioRuolo();
+            expect(html).toContain("Sono permessi i cambi ruolo dei giocatori");
+        });
+
+        it("testing role change disabled", function () {
+            realDomDoc.getElementById("cbCambioRuoloSi").checked = false;
+            const html = TransferMarketRules.estraiAbilitazioneCambioRuolo();
+            expect(html).toContain("Non verranno applicati cambi ruolo dei giocatori");
+        });
+
+        it("maximum change number cannot be negative", function () {
+            realDomDoc.getElementById("etMassimoScambi").value = "-1";
+            try {
+                TransferMarketRules.estraiNumeroMassimoCambiConsentiti();
+                fail("Should be thrown an exception");
+            } catch (error) {
+                expect(error.message).toContain(FieldValidation.NO_NEGATIVE_ERR);
+            }
+        });
     });
 }

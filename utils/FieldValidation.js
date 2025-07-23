@@ -4,7 +4,7 @@ const FieldValidation = {
     EXCEED_MAX_ERR: "Valore massimo consentito: ",
     SHOULD_BE_MINOR: "deve essere minore o uguale a quello del campo: ",
 
-    validateInt: function (sectionName, fieldName, value, negativeAllowed = false, zeroAllowed = true, maxAllowed = 100) {
+    validateInt: function (sectionName, fieldName, value, negativeAllowed = false, zeroAllowed = true, maxAllowed = null) {
         var errorMessage = null;
         if (!negativeAllowed && value < 0) {
             errorMessage = this.NO_NEGATIVE_ERR;

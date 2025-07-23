@@ -1,6 +1,8 @@
 const TransferMarketRules = {
+    sectionName:"Gestione mercato",
+
     produce: function (sectionIndex) {
-        var toReturn = Utils.addSectionTitle(sectionIndex, "Gestione mercato");
+        var toReturn = Utils.addSectionTitle(sectionIndex, this.sectionName);
         toReturn = toReturn + this.estraiNumeroCrediti(sectionIndex);
         toReturn = toReturn + this.estraiAbilitazioneScambioCrediti(sectionIndex);
         toReturn = toReturn + this.estraiAbilitazioneCambioRuolo(sectionIndex);
@@ -12,13 +14,18 @@ const TransferMarketRules = {
 
     estraiNumeroCrediti: function (sectionIndex) {
         let etCrediti = Utils.retrieveDomElement("etCrediti");
-        var toReturn = Utils.addTextRow(sectionIndex, 1, "Per il mercato iniziale sono previsti " + etCrediti.value + " fantamilioni, utili a comporre la rosa iniziale.");
+        let creditsNumber = etCrediti.value;
+        FieldValidation.validateInt(this.sectionName, "Numero crediti", creditsNumber, false, false);
+
+        var toReturn = Utils.addTextRow(sectionIndex, 1, "Per il mercato iniziale sono previsti " + creditsNumber + " fantamilioni, utili a comporre la rosa iniziale.");
         return toReturn + this.estraiNumeroCreditiSuccessivi(sectionIndex);
     },
 
     estraiNumeroCreditiSuccessivi: function (sectionIndex) {
         let etCreditiSessione = Utils.retrieveDomElement("etCreditiSessione");
         let numeroCreditiSessione = etCreditiSessione.value;
+        FieldValidation.validateInt(this.sectionName, "Numero crediti per sessione", numeroCreditiSessione, false);
+
         if (numeroCreditiSessione > 0) {
             toReturn = "Per le successive sessioni di mercato invece sono previsti " + numeroCreditiSessione + " fantamilioni da aggiungere ad ogni squadra, in modo da permettere transazioni per tutti.";
         } else {
@@ -72,6 +79,8 @@ const TransferMarketRules = {
         var toReturn = "";
         let campoCambiMassimi = Utils.retrieveDomElement("etMassimoScambi");
         let numeroCambi = campoCambiMassimi.value;
+        FieldValidation.validateInt(this.sectionName, "Scambi massimi", numeroCambi, false);
+
         if (numeroCambi > 0) {
             toReturn = "Ogni squadra potrà effettuare un numero massimo di cambio giocatori pari a " + numeroCambi + ".";
         } else {
