@@ -1,6 +1,8 @@
 const FeeAndPrizesRule = {
+    sectionName: "Quote squadre e premi finali",
+
     produce: function (sectionIndex) {
-        var toReturn = Utils.addSectionTitle(sectionIndex, "Quote squadre e premi finali");
+        var toReturn = Utils.addSectionTitle(sectionIndex, this.sectionName);
         toReturn = toReturn + this.estraiQuotaSquadra(sectionIndex);
         toReturn = toReturn + this.estraiDivisionePremi(sectionIndex);
         return toReturn;
@@ -8,7 +10,9 @@ const FeeAndPrizesRule = {
 
     estraiQuotaSquadra: function (sectionIndex) {
         let etQuota = Utils.retrieveDomElement("etQuota");
-        return Utils.addTextRow(sectionIndex, 1, "La quota di partecipazione prevista per ciascuna squadra è di " + etQuota.value + " euro.");;
+        let feeValue = etQuota.value;
+        FieldValidation.validateInt(this.sectionName, "Quota", feeValue, false);
+        return Utils.addTextRow(sectionIndex, 1, "La quota di partecipazione prevista per ciascuna squadra è di " + feeValue + " euro.");;
     },
 
     estraiDivisionePremi: function (sectionIndex) {

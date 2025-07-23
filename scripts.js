@@ -10,6 +10,8 @@ function setup() {
 
 function loadRequiredScripts() {
 	loadScript("utils/Utils.js", () => {
+		loadScript("utils/FieldValidation.js");
+		loadScript("exception/FieldValidationException.js");
 		setupDefaultPrizesValue();
 	});
 	loadSectionsScripts();
@@ -54,9 +56,14 @@ Regulation creation.
 */
 
 function avviaAnteprimaDocumento() {
-	var tab = window.open('', '_blank');
-	tab.document.write(creaCodiceHTML());
-	tab.document.close();
+	try {
+		let htmlCode = creaCodiceHTML();
+		var tab = window.open('', '_blank');
+		tab.document.write(htmlCode);
+		tab.document.close();
+	} catch (errorMessage) {
+		showErrorSection(errorMessage.message);
+	}
 }
 
 function creaCodiceHTML() {
@@ -108,4 +115,13 @@ function applicaModificatore(daApplicare) {
 function inviaMailSupporto() {
 	var link = "mailto:paolinoangeletti@gmail.com?subject=FantaRegolamento | Richiesto supporto&body=Hai bisogno di supporto oppure vuoi aiutarci a completare la pagina? Scrivi qui quello di cui hai bisogno!";
 	window.location.href = link;
+}
+
+function showErrorSection(message) {
+	Utils.setElementDisplay("errorSection", "block");
+	Utils.retrieveDomElement("errorMessage").innerHTML = message;
+}
+
+function hideErrorSection() {
+	Utils.setElementDisplay("errorSection", "none");
 }

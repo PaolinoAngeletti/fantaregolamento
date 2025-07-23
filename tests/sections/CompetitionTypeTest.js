@@ -14,7 +14,6 @@ function runCompetitionTypeTests() {
             expect(result).toContain("classica competizione a calendario");
         });
 
-
         it("estraiTipoCompetizione con FormulaUno checked", function () {
             realDomDoc.getElementById("cbFormulaUno").checked = true;
             const result = CompetitionType.estraiTipoCompetizione();
@@ -27,14 +26,98 @@ function runCompetitionTypeTests() {
             expect(result).toContain("competizione a listone");
         });
 
-        it("estraiDurataCompetizione restituisce testo corretto", function () {
+        it("estraiDurataCompetizione returns the correct text", function () {
             realDomDoc.getElementById("etInizio").value = "3";
             realDomDoc.getElementById("etFine").value = "8";
             const result = CompetitionType.estraiDurataCompetizione(23);
             expect(result).toBe("<p>23.2. L'inizio e la fine della competizione corrisponderanno rispettivamente con la giornata 3 e con la giornata 8 del campionato reale.</p>");
         });
 
-        it("produce costruisce stringa completa", function () {
+        it("competition start cannot be negative", function () {
+            realDomDoc.getElementById("etInizio").value = "-1";
+            try {
+                CompetitionType.estraiDurataCompetizione(0);
+                fail("Should be thrown an exception");
+            } catch (error) {
+                expect(error.message).toContain("Tipologia competizione");
+                expect(error.message).toContain("Inizio competizione");
+                expect(error.message).toContain(FieldValidation.NO_NEGATIVE_ERR);
+            }
+        });
+
+        it("competition start cannot be zero", function () {
+            realDomDoc.getElementById("etInizio").value = "0";
+            try {
+                CompetitionType.estraiDurataCompetizione(0);
+                fail("Should be thrown an exception");
+            } catch (error) {
+                expect(error.message).toContain("Tipologia competizione");
+                expect(error.message).toContain("Inizio competizione");
+                expect(error.message).toContain(FieldValidation.NO_ZERO_ERR);
+            }
+        });
+
+        it("competition start cannot exceed its max value", function () {
+            realDomDoc.getElementById("etInizio").value = "39";
+            try {
+                CompetitionType.estraiDurataCompetizione(0);
+                fail("Should be thrown an exception");
+            } catch (error) {
+                expect(error.message).toContain("Tipologia competizione");
+                expect(error.message).toContain("Inizio competizione");
+                expect(error.message).toContain(FieldValidation.EXCEED_MAX_ERR);
+            }
+        });
+
+        it("competition end cannot be negative", function () {
+            realDomDoc.getElementById("etFine").value = "-2";
+            try {
+                CompetitionType.estraiDurataCompetizione(0);
+                fail("Should be thrown an exception");
+            } catch (error) {
+                expect(error.message).toContain("Tipologia competizione");
+                expect(error.message).toContain("Fine competizione");
+                expect(error.message).toContain(FieldValidation.NO_NEGATIVE_ERR);
+            }
+        });
+
+        it("competition end cannot be zero", function () {
+            realDomDoc.getElementById("etFine").value = "0";
+            try {
+                CompetitionType.estraiDurataCompetizione(0);
+                fail("Should be thrown an exception");
+            } catch (error) {
+                expect(error.message).toContain("Tipologia competizione");
+                expect(error.message).toContain("Fine competizione");
+                expect(error.message).toContain(FieldValidation.NO_ZERO_ERR);
+            }
+        });
+
+        it("competition end cannot exceed its max value", function () {
+            realDomDoc.getElementById("etFine").value = "42";
+            try {
+                CompetitionType.estraiDurataCompetizione(12);
+                fail("Should be thrown an exception");
+            } catch (error) {
+                expect(error.message).toContain("Tipologia competizione");
+                expect(error.message).toContain("Fine competizione");
+                expect(error.message).toContain(FieldValidation.EXCEED_MAX_ERR);
+            }
+        });
+
+        it("competition start cannot be greater then end", function () {
+            realDomDoc.getElementById("etInizio").value = "10";
+            realDomDoc.getElementById("etFine").value = "9";
+            try {
+                CompetitionType.estraiDurataCompetizione(20);
+                fail("Should be thrown an exception");
+            } catch (error) {
+                expect(error.message).toContain("Tipologia competizione");
+                expect(error.message).toContain(FieldValidation.SHOULD_BE_MINOR);
+            }
+        });
+
+        it("produce build correctly the entire string", function () {
             realDomDoc.getElementById("cbListone").checked = true;
             realDomDoc.getElementById("etInizio").value = "2";
             realDomDoc.getElementById("etFine").value = "6";

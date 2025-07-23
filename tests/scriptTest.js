@@ -1,6 +1,21 @@
 function runMainScriptTests() {
     describe("RegulationCreationTest", function () {
         it("generate a valid and complete HTML document", function () {
+
+            //setting correct values from verified fields.
+            realDomDoc.getElementById("etInizio").value = "1";
+            realDomDoc.getElementById("etFine").value = "30";
+            realDomDoc.getElementById("etPortieri").value = "3";
+            realDomDoc.getElementById("etDifensori").value = "8";
+            realDomDoc.getElementById("etCentrocampisti").value = "8";
+            realDomDoc.getElementById("etAttaccanti").value = "6";
+            realDomDoc.getElementById("etCrediti").value = "300";
+            realDomDoc.getElementById("etCreditiSessione").value = "0";
+            realDomDoc.getElementById("etMassimoScambi").value = "2";
+            realDomDoc.getElementById("etTolleranza").value = "10";
+            realDomDoc.getElementById('etSoglie').value = "5";
+            realDomDoc.getElementById("etQuota").value = "50";
+            
             const html = creaCodiceHTML();
             expect(html).toContain("<!DOCTYPE html>");
             expect(html).toContain("<html>");

@@ -1,6 +1,8 @@
 const InsertTeamRules = {
+    sectionName: "Inserimento formazione",
+
     produce: function (sectionIndex) {
-        var toReturn = Utils.addSectionTitle(sectionIndex, "Inserimento formazione");
+        var toReturn = Utils.addSectionTitle(sectionIndex, this.sectionName);
         toReturn = toReturn + this.estraiMinutiTolleranza(sectionIndex);
         toReturn = toReturn + this.estraiModuliConsentiti(sectionIndex);
         toReturn = toReturn + this.estraiGestioneFormazioneNonInserita(sectionIndex);
@@ -13,6 +15,8 @@ const InsertTeamRules = {
         var toReturn = "";
         let etTolleranza = Utils.retrieveDomElement("etTolleranza");
         let numeroMinuti = etTolleranza.value;
+        FieldValidation.validateInt(this.sectionName, "Tolleranza ritardo", numeroMinuti, false, false);
+
         if (numeroMinuti <= 1) {
             toReturn = "Le formazioni devono essere inserite entro un minuto dall’inizio della giornata reale del campionato italiano.";
         } else {
