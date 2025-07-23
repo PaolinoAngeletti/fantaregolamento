@@ -39,6 +39,8 @@ function runCompetitionTypeTests() {
                 CompetitionType.estraiDurataCompetizione(0);
                 fail("Should be thrown an exception");
             } catch (error) {
+                expect(error.message).toContain("Tipologia competizione");
+                expect(error.message).toContain("Inizio competizione");
                 expect(error.message).toContain(FieldValidation.NO_NEGATIVE_ERR);
             }
         });
@@ -49,6 +51,8 @@ function runCompetitionTypeTests() {
                 CompetitionType.estraiDurataCompetizione(0);
                 fail("Should be thrown an exception");
             } catch (error) {
+                expect(error.message).toContain("Tipologia competizione");
+                expect(error.message).toContain("Inizio competizione");
                 expect(error.message).toContain(FieldValidation.NO_ZERO_ERR);
             }
         });
@@ -59,6 +63,8 @@ function runCompetitionTypeTests() {
                 CompetitionType.estraiDurataCompetizione(0);
                 fail("Should be thrown an exception");
             } catch (error) {
+                expect(error.message).toContain("Tipologia competizione");
+                expect(error.message).toContain("Inizio competizione");
                 expect(error.message).toContain(FieldValidation.EXCEED_MAX_ERR);
             }
         });
@@ -69,6 +75,8 @@ function runCompetitionTypeTests() {
                 CompetitionType.estraiDurataCompetizione(0);
                 fail("Should be thrown an exception");
             } catch (error) {
+                expect(error.message).toContain("Tipologia competizione");
+                expect(error.message).toContain("Fine competizione");
                 expect(error.message).toContain(FieldValidation.NO_NEGATIVE_ERR);
             }
         });
@@ -79,6 +87,8 @@ function runCompetitionTypeTests() {
                 CompetitionType.estraiDurataCompetizione(0);
                 fail("Should be thrown an exception");
             } catch (error) {
+                expect(error.message).toContain("Tipologia competizione");
+                expect(error.message).toContain("Fine competizione");
                 expect(error.message).toContain(FieldValidation.NO_ZERO_ERR);
             }
         });
@@ -89,6 +99,8 @@ function runCompetitionTypeTests() {
                 CompetitionType.estraiDurataCompetizione(12);
                 fail("Should be thrown an exception");
             } catch (error) {
+                expect(error.message).toContain("Tipologia competizione");
+                expect(error.message).toContain("Fine competizione");
                 expect(error.message).toContain(FieldValidation.EXCEED_MAX_ERR);
             }
         });
@@ -100,6 +112,7 @@ function runCompetitionTypeTests() {
                 CompetitionType.estraiDurataCompetizione(20);
                 fail("Should be thrown an exception");
             } catch (error) {
+                expect(error.message).toContain("Tipologia competizione");
                 expect(error.message).toContain(FieldValidation.SHOULD_BE_MINOR);
             }
         });

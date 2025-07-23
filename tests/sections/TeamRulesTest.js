@@ -34,6 +34,8 @@ function runTeamRulesTests() {
                 TeamRules.estraiNumeroGiocatoriRosa(12);
                 fail("Should be thrown an exception");
             } catch (error) {
+                expect(error.message).toContain("Struttura rose");
+                expect(error.message).toContain("Portieri");
                 expect(error.message).toContain(FieldValidation.NO_NEGATIVE_ERR);
             }
         });
@@ -44,6 +46,8 @@ function runTeamRulesTests() {
                 TeamRules.estraiNumeroGiocatoriRosa(4);
                 fail("Should be thrown an exception");
             } catch (error) {
+                expect(error.message).toContain("Struttura rose");
+                expect(error.message).toContain("Portieri");
                 expect(error.message).toContain(FieldValidation.NO_ZERO_ERR);
             }
         });
@@ -54,6 +58,8 @@ function runTeamRulesTests() {
                 TeamRules.estraiNumeroGiocatoriRosa(3);
                 fail("Should be thrown an exception");
             } catch (error) {
+                expect(error.message).toContain("Struttura rose");
+                expect(error.message).toContain("Difensori");
                 expect(error.message).toContain(FieldValidation.NO_NEGATIVE_ERR);
             }
         });
@@ -64,6 +70,8 @@ function runTeamRulesTests() {
                 TeamRules.estraiNumeroGiocatoriRosa();
                 fail("Should be thrown an exception");
             } catch (error) {
+                expect(error.message).toContain("Struttura rose");
+                expect(error.message).toContain("Difensori");
                 expect(error.message).toContain(FieldValidation.NO_ZERO_ERR);
             }
         });
@@ -74,6 +82,8 @@ function runTeamRulesTests() {
                 TeamRules.estraiNumeroGiocatoriRosa();
                 fail("Should be thrown an exception");
             } catch (error) {
+                expect(error.message).toContain("Struttura rose");
+                expect(error.message).toContain("Centrocampisti");
                 expect(error.message).toContain(FieldValidation.NO_NEGATIVE_ERR);
             }
         });
@@ -84,6 +94,8 @@ function runTeamRulesTests() {
                 TeamRules.estraiNumeroGiocatoriRosa(0);
                 fail("Should be thrown an exception");
             } catch (error) {
+                expect(error.message).toContain("Struttura rose");
+                expect(error.message).toContain("Centrocampisti");
                 expect(error.message).toContain(FieldValidation.NO_ZERO_ERR);
             }
         });
@@ -94,6 +106,8 @@ function runTeamRulesTests() {
                 TeamRules.estraiNumeroGiocatoriRosa();
                 fail("Should be thrown an exception");
             } catch (error) {
+                expect(error.message).toContain("Struttura rose");
+                expect(error.message).toContain("Attaccanti");
                 expect(error.message).toContain(FieldValidation.NO_NEGATIVE_ERR);
             }
         });
@@ -104,6 +118,8 @@ function runTeamRulesTests() {
                 TeamRules.estraiNumeroGiocatoriRosa(0);
                 fail("Should be thrown an exception");
             } catch (error) {
+                expect(error.message).toContain("Struttura rose");
+                expect(error.message).toContain("Attaccanti");
                 expect(error.message).toContain(FieldValidation.NO_ZERO_ERR);
             }
         });

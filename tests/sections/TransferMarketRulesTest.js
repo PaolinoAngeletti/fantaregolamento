@@ -74,6 +74,8 @@ function runTransferMarketRulesTests() {
                 TransferMarketRules.estraiNumeroCrediti();
                 fail("Should be thrown an exception");
             } catch (error) {
+                expect(error.message).toContain("Gestione mercato");
+                expect(error.message).toContain("Numero crediti");
                 expect(error.message).toContain(FieldValidation.NO_NEGATIVE_ERR);
             }
         });
@@ -84,6 +86,8 @@ function runTransferMarketRulesTests() {
                 TransferMarketRules.estraiNumeroCrediti();
                 fail("Should be thrown an exception");
             } catch (error) {
+                expect(error.message).toContain("Gestione mercato");
+                expect(error.message).toContain("Numero crediti");
                 expect(error.message).toContain(FieldValidation.NO_ZERO_ERR);
             }
         });
@@ -94,6 +98,8 @@ function runTransferMarketRulesTests() {
                 TransferMarketRules.estraiNumeroCreditiSuccessivi();
                 fail("Should be thrown an exception");
             } catch (error) {
+                expect(error.message).toContain("Gestione mercato");
+                expect(error.message).toContain("Numero crediti per sessione");
                 expect(error.message).toContain(FieldValidation.NO_NEGATIVE_ERR);
             }
         });
@@ -135,6 +141,8 @@ function runTransferMarketRulesTests() {
                 TransferMarketRules.estraiNumeroMassimoCambiConsentiti();
                 fail("Should be thrown an exception");
             } catch (error) {
+                expect(error.message).toContain("Gestione mercato");
+                expect(error.message).toContain("Scambi massimi");
                 expect(error.message).toContain(FieldValidation.NO_NEGATIVE_ERR);
             }
         });
