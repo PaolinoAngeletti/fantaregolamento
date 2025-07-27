@@ -112,11 +112,6 @@ function applicaModificatore(daApplicare) {
 	}
 }
 
-function inviaMailSupporto() {
-	var link = "mailto:paolinoangeletti@gmail.com?subject=FantaRegolamento | Richiesto supporto&body=Hai bisogno di supporto oppure vuoi aiutarci a completare la pagina? Scrivi qui quello di cui hai bisogno!";
-	window.location.href = link;
-}
-
 function showErrorSection(message) {
 	Utils.setElementDisplay("errorSection", "block");
 	Utils.retrieveDomElement("errorMessage").innerHTML = message;
