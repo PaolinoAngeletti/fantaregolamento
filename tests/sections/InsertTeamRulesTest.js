@@ -15,7 +15,7 @@ function runInsertTeamRuleTests() {
                 const result = InsertTeamRules.produce(4);
                 expect(result).toContain("<h2>4. Inserimento formazione");
                 expect(result).toContain("<p>4.1. Le formazioni devono essere inserite entro 10 minuti");
-                expect(result).toContain("<p>4.2. I moduli consentiti per le formazioni sono:</p>4-4-2");
+                expect(result).toContain("<p>4.2. I moduli consentiti per le formazioni sono:</p><ul><li>4-4-2");
                 expect(result).toContain("<p>4.3. Se la formazione, per qualsiasi motivo");
                 expect(result).toContain("<p>4.4. La panchina dovrà avere la seguente struttura: 1P.");
                 expect(result).toContain("<p>4.5. Sono ammesse le formazioni invisibili");

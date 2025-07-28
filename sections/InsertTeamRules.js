@@ -37,15 +37,16 @@ const InsertTeamRules = {
         modulesString = this.verificaSingoloModulo(modulesString, "cb541", "5-4-1");
         modulesString = this.verificaSingoloModulo(modulesString, "cb631", "6-3-1");
         modulesString = this.verificaSingoloModulo(modulesString, "cb622", "6-2-2");
-
         FieldValidation.isValidString(this.sectionName, "Moduli supportati", modulesString);
-        return Utils.addTextRow(sectionIndex, 2, "I moduli consentiti per le formazioni sono:") + modulesString;
+
+        let toReturn = Utils.addTextRow(sectionIndex, 2, "I moduli consentiti per le formazioni sono:");
+        return toReturn + "<ul>" + modulesString + "</ul>";
     },
 
     verificaSingoloModulo: function (toReturn, idModulo, descrizione) {
         let etModulo = Utils.retrieveDomElement(idModulo);
         if (etModulo.checked) {
-            toReturn = toReturn + descrizione + "<br>";
+            toReturn = toReturn + "<li>" + descrizione + "</li>";
         }
         return toReturn;
     },
