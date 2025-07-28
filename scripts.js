@@ -61,6 +61,7 @@ function avviaAnteprimaDocumento() {
 		var tab = window.open('', '_blank');
 		tab.document.write(htmlCode);
 		tab.document.close();
+		hideErrorSection();
 	} catch (errorMessage) {
 		showErrorSection(errorMessage.message);
 	}
