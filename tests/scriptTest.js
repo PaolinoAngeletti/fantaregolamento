@@ -15,6 +15,8 @@ function runMainScriptTests() {
             realDomDoc.getElementById("etTolleranza").value = "10";
             realDomDoc.getElementById('etSoglie').value = "5";
             realDomDoc.getElementById("etQuota").value = "50";
+            realDomDoc.getElementById("cbPenalitaNo").checked = true;
+            realDomDoc.getElementById("cb442").checked = true;
             
             const html = creaCodiceHTML();
             expect(html).toContain("<!DOCTYPE html>");

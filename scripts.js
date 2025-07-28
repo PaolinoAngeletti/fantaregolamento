@@ -112,6 +112,15 @@ function applicaModificatore(daApplicare) {
 	}
 }
 
+function showPenaltySection(toShow)
+{
+	if(toShow){
+		Utils.showDomElement("penaltySection");
+	} else {
+		Utils.setElementDisplay("penaltySection", "none");
+	}
+}
+
 function showErrorSection(message) {
 	Utils.setElementDisplay("errorSection", "block");
 	Utils.retrieveDomElement("errorMessage").innerHTML = message;

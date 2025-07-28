@@ -20,6 +20,10 @@ const Utils = {
         return string != null && string.trim() !== "";
     },
 
+    showDomElement: function (elementId) {
+        this.setElementDisplay(elementId, "block");
+    },
+
     setElementDisplay: function (elementId, displayValue) {
         this.retrieveDomElement(elementId).style.display = displayValue;
     }

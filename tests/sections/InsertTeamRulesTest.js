@@ -10,16 +10,18 @@ function runInsertTeamRuleTests() {
                 realDomDoc.getElementById("cbMancataNulla").checked = true;
                 realDomDoc.getElementById("cbInvisibiliSi").checked = true;
                 realDomDoc.getElementById("cb442").checked = true;
+                realDomDoc.getElementById("cbPenalitaNo").checked = true;
                 realDomDoc.getElementById("etNoteFormazione").value = "notes";
 
                 const result = InsertTeamRules.produce(4);
                 expect(result).toContain("<h2>4. Inserimento formazione");
-                expect(result).toContain("<p>4.1. Le formazioni devono essere inserite entro 10 minuti");
-                expect(result).toContain("<p>4.2. I moduli consentiti per le formazioni sono:</p><ul><li>4-4-2");
-                expect(result).toContain("<p>4.3. Se la formazione, per qualsiasi motivo");
-                expect(result).toContain("<p>4.4. La panchina dovrà avere la seguente struttura: 1P.");
-                expect(result).toContain("<p>4.5. Sono ammesse le formazioni invisibili");
-                expect(result).toContain("<p>4.6. notes");
+                expect(result).toContain("<p>4.1. La panchina dovrà avere la seguente struttura: 1P.");
+                expect(result).toContain("<p>4.2. Le formazioni devono essere inserite entro 10 minuti");
+                expect(result).toContain("<p>4.3. I moduli consentiti per le formazioni sono:</p><ul><li>4-4-2");
+                expect(result).toContain("<p>4.4. Se la formazione, per qualsiasi motivo");
+                expect(result).toContain("<p>4.5. Non è prevista nessuna penalità per il mancato inserimento della formazione.");
+                expect(result).toContain("<p>4.6. Sono ammesse le formazioni invisibili");
+                expect(result).toContain("<p>4.7. notes");
             });
         });
 
@@ -233,6 +235,37 @@ function runInsertTeamRuleTests() {
             });
         });
 
+        describe("no team insert and penalties tests", function () {
+            it('penalties disabled test', () => {
+                realDomDoc.getElementById("cbPenalitaNo").checked = true;
+                realDomDoc.getElementById("cbPenalitaSi").checked = false;
+                const result = InsertTeamRules.estraiGestionePenalita(4);
+                expect(result).toContain("<p>4.5. Non è prevista nessuna penalità per il mancato inserimento della formazione.");
+            });
+
+            it('penalties enabled and penalty inserted test', () => {
+                realDomDoc.getElementById("cbPenalitaNo").checked = false;
+                realDomDoc.getElementById("cbPenalitaSi").checked = true;
+                realDomDoc.getElementById("taPenalita").value = "test-penalty";
+                const result = InsertTeamRules.estraiGestionePenalita(8);
+                expect(result).toContain("<p>8.5. Quando un giocatore non inserisce la formazione per una giornata, verrà applicata la seguente penalità: test-penalty");
+            });
+
+            it('penalties enabled and penalty left empty test', () => {
+                realDomDoc.getElementById("cbPenalitaNo").checked = false;
+                realDomDoc.getElementById("cbPenalitaSi").checked = true;
+                realDomDoc.getElementById("taPenalita").value = "";
+                try {
+                    InsertTeamRules.estraiGestionePenalita();
+                    fail("Should be thrown an exception");
+                } catch (error) {
+                    expect(error.message).toContain("Inserimento formazione");
+                    expect(error.message).toContain("Penalità");
+                    expect(error.message).toContain(FieldValidation.NO_EMPTY_ERR);
+                }
+            });
+        });
+
         describe("structure tests", function () {
             it('should return the correct panchina structure', () => {
                 realDomDoc.getElementById("etPanchina").value = "1P 2A";
@@ -267,7 +300,7 @@ function runInsertTeamRuleTests() {
                 realDomDoc.getElementById("etNoteFormazione").value = "hello1 hello2-hello3";
 
                 const html = InsertTeamRules.estraiEventualiNoteAggiuntive(10);
-                expect(html).toBe("<p>10.6. hello1 hello2-hello3</p>");
+                expect(html).toBe("<p>10.7. hello1 hello2-hello3</p>");
             });
         });
     });
