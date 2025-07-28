@@ -3,6 +3,7 @@ const FieldValidation = {
     NO_ZERO_ERR: "Valore zero non permesso",
     EXCEED_MAX_ERR: "Valore massimo consentito: ",
     SHOULD_BE_MINOR: "deve essere minore o uguale a quello del campo: ",
+    NO_EMPTY_ERR: "Devi inserire almeno un valore",
 
     validateInt: function (sectionName, fieldName, value, negativeAllowed = false, zeroAllowed = true, maxAllowed = null) {
         var errorMessage = null;
@@ -22,6 +23,12 @@ const FieldValidation = {
     compareMinorToMajor: function (sectionName, fieldNameMinor, fieldNameMajor, shouldBeMinor, shouldBeMajor) {
         if (shouldBeMinor > shouldBeMajor) {
             throw new FieldValidationException(sectionName, null, "Il valore del campo: '" + fieldNameMinor + "' " + this.SHOULD_BE_MINOR + "'" + fieldNameMajor + "'");
+        }
+    },
+
+    isValidString: function (sectionName, fieldName, string) {
+        if (!Utils.isValidString(string)) {
+            throw new FieldValidationException(sectionName, fieldName, this.NO_EMPTY_ERR);
         }
     }
 };

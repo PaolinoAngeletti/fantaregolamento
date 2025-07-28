@@ -1,5 +1,26 @@
 function runResultCalculationTests() {
     describe("ResultCalculationRules", function () {
+        describe('produce', () => {
+            it('should produce full HTML section', () => {
+                realDomDoc.getElementById('etSoglie').value = "2";
+                realDomDoc.getElementById('cbNessunLimite').checked = true;
+                realDomDoc.getElementById('cbAmmIgnorata').checked = true;
+                realDomDoc.getElementById('cbFattoreSi').checked = false;
+                realDomDoc.getElementById('cbRinvioMai').checked = true;
+                realDomDoc.getElementById('cbModificatoreNo').checked = true;
+                realDomDoc.getElementById("etNoteSostituzioni").value = "notes";
+
+                const result = ResultCalculationRules.produce(3);
+                expect(result).toContain("<h2>3. Calcolo giornate");
+                expect(result).toContain("<p>3.1. I punteggi rilevati da una singola partita saranno:");
+                expect(result).toContain("<p>3.2. I bonus e malus previsti dalla competizione saranno:");
+                expect(result).toContain("<p>3.3. Le soglie per il calcolo del numero di gol saranno ciascuna da 2 punti");
+                expect(result).toContain("<p>3.4. Non verrà applicato mai nessun fattore campo");
+                expect(result).toContain("<p>3.5. Nel caso in cui una o più partite vengano rinviate per qualsiasi motivo");
+                expect(result).toContain("<p>3.6. Il calcolo della giornata non prevede nessun modificatore di difesa");
+            });
+        });
+
         describe("estraiPunteggiVittoriaPareggio", function () {
             it("should return correct text with specific values", function () {
                 realDomDoc.getElementById('etVittoria').value = "3";
