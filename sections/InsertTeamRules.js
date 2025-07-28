@@ -3,13 +3,19 @@ const InsertTeamRules = {
 
     produce: function (sectionIndex) {
         var toReturn = Utils.addSectionTitle(sectionIndex, this.sectionName);
+        toReturn = toReturn + this.estraiStrutturaPanchina(sectionIndex);
         toReturn = toReturn + this.estraiMinutiTolleranza(sectionIndex);
         toReturn = toReturn + this.estraiModuliConsentiti(sectionIndex);
         toReturn = toReturn + this.estraiGestioneFormazioneNonInserita(sectionIndex);
-        toReturn = toReturn + this.estraiStrutturaPanchina(sectionIndex);
+        toReturn = toReturn + this.estraiGestionePenalita(sectionIndex);
         toReturn = toReturn + this.estraiAbilitazioneFormazioniInvisibili(sectionIndex);
         toReturn = toReturn + this.estraiEventualiNoteAggiuntive(sectionIndex);
         return toReturn;
+    },
+
+    estraiStrutturaPanchina: function (sectionIndex) {
+        let etStruttura = Utils.retrieveDomElement("etPanchina");
+        return Utils.addTextRow(sectionIndex, 1, "La panchina dovrà avere la seguente struttura: " + etStruttura.value + ".");;
     },
 
     estraiMinutiTolleranza: function (sectionIndex) {
@@ -23,7 +29,7 @@ const InsertTeamRules = {
         } else {
             toReturn = "Le formazioni devono essere inserite entro " + numeroMinuti + " minuti dall’inizio della giornata reale del campionato italiano.";
         }
-        return Utils.addTextRow(sectionIndex, 1, toReturn);
+        return Utils.addTextRow(sectionIndex, 2, toReturn);
     },
 
     estraiModuliConsentiti: function (sectionIndex) {
@@ -39,7 +45,7 @@ const InsertTeamRules = {
         modulesString = this.verificaSingoloModulo(modulesString, "cb622", "6-2-2");
         FieldValidation.isValidString(this.sectionName, "Moduli supportati", modulesString);
 
-        let toReturn = Utils.addTextRow(sectionIndex, 2, "I moduli consentiti per le formazioni sono:");
+        let toReturn = Utils.addTextRow(sectionIndex, 3, "I moduli consentiti per le formazioni sono:");
         return toReturn + "<ul>" + modulesString + "</ul>";
     },
 
@@ -59,12 +65,24 @@ const InsertTeamRules = {
         } else {
             toReturn = "Se la formazione, per qualsiasi motivo, non viene inserita, verrà recuperata la formazione della giornata precedente.";
         }
-        return Utils.addTextRow(sectionIndex, 3, toReturn);
+        return Utils.addTextRow(sectionIndex, 4, toReturn);
     },
 
-    estraiStrutturaPanchina: function (sectionIndex) {
-        let etStruttura = Utils.retrieveDomElement("etPanchina");
-        return Utils.addTextRow(sectionIndex, 4, "La panchina dovrà avere la seguente struttura: " + etStruttura.value + ".");;
+    estraiGestionePenalita: function (sectionIndex) {
+        var toReturn = "";
+        let cbPenaltiesNo = Utils.retrieveDomElement("cbPenalitaNo");
+        if (cbPenaltiesNo.checked) {
+            toReturn = "Non è prevista nessuna penalità per il mancato inserimento della formazione.";
+        } else {
+            let cbPenaltiesYes = Utils.retrieveDomElement("cbPenalitaSi");
+            if (cbPenaltiesYes.checked) {
+                let penaltyArea = Utils.retrieveDomElement("taPenalita");
+                let penaltyValue = penaltyArea.value;
+                FieldValidation.isValidString(this.sectionName, "Penalità", penaltyValue);
+                toReturn = "Quando un giocatore non inserisce la formazione per una giornata, verrà applicata la seguente penalità: " + penaltyValue;
+            }
+        }
+        return Utils.addTextRow(sectionIndex, 5, toReturn);
     },
 
     estraiAbilitazioneFormazioniInvisibili: function (sectionIndex) {
@@ -75,7 +93,7 @@ const InsertTeamRules = {
         } else {
             toReturn = "Non sono ammesse le formazioni invisibili.";
         }
-        return Utils.addTextRow(sectionIndex, 5, toReturn);
+        return Utils.addTextRow(sectionIndex, 6, toReturn);
     },
 
     estraiEventualiNoteAggiuntive: function (sectionIndex) {
@@ -84,7 +102,7 @@ const InsertTeamRules = {
         if (etNote != null) {
             var noteText = etNote.value;
             if (noteText.trim() !== "") {
-                toReturn = Utils.addTextRow(sectionIndex, 6, Utils.resolveEscapes(noteText));
+                toReturn = Utils.addTextRow(sectionIndex, 7, Utils.resolveEscapes(noteText));
             }
         }
         return toReturn;

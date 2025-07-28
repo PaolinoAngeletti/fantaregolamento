@@ -431,6 +431,21 @@
 			<h2>Inserimento formazione</h2>
 		</div>
 		<div class="container">
+			<h4>Struttura panchina</h4>
+		</div>
+		<div class="container">
+			<center>
+				<p>Indica la struttura e l'ordinamento della panchina</p>
+			</center>
+		</div>
+		<br>
+		<div class="container">
+			<div class="form-group">
+				<input id="etPanchina" type="text" data-rule="required" value="PP-DDD-CCC-AAA" />
+			</div>
+		</div>
+		<br>
+		<div class="container">
 			<h4>Tolleranza ritardo</h4>
 		</div>
 		<div class="container">
@@ -488,18 +503,39 @@
 		</div>
 		<br>
 		<div class="container">
-			<h4>Struttura panchina</h4>
+			<h4>Penalità mancato inserimento</h4>
 		</div>
 		<div class="container">
 			<center>
-				<p>Indica la struttura e l'ordinamento della panchina</p>
+				<p>Indica se è prevista una penalità nel caso in cui un giocatore non inserisca la formazione per una
+					specifica giornata
+				</p>
 			</center>
 		</div>
 		<br>
 		<div class="container">
-			<div class="form-group">
-				<input id="etPanchina" type="text" data-rule="required" value="PP-DDD-CCC-AAA" />
-			</div>
+			<form>
+				<label>
+					<input id="cbPenalitaNo" type="radio" name="radio" onclick="showPenaltySection(false);" checked />
+					<span>Non è prevista nessuna penalità per il mancato inserimento della formazione</span>
+				</label>
+				<label>
+					<input id="cbPenalitaSi" type="radio" name="radio" onclick="showPenaltySection(true);" />
+					<span>E' prevista una penalità quando un giocatore non inserisce la formazione.</span>
+				</label>
+				<div id="penaltySection" style="display:none;">
+					<br>
+					<div class="container">
+						<center>
+							<p>Indica la penalità da applicare:</p>
+						</center>
+					</div>
+					<br>
+					<center>
+						<textarea id="taPenalita" class="textarea"></textarea>
+					</center>
+				</div>
+			</form>
 		</div>
 		<br>
 		<div class="container">
