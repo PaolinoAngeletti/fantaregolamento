@@ -8,6 +8,7 @@ const InsertTeamRules = {
         toReturn = toReturn + this.estraiGestioneFormazioneNonInserita(sectionIndex);
         toReturn = toReturn + this.estraiStrutturaPanchina(sectionIndex);
         toReturn = toReturn + this.estraiAbilitazioneFormazioniInvisibili(sectionIndex);
+        toReturn = toReturn + this.estraiEventualiNoteAggiuntive(sectionIndex);
         return toReturn;
     },
 
@@ -26,23 +27,26 @@ const InsertTeamRules = {
     },
 
     estraiModuliConsentiti: function (sectionIndex) {
-        var toReturn = Utils.addTextRow(sectionIndex, 2, "I moduli consentiti per le formazioni sono:");
-        toReturn = this.verificaSingoloModulo(toReturn, "checkboxOne", "4-4-2");
-        toReturn = this.verificaSingoloModulo(toReturn, "checkboxTwo", "4-3-3");
-        toReturn = this.verificaSingoloModulo(toReturn, "checkboxThree", "4-5-1");
-        toReturn = this.verificaSingoloModulo(toReturn, "checkboxFour", "3-4-3");
-        toReturn = this.verificaSingoloModulo(toReturn, "checkboxFive", "3-5-2");
-        toReturn = this.verificaSingoloModulo(toReturn, "checkboxSix", "5-3-2");
-        toReturn = this.verificaSingoloModulo(toReturn, "checkboxSeven", "5-4-1");
-        toReturn = this.verificaSingoloModulo(toReturn, "checkboxEight", "6-3-1");
-        toReturn = this.verificaSingoloModulo(toReturn, "checkboxNine", "6-2-2");
-        return toReturn;
+        var modulesString = "";
+        modulesString = this.verificaSingoloModulo(modulesString, "cb442", "4-4-2");
+        modulesString = this.verificaSingoloModulo(modulesString, "cb433", "4-3-3");
+        modulesString = this.verificaSingoloModulo(modulesString, "cb451", "4-5-1");
+        modulesString = this.verificaSingoloModulo(modulesString, "cb343", "3-4-3");
+        modulesString = this.verificaSingoloModulo(modulesString, "cb352", "3-5-2");
+        modulesString = this.verificaSingoloModulo(modulesString, "cb532", "5-3-2");
+        modulesString = this.verificaSingoloModulo(modulesString, "cb541", "5-4-1");
+        modulesString = this.verificaSingoloModulo(modulesString, "cb631", "6-3-1");
+        modulesString = this.verificaSingoloModulo(modulesString, "cb622", "6-2-2");
+        FieldValidation.isValidString(this.sectionName, "Moduli supportati", modulesString);
+
+        let toReturn = Utils.addTextRow(sectionIndex, 2, "I moduli consentiti per le formazioni sono:");
+        return toReturn + "<ul>" + modulesString + "</ul>";
     },
 
     verificaSingoloModulo: function (toReturn, idModulo, descrizione) {
         let etModulo = Utils.retrieveDomElement(idModulo);
         if (etModulo.checked) {
-            toReturn = toReturn + descrizione + "<br>";
+            toReturn = toReturn + "<li>" + descrizione + "</li>";
         }
         return toReturn;
     },
@@ -72,5 +76,17 @@ const InsertTeamRules = {
             toReturn = "Non sono ammesse le formazioni invisibili.";
         }
         return Utils.addTextRow(sectionIndex, 5, toReturn);
+    },
+
+    estraiEventualiNoteAggiuntive: function (sectionIndex) {
+        var toReturn = "";
+        let etNote = Utils.retrieveDomElement("etNoteFormazione");
+        if (etNote != null) {
+            var noteText = etNote.value;
+            if (noteText.trim() !== "") {
+                toReturn = Utils.addTextRow(sectionIndex, 6, Utils.resolveEscapes(noteText));
+            }
+        }
+        return toReturn;
     }
 };

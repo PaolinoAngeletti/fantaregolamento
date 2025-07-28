@@ -5,6 +5,7 @@ const AccidentReleaseRules = {
         toReturn = toReturn + this.estraiGestioneInizioPreFineMercato(sectionIndex);
         toReturn = toReturn + this.estraiGestioneInfortuni(sectionIndex);
         toReturn = toReturn + this.estraiGestoneCovid(sectionIndex);
+        toReturn = toReturn + this.estraiEventualiNoteAggiuntive(sectionIndex);
         return toReturn;
     },
 
@@ -92,5 +93,17 @@ const AccidentReleaseRules = {
             }
         }
         return Utils.addTextRow(sectionIndex, 4, toReturn);
+    },
+
+    estraiEventualiNoteAggiuntive: function (sectionIndex) {
+        var toReturn = "";
+        let etNote = Utils.retrieveDomElement("etNoteInfortuni");
+        if (etNote != null) {
+            var noteText = etNote.value;
+            if (noteText.trim() !== "") {
+                toReturn = Utils.addTextRow(sectionIndex, 5, Utils.resolveEscapes(noteText));
+            }
+        }
+        return toReturn;
     }
 };

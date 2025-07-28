@@ -3,6 +3,7 @@ const SubstitutionRules = {
         var toReturn = Utils.addSectionTitle(sectionIndex, "Gestione sostituzioni");
         toReturn = toReturn + this.estraiNumeroCambi(sectionIndex);
         toReturn = toReturn + this.estraiGestioneAmmonizioneSenzaVoto(sectionIndex);
+        toReturn = toReturn + this.estraiEventualiNoteAggiuntive(sectionIndex);
         return toReturn;
     },
 
@@ -37,5 +38,17 @@ const SubstitutionRules = {
             }
         }
         return Utils.addTextRow(sectionIndex, 2, toReturn);
+    },
+
+    estraiEventualiNoteAggiuntive: function (sectionIndex) {
+        var toReturn = "";
+        let etNote = Utils.retrieveDomElement("etNoteSostituzioni");
+        if (etNote != null) {
+            var noteText = etNote.value;
+            if (noteText.trim() !== "") {
+                toReturn = Utils.addTextRow(sectionIndex, 3, Utils.resolveEscapes(noteText));
+            }
+        }
+        return toReturn;
     }
 };

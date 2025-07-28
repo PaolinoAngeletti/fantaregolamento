@@ -196,7 +196,7 @@ ul.ks-cboxtags li input[type="checkbox"]:focus+label {
 
 .textarea {
   display: block;
-  width: 100%;
+  width: 80%;
   overflow: hidden;
   resize: vertical;
   min-height: 100px;
