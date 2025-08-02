@@ -115,6 +115,11 @@ p {
   color: #333;
 }
 
+i {
+  color: #333;
+  font-size: 15px;
+}
+
 input {
   border-radius: 10px 10px 10px 10px;
   border: 1px solid #eee;
