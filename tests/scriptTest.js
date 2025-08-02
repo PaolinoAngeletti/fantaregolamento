@@ -19,6 +19,7 @@ function runMainScriptTests() {
             realDomDoc.getElementById("etQuota").value = "50";
             realDomDoc.getElementById("cbPenalitaNo").checked = true;
             realDomDoc.getElementById("cb442").checked = true;
+            realDomDoc.getElementById('etNumSostituzioni').value = "3";
             
             const html = creaCodiceHTML();
             expect(html).toContain("<!DOCTYPE html>");

@@ -1,6 +1,8 @@
 const SubstitutionRules = {
+    sectionName: "Gestione sostituzioni",
+
     produce: function (sectionIndex) {
-        var toReturn = Utils.addSectionTitle(sectionIndex, "Gestione sostituzioni");
+        var toReturn = Utils.addSectionTitle(sectionIndex, this.sectionName);
         toReturn = toReturn + this.estraiNumeroCambi(sectionIndex);
         toReturn = toReturn + this.estraiGestioneAmmonizioneSenzaVoto(sectionIndex);
         toReturn = toReturn + this.estraiEventualiNoteAggiuntive(sectionIndex);
@@ -9,19 +11,14 @@ const SubstitutionRules = {
 
     estraiNumeroCambi: function (sectionIndex) {
         var toReturn = "";
-        let cbNessunLimite = Utils.retrieveDomElement("cbNessunLimite");
-        if (cbNessunLimite.checked) {
+        let etNrSubstitutions = Utils.retrieveDomElement("etNumSostituzioni");
+        let nrSubstituions = etNrSubstitutions.value;
+        FieldValidation.validateInt(this.sectionName, "Numero sostituzioni", nrSubstituions, false);
+
+        if (nrSubstituions == 0) {
             toReturn = "Non vi è nessun limite sul numero di sostituzioni, per cui tutta la panchina può entrare.";
         } else {
-            let cbTreCambi = Utils.retrieveDomElement("cbTreCambi");
-            if (cbTreCambi.checked) {
-                toReturn = "Sono previste 3 sostituzioni massime, dopodichè si otterrà per le eccedenze un punteggio nullo. L'ordine di entrata sarà dal portiere agli attaccanti.";
-            } else {
-                let cbCinqueCambi = Utils.retrieveDomElement("cbCinqueCambi");
-                if (cbCinqueCambi.checked) {
-                    toReturn = "Sono previste 5 sostituzioni massime, dopodichè si otterrà per le eccedenze un punteggio nullo. L'ordine di entrata sarà dal portiere agli attaccanti.";
-                }
-            }
+            toReturn = "Sono previste " + nrSubstituions + " sostituzioni massime, dopodichè si otterrà per le eccedenze un punteggio nullo. L'ordine di entrata sarà dal portiere agli attaccanti.";
         }
         return Utils.addTextRow(sectionIndex, 1, toReturn);
     },

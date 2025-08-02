@@ -259,7 +259,7 @@
 		<div class="container">
 			<center>
 				<p>Imposta il numero massimo di giocatori che è possibile modificare durante l'intera competizione.</p>
-				<i>Inserisci il valore zero per non impostare nessun limite.</i>
+				<br><i>Inserisci il valore zero per non impostare nessun limite.</i>
 			</center>
 		</div>
 		<br>
@@ -276,8 +276,9 @@
 		</div>
 		<div class="container">
 			<center>
-				<p>Imposta il numero massimo di giocatori che è possibile modificare durante una singola sessione di mercato.</p>
-				<i>Inserisci il valore zero per non impostare nessun limite.</i>
+				<p>Imposta il numero massimo di giocatori che è possibile modificare durante una singola sessione di
+					mercato.</p>
+				<br><i>Inserisci il valore zero per non impostare nessun limite.</i>
 			</center>
 		</div>
 		<br>
@@ -294,14 +295,16 @@
 		</div>
 		<div class="container">
 			<center>
-				<p>Imposta il numero massimo di giocatori che è possibile modificare per ruolo durante una singola sessione di mercato.</p>
-				<i>Inserisci il valore zero per non impostare nessun limite.</i>
+				<p>Imposta il numero massimo di giocatori che è possibile modificare per ruolo durante una singola
+					sessione di mercato.</p>
+				<br><i>Inserisci il valore zero per non impostare nessun limite.</i>
 			</center>
 		</div>
 		<br>
 		<div class="container">
 			<div class="form-group">
-				<input id="etMaxScambiRuolo" type="number" data-rule="required" min="0" value="0" oninput="manageRoleMaxChangeNumber(this)" />
+				<input id="etMaxScambiRuolo" type="number" data-rule="required" min="0" value="0"
+					oninput="manageRoleMaxChangeNumber(this)" />
 			</div>
 		</div>
 		<br>
@@ -629,24 +632,14 @@
 		<div class="container">
 			<center>
 				<p>Indica il numero massimo di sostituzioni consentite per ciascuna giornata</p>
+				<br><i>Inserisci il valore zero per non impostare nessun limite.</i>
 			</center>
 		</div>
 		<br>
 		<div class="container">
-			<form>
-				<label>
-					<input id="cbNessunLimite" type="radio" name="radio" checked />
-					<span>Nessun limite</span>
-				</label>
-				<label>
-					<input id="cbTreCambi" type="radio" name="radio" />
-					<span>Massimo 3 sostituzioni</span>
-				</label>
-				<label>
-					<input id="cbCinqueCambi" type="radio" name="radio" />
-					<span>Massimo 5 sostituzioni</span>
-				</label>
-			</form>
+			<div class="form-group">
+				<input id="etNumSostituzioni" type="number" data-rule="required" min="0" value="0" />
+			</div>
 		</div>
 		<br>
 		<div class="container">
