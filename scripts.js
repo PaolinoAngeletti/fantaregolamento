@@ -83,7 +83,8 @@ function creaCodiceHTML() {
 		toReturn = toReturn + section.produce(index + 1);
 	});
 
-	toReturn = toReturn + "</br>";
+	toReturn = toReturn + "</br></br>";
+	toReturn = toReturn + this.buildAdvertiseLink();
 	toReturn = toReturn + "</body>";
 	toReturn = toReturn + "</html>";
 
@@ -136,4 +137,11 @@ function manageRoleMaxChangeNumber(etMaxScambiRuolo){
 	let maxChangeNr = etMaxScambiRuolo.value;
 	let maxChangeForSession = maxChangeNr * rolesNumber;
 	Utils.retrieveDomElement("etMaxScambiSessione").value = maxChangeForSession;
+}
+
+function buildAdvertiseLink()
+{
+	var toReturn = "<div style='text-align: center;'>";
+	toReturn = toReturn + "<i style='font-size:13px;'>Documento stilato con <a href='https://paolinoangeletti.github.io/fantaregolamento' target='_blank'>Fanta Regolamento<a></i>";
+	return toReturn + "</div>";
 }
