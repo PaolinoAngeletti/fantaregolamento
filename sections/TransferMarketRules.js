@@ -1,9 +1,10 @@
 const TransferMarketRules = {
-    sectionName:"Gestione mercato",
+    sectionName: "Gestione mercato",
 
     produce: function (sectionIndex) {
         var toReturn = Utils.addSectionTitle(sectionIndex, this.sectionName);
         toReturn = toReturn + this.estraiNumeroCrediti(sectionIndex);
+        toReturn = toReturn + this.retrieveResidualCreditsManagements(sectionIndex);
         toReturn = toReturn + this.estraiAbilitazioneScambioCrediti(sectionIndex);
         toReturn = toReturn + this.estraiAbilitazioneCambioRuolo(sectionIndex);
         toReturn = toReturn + this.estraiGestioneSvincoliMercato(sectionIndex);
@@ -36,6 +37,17 @@ const TransferMarketRules = {
         return Utils.addTextRow(sectionIndex, 2, toReturn);
     },
 
+    retrieveResidualCreditsManagements: function (sectionIndex) {
+        var toReturn = null;
+        let etResidualEnabled = Utils.retrieveDomElement("cbResiduiSi");
+        if (etResidualEnabled.checked) {
+            toReturn = "Alla fine di una sessione di mercato, gli eventuali crediti residui verranno utilizzati come base di partenza per la successiva sessione di mercato.";
+        } else {
+            toReturn = "Alla fine di una sessione di mercato, gli eventuali crediti residui verranno ignorati, per cui non verranno utilizzati per le successive sessioni di mercato.";
+        }
+        return Utils.addTextRow(sectionIndex, 3, toReturn);
+    },
+
     estraiAbilitazioneScambioCrediti: function (sectionIndex) {
         var toReturn = "";
         let campoVerifica = Utils.retrieveDomElement("cbScambioCreditiSi");
@@ -44,7 +56,7 @@ const TransferMarketRules = {
         } else {
             toReturn = "Non sono permessi gli scambi di crediti tra i partecipanti, esempio non si potrà fare Totti per Del Piero + 100 crediti.";
         }
-        return Utils.addTextRow(sectionIndex, 3, toReturn);
+        return Utils.addTextRow(sectionIndex, 4, toReturn);
     },
 
     estraiAbilitazioneCambioRuolo: function (sectionIndex) {
@@ -55,7 +67,7 @@ const TransferMarketRules = {
         } else {
             toReturn = "Non verranno applicati cambi ruolo dei giocatori, ma verranno utilizzati quelli forniti dalla piattaforma su cui verrà applicata la competizione.";
         }
-        return Utils.addTextRow(sectionIndex, 4, toReturn);
+        return Utils.addTextRow(sectionIndex, 5, toReturn);
     },
 
     estraiGestioneSvincoliMercato: function (sectionIndex) {
@@ -74,7 +86,7 @@ const TransferMarketRules = {
                 }
             }
         }
-        return Utils.addTextRow(sectionIndex, 5, toReturn);
+        return Utils.addTextRow(sectionIndex, 6, toReturn);
     },
 
     estraiNumeroMassimoCambiCompetizione: function (sectionIndex) {
@@ -88,7 +100,7 @@ const TransferMarketRules = {
         } else {
             toReturn = "Non ci sono limiti relativi al massimo numero di giocatori modificabili per la competizione, per cui ogni squadra potrà cambiare tutti i giocatori che vuole durante la competizione.";
         }
-        return Utils.addTextRow(sectionIndex, 6, toReturn);
+        return Utils.addTextRow(sectionIndex, 7, toReturn);
     },
 
     estraiNumeroMassimoCambiSessione: function (sectionIndex) {
@@ -106,7 +118,7 @@ const TransferMarketRules = {
         } else {
             toReturn = "Non ci sono limiti relativi al massimo numero di giocatori modificabili in una singola sessione di mercato, per cui ogni squadra potrà cambiare tutti i giocatori che vuole durante una singola sessione.";
         }
-        return Utils.addTextRow(sectionIndex, 7, toReturn);
+        return Utils.addTextRow(sectionIndex, 8, toReturn);
     },
 
     estraiNumeroMassimoCambiRuolo: function (sectionIndex) {
@@ -124,7 +136,7 @@ const TransferMarketRules = {
         } else {
             toReturn = "Non ci sono limiti relativi al massimo numero di giocatori modificabili per ruolo, per cui si farà riferimento solamente al numero massimo di cambi in singola sessione.";
         }
-        return Utils.addTextRow(sectionIndex, 8, toReturn);
+        return Utils.addTextRow(sectionIndex, 9, toReturn);
     },
 
     estraiEventualiNoteAggiuntiveMercato: function (sectionIndex) {
@@ -133,7 +145,7 @@ const TransferMarketRules = {
         if (etNoteMercato != null) {
             var testoNote = etNoteMercato.value;
             if (testoNote.trim() !== "") {
-                toReturn = Utils.addTextRow(sectionIndex, 9, Utils.resolveEscapes(testoNote));
+                toReturn = Utils.addTextRow(sectionIndex, 10, Utils.resolveEscapes(testoNote));
             }
         }
         return toReturn;
