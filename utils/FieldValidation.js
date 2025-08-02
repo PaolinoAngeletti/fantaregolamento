@@ -21,7 +21,7 @@ const FieldValidation = {
     },
 
     compareMinorToMajor: function (sectionName, fieldNameMinor, fieldNameMajor, shouldBeMinor, shouldBeMajor) {
-        if (shouldBeMinor > shouldBeMajor) {
+        if (Number(shouldBeMinor) > Number(shouldBeMajor)) {
             throw new FieldValidationException(sectionName, null, "Il valore del campo: '" + fieldNameMinor + "' " + this.SHOULD_BE_MINOR + "'" + fieldNameMajor + "'");
         }
     },

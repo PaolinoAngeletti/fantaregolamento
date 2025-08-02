@@ -11,7 +11,9 @@ function runMainScriptTests() {
             realDomDoc.getElementById("etAttaccanti").value = "6";
             realDomDoc.getElementById("etCrediti").value = "300";
             realDomDoc.getElementById("etCreditiSessione").value = "0";
-            realDomDoc.getElementById("etMassimoScambi").value = "2";
+            realDomDoc.getElementById("etMaxScambiCompetizione").value = "2";
+            realDomDoc.getElementById("etMaxScambiSessione").value = "0";
+            realDomDoc.getElementById("etMaxScambiRuolo").value = "0";
             realDomDoc.getElementById("etTolleranza").value = "10";
             realDomDoc.getElementById('etSoglie').value = "5";
             realDomDoc.getElementById("etQuota").value = "50";

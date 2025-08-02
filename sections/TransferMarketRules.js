@@ -7,7 +7,9 @@ const TransferMarketRules = {
         toReturn = toReturn + this.estraiAbilitazioneScambioCrediti(sectionIndex);
         toReturn = toReturn + this.estraiAbilitazioneCambioRuolo(sectionIndex);
         toReturn = toReturn + this.estraiGestioneSvincoliMercato(sectionIndex);
-        toReturn = toReturn + this.estraiNumeroMassimoCambiConsentiti(sectionIndex);
+        toReturn = toReturn + this.estraiNumeroMassimoCambiCompetizione(sectionIndex);
+        toReturn = toReturn + this.estraiNumeroMassimoCambiSessione(sectionIndex);
+        toReturn = toReturn + this.estraiNumeroMassimoCambiRuolo(sectionIndex);
         toReturn = toReturn + this.estraiEventualiNoteAggiuntiveMercato(sectionIndex);
         return toReturn;
     },
@@ -75,18 +77,54 @@ const TransferMarketRules = {
         return Utils.addTextRow(sectionIndex, 5, toReturn);
     },
 
-    estraiNumeroMassimoCambiConsentiti: function (sectionIndex) {
+    estraiNumeroMassimoCambiCompetizione: function (sectionIndex) {
         var toReturn = "";
-        let campoCambiMassimi = Utils.retrieveDomElement("etMassimoScambi");
+        let campoCambiMassimi = Utils.retrieveDomElement("etMaxScambiCompetizione");
         let numeroCambi = campoCambiMassimi.value;
-        FieldValidation.validateInt(this.sectionName, "Scambi massimi", numeroCambi, false);
+        FieldValidation.validateInt(this.sectionName, "Scambi massimi per competizione", numeroCambi, false);
 
         if (numeroCambi > 0) {
-            toReturn = "Ogni squadra potrà effettuare un numero massimo di cambio giocatori pari a " + numeroCambi + ".";
+            toReturn = "Previsto limite di cambi massimi per l'intera competizione, per cui potranno essere cambiati massimo " + numeroCambi + " giocatori per l'intera durata della competizione.";
         } else {
-            toReturn = "Non ci sono limiti relativi al massimo numero di giocatori modificabili in una rosa.";
+            toReturn = "Non ci sono limiti relativi al massimo numero di giocatori modificabili per la competizione, per cui ogni squadra potrà cambiare tutti i giocatori che vuole durante la competizione.";
         }
         return Utils.addTextRow(sectionIndex, 6, toReturn);
+    },
+
+    estraiNumeroMassimoCambiSessione: function (sectionIndex) {
+        var toReturn = "";
+        let campoCambiMassimi = Utils.retrieveDomElement("etMaxScambiSessione");
+        let numeroCambi = campoCambiMassimi.value;
+        FieldValidation.validateInt(this.sectionName, "Scambi massimi per sessione", numeroCambi, false);
+
+        let campoCambiCompetizione = Utils.retrieveDomElement("etMaxScambiCompetizione");
+        let numeroCambiCompetizione = campoCambiCompetizione.value;
+        FieldValidation.compareMinorToMajor(this.sectionName, "Scambi per sessione", "Scambi per competizione", numeroCambi, numeroCambiCompetizione);
+
+        if (numeroCambi > 0) {
+            toReturn = "Previsto limite di cambi massimi per una singola sessione di mercato, per cui potranno essere cambiati massimo " + numeroCambi + " giocatori in una singola sessione di mercato.";
+        } else {
+            toReturn = "Non ci sono limiti relativi al massimo numero di giocatori modificabili in una singola sessione di mercato, per cui ogni squadra potrà cambiare tutti i giocatori che vuole durante una singola sessione.";
+        }
+        return Utils.addTextRow(sectionIndex, 7, toReturn);
+    },
+
+    estraiNumeroMassimoCambiRuolo: function (sectionIndex) {
+        var toReturn = "";
+        let campoCambiMassimi = Utils.retrieveDomElement("etMaxScambiRuolo");
+        let numeroCambi = campoCambiMassimi.value;
+        FieldValidation.validateInt(this.sectionName, "Scambi massimi per ruolo", numeroCambi, false);
+
+        let campoCambiSessione = Utils.retrieveDomElement("etMaxScambiSessione");
+        let numeroCambiSessione = campoCambiSessione.value;
+        FieldValidation.compareMinorToMajor(this.sectionName, "Scambi per ruolo", "Scambi per sessione", numeroCambi, numeroCambiSessione);
+
+        if (numeroCambi > 0) {
+            toReturn = "Previsto limite di cambi massimi per ruolo, per cui potranno essere cambiati massimo " + numeroCambi + " giocatori con stesso ruolo durante una singola sessione di mercato.";
+        } else {
+            toReturn = "Non ci sono limiti relativi al massimo numero di giocatori modificabili per ruolo, per cui si farà riferimento solamente al numero massimo di cambi in singola sessione.";
+        }
+        return Utils.addTextRow(sectionIndex, 8, toReturn);
     },
 
     estraiEventualiNoteAggiuntiveMercato: function (sectionIndex) {
@@ -95,7 +133,7 @@ const TransferMarketRules = {
         if (etNoteMercato != null) {
             var testoNote = etNoteMercato.value;
             if (testoNote.trim() !== "") {
-                toReturn = Utils.addTextRow(sectionIndex, 7, Utils.resolveEscapes(testoNote));
+                toReturn = Utils.addTextRow(sectionIndex, 9, Utils.resolveEscapes(testoNote));
             }
         }
         return toReturn;
