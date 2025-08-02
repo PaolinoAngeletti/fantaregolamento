@@ -5,7 +5,7 @@ function runInsertTeamRuleTests() {
                 realDomDoc.getElementById("etTolleranza").value = "10";
                 realDomDoc.getElementById("etPanchina").value = "1P";
                 realDomDoc.getElementById("etCentrocampisti").value = "8";
-                realDomDoc.getElementById("etMassimoScambi").value = "3";
+                realDomDoc.getElementById("etMaxScambiCompetizione").value = "3";
                 realDomDoc.getElementById("etNoteMercato").value = "";
                 realDomDoc.getElementById("cbMancataNulla").checked = true;
                 realDomDoc.getElementById("cbInvisibiliSi").checked = true;

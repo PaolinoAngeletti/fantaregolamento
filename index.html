@@ -250,21 +250,61 @@
 				</label>
 			</form>
 		</div>
+		<br>
 		<div class="container">
-			<h4>Numero scambi massimi</h4>
+			<center>
+				<h4>Numero scambi massimi<br>Competizione</h4>
+			</center>
 		</div>
 		<div class="container">
 			<center>
-				<p>Imposta il numero massimo di giocatori che è possibile modificare durante la competizione.</p>
+				<p>Imposta il numero massimo di giocatori che è possibile modificare durante l'intera competizione.</p>
 				<br>Inserisci il valore zero per non impostare nessun limite.
 			</center>
 		</div>
 		<br>
 		<div class="container">
 			<div class="form-group">
-				<input id="etMassimoScambi" type="number" data-rule="required" min="0" value="0" />
+				<input id="etMaxScambiCompetizione" type="number" data-rule="required" min="0" value="0" />
 			</div>
 		</div>
+		<br>
+		<div class="container">
+			<center>
+				<h4>Numero scambi massimi<br>Singola sessione</h4>
+			</center>
+		</div>
+		<div class="container">
+			<center>
+				<p>Imposta il numero massimo di giocatori che è possibile modificare durante una singola sessione di mercato.</p>
+				<br>Inserisci il valore zero per non impostare nessun limite.
+			</center>
+		</div>
+		<br>
+		<div class="container">
+			<div class="form-group">
+				<input id="etMaxScambiSessione" type="number" data-rule="required" min="0" value="0" />
+			</div>
+		</div>
+		<br>
+		<div class="container">
+			<center>
+				<h4>Numero scambi massimi<br>Per ruolo</h4>
+			</center>
+		</div>
+		<div class="container">
+			<center>
+				<p>Imposta il numero massimo di giocatori che è possibile modificare per ruolo durante una singola sessione di mercato.</p>
+				<br>Inserisci il valore zero per non impostare nessun limite.
+			</center>
+		</div>
+		<br>
+		<div class="container">
+			<div class="form-group">
+				<input id="etMaxScambiRuolo" type="number" data-rule="required" min="0" value="0" oninput="manageRoleMaxChangeNumber(this)" />
+			</div>
+		</div>
+		<br>
 		<div class="container">
 			<h4>Regole non previste</h4>
 		</div>

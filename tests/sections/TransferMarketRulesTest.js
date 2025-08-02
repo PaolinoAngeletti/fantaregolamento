@@ -5,7 +5,9 @@ function runTransferMarketRulesTests() {
                 realDomDoc.getElementById("etCrediti").value = "100";
                 realDomDoc.getElementById("etCreditiSessione").value = "30";
                 realDomDoc.getElementById("etCentrocampisti").value = "8";
-                realDomDoc.getElementById("etMassimoScambi").value = "3";
+                realDomDoc.getElementById("etMaxScambiCompetizione").value = "3";
+                realDomDoc.getElementById("etMaxScambiSessione").value = "2";
+                realDomDoc.getElementById("etMaxScambiRuolo").value = "1";
                 realDomDoc.getElementById("cbScambioCreditiSi").checked = true;
                 realDomDoc.getElementById("cbCambioRuoloSi").checked = true;
                 realDomDoc.getElementById("cbSvincoloAcquisto").checked = true;
@@ -19,8 +21,10 @@ function runTransferMarketRulesTests() {
                 expect(html).toContain("<p>7.3. Sono permessi gli scambi di crediti tra i partecipanti");
                 expect(html).toContain("<p>7.4. Sono permessi i cambi ruolo dei giocatori");
                 expect(html).toContain("<p>7.5. Prevista l'applicazione dello svincolo su acquisto");
-                expect(html).toContain("<p>7.6. Ogni squadra potrà effettuare un numero massimo di cambio giocatori pari a 3");
-                expect(html).toContain("<p>7.7. notes");
+                expect(html).toContain("<p>7.6. Previsto limite di cambi massimi per l'intera competizione");
+                expect(html).toContain("<p>7.7. Previsto limite di cambi massimi per una singola sessione di mercato");
+                expect(html).toContain("<p>7.8. Previsto limite di cambi massimi per ruolo");
+                expect(html).toContain("<p>7.9. notes");
             });
         });
 
@@ -126,11 +130,11 @@ function runTransferMarketRulesTests() {
             });
         });
 
-        describe("max changes number test", function () {
+        describe("max changes number for competition test", function () {
             it("maximum change number cannot be negative", function () {
-                realDomDoc.getElementById("etMassimoScambi").value = "-1";
+                realDomDoc.getElementById("etMaxScambiCompetizione").value = "-1";
                 try {
-                    TransferMarketRules.estraiNumeroMassimoCambiConsentiti();
+                    TransferMarketRules.estraiNumeroMassimoCambiCompetizione();
                     fail("Should be thrown an exception");
                 } catch (error) {
                     expect(error.message).toContain("Gestione mercato");
@@ -140,10 +144,77 @@ function runTransferMarketRulesTests() {
             });
 
             it("manage correctly etMassimoScambi = 0", function () {
-                realDomDoc.getElementById("etMassimoScambi").value = "0";
+                realDomDoc.getElementById("etMaxScambiCompetizione").value = "0";
+                const html = TransferMarketRules.estraiNumeroMassimoCambiCompetizione(6);
+                expect(html).toContain("<p>6.6. Non ci sono limiti relativi al massimo numero di giocatori modificabili per la competizione");
+            });
+        });
 
-                const html = TransferMarketRules.estraiNumeroMassimoCambiConsentiti();
-                expect(html).toContain("Non ci sono limiti relativi al massimo numero");
+        describe("max changes number for market sessione test", function () {
+            it("maximum change number cannot be negative", function () {
+                realDomDoc.getElementById("etMaxScambiSessione").value = "-1";
+                try {
+                    TransferMarketRules.estraiNumeroMassimoCambiSessione();
+                    fail("Should be thrown an exception");
+                } catch (error) {
+                    expect(error.message).toContain("Gestione mercato");
+                    expect(error.message).toContain("Scambi massimi per sessione");
+                    expect(error.message).toContain(FieldValidation.NO_NEGATIVE_ERR);
+                }
+            });
+
+            it("manage correctly value = 0", function () {
+                realDomDoc.getElementById("etMaxScambiCompetizione").value = "0";
+                realDomDoc.getElementById("etMaxScambiSessione").value = "0";
+                const html = TransferMarketRules.estraiNumeroMassimoCambiSessione(3);
+                expect(html).toContain("<p>3.7. Non ci sono limiti relativi al massimo numero di giocatori modificabili in una singola sessione di mercato");
+            });
+
+            it("competition value should be greater then session number", function () {
+                realDomDoc.getElementById("etMaxScambiSessione").value = "5";
+                realDomDoc.getElementById("etMaxScambiCompetizione").value = "4";
+                try {
+                    TransferMarketRules.estraiNumeroMassimoCambiSessione();
+                    fail("Should be thrown an exception");
+                } catch (error) {
+                    expect(error.message).toContain("Gestione mercato");
+                    expect(error.message).toContain("Scambi per sessione");
+                    expect(error.message).toContain(FieldValidation.SHOULD_BE_MINOR);
+                }
+            });
+        });
+
+        describe("max changes number for role test", function () {
+            it("maximum change number cannot be negative", function () {
+                realDomDoc.getElementById("etMaxScambiRuolo").value = "-1";
+                try {
+                    TransferMarketRules.estraiNumeroMassimoCambiRuolo();
+                    fail("Should be thrown an exception");
+                } catch (error) {
+                    expect(error.message).toContain("Gestione mercato");
+                    expect(error.message).toContain("Scambi massimi per ruolo");
+                    expect(error.message).toContain(FieldValidation.NO_NEGATIVE_ERR);
+                }
+            });
+
+            it("manage correctly value = 0", function () {
+                realDomDoc.getElementById("etMaxScambiSessione").value = "0";
+                realDomDoc.getElementById("etMaxScambiRuolo").value = "0";
+                const html = TransferMarketRules.estraiNumeroMassimoCambiRuolo(3);
+                expect(html).toContain("<p>3.8. Non ci sono limiti relativi al massimo numero di giocatori modificabili per ruolo");
+            });
+
+            it("session value should be greater then role number", function () {
+                realDomDoc.getElementById("etMaxScambiSessione").value = "5";
+                realDomDoc.getElementById("etMaxScambiRuolo").value = "6";
+                try {
+                    TransferMarketRules.estraiNumeroMassimoCambiRuolo(4);
+                    fail("Should be thrown an exception");
+                } catch (error) {
+                    expect(error.message).toContain("Gestione mercato");
+                    expect(error.message).toContain("Scambi per ruolo");
+                    expect(error.message).toContain(FieldValidation.SHOULD_BE_MINOR);
+                }
             });
         });
 
@@ -159,7 +230,7 @@ function runTransferMarketRulesTests() {
                 realDomDoc.getElementById("etNoteMercato").value = "hello1 hello2-hello3";
 
                 const html = TransferMarketRules.estraiEventualiNoteAggiuntiveMercato(6);
-                expect(html).toBe("<p>6.7. hello1 hello2-hello3</p>");
+                expect(html).toBe("<p>6.9. hello1 hello2-hello3</p>");
             });
         });
     });

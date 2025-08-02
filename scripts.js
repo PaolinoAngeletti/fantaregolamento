@@ -130,3 +130,10 @@ function showErrorSection(message) {
 function hideErrorSection() {
 	Utils.setElementDisplay("errorSection", "none");
 }
+
+function manageRoleMaxChangeNumber(etMaxScambiRuolo){
+	let rolesNumber = 4;
+	let maxChangeNr = etMaxScambiRuolo.value;
+	let maxChangeForSession = maxChangeNr * rolesNumber;
+	Utils.retrieveDomElement("etMaxScambiSessione").value = maxChangeForSession;
+}
