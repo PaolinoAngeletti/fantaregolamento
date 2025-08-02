@@ -2,7 +2,7 @@ function runSubstituionRulesTests() {
     describe('SubstitutionRules', () => {
         describe('produce', () => {
             it('should produce full substitution section', () => {
-                realDomDoc.getElementById('cbNessunLimite').checked = true;
+                realDomDoc.getElementById('etNumSostituzioni').value = "0";
                 realDomDoc.getElementById('cbAmmIgnorata').checked = true;
                 realDomDoc.getElementById("etNoteSostituzioni").value = "notes";
 
@@ -14,26 +14,35 @@ function runSubstituionRulesTests() {
             });
         });
 
-        describe('estraiNumeroCambi', () => {
+        describe('validate substituions number value', () => {
             it('should return text for no limit substitutions', () => {
-                realDomDoc.getElementById('cbNessunLimite').checked = true;
-
+                realDomDoc.getElementById('etNumSostituzioni').value = "0";
                 const result = SubstitutionRules.estraiNumeroCambi();
                 expect(result).toContain("nessun limite");
             });
 
             it('should return text for 3 substitutions', () => {
-                realDomDoc.getElementById('cbTreCambi').checked = true;
-
+                realDomDoc.getElementById('etNumSostituzioni').value = "3";
                 const result = SubstitutionRules.estraiNumeroCambi();
                 expect(result).toContain("3 sostituzioni");
             });
 
             it('should return text for 5 substitutions', () => {
-                realDomDoc.getElementById('cbCinqueCambi').checked = true;
-
+                realDomDoc.getElementById('etNumSostituzioni').value = "5";
                 const result = SubstitutionRules.estraiNumeroCambi();
                 expect(result).toContain("5 sostituzioni");
+            });
+
+            it("value cannot be negative", function () {
+                realDomDoc.getElementById('etNumSostituzioni').value = "-1";
+                try {
+                    SubstitutionRules.estraiNumeroCambi();
+                    fail("Should be thrown an exception");
+                } catch (error) {
+                    expect(error.message).toContain("Gestione sostituzioni");
+                    expect(error.message).toContain("Numero sostituzioni");
+                    expect(error.message).toContain(FieldValidation.NO_NEGATIVE_ERR);
+                }
             });
         });
 

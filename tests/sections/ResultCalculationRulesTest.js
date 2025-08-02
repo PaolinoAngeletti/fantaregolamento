@@ -3,7 +3,7 @@ function runResultCalculationTests() {
         describe('produce', () => {
             it('should produce full HTML section', () => {
                 realDomDoc.getElementById('etSoglie').value = "2";
-                realDomDoc.getElementById('cbNessunLimite').checked = true;
+                realDomDoc.getElementById('etNumSostituzioni').value = "0";
                 realDomDoc.getElementById('cbAmmIgnorata').checked = true;
                 realDomDoc.getElementById('cbFattoreSi').checked = false;
                 realDomDoc.getElementById('cbRinvioMai').checked = true;
