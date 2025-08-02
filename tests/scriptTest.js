@@ -36,6 +36,8 @@ function runMainScriptTests() {
             expect(html).toContain("<h2>7. Calcolo giornate</h2>");
             expect(html).toContain("<h2>8. Classifica</h2>");
             expect(html).toContain("<h2>9. Quote squadre e premi finali</h2>");
+            expect(html).toContain("<h2>9. Quote squadre e premi finali</h2>");
+            expect(html).toContain("Documento stilato con");
             expect(html).toContain("</html>");
         });
     });
