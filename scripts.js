@@ -55,7 +55,7 @@ function setupDefaultPrizesValue() {
 Regulation creation.
 */
 
-function avviaAnteprimaDocumento() {
+function avviaAnteprimaDocumento2() {
 	try {
 		let htmlCode = creaCodiceHTML();
 		var tab = window.open('', '_blank');
@@ -65,6 +65,26 @@ function avviaAnteprimaDocumento() {
 	} catch (errorMessage) {
 		showErrorSection(errorMessage.message);
 	}
+}
+
+function avviaAnteprimaDocumento() {
+    try {
+        let htmlCode = creaCodiceHTML();
+
+        // Creo un blob con il codice HTML
+        let blob = new Blob([htmlCode], { type: "text/html; charset=utf-8" });
+        let url = URL.createObjectURL(blob);
+
+        // Apro il blob in una nuova tab
+        let tab = window.open(url, "_blank");
+        if (!tab) {
+            throw new Error("Impossibile aprire l'anteprima (popup bloccato).");
+        }
+
+        hideErrorSection();
+    } catch (errorMessage) {
+        showErrorSection(errorMessage.message);
+    }
 }
 
 function creaCodiceHTML() {
