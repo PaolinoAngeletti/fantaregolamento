@@ -55,36 +55,18 @@ function setupDefaultPrizesValue() {
 Regulation creation.
 */
 
-function avviaAnteprimaDocumento2() {
+function avviaAnteprimaDocumento() {
 	try {
 		let htmlCode = creaCodiceHTML();
-		var tab = window.open('', '_blank');
-		tab.document.write(htmlCode);
-		tab.document.close();
+		let blob = new Blob([htmlCode], {
+			type: "text/html; charset=utf-8"
+		});
+		let url = URL.createObjectURL(blob);
+		window.open(url, "_blank");
 		hideErrorSection();
 	} catch (errorMessage) {
 		showErrorSection(errorMessage.message);
 	}
-}
-
-function avviaAnteprimaDocumento() {
-    try {
-        let htmlCode = creaCodiceHTML();
-
-        // Creo un blob con il codice HTML
-        let blob = new Blob([htmlCode], { type: "text/html; charset=utf-8" });
-        let url = URL.createObjectURL(blob);
-
-        // Apro il blob in una nuova tab
-        let tab = window.open(url, "_blank");
-        if (!tab) {
-            throw new Error("Impossibile aprire l'anteprima (popup bloccato).");
-        }
-
-        hideErrorSection();
-    } catch (errorMessage) {
-        showErrorSection(errorMessage.message);
-    }
 }
 
 function creaCodiceHTML() {
@@ -134,9 +116,8 @@ function applicaModificatore(daApplicare) {
 	}
 }
 
-function showPenaltySection(toShow)
-{
-	if(toShow){
+function showPenaltySection(toShow) {
+	if (toShow) {
 		Utils.showDomElement("penaltySection");
 	} else {
 		Utils.setElementDisplay("penaltySection", "none");
@@ -152,15 +133,14 @@ function hideErrorSection() {
 	Utils.setElementDisplay("errorSection", "none");
 }
 
-function manageRoleMaxChangeNumber(etMaxScambiRuolo){
+function manageRoleMaxChangeNumber(etMaxScambiRuolo) {
 	let rolesNumber = 4;
 	let maxChangeNr = etMaxScambiRuolo.value;
 	let maxChangeForSession = maxChangeNr * rolesNumber;
 	Utils.retrieveDomElement("etMaxScambiSessione").value = maxChangeForSession;
 }
 
-function buildAdvertiseLink()
-{
+function buildAdvertiseLink() {
 	var toReturn = "<div style='text-align: center;'>";
 	toReturn = toReturn + "<i style='font-size:13px;'>Documento stilato con <a href='https://paolinoangeletti.github.io/fantaregolamento' target='_blank'>Fanta Regolamento<a></i>";
 	return toReturn + "</div>";
