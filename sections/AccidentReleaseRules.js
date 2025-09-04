@@ -2,7 +2,7 @@ const AccidentReleaseRules = {
     produce: function (sectionIndex) {
         var toReturn = Utils.addSectionTitle(sectionIndex, "Gestione infortuni e svincoli");
         toReturn = toReturn + this.estraiGestioneSvincoli(sectionIndex);
-        toReturn = toReturn + this.estraiGestioneInizioPreFineMercato(sectionIndex);
+        toReturn = toReturn + this.estraiGestioneCessioniAltroCampionato(sectionIndex);
         toReturn = toReturn + this.estraiGestioneInfortuni(sectionIndex);
         toReturn = toReturn + this.estraiGestoneCovid(sectionIndex);
         toReturn = toReturn + this.estraiEventualiNoteAggiuntive(sectionIndex);
@@ -43,8 +43,8 @@ const AccidentReleaseRules = {
         return Utils.addTextRow(sectionIndex, 1, toReturn);
     },
 
-    estraiGestioneInizioPreFineMercato: function (sectionIndex) {
-        var toReturn = "In base all'inizio della competizione deciso, alcune giornate potrebbero essere giocate prima della conclusione del reale mercato. In tal caso ";
+    estraiGestioneCessioniAltroCampionato: function (sectionIndex) {
+        var toReturn = "Se, durante la competizione, un calciatore viene ceduto in altri campionati (siano essi internazionali e non), allora ";
         let cbPreMercatoSvincolo = Utils.retrieveDomElement("cbPreMercatoSvincolo");
         if (cbPreMercatoSvincolo.checked) {
             toReturn = toReturn + "verranno applicate le regole scelte per uno svincolo generico di calciatori.";
