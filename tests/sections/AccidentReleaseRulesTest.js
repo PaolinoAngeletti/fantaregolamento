@@ -12,7 +12,7 @@ function runAccidentReleaseRulesTests() {
 
                 expect(html).toContain("<h2>12. Gestione infortuni e svincoli");
                 expect(html).toContain("<p>12.1. In caso di svincolo di giocatori acquistati in mercati precedenti");
-                expect(html).toContain("<p>12.2. In base all'inizio della competizione deciso, alcune");
+                expect(html).toContain("<p>12.2. Se, durante la competizione, un calciatore viene ceduto in altri campionati");
                 expect(html).toContain("<p>12.3. Se un calciatore subisce un infortunio con durata maggiore ai sei mesi");
                 expect(html).toContain("<p>12.4. In caso di calciatore schierato in formazione risultante positivo al COVID-19");
                 expect(html).toContain("<p>12.5. additional-notes");
@@ -67,21 +67,21 @@ function runAccidentReleaseRulesTests() {
             it("manage correctly the checkbox pre-mercato: svincolo", function () {
                 realDomDoc.getElementById("cbPreMercatoSvincolo").checked = true;
 
-                const html = AccidentReleaseRules.estraiGestioneInizioPreFineMercato();
+                const html = AccidentReleaseRules.estraiGestioneCessioniAltroCampionato();
                 expect(html).toContain("svincolo generico");
             });
 
             it("manage correctly the checkbox pre-mercato: prestito", function () {
                 realDomDoc.getElementById("cbPreMercatoPrestito").checked = true;
 
-                const html = AccidentReleaseRules.estraiGestioneInizioPreFineMercato();
+                const html = AccidentReleaseRules.estraiGestioneCessioniAltroCampionato();
                 expect(html).toContain("possibilità di acquisire un calciatore svincolato");
             });
 
             it("manage correctly the checkbox pre-mercato: recupero crediti interi", function () {
                 realDomDoc.getElementById("cbPreMercatoQuotazioneIntera").checked = true;
 
-                const html = AccidentReleaseRules.estraiGestioneInizioPreFineMercato();
+                const html = AccidentReleaseRules.estraiGestioneCessioniAltroCampionato();
                 expect(html).toContain("recuperati i crediti spesi");
             });
         });
