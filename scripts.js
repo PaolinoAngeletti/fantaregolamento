@@ -157,11 +157,11 @@ function buildAdvertiseSection() {
 
 	// icon
 	if (typeof logoBase64 != "undefined") {
-		toReturn = toReturn + "<img src='" + logoBase64 + "' style='max-width:10%; height:auto;' />";
+		toReturn = toReturn + "<img src='" + logoBase64 + "' style='max-width:10%; height:auto;' /><br>";
 	}
 
 	// link
-	toReturn = toReturn + "<br><i style='font-size:13px;'>Documento stilato con <a href='https://paolinoangeletti.github.io/fantaregolamento' target='_blank'>Fanta Regolamento<a></i>";
+	toReturn = toReturn + "<i style='font-size:13px;'>Documento stilato con <a href='https://paolinoangeletti.github.io/fantaregolamento' target='_blank'>Fanta Regolamento<a></i>";
 
 	return toReturn + "</div>";
 }
