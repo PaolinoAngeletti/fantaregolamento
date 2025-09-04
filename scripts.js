@@ -157,7 +157,8 @@ function buildAdvertiseSection() {
 
 	// icon
 	if (typeof logoBase64 != "undefined") {
-		toReturn = toReturn + "<img src='" + logoBase64 + "' style='max-width:10%; height:auto;' /><br>";
+		toReturn = toReturn + "<img src='" + logoBase64 + "' style='max-width:10%; height:auto;' />";
+		toReturn += "<br>";
 	}
 
 	// link
