@@ -21,7 +21,7 @@ function runMainScriptTests() {
             realDomDoc.getElementById("cb442").checked = true;
             realDomDoc.getElementById('etNumSostituzioni').value = "3";
             
-            const html = creaCodiceHTML();
+            const html = createHTMLCode();
             expect(html).toContain("<!DOCTYPE html>");
             expect(html).toContain("<html>");
             expect(html).toContain("<head>");

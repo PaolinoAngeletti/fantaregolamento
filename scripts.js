@@ -14,7 +14,12 @@ function loadRequiredScripts() {
 		loadScript("exception/FieldValidationException.js");
 		setupDefaultPrizesValue();
 	});
+	loadImages();
 	loadSectionsScripts();
+}
+
+function loadImages() {
+	loadScript("images/logoBase64.js");
 }
 
 function loadSectionsScripts() {
@@ -57,7 +62,7 @@ Regulation creation.
 
 function avviaAnteprimaDocumento() {
 	try {
-		let htmlCode = creaCodiceHTML();
+		let htmlCode = createHTMLCode();
 		let blob = new Blob([htmlCode], {
 			type: "text/html; charset=utf-8"
 		});
@@ -69,13 +74,10 @@ function avviaAnteprimaDocumento() {
 	}
 }
 
-function creaCodiceHTML() {
+function createHTMLCode() {
 	var toReturn = "<!DOCTYPE html>";
 	toReturn = toReturn + "<html>";
-
-	toReturn = toReturn + "<head>";
-	toReturn = toReturn + "<title>Regolamento creato</title>";
-	toReturn = toReturn + "</head>";
+	toReturn += this.buildTabTitle();
 
 	toReturn = toReturn + "<body style='font-family:sans-serif'>";
 	toReturn = toReturn + "<h1>Regolamento Fantacalcio</h1>";
@@ -86,10 +88,20 @@ function creaCodiceHTML() {
 	});
 
 	toReturn = toReturn + "</br></br>";
-	toReturn = toReturn + this.buildAdvertiseLink();
+	toReturn += this.buildAdvertiseSection();
+
 	toReturn = toReturn + "</body>";
 	toReturn = toReturn + "</html>";
+	return toReturn;
+}
 
+function buildTabTitle() {
+	var toReturn = "<head>";
+	toReturn = toReturn + "<title>Regolamento creato</title>";
+	if (typeof logoBase64 != "undefined") {
+		toReturn += "<link rel='icon' type='image/svg+xml' href='" + logoBase64 + "' />";
+	}
+	toReturn = toReturn + "</head>";
 	return toReturn;
 }
 
@@ -140,8 +152,17 @@ function manageRoleMaxChangeNumber(etMaxScambiRuolo) {
 	Utils.retrieveDomElement("etMaxScambiSessione").value = maxChangeForSession;
 }
 
-function buildAdvertiseLink() {
+function buildAdvertiseSection() {
 	var toReturn = "<div style='text-align: center;'>";
-	toReturn = toReturn + "<i style='font-size:13px;'>Documento stilato con <a href='https://paolinoangeletti.github.io/fantaregolamento' target='_blank'>Fanta Regolamento<a></i>";
+
+	// icon
+	if (typeof logoBase64 != "undefined") {
+		toReturn = toReturn + "<img src='" + logoBase64 + "' style='max-width:10%; height:auto;' />";
+	}
+
+	// link
+	toReturn = toReturn + "<br><i style='font-size:13px;'>Documento stilato con <a href='https://paolinoangeletti.github.io/fantaregolamento' target='_blank'>Fanta Regolamento<a></i>";
+
 	return toReturn + "</div>";
 }
+
