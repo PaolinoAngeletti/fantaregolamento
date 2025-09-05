@@ -382,7 +382,7 @@
 		</div>
 		<br>
 		<div class="container">
-			<form>
+			<form onchange="verifyCreditsRecoverOnPlayerRelease()">
 				<label>
 					<input id="cbSvincoloNessun" type="radio" name="radio" checked />
 					<span>Non ricevere nessun credito</span>
@@ -424,7 +424,7 @@
 		</div>
 		<br>
 		<div class="container">
-			<form>
+			<form onchange="verifyCreditsRecoverOnPlayerRelease()">
 				<label>
 					<input id="cbPreMercatoSvincolo" type="radio" name="radio" checked />
 					<span>Applica regola scelta per un normale svincolo</span>
@@ -515,6 +515,40 @@
 				</form>
 			</div>
 			<br>
+
+			<!-- scambio quotazioni -->
+			<div id="creditsExchangeWithPlayersSection">
+				<div class="container">
+					<h4>Scambio quotazioni</h4>
+				</div>
+				<div class="container">
+					<center>
+						<p>Dato che la tua competizione prevede il recupero di crediti da uno svincolo, indica come
+							gestire questa particolare situazione:
+							<br>Supponiamo che uno svincolo faccia recuperare l'intera quotazione di acquisto.
+							<br>La Roma compra Totti a 10, la Juventus compra Del Piero a 20.
+							<br>Se si fa uno scambio Totti con Del Piero, avremo che la Roma ha Del Piero e la Juventus
+							ha Totti.
+							<br>Nel caso in cui sia Totti che Del Piero vengano svincolati, quanti crediti recupera
+							ciascuna squadra?
+						</p>
+					</center>
+				</div>
+				<br>
+				<div class="container">
+					<form>
+						<label>
+							<input id="cbScambioQuotazioneA" type="radio" name="radio" checked />
+							<span>Roma recupera 10 crediti, la Juventus recupera 20 crediti.</span>
+						</label>
+						<label>
+							<input id="cbScambioQuotazioneB" type="radio" name="radio" />
+							<span>Roma recupera 20 crediti, la Juventus recupera 10 crediti.</span>
+						</label>
+					</form>
+				</div>
+				<br>
+			</div>
 
 			<!-- note scambi -->
 			<div class="container">

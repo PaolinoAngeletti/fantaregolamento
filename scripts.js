@@ -27,13 +27,15 @@ function loadSectionsScripts() {
 	loadScript("sections/TeamRules.js");
 	loadScript("sections/TransferMarketRules.js");
 	loadScript("sections/PlayerReleaseRules.js");
-	loadScript("sections/ExchangeRules.js");
 	loadScript("sections/AccidentRules.js");
 	loadScript("sections/InsertTeamRules.js");
 	loadScript("sections/SubstitutionsRules.js");
 	loadScript("sections/ResultsCalculationRules.js");
 	loadScript("sections/RankingDataRules.js");
 	loadScript("sections/FeeAndPrizesRule.js");
+	loadScript("sections/ExchangeRules.js", () => {
+		verifyCreditsRecoverOnPlayerRelease();
+	});
 }
 
 function loadScript(fileName, callback) {
@@ -162,6 +164,11 @@ function manageRoleMaxChangeNumber(etMaxScambiRuolo) {
 	let maxChangeNr = etMaxScambiRuolo.value;
 	let maxChangeForSession = maxChangeNr * rolesNumber;
 	Utils.retrieveDomElement("etMaxScambiSessione").value = maxChangeForSession;
+}
+
+function verifyCreditsRecoverOnPlayerRelease() {
+	let result = ExchangeRules.expectedRecoveryCreditsFromTransfer();
+	Utils.setElementVisibility("creditsExchangeWithPlayersSection", result);
 }
 
 function buildAdvertiseSection() {
