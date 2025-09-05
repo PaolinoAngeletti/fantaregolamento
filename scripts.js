@@ -10,12 +10,12 @@ function setup() {
 
 function loadRequiredScripts() {
 	loadScript("utils/Utils.js", () => {
+		loadImages();
+		loadSectionsScripts();
+		setupDefaultPrizesValue();
 		loadScript("utils/FieldValidation.js");
 		loadScript("exception/FieldValidationException.js");
-		setupDefaultPrizesValue();
 	});
-	loadImages();
-	loadSectionsScripts();
 }
 
 function loadImages() {
