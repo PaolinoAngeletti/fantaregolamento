@@ -7,7 +7,6 @@ const TransferMarketRules = {
         rules.push(this.estraiNumeroCreditiSuccessivi());
         rules.push(this.retrieveFinishedCreditsManagement());
         rules.push(this.retrieveResidualCreditsManagements());
-        rules.push(this.estraiAbilitazioneScambioCrediti());
         rules.push(this.estraiAbilitazioneCambioRuolo());
         rules.push(this.estraiNumeroMassimoCambiCompetizione());
         rules.push(this.estraiNumeroMassimoCambiSessione());
@@ -57,17 +56,6 @@ const TransferMarketRules = {
             toReturn = "Alla fine di una sessione di mercato, gli eventuali crediti residui verranno utilizzati come base di partenza per la successiva sessione di mercato.";
         } else {
             toReturn = "Alla fine di una sessione di mercato, gli eventuali crediti residui verranno ignorati, per cui non verranno utilizzati per le successive sessioni di mercato.";
-        }
-        return toReturn;
-    },
-
-    estraiAbilitazioneScambioCrediti: function () {
-        var toReturn = "";
-        let campoVerifica = Utils.retrieveDomElement("cbScambioCreditiSi");
-        if (campoVerifica.checked) {
-            toReturn = "Sono permessi gli scambi di crediti tra i partecipanti, esempio si potrà fare Totti per Del Piero + 100 crediti.";
-        } else {
-            toReturn = "Non sono permessi gli scambi di crediti tra i partecipanti, esempio non si potrà fare Totti per Del Piero + 100 crediti.";
         }
         return toReturn;
     },

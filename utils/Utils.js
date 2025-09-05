@@ -28,6 +28,18 @@ const Utils = {
         this.retrieveDomElement(elementId).style.display = displayValue;
     },
 
+    retrieveAdditionalNotes: function (domElement) {
+        var toReturn = "";
+        let additionalNotes = Utils.retrieveDomElement(domElement);
+        if (additionalNotes != null) {
+            var testoNote = additionalNotes.value;
+            if (testoNote.trim() !== "") {
+                toReturn = this.resolveEscapes(testoNote);
+            }
+        }
+        return toReturn;
+    },
+
     buildRuleSection: function (sectionIndex, sectionTitle, rulesList) {
         var toReturn = "";
         if (rulesList) {
