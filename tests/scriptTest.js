@@ -20,7 +20,7 @@ function runMainScriptTests() {
             realDomDoc.getElementById("cbPenalitaNo").checked = true;
             realDomDoc.getElementById("cb442").checked = true;
             realDomDoc.getElementById('etNumSostituzioni').value = "3";
-            
+
             const html = createHTMLCode();
             expect(html).toContain("<!DOCTYPE html>");
             expect(html).toContain("<html>");
@@ -31,13 +31,13 @@ function runMainScriptTests() {
             expect(html).toContain("<h2>1. Tipologia competizione</h2>");
             expect(html).toContain("<h2>2. Struttura rose</h2>");
             expect(html).toContain("<h2>3. Gestione mercato</h2>");
-            expect(html).toContain("<h2>4. Gestione infortuni e svincoli</h2>");
-            expect(html).toContain("<h2>5. Inserimento formazione</h2>");
-            expect(html).toContain("<h2>6. Gestione sostituzioni</h2>");
-            expect(html).toContain("<h2>7. Calcolo giornate</h2>");
-            expect(html).toContain("<h2>8. Classifica</h2>");
-            expect(html).toContain("<h2>9. Quote squadre e premi finali</h2>");
-            expect(html).toContain("<h2>9. Quote squadre e premi finali</h2>");
+            expect(html).toContain("<h2>4. Gestione svincoli</h2>");
+            expect(html).toContain("<h2>5. Gestione infortuni</h2>");
+            expect(html).toContain("<h2>6. Inserimento formazione</h2>");
+            expect(html).toContain("<h2>7. Gestione sostituzioni</h2>");
+            expect(html).toContain("<h2>8. Calcolo giornate</h2>");
+            expect(html).toContain("<h2>9. Classifica</h2>");
+            expect(html).toContain("<h2>10. Quote squadre e premi finali</h2>");
             expect(html).toContain("Documento stilato con");
             expect(html).toContain("</html>");
         });

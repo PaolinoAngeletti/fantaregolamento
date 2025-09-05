@@ -281,36 +281,6 @@
 		</div>
 		<br>
 
-		<!-- modalità svincoli -->
-		<div class="container">
-			<h4>Modalità svincolo</h4>
-		</div>
-		<div class="container">
-			<center>
-				<p>Indica come gestire gli svincoli liberi durante una sessione di mercato generica</p>
-			</center>
-		</div>
-		<br>
-		<div class="container">
-			<form>
-				<label>
-					<input id="cbSvincoloAcquisto" type="radio" name="radio" checked />
-					<span>Svincola un giocatore solo dopo averne acquistato un altro dello stesso ruolo</span>
-				</label>
-				<label>
-					<input id="cbSvincoloInizioSi" type="radio" name="radio" />
-					<span>Svincola i giocatori prima dell'inizio del mercato<br>Gli svincolati potranno essere
-						acquistati da chi li ha liberati</span>
-				</label>
-				<label>
-					<input id="cbSvincoloInizioNo" type="radio" name="radio" />
-					<span>Svincola i giocatori prima dell'inizio del mercato<br>Gli svincolati non potranno essere
-						acquistati da chi li ha liberati</span>
-				</label>
-			</form>
-		</div>
-		<br>
-
 		<!-- scambi massimi -->
 		<div class="container">
 			<center>
@@ -387,11 +357,43 @@
 	</div>
 	<br>
 
-	<!-- svincoli ed infortuni -->
+	<!-- svincoli -->
 	<div class="macro">
 		<div class="container">
-			<h2>Gestione infortuni e svincoli</h2>
+			<h2>Gestione svincoli</h2>
 		</div>
+
+		<!-- modalità svincoli -->
+		<div class="container">
+			<h4>Modalità svincolo durante il mercato</h4>
+		</div>
+		<div class="container">
+			<center>
+				<p>Indica come gestire gli svincoli liberi durante una sessione di mercato generica</p>
+			</center>
+		</div>
+		<br>
+		<div class="container">
+			<form>
+				<label>
+					<input id="cbSvincoloAcquisto" type="radio" name="radio" checked />
+					<span>Svincola un giocatore solo dopo averne acquistato un altro dello stesso ruolo</span>
+				</label>
+				<label>
+					<input id="cbSvincoloInizioSi" type="radio" name="radio" />
+					<span>Svincola i giocatori prima dell'inizio del mercato<br>Gli svincolati potranno essere
+						acquistati da chi li ha liberati</span>
+				</label>
+				<label>
+					<input id="cbSvincoloInizioNo" type="radio" name="radio" />
+					<span>Svincola i giocatori prima dell'inizio del mercato<br>Gli svincolati non potranno essere
+						acquistati da chi li ha liberati</span>
+				</label>
+			</form>
+		</div>
+		<br>
+
+		<!-- svincoli generici -->
 		<div class="container">
 			<h4>Svincolo giocatori</h4>
 		</div>
@@ -431,12 +433,15 @@
 			</form>
 		</div>
 		<br>
+
+		<!-- cessione altro campionato -->
 		<div class="container">
 			<h4>Gestione cessioni giocatori</h4>
 		</div>
 		<div class="container">
 			<center>
-				<p>Indica come vanno gestite le eventuali cessioni di giocatori in altri campionati, nazionali o internazionali</p>
+				<p>Indica come vanno gestite le eventuali cessioni di giocatori in altri campionati, nazionali o
+					internazionali</p>
 			</center>
 		</div>
 		<br>
@@ -457,8 +462,31 @@
 			</form>
 		</div>
 		<br>
+
+		<!-- note svincoli -->
 		<div class="container">
-			<h4>Gestione infortuni</h4>
+			<h4>Regole non previste</h4>
+		</div>
+		<div class="container">
+			<center>
+				<p>Inserisci eventuali note aggiuntive per la gestione di svincoli giocatori.</p>
+			</center>
+		</div>
+		<br>
+		<center>
+			<textarea id="etNoteSvincoli" class="textarea"></textarea>
+		</center>
+		<br>
+	</div>
+	<br>
+
+	<!-- infortuni -->
+	<div class="macro">
+		<div class="container">
+			<h2>Gestione infortuni</h2>
+		</div>
+		<div class="container">
+			<h4>Infortunio giocatore</h4>
 		</div>
 		<div class="container">
 			<center>
@@ -519,7 +547,7 @@
 		</div>
 		<div class="container">
 			<center>
-				<p>Inserisci eventuali note aggiuntive per la gestione di infortuni e svincoli giocatori.</p>
+				<p>Inserisci eventuali note aggiuntive per la gestione di infortuni giocatori.</p>
 			</center>
 		</div>
 		<br>

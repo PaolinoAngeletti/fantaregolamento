@@ -26,5 +26,18 @@ const Utils = {
 
     setElementDisplay: function (elementId, displayValue) {
         this.retrieveDomElement(elementId).style.display = displayValue;
+    },
+
+    buildRuleSection: function (sectionIndex, sectionTitle, rulesList) {
+        var toReturn = "";
+        if (rulesList) {
+            toReturn = this.addSectionTitle(sectionIndex, sectionTitle);
+            rulesList.forEach((element, index) => {
+                if (this.isValidString(element)) {
+                    toReturn += this.addTextRow(sectionIndex, index + 1, element);
+                }
+            });
+        }
+        return toReturn;
     }
 };
