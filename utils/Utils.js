@@ -28,6 +28,14 @@ const Utils = {
         this.retrieveDomElement(elementId).style.display = displayValue;
     },
 
+    setElementVisibility: function (elementId, toShow) {
+        if (toShow) {
+            Utils.showDomElement(elementId);
+        } else {
+            Utils.setElementDisplay(elementId, "none");
+        }
+    },
+
     retrieveAdditionalNotes: function (domElement) {
         var toReturn = "";
         let additionalNotes = Utils.retrieveDomElement(domElement);
