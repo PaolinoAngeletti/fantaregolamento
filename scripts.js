@@ -26,7 +26,8 @@ function loadSectionsScripts() {
 	loadScript("sections/CompetitionType.js");
 	loadScript("sections/TeamRules.js");
 	loadScript("sections/TransferMarketRules.js");
-	loadScript("sections/AccidentReleaseRules.js");
+	loadScript("sections/PlayerReleaseRules.js");
+	loadScript("sections/AccidentRules.js");
 	loadScript("sections/InsertTeamRules.js");
 	loadScript("sections/SubstitutionsRules.js");
 	loadScript("sections/ResultsCalculationRules.js");
@@ -110,7 +111,8 @@ function retrieveSections() {
 		CompetitionType,
 		TeamRules,
 		TransferMarketRules,
-		AccidentReleaseRules,
+		PlayerReleaseRules,
+		AccidentRules,
 		InsertTeamRules,
 		SubstitutionRules,
 		ResultCalculationRules,
