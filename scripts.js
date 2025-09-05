@@ -27,6 +27,7 @@ function loadSectionsScripts() {
 	loadScript("sections/TeamRules.js");
 	loadScript("sections/TransferMarketRules.js");
 	loadScript("sections/PlayerReleaseRules.js");
+	loadScript("sections/ExchangeRules.js");
 	loadScript("sections/AccidentRules.js");
 	loadScript("sections/InsertTeamRules.js");
 	loadScript("sections/SubstitutionsRules.js");
@@ -112,6 +113,7 @@ function retrieveSections() {
 		TeamRules,
 		TransferMarketRules,
 		PlayerReleaseRules,
+		ExchangeRules,
 		AccidentRules,
 		InsertTeamRules,
 		SubstitutionRules,
@@ -119,6 +121,14 @@ function retrieveSections() {
 		RankingDataRules,
 		FeeAndPrizesRule
 	];
+}
+
+function showExchangeSection(toShow) {
+	if (toShow) {
+		Utils.showDomElement("exchangeSection");
+	} else {
+		Utils.setElementDisplay("exchangeSection", "none");
+	}
 }
 
 function applicaModificatore(daApplicare) {

@@ -176,6 +176,9 @@
 
 		<!-- crediti aggiuntivi -->
 		<div class="container">
+			<h4>Crediti aggiuntivi per sessione</h4>
+		</div>
+		<div class="container">
 			<center>
 				<p>Imposta il numero di fanta milioni che verranno aggiunti ad ogni sessione di mercato per ogni squadra
 				</p>
@@ -225,31 +228,6 @@
 				</label>
 				<label>
 					<input id="cbResiduiNo" type="radio" name="radio" />
-					<span>No</span>
-				</label>
-			</form>
-		</div>
-		<br>
-
-		<!-- scambio crediti -->
-		<div class="container">
-			<h4>Scambio crediti</h4>
-		</div>
-		<div class="container">
-			<center>
-				<p>Indica se saranno permessi gli scambi di crediti tra partecipanti (esempio Totti per Del Piero più 50
-					fanta milioni)</p>
-			</center>
-		</div>
-		<br>
-		<div class="container">
-			<form>
-				<label>
-					<input id="cbScambioCreditiSi" type="radio" name="radio" />
-					<span>Si</span>
-				</label>
-				<label>
-					<input id="cbScambioCreditiNo" type="radio" name="radio" checked />
 					<span>No</span>
 				</label>
 			</form>
@@ -476,6 +454,82 @@
 		<center>
 			<textarea id="etNoteSvincoli" class="textarea"></textarea>
 		</center>
+		<br>
+	</div>
+	<br>
+
+	<!-- scambi -->
+	<div class="macro">
+		<div class="container">
+			<h2>Gestione scambi</h2>
+		</div>
+
+		<!-- consenti scambi -->
+		<div class="container">
+			<h4>Scambi consentiti</h4>
+		</div>
+		<div class="container">
+			<center>
+				<p>Indica se la tua competizione prevede la possibilità di scambiare giocatori tra squadre</p>
+			</center>
+		</div>
+		<br>
+		<div class="container">
+			<form>
+				<label>
+					<input id="cbScambiSi" type="radio" name="radio" onclick="showExchangeSection(true);" />
+					<span>Si</span>
+				</label>
+				<label>
+					<input id="cbScambiNo" type="radio" name="radio" onclick="showExchangeSection(false);" checked />
+					<span>No</span>
+				</label>
+			</form>
+		</div>
+
+		<!-- sezione scambi -->
+		<div id="exchangeSection" style="display:none;">
+			<br>
+
+			<!-- scambio crediti -->
+			<div class="container">
+				<h4>Scambio crediti</h4>
+			</div>
+			<div class="container">
+				<center>
+					<p>Indica se saranno permessi gli scambi di crediti tra partecipanti (esempio Totti per Del Piero
+						più 50 fanta milioni)</p>
+				</center>
+			</div>
+			<br>
+			<div class="container">
+				<form>
+					<label>
+						<input id="cbScambioCreditiSi" type="radio" name="radio" />
+						<span>Si</span>
+					</label>
+					<label>
+						<input id="cbScambioCreditiNo" type="radio" name="radio" checked />
+						<span>No</span>
+					</label>
+				</form>
+			</div>
+			<br>
+
+			<!-- note scambi -->
+			<div class="container">
+				<h4>Regole non previste</h4>
+			</div>
+			<div class="container">
+				<center>
+					<p>Inserisci eventuali note aggiuntive per la gestione di scambi giocatori.</p>
+				</center>
+			</div>
+			<br>
+			<center>
+				<textarea id="etNoteScambi" class="textarea"></textarea>
+			</center>
+		</div>
 		<br>
 	</div>
 	<br>
@@ -1202,7 +1256,7 @@
 
 	<!-- version -->
 	<br><br>
-	<center><i>versione 1.17.1</i></center>
+	<center><i>versione 1.19.1</i></center>
 
 	<!-- fine -->
 	<br><br><br>

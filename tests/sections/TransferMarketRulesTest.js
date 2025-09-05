@@ -22,12 +22,11 @@ function runTransferMarketRulesTests() {
                 expect(html).toContain("<p>7.2. Per le successive sessioni di mercato sono previsti 30");
                 expect(html).toContain("<p>7.3. Non è stata specificata nessuna gestione del caso in cui una squadra superi il numero di crediti spendibili");
                 expect(html).toContain("<p>7.4. Alla fine di una sessione di mercato, gli eventuali crediti residui");
-                expect(html).toContain("<p>7.5. Sono permessi gli scambi di crediti tra i partecipanti");
-                expect(html).toContain("<p>7.6. Sono permessi i cambi ruolo dei giocatori");
-                expect(html).toContain("<p>7.7. Previsto limite di cambi massimi per l'intera competizione");
-                expect(html).toContain("<p>7.8. Previsto limite di cambi massimi per una singola sessione di mercato");
-                expect(html).toContain("<p>7.9. Previsto limite di cambi massimi per ruolo");
-                expect(html).toContain("<p>7.10. notes");
+                expect(html).toContain("<p>7.5. Sono permessi i cambi ruolo dei giocatori");
+                expect(html).toContain("<p>7.6. Previsto limite di cambi massimi per l'intera competizione");
+                expect(html).toContain("<p>7.7. Previsto limite di cambi massimi per una singola sessione di mercato");
+                expect(html).toContain("<p>7.8. Previsto limite di cambi massimi per ruolo");
+                expect(html).toContain("<p>7.9. notes");
             });
         });
 
@@ -113,20 +112,6 @@ function runTransferMarketRulesTests() {
                 realDomDoc.getElementById("cbResiduiNo").checked = true;
                 const html = TransferMarketRules.retrieveResidualCreditsManagements();
                 expect(html).toContain("Alla fine di una sessione di mercato, gli eventuali crediti residui verranno ignorati, per cui non verranno utilizzati per le successive sessioni di mercato");
-            });
-        });
-
-        describe("swap credits test", function () {
-            it("testing credits swap enabled", function () {
-                realDomDoc.getElementById("cbScambioCreditiSi").checked = true;
-                const html = TransferMarketRules.estraiAbilitazioneScambioCrediti();
-                expect(html).toContain("Sono permessi gli scambi di crediti tra i partecipanti");
-            });
-
-            it("testing credits swap disabled", function () {
-                realDomDoc.getElementById("cbScambioCreditiSi").checked = false;
-                const html = TransferMarketRules.estraiAbilitazioneScambioCrediti();
-                expect(html).toContain("Non sono permessi gli scambi di crediti tra i partecipanti");
             });
         });
 
