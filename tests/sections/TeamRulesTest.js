@@ -3,16 +3,23 @@ function runTeamRulesTests() {
         describe("produce", function () {
             it("produce correctly the entire string", function () {
                 realDomDoc.getElementById("cbListone").checked = true;
-                realDomDoc.getElementById("etPortieri").value = "3";
+                realDomDoc.getElementById("etPortieri").value = "33";
                 realDomDoc.getElementById("etDifensori").value = "8";
-                realDomDoc.getElementById("etCentrocampisti").value = "8";
-                realDomDoc.getElementById("etAttaccanti").value = "6";
+                realDomDoc.getElementById("etCentrocampisti").value = "18";
+                realDomDoc.getElementById("etAttaccanti").value = "16";
                 realDomDoc.getElementById("cbCondivisiSi").checked = true;
 
                 const result = TeamRules.produce(6);
-                expect(result).toContain("<h2>6. Struttura rose</h2>");
-                expect(result).toContain("<p>6.1. Le rose dovranno essere cosi composte");
-                expect(result).toContain("<p>6.2. Le rose potranno avere giocatori condivisi");
+                expect(result[0].text).toContain("6. Struttura rose");
+                expect(result[0].type).toBe("h2");
+                expect(result[1].text).toContain("6.1. Le rose dovranno essere cosi composte");
+                expect(result[1].text).toContain("33 portieri");
+                expect(result[1].text).toContain("8 difensori");
+                expect(result[1].text).toContain("18 centrocampisti");
+                expect(result[1].text).toContain("16 attaccanti");
+                expect(result[1].type).toBe("paragraph");
+                expect(result[2].text).toContain("6.2. Le rose potranno avere giocatori condivisi");
+                expect(result[2].type).toBe("paragraph");
             });
         });
 
@@ -125,13 +132,15 @@ function runTeamRulesTests() {
             it("correctly produces squad structure with shared players enabled", function () {
                 realDomDoc.getElementById("cbCondivisiSi").checked = true;
                 const html = TeamRules.estraiAbilitazioneGiocatoriCondivisi();
-                expect(html).toContain("potranno avere giocatori condivisi");
+                expect(html.text).toContain("potranno avere giocatori condivisi");
+                expect(html.type).toBe("paragraph");
             });
 
             it("correctly produces squad structure with shared players disabled", function () {
                 realDomDoc.getElementById("cbCondivisiSi").checked = false;
                 const html = TeamRules.estraiAbilitazioneGiocatoriCondivisi();
-                expect(html).toContain("NON potranno avere giocatori condivisi");
+                expect(html.text).toContain("NON potranno avere giocatori condivisi");
+                expect(html.type).toBe("paragraph");
             });
         });
     });

@@ -43,4 +43,92 @@ function runMainScriptTests() {
             expect(html).toContain("</html>");
         });
     });
+
+    describe("HTML ↔ JSON fields", function () {
+
+        describe("from-HTML-to-JSON-tests", function () {
+
+            let test_cases = [
+                {field: "cbCalendario", value: true},
+                {field: "cbCalendario", value: false},
+                {field: "cbFormulaUno", value: true},
+                {field: "cbFormulaUno", value: false},
+                {field: "cbListone", value: true},
+                {field: "cbListone", value: false},
+                {field: "etInizio", value: "45"},
+                {field: "etFine", value: "10"},
+                {field: "etPortieri", value: "5"},
+                {field: "etDifensori", value: "47"},
+                {field: "etCentrocampisti", value: "51"},
+                {field: "etAttaccanti", value: "12"},
+            ];
+
+            test_cases.forEach(test => {
+                it(`${test.field} value = ${test.value}`, () => {
+
+                    // field setup.
+                    let element = realDomDoc.getElementById(test.field);
+                    if ("radio" === element.type || "checkbox" === element.type) {
+                        element.checked = test.value;
+                    } else {
+                        element.value = test.value;
+                    }
+
+                    // test assertion.
+                    const json = buildLoadJson(realDomDoc);
+                    expect(json[test.field]).toBe(test.value);
+                });
+            });
+        })
+
+        describe("from-JSON-to-HTML-tests", function () {
+
+            let test_cases = [
+                {field: "cbCalendario", start_value: false, final_value: true},
+                {field: "cbCalendario", start_value: true, final_value: false},
+                {field: "cbFormulaUno", start_value: false, final_value: true},
+                {field: "cbFormulaUno", start_value: true, final_value: false},
+                {field: "cbListone", start_value: false, final_value: true},
+                {field: "cbListone", start_value: true, final_value: false},
+                {field: "etInizio", start_value: "5", final_value: "20"},
+                {field: "etFine", start_value: "10", final_value: "4"},
+                {field: "etPortieri", start_value: "5", final_value: "10"},
+                {field: "etDifensori", start_value: "47", final_value: "10"},
+                {field: "etCentrocampisti", start_value: "51", final_value: "3"},
+                {field: "etAttaccanti", start_value: "12", final_value: "102"},
+            ];
+
+            test_cases.forEach(test => {
+                it(`${test.field} loading = ${test.final_value} from = ${test.start_value}`, () => {
+                    let field = test.field;
+                    let start_value = test.start_value;
+                    let final_value = test.final_value;
+
+                    // field setup.
+                    let element = realDomDoc.getElementById(test.field);
+                    if ("radio" === element.type || "checkbox" === element.type) {
+                        element.checked = start_value;
+                        expect(element.checked).toBe(start_value);
+                    } else {
+                        element.value = start_value;
+                        expect(element.value).toBe(start_value);
+                    }
+
+                    // invoke configuration import.
+                    loadRegulationFromJson({
+                        [field]: final_value
+                    }, realDomDoc);
+
+                    // test assertions.
+                    if ("radio" === element.type || "checkbox" === element.type) {
+                        expect(element.checked).toBe(final_value);
+                    } else {
+                        expect(element.value).toBe(final_value);
+                    }
+                });
+            });
+
+        })
+
+    });
 }
