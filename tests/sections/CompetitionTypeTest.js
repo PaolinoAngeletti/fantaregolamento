@@ -9,11 +9,15 @@ function runCompetitionTypeTests() {
                 realDomDoc.getElementById("etFine").value = "6";
 
                 const result = CompetitionType.produce(4);
-                expect(result).toContain("<h2>4. Tipologia competizione</h2>");
-                expect(result).toContain("<p>4.1. La competizione sarà una competizione");
-                expect(result).toContain("<p>4.2. L'inizio e la fine della competizione corrisponderanno");
-                expect(result).toContain("giornata 2");
-                expect(result).toContain("giornata 6");
+
+                expect(result[0].text).toContain("4. Tipologia competizione");
+                expect(result[0].type).toBe("h2");
+                expect(result[1].text).toContain("4.1. La competizione sarà una competizione");
+                expect(result[1].type).toBe("paragraph");
+                expect(result[2].text).toContain("4.2. L'inizio e la fine della competizione corrisponderanno");
+                expect(result[2].text).toContain("giornata 2");
+                expect(result[2].text).toContain("giornata 6");
+                expect(result[2].type).toBe("paragraph");
             });
         });
 
@@ -21,19 +25,22 @@ function runCompetitionTypeTests() {
             it("estraiTipoCompetizione con Calendario checked", function () {
                 realDomDoc.getElementById("cbCalendario").checked = true;
                 const result = CompetitionType.estraiTipoCompetizione();
-                expect(result).toContain("classica competizione a calendario");
+                expect(result.text).toContain("classica competizione a calendario");
+                expect(result.type).toBe("paragraph");
             });
 
             it("estraiTipoCompetizione con FormulaUno checked", function () {
                 realDomDoc.getElementById("cbFormulaUno").checked = true;
                 const result = CompetitionType.estraiTipoCompetizione();
-                expect(result).toContain("competizione con stile Formula Uno");
+                expect(result.text).toContain("competizione con stile Formula Uno");
+                expect(result.type).toBe("paragraph");
             });
 
             it("estraiTipoCompetizione con Listone checked", function () {
                 realDomDoc.getElementById("cbListone").checked = true;
                 const result = CompetitionType.estraiTipoCompetizione();
-                expect(result).toContain("competizione a listone");
+                expect(result.text).toContain("competizione a listone");
+                expect(result.type).toBe("paragraph");
             });
         });
 
@@ -42,7 +49,8 @@ function runCompetitionTypeTests() {
                 realDomDoc.getElementById("etInizio").value = "3";
                 realDomDoc.getElementById("etFine").value = "8";
                 const result = CompetitionType.estraiDurataCompetizione(23);
-                expect(result).toBe("<p>23.2. L'inizio e la fine della competizione corrisponderanno rispettivamente con la giornata 3 e con la giornata 8 del campionato reale.</p>");
+                expect(result.text).toBe("23.2. L'inizio e la fine della competizione corrisponderanno rispettivamente con la giornata 3 e con la giornata 8 del campionato reale.");
+                expect(result.type).toBe("paragraph");
             });
 
             it("competition start cannot be negative", function () {
