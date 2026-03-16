@@ -1,5 +1,3 @@
-import {PDFDocument, rgb, StandardFonts} from 'https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.esm.min.js';
-
 export async function showPreview(contentRows, metadata) {
     let pdfDocument = createPDFDocument(contentRows, metadata);
     const pdfBytes = pdfDocument.output('arraybuffer');
