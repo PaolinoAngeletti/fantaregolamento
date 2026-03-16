@@ -11,6 +11,10 @@
 	<title>FantaRegolamento</title>
 	<link rel="icon" type="image/svg+xml" href="images/logo.png" />
 
+	<!-- TODO DEVELOPMENT: VALUTA QUALI LASCIARE -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 	<!-- javascript -->
 	<script src="scripts.js"></script>
 
@@ -25,6 +29,21 @@
 <body>
 	<div class="container">
 		<h1>Crea il tuo Fanta Regolamento</h1>
+
+		<div style="display: flex; gap: 10px;">
+
+			<!-- TODO grafica - load document -->
+			<button id="btnImporta" class="ripple" role="button" onclick="selectLocalPDF()">
+				Importa
+			</button>
+
+			<!-- TODO input file nascosto -->
+			<input type="file" id="fileInput" style="display: none;" />
+
+			<button class="ripple" role="button" onclick="salvaConfigurazione();">
+				Reset
+			</button>
+		</div>
 	</div>
 
 	<!-- tipo competizione -->
@@ -32,24 +51,22 @@
 		<div class="container">
 			<h2>Tipo di competizione</h2>
 		</div>
-		<div class="container">
-			<center>
-				<p>Imposta il tipo di competizione da affrontare</p>
-			</center>
+		<div class="container centered">
+			<p>Imposta il tipo di competizione da affrontare</p>
 		</div>
 		<br>
 		<div class="container">
 			<form>
 				<label>
-					<input id="cbCalendario" type="radio" name="radio" checked />
+					<input id="cbCalendario" type="radio" name="radio" checked loadable />
 					<span>Competizione a calendario</span>
 				</label>
 				<label>
-					<input id="cbFormulaUno" type="radio" name="radio" />
+					<input id="cbFormulaUno" type="radio" name="radio" loadable />
 					<span>Competizione a formula 1</span>
 				</label>
 				<label>
-					<input id="cbListone" type="radio" name="radio" />
+					<input id="cbListone" type="radio" name="radio" loadable />
 					<span>Competizione a listone<br>(uno contro tutti)</span>
 				</label>
 			</form>
@@ -58,27 +75,24 @@
 		<div class="container">
 			<h4>Durata competizione</h4>
 		</div>
-		<div class="container">
-			<center>
-				<p>Indica la durata della competizione, impostando la giornata di inizio e fine rispetto al reale
-					campionato</p>
-			</center>
+		<div class="container centered">
+			<p>Indica la durata della competizione, impostando la giornata di inizio e fine rispetto al reale campionato</p>
 		</div>
 		<br>
-		<center>
+		<div class="centered">
 			<p>Inizio</p>
-		</center>
+		</div>
 		<div class="container">
 			<div class="form-group">
-				<input id="etInizio" type="number" data-rule="required" min="1" value="1" />
+				<input id="etInizio" type="number" data-rule="required" min="1" value="1" loadable />
 			</div>
 		</div>
-		<center>
+		<div class="centered">
 			<p>Fine</p>
-		</center>
+		</div>
 		<div class="container">
 			<div class="form-group">
-				<input id="etFine" type="number" data-rule="required" min="1" value="38" />
+				<input id="etFine" type="number" data-rule="required" min="1" value="38" loadable />
 			</div>
 		</div>
 	</div>
@@ -100,7 +114,7 @@
 		</center>
 		<div class="container">
 			<div class="form-group">
-				<input id="etPortieri" type="number" data-rule="required" min="1" value="3" />
+				<input id="etPortieri" type="number" data-rule="required" min="1" value="3" loadable />
 			</div>
 		</div>
 		<center>
@@ -108,7 +122,7 @@
 		</center>
 		<div class="container">
 			<div class="form-group">
-				<input id="etDifensori" type="number" data-rule="required" min="1" value="8" />
+				<input id="etDifensori" type="number" data-rule="required" min="1" value="8" loadable />
 			</div>
 		</div>
 		<center>
@@ -116,7 +130,7 @@
 		</center>
 		<div class="container">
 			<div class="form-group">
-				<input id="etCentrocampisti" type="number" data-rule="required" min="1" value="8" />
+				<input id="etCentrocampisti" type="number" data-rule="required" min="1" value="8" loadable />
 			</div>
 		</div>
 		<center>
@@ -124,7 +138,7 @@
 		</center>
 		<div class="container">
 			<div class="form-group">
-				<input id="etAttaccanti" type="number" data-rule="required" min="1" value="6" />
+				<input id="etAttaccanti" type="number" data-rule="required" min="1" value="6" loadable />
 			</div>
 		</div>
 		<br>

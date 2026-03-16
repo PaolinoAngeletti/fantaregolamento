@@ -247,3 +247,8 @@ button {
   background-size: 100%;
   transition: background 0s;
 }
+
+/* added cause center tag deprecation */
+.centered {
+  text-align: center;
+}
