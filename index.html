@@ -154,11 +154,11 @@
 		<div class="container">
 			<form>
 				<label>
-					<input id="cbCondivisiSi" type="radio" name="radio" />
+					<input id="cbCondivisiSi" type="radio" name="radio" loadable />
 					<span>Si</span>
 				</label>
 				<label>
-					<input id="cbCondivisiNo" type="radio" name="radio" checked />
+					<input id="cbCondivisiNo" type="radio" name="radio" checked loadable />
 					<span>No</span>
 				</label>
 			</form>
@@ -186,7 +186,7 @@
 		<br>
 		<div class="container">
 			<div class="form-group">
-				<input id="etCrediti" type="number" data-rule="required" min="1" value="500" />
+				<input id="etCrediti" type="number" data-rule="required" min="1" value="500" loadable />
 			</div>
 		</div>
 		<br>
@@ -197,14 +197,14 @@
 		</div>
 		<div class="container">
 			<center>
-				<p>Imposta il numero di fanta milioni che verranno aggiunti ad ogni sessione di mercato per ogni squadra
+				<p>Imposta il numero di fanta-milioni che verranno aggiunti ad ogni sessione di mercato per ogni squadra
 				</p>
 			</center>
 		</div>
 		<br>
 		<div class="container">
 			<div class="form-group">
-				<input id="etCreditiSessione" type="number" data-rule="required" min="0" value="30" />
+				<input id="etCreditiSessione" type="number" data-rule="required" min="0" value="30" loadable />
 			</div>
 		</div>
 		<br>
@@ -221,8 +221,9 @@
 		</div>
 		<br>
 		<center>
-			<textarea id="taCreditiFiniti"
-				class="textarea">Saranno svincolati, partendo dal più costoso, tanti giocatori quanto basta per recuperare un saldo crediti positivo.</textarea>
+			<textarea id="taCreditiFiniti" class="textarea" loadable>
+				Saranno svincolati, partendo dal più costoso, tanti giocatori quanto basta per recuperare un saldo crediti positivo.
+			</textarea>
 		</center>
 		<br>
 
@@ -240,11 +241,11 @@
 		<div class="container">
 			<form>
 				<label>
-					<input id="cbResiduiSi" type="radio" name="radio" checked />
+					<input id="cbResiduiSi" type="radio" name="radio" checked loadable />
 					<span>Si</span>
 				</label>
 				<label>
-					<input id="cbResiduiNo" type="radio" name="radio" />
+					<input id="cbResiduiNo" type="radio" name="radio" loadable />
 					<span>No</span>
 				</label>
 			</form>
@@ -265,11 +266,11 @@
 		<div class="container">
 			<form>
 				<label>
-					<input id="cbCambioRuoloSi" type="radio" name="radio" />
+					<input id="cbCambioRuoloSi" type="radio" name="radio" loadable />
 					<span>Si</span>
 				</label>
 				<label>
-					<input id="cbCambioRuoloNo" type="radio" name="radio" checked />
+					<input id="cbCambioRuoloNo" type="radio" name="radio" checked loadable />
 					<span>No</span>
 				</label>
 			</form>
@@ -291,7 +292,7 @@
 		<br>
 		<div class="container">
 			<div class="form-group">
-				<input id="etMaxScambiCompetizione" type="number" data-rule="required" min="0" value="0" />
+				<input id="etMaxScambiCompetizione" type="number" data-rule="required" min="0" value="0" loadable />
 			</div>
 		</div>
 		<br>
@@ -310,7 +311,7 @@
 		<br>
 		<div class="container">
 			<div class="form-group">
-				<input id="etMaxScambiSessione" type="number" data-rule="required" min="0" value="0" />
+				<input id="etMaxScambiSessione" type="number" data-rule="required" min="0" value="0" loadable />
 			</div>
 		</div>
 		<br>
@@ -330,7 +331,7 @@
 		<div class="container">
 			<div class="form-group">
 				<input id="etMaxScambiRuolo" type="number" data-rule="required" min="0" value="0"
-					oninput="manageRoleMaxChangeNumber(this)" />
+					oninput="manageRoleMaxChangeNumber(this)" loadable />
 			</div>
 		</div>
 		<br>
@@ -346,7 +347,7 @@
 		</div>
 		<br>
 		<center>
-			<textarea id="etNoteMercato" class="textarea"></textarea>
+			<textarea id="etNoteMercato" class="textarea" loadable></textarea>
 		</center>
 		<br>
 	</div>

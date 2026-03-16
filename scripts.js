@@ -170,7 +170,7 @@ function retrieveSections() {
     return [
         CompetitionType,
         TeamRules,
-        //TransferMarketRules,
+        TransferMarketRules,
         //PlayerReleaseRules,
         //ExchangeRules,
         //AccidentRules,
@@ -263,8 +263,7 @@ function hideErrorSection() {
 function manageRoleMaxChangeNumber(etMaxScambiRuolo) {
     let rolesNumber = 4;
     let maxChangeNr = etMaxScambiRuolo.value;
-    let maxChangeForSession = maxChangeNr * rolesNumber;
-    Utils.retrieveDomElement("etMaxScambiSessione").value = maxChangeForSession;
+    Utils.retrieveDomElement("etMaxScambiSessione").value = maxChangeNr * rolesNumber;
 }
 
 function verifyCreditsRecoverOnPlayerRelease() {

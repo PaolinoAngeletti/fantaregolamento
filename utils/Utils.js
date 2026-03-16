@@ -55,13 +55,25 @@ const Utils = {
         return toReturn;
     },
 
+    /**
+     * Builds a section with a title and a list of rules.
+     *
+     * This function takes a section index, a section title, and a list of strings representing
+     * the rules. It validates each rule string and converts them into objects suitable for
+     * further processing or rendering.
+     *
+     * @param {number} sectionIndex - The index of the section (used for numbering).
+     * @param {string} sectionTitle - The title of the section.
+     * @param {string[]} rulesList - An array of strings, each representing a rule. Invalid or empty strings are ignored.
+     * @returns {Object[]} An array of objects representing the section and its rules. The first element is the section title object, followed by rule objects.
+     */
     buildRuleSection: function (sectionIndex, sectionTitle, rulesList) {
-        let toReturn = "";
+        let toReturn = [];
         if (rulesList) {
-            toReturn = this.addSectionTitle(sectionIndex, sectionTitle);
+            toReturn.push(this.addSectionTitle(sectionIndex, sectionTitle));
             rulesList.forEach((element, index) => {
                 if (this.isValidString(element)) {
-                    toReturn += this.addTextRow(sectionIndex, index + 1, element);
+                    toReturn.push(this.addTextRow(sectionIndex, index + 1, element))
                 }
             });
         }
