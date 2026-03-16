@@ -21,6 +21,7 @@ function createPDFDocument(contentRows, metadata) {
         creator: "Paolino Angeletti",
         version: "1.0",
     });
+    //todo qui la versione del sw, utile a capire se puoi accedere alla ricarica file.
 
     // rows.
     contentRows.forEach((row) => {
@@ -52,6 +53,7 @@ function createPDFDocument(contentRows, metadata) {
     return pdfDocument;
 }
 
+// todo unused warning ma è il compilatore. viene usata e come!
 export async function loadPDFDocument() {
     return new Promise((resolve, reject) => {
         const input = document.createElement("input");
