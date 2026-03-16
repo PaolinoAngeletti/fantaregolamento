@@ -1,14 +1,21 @@
 const Utils = {
+
     retrieveDomElement: function (elementId) {
         return document.getElementById(elementId);
     },
 
     addSectionTitle: function (index = undefined, title) {
-        return "<h2>" + index + ". " + title + "</h2>";
+        return this.addText(index + ". " + title, "h2");
     },
 
     addTextRow: function (sectionIndex = null, ruleIndex = null, text) {
-        return "<p>" + sectionIndex + "." + ruleIndex + ". " + text + "</p>";
+        return this.addText((sectionIndex + "." + ruleIndex + ". " + text), "paragraph");
+    },
+
+    addText: function (text, type) {
+        return {
+            "text": text, "type": type
+        }
     },
 
     resolveEscapes: function (stringWithEscapes) {
@@ -37,10 +44,10 @@ const Utils = {
     },
 
     retrieveAdditionalNotes: function (domElement) {
-        var toReturn = "";
+        let toReturn = "";
         let additionalNotes = Utils.retrieveDomElement(domElement);
         if (additionalNotes != null) {
-            var testoNote = additionalNotes.value;
+            let testoNote = additionalNotes.value;
             if (testoNote.trim() !== "") {
                 toReturn = this.resolveEscapes(testoNote);
             }
@@ -49,7 +56,7 @@ const Utils = {
     },
 
     buildRuleSection: function (sectionIndex, sectionTitle, rulesList) {
-        var toReturn = "";
+        let toReturn = "";
         if (rulesList) {
             toReturn = this.addSectionTitle(sectionIndex, sectionTitle);
             rulesList.forEach((element, index) => {
