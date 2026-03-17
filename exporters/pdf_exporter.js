@@ -64,12 +64,11 @@ export async function attachJSONtoPDF(pdfBytes, metadata) {
 
 /**
  * Show a PDF document preview.
- * @param {window.jspdf.jsPDF} pdf
+ * @param pdfWithAttachment
  */
 // noinspection JSUnusedGlobalSymbols
-export function openPDFPreview(pdf) {
-    const pdfBytes = pdf.output('arraybuffer');
-    const blob = new Blob([pdfBytes], {type: 'application/pdf'});
+export function openPDFPreview(pdfWithAttachment) {
+    const blob = new Blob([pdfWithAttachment], {type: 'application/pdf'});
     const url = URL.createObjectURL(blob);
     window.open(url, "_blank");
 }
