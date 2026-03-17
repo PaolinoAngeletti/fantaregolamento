@@ -1,86 +1,75 @@
-export async function showPreview(contentRows, metadata) {
-    let pdfDocument = createPDFDocument(contentRows, metadata);
-    const pdfBytes = pdfDocument.output('arraybuffer');
+const jsPDF = window.jspdf?.jsPDF;
+const {PDFDocument} = window.PDFLib;
+
+/*
+Library used to create and manage PDF documents.
+For this purpose, two libraries are used:
+- jsPDF: used to create PDFs. It is used for its simplicity in defining PDF lines, and above all,
+it makes it very easy to manage newlines, using the splitTextToSize method.
+- pdf-lib: used to add attachments to a PDF document.
+ */
+
+/**
+ * Create a PDF document with jsPDF library.
+ * @param {Array<{text: string, type: string}>} contentRows
+ * @returns {window.jspdf.jsPDF} PDF created.
+ */
+// noinspection JSUnusedGlobalSymbols
+export async function createPDF(contentRows) {
+    const pdf = new jsPDF({unit: "pt", format: "a4"});
+    let x = 20, y = 40;
+
+    contentRows.forEach(row => {
+        const text = row.text || row.toString();
+        const type = row.type || "paragraph";
+        let fontSize = 12, fontStyle = "normal", spaceDiv = 10;
+
+        if (type === "h1") {
+            fontSize = 25;
+            fontStyle = "bold";
+            spaceDiv = 30;
+        }
+        if (type === "h2") {
+            fontSize = 17;
+            fontStyle = "bold";
+            spaceDiv = 18;
+        }
+
+        pdf.setFont("helvetica", fontStyle);
+        pdf.setFontSize(fontSize);
+        const lines = pdf.splitTextToSize(text, 500);
+        pdf.text(lines, x, y);
+        y += lines.length * 14 + spaceDiv;
+    });
+
+    return pdf;
+}
+
+/**
+ * Attach a JSON document as embedded file using pdf-lib library.
+ * @param {ArrayBuffer} pdfBytes
+ * @param {Object} metadata
+ * @returns {Promise<Uint8Array>} PDF updated with attachment.
+ */
+// noinspection JSUnusedGlobalSymbols
+export async function attachJSONtoPDF(pdfBytes, metadata) {
+    const pdfDoc = await PDFDocument.load(pdfBytes);
+    const jsonBytes = new TextEncoder().encode(JSON.stringify(metadata));
+    pdfDoc.attach(jsonBytes, 'config.json', {
+        mimeType: 'application/json',
+        description: 'FantaRegolamento configuration'
+    });
+    return await pdfDoc.save();
+}
+
+/**
+ * Show a PDF document preview.
+ * @param {window.jspdf.jsPDF} pdf
+ */
+// noinspection JSUnusedGlobalSymbols
+export function openPDFPreview(pdf) {
+    const pdfBytes = pdf.output('arraybuffer');
     const blob = new Blob([pdfBytes], {type: 'application/pdf'});
     const url = URL.createObjectURL(blob);
     window.open(url, "_blank");
-}
-
-function createPDFDocument(contentRows, metadata) {
-    // starting PDF coordinates.
-    let x = 20;
-    let y = 40;
-
-    let pdfDocument = new window.jspdf.jsPDF({unit: "pt", format: "a4"});
-
-    // metadata.
-    pdfDocument.setProperties({
-        title: "FantaRegolamento",
-        subject: JSON.stringify(metadata),
-        author: "Paolino Angeletti",
-        creator: "Paolino Angeletti",
-        version: "1.0",
-    });
-    //todo qui la versione del sw, utile a capire se puoi accedere alla ricarica file.
-
-    // rows.
-    contentRows.forEach((row) => {
-        const text = row.text || row.toString();
-        const type = row.type;
-        let space_divisor;
-
-        if ("h1" === type) {
-            pdfDocument.setFont("helvetica", "bold");
-            pdfDocument.setFontSize(25);
-            space_divisor = 30;
-        } else if ("h2" === type) {
-            pdfDocument.setFont("helvetica", "bold");
-            pdfDocument.setFontSize(17);
-            space_divisor = 18;
-        } else if ("paragraph" === type) {
-            pdfDocument.setFont("helvetica", "normal");
-            pdfDocument.setFontSize(12);
-            space_divisor = 10;
-        } else {
-            throw new Error("Invalid text type: " + type);
-        }
-
-        const lines = pdfDocument.splitTextToSize(text, 500);
-        pdfDocument.text(lines, x, y);
-        y += lines.length * 14 + space_divisor;
-    });
-
-    return pdfDocument;
-}
-
-// todo unused warning ma è il compilatore. viene usata e come!
-export async function loadPDFDocument() {
-    return new Promise((resolve, reject) => {
-        const input = document.createElement("input");
-        input.type = "file";
-        input.accept = ".pdf";
-
-        input.onchange = async (event) => {
-            const file = event.target.files[0];
-            if (!file) return reject("No file selected");
-
-            try {
-                const arrayBuffer = await file.arrayBuffer();
-                const pdfDoc = await PDFDocument.load(arrayBuffer);
-
-                const subject = pdfDoc.getSubject();
-                if (!subject) return reject("No JSON inside metadata");
-
-                try {
-                    const dati = JSON.parse(subject);
-                    resolve(dati);
-                } catch (err) {
-                    reject("Invalid metadata JSON");
-                }
-            } catch (err) {
-                reject(err);
-            }
-        };
-        input.click();
-    });
 }
