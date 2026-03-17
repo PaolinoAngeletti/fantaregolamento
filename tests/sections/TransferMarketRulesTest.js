@@ -17,16 +17,26 @@ function runTransferMarketRulesTests() {
 
                 const html = TransferMarketRules.produce(7);
 
-                expect(html).toContain("<h2>7. Gestione mercato");
-                expect(html).toContain("<p>7.1. Per il mercato iniziale sono previsti 100 fantamilioni");
-                expect(html).toContain("<p>7.2. Per le successive sessioni di mercato sono previsti 30");
-                expect(html).toContain("<p>7.3. Non è stata specificata nessuna gestione del caso in cui una squadra superi il numero di crediti spendibili");
-                expect(html).toContain("<p>7.4. Alla fine di una sessione di mercato, gli eventuali crediti residui");
-                expect(html).toContain("<p>7.5. Sono permessi i cambi ruolo dei giocatori");
-                expect(html).toContain("<p>7.6. Previsto limite di cambi massimi per l'intera competizione");
-                expect(html).toContain("<p>7.7. Previsto limite di cambi massimi per una singola sessione di mercato");
-                expect(html).toContain("<p>7.8. Previsto limite di cambi massimi per ruolo");
-                expect(html).toContain("<p>7.9. notes");
+                expect(html[0].text).toContain("7. Gestione mercato");
+                expect(html[0].type).toBe("h2");
+                expect(html[1].text).toContain("7.1. Per il mercato iniziale sono previsti 100 fanta-milioni");
+                expect(html[1].type).toBe("paragraph");
+                expect(html[2].text).toContain("7.2. Per le successive sessioni di mercato sono previsti 30");
+                expect(html[2].type).toBe("paragraph");
+                expect(html[3].text).toContain("7.3. Non è stata specificata nessuna gestione del caso in cui una squadra superi il numero di crediti spendibili");
+                expect(html[3].type).toBe("paragraph");
+                expect(html[4].text).toContain("7.4. Alla fine di una sessione di mercato, gli eventuali crediti residui");
+                expect(html[4].type).toBe("paragraph");
+                expect(html[5].text).toContain("7.5. Sono permessi i cambi ruolo dei giocatori");
+                expect(html[5].type).toBe("paragraph");
+                expect(html[6].text).toContain("7.6. Previsto limite di cambi massimi per l'intera competizione");
+                expect(html[6].type).toBe("paragraph");
+                expect(html[7].text).toContain("7.7. Previsto limite di cambi massimi per una singola sessione di mercato");
+                expect(html[7].type).toBe("paragraph");
+                expect(html[8].text).toContain("7.8. Previsto limite di cambi massimi per ruolo");
+                expect(html[8].type).toBe("paragraph");
+                expect(html[9].text).toContain("7.9. notes");
+                expect(html[9].type).toBe("paragraph");
             });
         });
 

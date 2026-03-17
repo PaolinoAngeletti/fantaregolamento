@@ -23,7 +23,7 @@ function runMainScriptTests() {
 
             const html = createHTMLCode();
             expect(html).toContain("<!DOCTYPE html>");
-            expect(html).toContain("<html>");
+            expect(html).toContain("<html lang='it'>");
             expect(html).toContain("<head>");
             expect(html).toContain("<title>Regolamento creato</title>");
             expect(html).toContain("<body");
@@ -61,6 +61,25 @@ function runMainScriptTests() {
                 {field: "etDifensori", value: "47"},
                 {field: "etCentrocampisti", value: "51"},
                 {field: "etAttaccanti", value: "12"},
+                {field: "cbCondivisiSi", value: true},
+                {field: "cbCondivisiSi", value: false},
+                {field: "cbCondivisiNo", value: true},
+                {field: "cbCondivisiNo", value: false},
+                {field: "etCrediti", value: "750"},
+                {field: "etCreditiSessione", value: "100"},
+                {field: "taCreditiFiniti", value: "10"},
+                {field: "cbResiduiSi", value: false},
+                {field: "cbResiduiSi", value: true},
+                {field: "cbResiduiNo", value: false},
+                {field: "cbResiduiNo", value: true},
+                {field: "cbCambioRuoloSi", value: false},
+                {field: "cbCambioRuoloSi", value: true},
+                {field: "cbCambioRuoloNo", value: false},
+                {field: "cbCambioRuoloNo", value: true},
+                {field: "etMaxScambiCompetizione", value: "15"},
+                {field: "etMaxScambiSessione", value: "25"},
+                {field: "etMaxScambiRuolo", value: "2"},
+                {field: "etNoteMercato", value: "These are beautiful notes!"},
             ];
 
             test_cases.forEach(test => {
@@ -76,6 +95,7 @@ function runMainScriptTests() {
 
                     // test assertion.
                     const json = buildLoadJson(realDomDoc);
+                    console.log(json);
                     expect(json[test.field]).toBe(test.value);
                 });
             });
@@ -96,6 +116,25 @@ function runMainScriptTests() {
                 {field: "etDifensori", start_value: "47", final_value: "10"},
                 {field: "etCentrocampisti", start_value: "51", final_value: "3"},
                 {field: "etAttaccanti", start_value: "12", final_value: "102"},
+                {field: "cbCondivisiNo", start_value: false, final_value: true},
+                {field: "cbCondivisiNo", start_value: true, final_value: false},
+                {field: "cbCondivisiSi", start_value: false, final_value: true},
+                {field: "cbCondivisiSi", start_value: true, final_value: false},
+                {field: "etCrediti", start_value: "750", final_value: "100"},
+                {field: "etCreditiSessione", start_value: "100", final_value: "150"},
+                {field: "taCreditiFiniti", start_value: "10", final_value: "50"},
+                {field: "cbResiduiSi", start_value: false, final_value: true},
+                {field: "cbResiduiSi", start_value: true, final_value: false},
+                {field: "cbResiduiNo", start_value: false, final_value: true},
+                {field: "cbResiduiNo", start_value: true, final_value: false},
+                {field: "cbCambioRuoloSi", start_value: false, final_value: true},
+                {field: "cbCambioRuoloSi", start_value: true, final_value: false},
+                {field: "cbCambioRuoloNo", start_value: false, final_value: true},
+                {field: "cbCambioRuoloNo", start_value: true, final_value: false},
+                {field: "etMaxScambiCompetizione", start_value: "15", final_value: "20"},
+                {field: "etMaxScambiSessione", start_value: "25", final_value: "20"},
+                {field: "etMaxScambiRuolo", start_value: "2", final_value: "20"},
+                {field: "etNoteMercato", start_value: "These are beautiful notes!", final_value: "These are very bad notes!"},
             ];
 
             test_cases.forEach(test => {
