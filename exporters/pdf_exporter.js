@@ -39,14 +39,6 @@ async function createPDF(contentRows, advertise) {
     return pdf;
 }
 
-class PdfRowInfo {
-    constructor(fontSize, fontStyle, spaceDiv) {
-        this.fontSize = fontSize;
-        this.fontStyle = fontStyle;
-        this.spaceDiv = spaceDiv;
-    }
-}
-
 async function manageRow(pdf, row, x, y) {
     const text = row.text;
     const type = row.type;
@@ -71,20 +63,41 @@ async function manageRow(pdf, row, x, y) {
     return y;
 }
 
+class PdfRowInfo {
+    constructor() {
+        this.fontSize = 15;
+        this.fontStyle = "normal";
+        this.marginTop = 10;
+        this.marginBottom = 10;
+        this.width = 15;
+        this.height = 15;
+    }
+}
+
 function retrieveRowInfo(row) {
-    let result;
+    let result = new PdfRowInfo();
     const type = row.type;
 
     if (type === "h1") {
-        result = new PdfRowInfo(25, "bold", 30);
+        result.fontSize = 25;
+        result.fontStyle = "bold";
+        result.marginTop = 20;
+        result.marginBottom = 8;
     } else if (type === "h2") {
-        result = new PdfRowInfo(17, "bold", 18);
+        result.fontSize = 17;
+        result.fontStyle = "bold";
+        result.marginTop = 20;
+        result.marginBottom = 8;
     } else if (type === "paragraph") {
-        result = new PdfRowInfo(12, "normal", 10);
+        result.fontSize = 12;
+        result.marginTop = 8;
+        result.marginBottom = 5;
     } else if (type === "italic") {
-        result = new PdfRowInfo(10, "italic", 10);
+        result.fontSize = 10;
+        result.fontStyle = "italic";
+        result.marginTop = 6;
+        result.marginBottom = 5;
     } else if (type === "image") {
-        result = new PdfRowInfo();
         result.width = row.width || 100;
         result.height = row.height || 100;
     } else {
@@ -109,11 +122,16 @@ function writeTextToPDF(pdf, text, rowInfo, x, y) {
     pdf.setFont("helvetica", rowInfo.fontStyle);
     pdf.setFontSize(rowInfo.fontSize);
 
+    // applying margin-top.
+    y += rowInfo.marginTop;
+
+    // writing lines.
     const lines = pdf.splitTextToSize(text, 500);
     pdf.text(lines, x, y);
 
     // updating next write height.
-    y += lines.length * 14 + rowInfo.spaceDiv;
+    y += lines.length * rowInfo.fontSize;
+    y += rowInfo.marginBottom;
     return y;
 }
 
