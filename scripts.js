@@ -139,34 +139,6 @@ function retrieveAdvertisingContent() {
     ], "center");
 }
 
-function selectLocalPDF() {
-    import(pdf_exporter_path)
-        .then(module => module.loadPDFDocument())
-        .then(dati => {
-            loadRegulationFromJson(dati);
-        })
-        .catch(error => {
-            console.error("Error during import PDF:", error);
-        });
-}
-
-function loadRegulationFromJson(json, domDoc = document) {
-    const domElements = domDoc.querySelectorAll("[loadable]");
-    domElements.forEach(el => {
-        const key = el.id;
-        if (!(key in json)) return;
-
-        const value = json[key];
-        if (el.type === "radio") {
-            el.checked = value;
-        } else if (el.type === "checkbox") {
-            el.checked = value;
-        } else {
-            el.value = value;
-        }
-    });
-}
-
 function showExchangeSection(toShow) {
     if (toShow) {
         Utils.showDomElement("exchangeSection");
