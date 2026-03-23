@@ -1,5 +1,3 @@
-pdf_exporter_path = "./exporters/pdf_exporter.js"
-
 /*
 Document on-load procedures.
 */
@@ -17,6 +15,7 @@ function loadRequiredScripts() {
         setupDefaultPrizesValue();
         loadScript("utils/FieldValidation.js");
         loadScript("exception/FieldValidationException.js");
+        loadScript("exporters/exporter_factory.js");
     });
 }
 
@@ -54,87 +53,39 @@ function loadScript(fileName, callback) {
 
 function setupDefaultPrizesValue() {
     const taPremi = Utils.retrieveDomElement("taPremi");
-    const defaultValue = [
+    taPremi.value = [
         "Primo posto: - euro",
         "Secondo posto: - euro",
         "Terzo posto: - euro"
     ].join('\n');
-    taPremi.value = defaultValue;
 }
 
 /*
 Regulation creation.
 */
 
-function avviaAnteprimaDocumento() {
+function avviaAnteprimaDocumento(documentType) {
     try {
         let content = retrieveRegulationContent();
-        let metadata = buildLoadJson();
-
-        // todo qui factory
-        import(pdf_exporter_path).then(async module => {
-            await module.showPreview(content, metadata);
-        });
-
-        //PDFExporter.show(content);
-
-        //const pdf = new window.jspdf.jsPDF();
-//var doc = new window.jspdf.jsPDF({ unit: "pt", format: "a4" });
-//doc.text("Regolamento Fantacalcio", 20, 30);
-
-        //var doc = createHTMLCodePDF();
-        //import('./scripts/pdf_handler.js').then(async module => {
-        //await module.show(doc);
-        //});
-
-
-        //let htmlCode = createHTMLCode();
-        //let blob = new Blob([htmlCode], {
-        //  type: "text/html; charset=utf-8"
-        //});
-
-        //let metadati = buildLoadJson();
-        //console.log(metadati);
-
-        // genera anteprima PDF direttamente
-
-
-        //import('./scripts/pdf_handler.js').then(async module => {
-        //  await module.avviaAnteprimaPDF(metadati, htmlCode);
-        //});
-
-
-        //let url = URL.createObjectURL(blob);
-        //window.open(url, "_blank");
-
+        let metadata = retrieveMetadataForReload();
+        let advertise = retrieveAdvertisingContent();
+        retrieveDocumentModule(documentType, content, metadata, advertise);
         hideErrorSection();
     } catch (errorMessage) {
         showErrorSection(errorMessage.message);
     }
 }
 
-function createHTMLCode() {
-    var toReturn = "<!DOCTYPE html>";
-    toReturn = toReturn + "<html>";
-    toReturn += this.buildTabTitle();
-
-    toReturn = toReturn + "<body style='font-family:sans-serif'>";
-    toReturn = toReturn + "<h1>Regolamento Fantacalcio</h1>";
-
-    let sectionsList = retrieveSections();
-    sectionsList.forEach((section, index) => {
-        toReturn = toReturn + section.produce(index + 1);
+function retrieveDocumentModule(documentType, content, metadata, advertise) {
+    ExporterFactory.getExporter(documentType).then(exporter => {
+        // noinspection JSUnresolvedFunction
+        exporter.createAndOpenDocument(content, metadata, advertise);
+    }).catch(err => {
+        console.error(err);
+        showErrorSection(err.message);
     });
-
-    toReturn = toReturn + "</br></br>";
-    toReturn += this.buildAdvertiseSection();
-
-    toReturn = toReturn + "</body>";
-    toReturn = toReturn + "</html>";
-    return toReturn;
 }
 
-// TEMP!!!!
 function retrieveRegulationContent() {
     let toReturn = [];
 
@@ -145,24 +96,6 @@ function retrieveRegulationContent() {
     sectionsList.forEach((section, index) => {
         toReturn.push(...section.produce(index + 1));
     });
-
-    // TODO: advertising
-    //toReturn = toReturn + "</br></br>";
-    //toReturn += this.buildAdvertiseSection();
-
-    //toReturn = toReturn + "</body>";
-    //toReturn = toReturn + "</html>";
-    return toReturn;
-}
-
-// SOLO PER HTML!!!
-function buildTabTitle() {
-    var toReturn = "<head>";
-    toReturn = toReturn + "<title>Regolamento creato</title>";
-    if (typeof logoBase64 != "undefined") {
-        toReturn += "<link rel='icon' type='image/svg+xml' href='" + logoBase64 + "' />";
-    }
-    toReturn = toReturn + "</head>";
     return toReturn;
 }
 
@@ -182,7 +115,7 @@ function retrieveSections() {
     ];
 }
 
-function buildLoadJson(domDoc = document) {
+function retrieveMetadataForReload(domDoc = document) {
     const result = {};
     const loadableElements = domDoc.querySelectorAll("[loadable]");
     loadableElements.forEach(el => {
@@ -196,6 +129,14 @@ function buildLoadJson(domDoc = document) {
         }
     });
     return result;
+}
+
+// TODO valutare di aggiungere in QR code della pagina web invece del link
+function retrieveAdvertisingContent() {
+    return Utils.addText([
+        Utils.addText(logoBase64, "image"),
+        Utils.addText("Documento stilato con FantaRegolamento", "italic")
+    ], "center");
 }
 
 function selectLocalPDF() {
@@ -235,7 +176,7 @@ function showExchangeSection(toShow) {
 }
 
 function applicaModificatore(daApplicare) {
-    var x = document.getElementById("punti_modificatore");
+    let x = document.getElementById("punti_modificatore");
     if (x.style.display === "none") {
         x.style.display = "block";
     } else {
@@ -269,19 +210,4 @@ function manageRoleMaxChangeNumber(etMaxScambiRuolo) {
 function verifyCreditsRecoverOnPlayerRelease() {
     let result = ExchangeRules.expectedRecoveryCreditsFromTransfer();
     Utils.setElementVisibility("creditsExchangeWithPlayersSection", result);
-}
-
-function buildAdvertiseSection() {
-    var toReturn = "<div style='text-align: center;'>";
-
-    // icon
-    if (typeof logoBase64 != "undefined") {
-        toReturn = toReturn + "<img src='" + logoBase64 + "' style='max-width:10%; height:auto;' />";
-        toReturn += "<br>";
-    }
-
-    // link
-    toReturn = toReturn + "<i style='font-size:13px;'>Documento stilato con <a href='https://paolinoangeletti.github.io/fantaregolamento' target='_blank'>Fanta Regolamento<a></i>";
-
-    return toReturn + "</div>";
 }

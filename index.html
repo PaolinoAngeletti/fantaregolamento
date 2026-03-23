@@ -13,7 +13,10 @@
 
 	<!-- TODO DEVELOPMENT: VALUTA QUALI LASCIARE -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+	<!-- PDF libraries -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
 
 	<!-- javascript -->
 	<script src="scripts.js"></script>
@@ -1304,7 +1307,8 @@
 	</div>
 
 	<!-- crea regolamento -->
-	<button class="ripple" role="button" onclick="avviaAnteprimaDocumento();">Avvia creazione regolamento</button>
+	<button class="ripple" role="button" onclick="avviaAnteprimaDocumento('pdf');">Avvia creazione regolamento</button>
+	<button class="ripple" role="button" onclick="avviaAnteprimaDocumento('html');">Avvia creazione regolamento</button>
 
 	<!-- version -->
 	<br><br>
