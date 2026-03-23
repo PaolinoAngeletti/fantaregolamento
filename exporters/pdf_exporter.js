@@ -3,10 +3,11 @@ const {PDFDocument} = window.PDFLib;
 
 /*
 Library used to create and manage PDF documents.
-For this purpose, two libraries are used:
+For this purpose, three libraries are used:
 - jsPDF: used to create PDFs. It is used for its simplicity in defining PDF lines, and above all,
 it makes it very easy to manage newlines, using the splitTextToSize method.
 - pdf-lib: used to add attachments to a PDF document.
+- pdfjsLib: used to simply access and read attached files to PDF.
  */
 
 // noinspection JSUnusedGlobalSymbols
@@ -183,4 +184,37 @@ function openPDFPreview(pdfWithAttachment) {
     const blob = new Blob([pdfWithAttachment], {type: 'application/pdf'});
     const url = URL.createObjectURL(blob);
     window.open(url, "_blank");
+}
+
+export async function loadJSONFromPDF() {
+    return new Promise((resolve, reject) => {
+
+        // file selection.
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "application/pdf";
+        input.onchange = async (event) => {
+            try {
+                const file = event.target.files[0];
+                if (!file) return reject("No file selected");
+
+                const arrayBuffer = await file.arrayBuffer();
+                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+                const attachments = await pdf.getAttachments();
+                if (!attachments || !attachments['config.json']) {
+                    return reject(new Error('config.json not found'));
+                }
+
+                const jsonData = attachments['config.json'].content;
+                const decoded = new TextDecoder().decode(jsonData);
+                const result = JSON.parse(decoded);
+                resolve(result);
+            } catch (err) {
+                reject(err);
+            }
+        };
+
+        // trigger selection.
+        input.click();
+    });
 }
