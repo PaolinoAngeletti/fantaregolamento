@@ -110,7 +110,7 @@ function retrieveSections() {
         InsertTeamRules,
         SubstitutionRules,
         ResultCalculationRules,
-        //RankingDataRules,
+        RankingDataRules,
         //FeeAndPrizesRule
     ];
 }
@@ -147,13 +147,11 @@ function showExchangeSection(toShow) {
     }
 }
 
-// TODO fix unused.
-function applicaModificatore(daApplicare) {
-    let x = document.getElementById("punti_modificatore");
-    if (x.style.display === "none") {
-        x.style.display = "block";
+function applicaModificatore(toShow) {
+    if(toShow) {
+        Utils.showDomElement("punti_modificatore");
     } else {
-        x.style.display = "none";
+        Utils.setElementDisplay("punti_modificatore", "none");
     }
 }
 
