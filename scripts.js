@@ -107,7 +107,7 @@ function retrieveSections() {
         PlayerReleaseRules,
         ExchangeRules,
         AccidentRules,
-        //InsertTeamRules,
+        InsertTeamRules,
         //SubstitutionRules,
         //ResultCalculationRules,
         //RankingDataRules,

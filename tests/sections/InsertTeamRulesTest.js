@@ -1,4 +1,5 @@
 function runInsertTeamRuleTests() {
+
     describe('Insert team rules', () => {
         describe('produce test', () => {
             it('should produce full InsertTeamRules section', () => {
@@ -10,18 +11,27 @@ function runInsertTeamRuleTests() {
                 realDomDoc.getElementById("cbMancataNulla").checked = true;
                 realDomDoc.getElementById("cbInvisibiliSi").checked = true;
                 realDomDoc.getElementById("cb442").checked = true;
+                realDomDoc.getElementById("cb433").checked = true;
                 realDomDoc.getElementById("cbPenalitaNo").checked = true;
                 realDomDoc.getElementById("etNoteFormazione").value = "notes";
 
                 const result = InsertTeamRules.produce(4);
-                expect(result).toContain("<h2>4. Inserimento formazione");
-                expect(result).toContain("<p>4.1. La panchina dovrà avere la seguente struttura: 1P.");
-                expect(result).toContain("<p>4.2. Le formazioni devono essere inserite entro 10 minuti");
-                expect(result).toContain("<p>4.3. I moduli consentiti per le formazioni sono:</p><ul><li>4-4-2");
-                expect(result).toContain("<p>4.4. Se la formazione, per qualsiasi motivo");
-                expect(result).toContain("<p>4.5. Non è prevista nessuna penalità per il mancato inserimento della formazione.");
-                expect(result).toContain("<p>4.6. Sono ammesse le formazioni invisibili");
-                expect(result).toContain("<p>4.7. notes");
+                expect(result[0].text).toContain("4. Inserimento formazione");
+                expect(result[0].type).toBe("h2");
+                expect(result[1].text).toContain("4.1. La panchina dovrà avere la seguente struttura: 1P.");
+                expect(result[1].type).toBe("paragraph");
+                expect(result[2].text).toContain("4.2. Le formazioni devono essere inserite entro 10 minuti");
+                expect(result[2].type).toBe("paragraph");
+                expect(result[3].text).toContain("4.3. I moduli consentiti per le formazioni sono: 4-4-2, 4-3-3");
+                expect(result[3].type).toBe("paragraph");
+                expect(result[4].text).toContain("4.4. Se la formazione, per qualsiasi motivo");
+                expect(result[4].type).toBe("paragraph");
+                expect(result[5].text).toContain("4.5. Non è prevista nessuna penalità per il mancato inserimento della formazione.");
+                expect(result[5].type).toBe("paragraph");
+                expect(result[6].text).toContain("4.6. Sono ammesse le formazioni invisibili");
+                expect(result[6].type).toBe("paragraph");
+                expect(result[7].text).toContain("4.7. notes");
+                expect(result[7].type).toBe("paragraph");
             });
         });
 
@@ -238,23 +248,23 @@ function runInsertTeamRuleTests() {
         describe("no team insert and penalties tests", function () {
             it('penalties disabled test', () => {
                 realDomDoc.getElementById("cbPenalitaNo").checked = true;
-                realDomDoc.getElementById("cbPenalitaSi").checked = false;
+                realDomDoc.getElementById("cbPenalitaYes").checked = false;
                 const result = InsertTeamRules.estraiGestionePenalita(4);
-                expect(result).toContain("<p>4.5. Non è prevista nessuna penalità per il mancato inserimento della formazione.");
+                expect(result).toContain("Non è prevista nessuna penalità per il mancato inserimento della formazione.");
             });
 
             it('penalties enabled and penalty inserted test', () => {
                 realDomDoc.getElementById("cbPenalitaNo").checked = false;
-                realDomDoc.getElementById("cbPenalitaSi").checked = true;
-                realDomDoc.getElementById("taPenalita").value = "test-penalty";
+                realDomDoc.getElementById("cbPenalitaYes").checked = true;
+                realDomDoc.getElementById("taPenality").value = "test-penalty";
                 const result = InsertTeamRules.estraiGestionePenalita(8);
-                expect(result).toContain("<p>8.5. Quando un giocatore non inserisce la formazione per una giornata, verrà applicata la seguente penalità: test-penalty");
+                expect(result).toContain("Quando un giocatore non inserisce la formazione per una giornata, verrà applicata la seguente penalità: test-penalty");
             });
 
             it('penalties enabled and penalty left empty test', () => {
                 realDomDoc.getElementById("cbPenalitaNo").checked = false;
-                realDomDoc.getElementById("cbPenalitaSi").checked = true;
-                realDomDoc.getElementById("taPenalita").value = "";
+                realDomDoc.getElementById("cbPenalitaYes").checked = true;
+                realDomDoc.getElementById("taPenality").value = "";
                 try {
                     InsertTeamRules.estraiGestionePenalita();
                     fail("Should be thrown an exception");
@@ -291,16 +301,14 @@ function runInsertTeamRuleTests() {
         describe("additional note tests", function () {
             it("not add rows for notes empty", function () {
                 realDomDoc.getElementById("etNoteFormazione").value = "";
-
                 const html = InsertTeamRules.estraiEventualiNoteAggiuntive();
                 expect(html).toBe("");
             });
 
             it("correctly add rows for notes inserted", function () {
                 realDomDoc.getElementById("etNoteFormazione").value = "hello1 hello2-hello3";
-
                 const html = InsertTeamRules.estraiEventualiNoteAggiuntive(10);
-                expect(html).toBe("<p>10.7. hello1 hello2-hello3</p>");
+                expect(html).toBe("hello1 hello2-hello3");
             });
         });
     });
