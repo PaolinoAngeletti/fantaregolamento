@@ -173,6 +173,14 @@ function runMainScriptTests() {
                 {field: "cbInvisibiliNo", value: false},
                 {field: "cbInvisibiliNo", value: true},
                 {field: "etNoteFormazione", value: "These are beautiful notes!"},
+
+                // substitutions.
+                {field: "etNumSostituzioni", value: "10"},
+                {field: "cbAmmIgnorata", value: false},
+                {field: "cbAmmIgnorata", value: true},
+                {field: "cbAmmCascade", value: false},
+                {field: "cbAmmCascade", value: true},
+                {field: "etNoteSostituzioni", value: "These are beautiful notes!"},
             ];
 
             test_cases.forEach(test => {
@@ -337,6 +345,14 @@ function runMainScriptTests() {
                 {field: "cbInvisibiliNo", start_value: false, final_value: true},
                 {field: "cbInvisibiliNo", start_value: true, final_value: false},
                 {field: "etNoteFormazione", start_value: "text-1", final_value: "text-2"},
+
+                // substitutions.
+                {field: "etNumSostituzioni", start_value: "10", final_value: "0"},
+                {field: "cbAmmIgnorata", start_value: false, final_value: true},
+                {field: "cbAmmIgnorata", start_value: true, final_value: false},
+                {field: "cbAmmCascade", start_value: false, final_value: true},
+                {field: "cbAmmCascade", start_value: true, final_value: false},
+                {field: "etNoteSostituzioni", start_value: "text-1", final_value: "text-2"},
             ];
 
             test_cases.forEach(test => {

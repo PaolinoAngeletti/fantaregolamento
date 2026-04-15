@@ -108,7 +108,7 @@ function retrieveSections() {
         ExchangeRules,
         AccidentRules,
         InsertTeamRules,
-        //SubstitutionRules,
+        SubstitutionRules,
         //ResultCalculationRules,
         //RankingDataRules,
         //FeeAndPrizesRule

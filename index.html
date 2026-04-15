@@ -841,7 +841,7 @@
 		<br>
 		<div class="container">
 			<div class="form-group">
-				<input id="etNumSostituzioni" type="number" data-rule="required" min="0" value="0" />
+				<input id="etNumSostituzioni" type="number" data-rule="required" min="0" value="0" loadable />
 			</div>
 		</div>
 		<br>
@@ -857,11 +857,11 @@
 		<div class="container">
 			<form>
 				<label>
-					<input id="cbAmmIgnorata" type="radio" name="radio" checked />
+					<input id="cbAmmIgnorata" type="radio" name="radio" loadable checked />
 					<span>L'ammonizione viene ignorata e il subentrato ottiene voto pieno</span>
 				</label>
 				<label>
-					<input id="cbAmmScalata" type="radio" name="radio" />
+					<input id="cbAmmCascade" type="radio" name="radio" loadable />
 					<span>L'ammonizione viene scalata dal giocatore subentrato</span>
 				</label>
 			</form>
@@ -872,12 +872,12 @@
 		</div>
 		<div class="container">
 			<center>
-				<p>Inserisci eventuali note aggiuntive per la gestione delle sostituizioni.</p>
+				<p>Inserisci eventuali note aggiuntive per la gestione delle sostituzioni.</p>
 			</center>
 		</div>
 		<br>
 		<center>
-			<textarea id="etNoteSostituzioni" class="textarea"></textarea>
+			<textarea id="etNoteSostituzioni" class="textarea" loadable></textarea>
 		</center>
 		<br>
 	</div>
