@@ -120,6 +120,8 @@ function retrieveRowCenterCoordinate(pdf, row, rowInfo) {
 }
 
 function writeTextToPDF(pdf, text, rowInfo, x, y) {
+    const pageHeight = pdf.internal.pageSize.getHeight();
+
     pdf.setFont("helvetica", rowInfo.fontStyle);
     pdf.setFontSize(rowInfo.fontSize);
 
@@ -128,10 +130,16 @@ function writeTextToPDF(pdf, text, rowInfo, x, y) {
 
     // writing lines.
     const lines = pdf.splitTextToSize(text, 500);
-    pdf.text(lines, x, y);
+    for (let i = 0; i < lines.length; i++) {
+        if (y > pageHeight - 40) {
+            pdf.addPage();
+            y = 40; // reset vertical position.
+        }
+        pdf.text(lines[i], x, y);
+        y += rowInfo.fontSize;
+    }
 
     // updating next write height.
-    y += lines.length * rowInfo.fontSize;
     y += rowInfo.marginBottom;
     return y;
 }
