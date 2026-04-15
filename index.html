@@ -625,13 +625,13 @@
 		<div class="container">
 			<form>
 				<label>
-					<input id="cbInfortunioNessun" type="radio" name="radio" checked />
+					<input id="cbInfortunioNessun" type="radio" name="radio" loadable checked />
 					<span>Non applicare nessun prestito, in nessun caso</span>
 				</label>
 				<label>
-					<input id="cbInfortunioPrestito" type="radio" name="radio" />
+					<input id="cbInfortunioPrestito" type="radio" name="radio" loadable />
 					<span>Prevedi il prestito di un calciatore svincolato fino al prossimo mercato<br>Questa regola
-						verrà applicata solo ad infortuni che superano i sei mesi<br>Questa regola verrà applicata solo
+						verrà applicata solo a infortuni che superano i sei mesi<br>Questa regola verrà applicata solo
 						se mancano almeno dieci giornate dalla fine</span>
 				</label>
 			</form>
@@ -649,16 +649,16 @@
 		<div class="container">
 			<form>
 				<label>
-					<input id="cbCovidPolitico" type="radio" name="radio" checked />
+					<input id="cbCovidPolitico" type="radio" name="radio" loadable checked />
 					<span>Un calciatore positivo accederà al 6 politico</span>
 				</label>
 				<label>
-					<input id="cbCovidPanchina" type="radio" name="radio" />
+					<input id="cbCovidPanchina" type="radio" name="radio" loadable />
 					<span>Un calciatore positivo verrà sostituito con il panchinaro previsto<br>Questa opzione può
 						essere pericolosa per multiple positività</span>
 				</label>
 				<label>
-					<input id="cbCovidScaglioni" type="radio" name="radio" />
+					<input id="cbCovidScaglioni" type="radio" name="radio" loadable />
 					<span>Verranno assegnati votazioni politiche con questo schema:
 						<br>PORTIERI
 						<br>Se tutti i portieri sono positivi, si accede ad 1 voto d'ufficio.
@@ -680,7 +680,7 @@
 		</div>
 		<br>
 		<center>
-			<textarea id="etNoteInfortuni" class="textarea"></textarea>
+			<textarea id="etNoteInfortuni" class="textarea" loadable></textarea>
 		</center>
 		<br>
 	</div>

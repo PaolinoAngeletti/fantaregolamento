@@ -124,6 +124,19 @@ function runMainScriptTests() {
                 {field: "cbScambioQuotazioneB", value: false},
                 {field: "cbScambioQuotazioneB", value: true},
                 {field: "etNoteScambi", value: "These are beautiful notes!"},
+
+                // accident rules.
+                {field: "cbInfortunioNessun", value: false},
+                {field: "cbInfortunioNessun", value: true},
+                {field: "cbInfortunioPrestito", value: false},
+                {field: "cbInfortunioPrestito", value: true},
+                {field: "cbCovidPolitico", value: false},
+                {field: "cbCovidPolitico", value: true},
+                {field: "cbCovidPanchina", value: false},
+                {field: "cbCovidPanchina", value: true},
+                {field: "cbCovidScaglioni", value: false},
+                {field: "cbCovidScaglioni", value: true},
+                {field: "etNoteInfortuni", value: "These are beautiful notes!"},
             ];
 
             test_cases.forEach(test => {
@@ -184,7 +197,11 @@ function runMainScriptTests() {
                 {field: "etMaxScambiCompetizione", start_value: "15", final_value: "20"},
                 {field: "etMaxScambiSessione", start_value: "25", final_value: "20"},
                 {field: "etMaxScambiRuolo", start_value: "2", final_value: "20"},
-                {field: "etNoteMercato", start_value: "These are beautiful notes!", final_value: "These are very bad notes!"},
+                {
+                    field: "etNoteMercato",
+                    start_value: "These are beautiful notes!",
+                    final_value: "These are very bad notes!"
+                },
 
                 // player releases.
                 {field: "cbSvincoloAcquisto", start_value: false, final_value: true},
@@ -211,7 +228,11 @@ function runMainScriptTests() {
                 {field: "cbPreMercatoPrestito", start_value: true, final_value: false},
                 {field: "cbPreMercatoQuotazioneIntera", start_value: false, final_value: true},
                 {field: "cbPreMercatoQuotazioneIntera", start_value: true, final_value: false},
-                {field: "etNoteSvincoli", start_value: "These are beautiful notes!", final_value: "These are very bad notes!"},
+                {
+                    field: "etNoteSvincoli",
+                    start_value: "These are beautiful notes!",
+                    final_value: "These are very bad notes!"
+                },
 
                 // exchange rules.
                 {field: "cbScambioCreditiSi", start_value: false, final_value: true},
@@ -222,7 +243,28 @@ function runMainScriptTests() {
                 {field: "cbScambioQuotazioneA", start_value: true, final_value: false},
                 {field: "cbScambioQuotazioneB", start_value: false, final_value: true},
                 {field: "cbScambioQuotazioneB", start_value: true, final_value: false},
-                {field: "etNoteScambi", start_value: "These are beautiful notes!", final_value: "These are very bad notes!"},
+                {
+                    field: "etNoteScambi",
+                    start_value: "These are beautiful notes!",
+                    final_value: "These are very bad notes!"
+                },
+
+                // accident rules.
+                {field: "cbInfortunioNessun", start_value: false, final_value: true},
+                {field: "cbInfortunioNessun", start_value: true, final_value: false},
+                {field: "cbInfortunioPrestito", start_value: false, final_value: true},
+                {field: "cbInfortunioPrestito", start_value: true, final_value: false},
+                {field: "cbCovidPolitico", start_value: false, final_value: true},
+                {field: "cbCovidPolitico", start_value: true, final_value: false},
+                {field: "cbCovidPanchina", start_value: false, final_value: true},
+                {field: "cbCovidPanchina", start_value: true, final_value: false},
+                {field: "cbCovidScaglioni", start_value: false, final_value: true},
+                {field: "cbCovidScaglioni", start_value: true, final_value: false},
+                {
+                    field: "etNoteInfortuni",
+                    start_value: "These are beautiful notes!",
+                    final_value: "These are very bad notes!"
+                },
             ];
 
             test_cases.forEach(test => {

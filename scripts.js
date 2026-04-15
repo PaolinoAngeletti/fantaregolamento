@@ -106,7 +106,7 @@ function retrieveSections() {
         TransferMarketRules,
         PlayerReleaseRules,
         ExchangeRules,
-        //AccidentRules,
+        AccidentRules,
         //InsertTeamRules,
         //SubstitutionRules,
         //ResultCalculationRules,

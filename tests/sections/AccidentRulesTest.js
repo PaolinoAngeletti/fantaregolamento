@@ -1,5 +1,6 @@
 function runAccidentRulesTests() {
     describe("Accident rules", function () {
+
         describe("produce test", function () {
             it("produce test", function () {
                 realDomDoc.getElementById("cbInfortunioPrestito").checked = true;
@@ -8,10 +9,14 @@ function runAccidentRulesTests() {
 
                 const html = AccidentRules.produce(12);
 
-                expect(html).toContain("<h2>12. Gestione infortuni");
-                expect(html).toContain("<p>12.1. Se un calciatore subisce un infortunio con durata maggiore ai sei mesi");
-                expect(html).toContain("<p>12.2. In caso di calciatore schierato in formazione risultante positivo al COVID-19");
-                expect(html).toContain("<p>12.3. additional-notes");
+                expect(html[0].text).toContain("12. Gestione infortuni");
+                expect(html[0].type).toBe("h2");
+                expect(html[1].text).toContain("12.1. Se un calciatore subisce un infortunio con durata maggiore ai sei mesi");
+                expect(html[1].type).toBe("paragraph");
+                expect(html[2].text).toContain("12.2. In caso di calciatore schierato in formazione risultante positivo al COVID-19");
+                expect(html[2].type).toBe("paragraph");
+                expect(html[3].text).toContain("12.3. additional-notes");
+                expect(html[3].type).toBe("paragraph");
             });
         });
 
@@ -35,21 +40,21 @@ function runAccidentRulesTests() {
             it("manage correctly covid rules: votazione politica", function () {
                 realDomDoc.getElementById("cbCovidPolitico").checked = true;
 
-                const html = AccidentRules.estraiGestoneCovid();
+                const html = AccidentRules.estraiGestioneCovid();
                 expect(html).toContain("votazione politica");
             });
 
             it("manage correctly covid rules: sostituzione classica", function () {
                 realDomDoc.getElementById("cbCovidPanchina").checked = true;
 
-                const html = AccidentRules.estraiGestoneCovid();
+                const html = AccidentRules.estraiGestioneCovid();
                 expect(html).toContain("sostituito dal panchinaro");
             });
 
             it("manage correctly covid rules: voti a scaglioni", function () {
                 realDomDoc.getElementById("cbCovidScaglioni").checked = true;
 
-                const html = AccidentRules.estraiGestoneCovid();
+                const html = AccidentRules.estraiGestioneCovid();
                 expect(html).toContain("voti d’ufficio");
                 expect(html).toContain("PORTIERI");
                 expect(html).toContain("GIOCATORI DI MOVIMENTO");
