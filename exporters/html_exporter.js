@@ -43,8 +43,8 @@ function buildTabTitle() {
 
 function manageRow(row) {
     let result;
-    let text = row.text;
     let type = row.type;
+    let text = manageNewLines(row.text);
 
     if ("center" === type) {
         // text will contains container's elements.
@@ -68,4 +68,9 @@ function manageRow(row) {
     }
 
     return result;
+}
+
+function manageNewLines(text) {
+    if (typeof text !== "string") return text;
+    return text.replace(/\n/g, "<br>");
 }
