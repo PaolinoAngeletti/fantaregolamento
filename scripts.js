@@ -109,7 +109,7 @@ function retrieveSections() {
         AccidentRules,
         InsertTeamRules,
         SubstitutionRules,
-        //ResultCalculationRules,
+        ResultCalculationRules,
         //RankingDataRules,
         //FeeAndPrizesRule
     ];
