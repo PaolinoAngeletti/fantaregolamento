@@ -8,9 +8,9 @@ const PlayerReleaseRules = {
         return Utils.buildRuleSection(sectionIndex, "Gestione svincoli", rules);
     },
 
-    estraiGestioneSvincoliMercato: function (sectionIndex) {
-        var toReturn = "";
-        var campoSvincolo = Utils.retrieveDomElement("cbSvincoloAcquisto");
+    estraiGestioneSvincoliMercato: function () {
+        let toReturn = "";
+        let campoSvincolo = Utils.retrieveDomElement("cbSvincoloAcquisto");
         if (campoSvincolo.checked) {
             toReturn = "Prevista l'applicazione dello svincolo su acquisto, ossia ogni partecipante dovrà comunicare lo svincolo solamente dopo aver eseguito un acquisto. Per la gestione del singolo svincolo invece vi è una regola specifica.";
         } else {
@@ -28,7 +28,7 @@ const PlayerReleaseRules = {
     },
 
     estraiGestioneSvincoli: function () {
-        var toReturn = "In caso di svincolo di giocatori acquistati in mercati precedenti, ";
+        let toReturn = "In caso di svincolo di giocatori acquistati in mercati precedenti, ";
         let cbNessunCredito = Utils.retrieveDomElement("cbSvincoloNessun");
         if (cbNessunCredito.checked) {
             toReturn = toReturn + "non verrà recuperato alcun credito.";
@@ -62,7 +62,7 @@ const PlayerReleaseRules = {
     },
 
     estraiGestioneCessioniAltroCampionato: function () {
-        var toReturn = "Se, durante la competizione, un calciatore viene ceduto in altri campionati (siano essi internazionali e non), allora ";
+        let toReturn = "Se, durante la competizione, un calciatore viene ceduto in altri campionati (siano essi internazionali e non), allora ";
         let cbPreMercatoSvincolo = Utils.retrieveDomElement("cbPreMercatoSvincolo");
         if (cbPreMercatoSvincolo.checked) {
             toReturn = toReturn + "verranno applicate le regole scelte per uno svincolo generico di calciatori.";
@@ -81,10 +81,10 @@ const PlayerReleaseRules = {
     },
 
     estraiEventualiNoteAggiuntive: function () {
-        var toReturn = "";
+        let toReturn = "";
         let etNote = Utils.retrieveDomElement("etNoteSvincoli");
         if (etNote != null) {
-            var noteText = etNote.value;
+            let noteText = etNote.value;
             if (noteText.trim() !== "") {
                 toReturn = Utils.resolveEscapes(noteText);
             }

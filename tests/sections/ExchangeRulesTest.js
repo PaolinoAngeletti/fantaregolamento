@@ -1,5 +1,6 @@
 function runExchangeRulesTests() {
     describe("Exchange rules", function () {
+
         describe("produce test", function () {
             it("generates correct HTML", function () {
                 realDomDoc.getElementById("cbSvincoloNessun").checked = false;
@@ -10,11 +11,16 @@ function runExchangeRulesTests() {
 
                 const html = ExchangeRules.produce(22);
 
-                expect(html).toContain("<h2>22. Gestione scambi");
-                expect(html).toContain("<p>22.1. Sono previsti gli scambi di giocatori");
-                expect(html).toContain("<p>22.2. Sono permessi gli scambi di crediti tra i partecipanti");
-                expect(html).toContain("<p>22.3. In caso di scambio tra squadre viene scambiato solo il calciatore, non le quotazioni di acquisto");
-                expect(html).toContain("<p>22.4. additional-notes");
+                expect(html[0].text).toContain("22. Gestione scambi");
+                expect(html[0].type).toBe("h2");
+                expect(html[1].text).toContain("22.1. Sono previsti gli scambi di giocatori");
+                expect(html[1].type).toBe("paragraph");
+                expect(html[2].text).toContain("22.2. Sono permessi gli scambi di crediti tra i partecipanti");
+                expect(html[2].type).toBe("paragraph");
+                expect(html[3].text).toContain("22.3. In caso di scambio tra squadre viene scambiato solo il calciatore, non le quotazioni di acquisto");
+                expect(html[3].type).toBe("paragraph");
+                expect(html[4].text).toContain("22.4. additional-notes");
+                expect(html[4].type).toBe("paragraph");
             });
         });
 

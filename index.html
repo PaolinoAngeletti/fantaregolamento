@@ -394,16 +394,16 @@
 		<div class="container">
 			<form>
 				<label>
-					<input id="cbSvincoloAcquisto" type="radio" name="radio" checked />
+					<input id="cbSvincoloAcquisto" type="radio" name="radio" loadable checked />
 					<span>Svincola un giocatore solo dopo averne acquistato un altro dello stesso ruolo</span>
 				</label>
 				<label>
-					<input id="cbSvincoloInizioSi" type="radio" name="radio" />
+					<input id="cbSvincoloInizioSi" type="radio" name="radio" loadable />
 					<span>Svincola i giocatori prima dell'inizio del mercato<br>Gli svincolati potranno essere
 						acquistati da chi li ha liberati</span>
 				</label>
 				<label>
-					<input id="cbSvincoloInizioNo" type="radio" name="radio" />
+					<input id="cbSvincoloInizioNo" type="radio" name="radio" loadable />
 					<span>Svincola i giocatori prima dell'inizio del mercato<br>Gli svincolati non potranno essere
 						acquistati da chi li ha liberati</span>
 				</label>
@@ -424,28 +424,28 @@
 		<div class="container">
 			<form onchange="verifyCreditsRecoverOnPlayerRelease()">
 				<label>
-					<input id="cbSvincoloNessun" type="radio" name="radio" checked />
+					<input id="cbSvincoloNessun" type="radio" name="radio" loadable checked />
 					<span>Non ricevere nessun credito</span>
 				</label>
 				<label>
-					<input id="cbSvincoloUno" type="radio" name="radio" />
+					<input id="cbSvincoloUno" type="radio" name="radio" loadable />
 					<span>Ricevi un solo credito</span>
 				</label>
 				<label>
-					<input id="cbSvincoloMeta" type="radio" name="radio" />
+					<input id="cbSvincoloMeta" type="radio" name="radio" loadable />
 					<span>Ricevi crediti pari alla metà della quotazione di acquisto</span>
 				</label>
 				<label>
-					<input id="cbSvincoloQuotazione" type="radio" name="radio" />
+					<input id="cbSvincoloQuotazione" type="radio" name="radio" loadable />
 					<span>Ricevi crediti pari alla quotazione di acquisto</span>
 				</label>
 				<label>
-					<input id="cbSvincoloAttuale" type="radio" name="radio" />
+					<input id="cbSvincoloAttuale" type="radio" name="radio" loadable />
 					<span>Ricevi crediti pari alla quotazione attuale</span>
 				</label>
 				<label>
-					<input id="cbSvincoloMedia" type="radio" name="radio" />
-					<span>Ricevi crediti pari alla media tra la quotazione attuale ed il valore di acquisto<br>Esempio
+					<input id="cbSvincoloMedia" type="radio" name="radio" loadable />
+					<span>Ricevi crediti pari alla media tra la quotazione attuale e il valore di acquisto<br>Esempio
 						quotazione attuale 50, spesa 10, ricevi 30</span>
 				</label>
 			</form>
@@ -466,15 +466,15 @@
 		<div class="container">
 			<form onchange="verifyCreditsRecoverOnPlayerRelease()">
 				<label>
-					<input id="cbPreMercatoSvincolo" type="radio" name="radio" checked />
+					<input id="cbPreMercatoSvincolo" type="radio" name="radio" loadable checked />
 					<span>Applica regola scelta per un normale svincolo</span>
 				</label>
 				<label>
-					<input id="cbPreMercatoPrestito" type="radio" name="radio" />
+					<input id="cbPreMercatoPrestito" type="radio" name="radio" loadable />
 					<span>Prendi in prestito uno svincolato fino al prossimo mercato</span>
 				</label>
 				<label>
-					<input id="cbPreMercatoQuotazioneIntera" type="radio" name="radio" />
+					<input id="cbPreMercatoQuotazioneIntera" type="radio" name="radio" loadable />
 					<span>Ricevi l'intera quotazione di acquisto</span>
 				</label>
 			</form>
@@ -492,7 +492,7 @@
 		</div>
 		<br>
 		<center>
-			<textarea id="etNoteSvincoli" class="textarea"></textarea>
+			<textarea id="etNoteSvincoli" class="textarea" loadable></textarea>
 		</center>
 		<br>
 	</div>
@@ -517,11 +517,11 @@
 		<div class="container">
 			<form>
 				<label>
-					<input id="cbScambiSi" type="radio" name="radio" onclick="showExchangeSection(true);" />
+					<input id="cbScambiSi" type="radio" name="radio" onclick="showExchangeSection(true);" loadable />
 					<span>Si</span>
 				</label>
 				<label>
-					<input id="cbScambiNo" type="radio" name="radio" onclick="showExchangeSection(false);" checked />
+					<input id="cbScambiNo" type="radio" name="radio" onclick="showExchangeSection(false);" loadable checked />
 					<span>No</span>
 				</label>
 			</form>
@@ -545,11 +545,11 @@
 			<div class="container">
 				<form>
 					<label>
-						<input id="cbScambioCreditiSi" type="radio" name="radio" />
+						<input id="cbScambioCreditiSi" type="radio" name="radio" loadable />
 						<span>Si</span>
 					</label>
 					<label>
-						<input id="cbScambioCreditiNo" type="radio" name="radio" checked />
+						<input id="cbScambioCreditiNo" type="radio" name="radio" loadable checked />
 						<span>No</span>
 					</label>
 				</form>
@@ -578,11 +578,11 @@
 				<div class="container">
 					<form>
 						<label>
-							<input id="cbScambioQuotazioneA" type="radio" name="radio" checked />
+							<input id="cbScambioQuotazioneA" type="radio" name="radio" loadable checked />
 							<span>Roma recupera 10 crediti, la Juventus recupera 20 crediti.</span>
 						</label>
 						<label>
-							<input id="cbScambioQuotazioneB" type="radio" name="radio" />
+							<input id="cbScambioQuotazioneB" type="radio" name="radio" loadable />
 							<span>Roma recupera 20 crediti, la Juventus recupera 10 crediti.</span>
 						</label>
 					</form>
@@ -601,7 +601,7 @@
 			</div>
 			<br>
 			<center>
-				<textarea id="etNoteScambi" class="textarea"></textarea>
+				<textarea id="etNoteScambi" class="textarea" loadable></textarea>
 			</center>
 		</div>
 		<br>

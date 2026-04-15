@@ -49,6 +49,8 @@ function runMainScriptTests() {
         describe("from-HTML-to-JSON-tests", function () {
 
             let test_cases = [
+
+                // competition type.
                 {field: "cbCalendario", value: true},
                 {field: "cbCalendario", value: false},
                 {field: "cbFormulaUno", value: true},
@@ -57,6 +59,8 @@ function runMainScriptTests() {
                 {field: "cbListone", value: false},
                 {field: "etInizio", value: "45"},
                 {field: "etFine", value: "10"},
+
+                // team rules.
                 {field: "etPortieri", value: "5"},
                 {field: "etDifensori", value: "47"},
                 {field: "etCentrocampisti", value: "51"},
@@ -65,6 +69,8 @@ function runMainScriptTests() {
                 {field: "cbCondivisiSi", value: false},
                 {field: "cbCondivisiNo", value: true},
                 {field: "cbCondivisiNo", value: false},
+
+                // transfer market rules.
                 {field: "etCrediti", value: "750"},
                 {field: "etCreditiSessione", value: "100"},
                 {field: "taCreditiFiniti", value: "10"},
@@ -80,6 +86,44 @@ function runMainScriptTests() {
                 {field: "etMaxScambiSessione", value: "25"},
                 {field: "etMaxScambiRuolo", value: "2"},
                 {field: "etNoteMercato", value: "These are beautiful notes!"},
+
+                // player releases.
+                {field: "cbSvincoloAcquisto", value: false},
+                {field: "cbSvincoloAcquisto", value: true},
+                {field: "cbSvincoloInizioSi", value: false},
+                {field: "cbSvincoloInizioSi", value: true},
+                {field: "cbSvincoloInizioNo", value: false},
+                {field: "cbSvincoloInizioNo", value: true},
+                {field: "cbSvincoloNessun", value: false},
+                {field: "cbSvincoloNessun", value: true},
+                {field: "cbSvincoloUno", value: false},
+                {field: "cbSvincoloUno", value: true},
+                {field: "cbSvincoloMeta", value: false},
+                {field: "cbSvincoloMeta", value: true},
+                {field: "cbSvincoloQuotazione", value: false},
+                {field: "cbSvincoloQuotazione", value: true},
+                {field: "cbSvincoloAttuale", value: false},
+                {field: "cbSvincoloAttuale", value: true},
+                {field: "cbSvincoloMedia", value: false},
+                {field: "cbSvincoloMedia", value: true},
+                {field: "cbPreMercatoSvincolo", value: false},
+                {field: "cbPreMercatoSvincolo", value: true},
+                {field: "cbPreMercatoPrestito", value: false},
+                {field: "cbPreMercatoPrestito", value: true},
+                {field: "cbPreMercatoQuotazioneIntera", value: false},
+                {field: "cbPreMercatoQuotazioneIntera", value: true},
+                {field: "etNoteSvincoli", value: "These are beautiful notes!"},
+
+                // exchange rules.
+                {field: "cbScambioCreditiSi", value: false},
+                {field: "cbScambioCreditiSi", value: true},
+                {field: "cbScambioCreditiNo", value: false},
+                {field: "cbScambioCreditiNo", value: true},
+                {field: "cbScambioQuotazioneA", value: false},
+                {field: "cbScambioQuotazioneA", value: true},
+                {field: "cbScambioQuotazioneB", value: false},
+                {field: "cbScambioQuotazioneB", value: true},
+                {field: "etNoteScambi", value: "These are beautiful notes!"},
             ];
 
             test_cases.forEach(test => {
@@ -94,7 +138,7 @@ function runMainScriptTests() {
                     }
 
                     // test assertion.
-                    const json = buildLoadJson(realDomDoc);
+                    const json = retrieveMetadataForReload(realDomDoc);
                     console.log(json);
                     expect(json[test.field]).toBe(test.value);
                 });
@@ -104,6 +148,8 @@ function runMainScriptTests() {
         describe("from-JSON-to-HTML-tests", function () {
 
             let test_cases = [
+
+                // competition type.
                 {field: "cbCalendario", start_value: false, final_value: true},
                 {field: "cbCalendario", start_value: true, final_value: false},
                 {field: "cbFormulaUno", start_value: false, final_value: true},
@@ -112,6 +158,8 @@ function runMainScriptTests() {
                 {field: "cbListone", start_value: true, final_value: false},
                 {field: "etInizio", start_value: "5", final_value: "20"},
                 {field: "etFine", start_value: "10", final_value: "4"},
+
+                // team rules.
                 {field: "etPortieri", start_value: "5", final_value: "10"},
                 {field: "etDifensori", start_value: "47", final_value: "10"},
                 {field: "etCentrocampisti", start_value: "51", final_value: "3"},
@@ -120,6 +168,8 @@ function runMainScriptTests() {
                 {field: "cbCondivisiNo", start_value: true, final_value: false},
                 {field: "cbCondivisiSi", start_value: false, final_value: true},
                 {field: "cbCondivisiSi", start_value: true, final_value: false},
+
+                // transfer market rules.
                 {field: "etCrediti", start_value: "750", final_value: "100"},
                 {field: "etCreditiSessione", start_value: "100", final_value: "150"},
                 {field: "taCreditiFiniti", start_value: "10", final_value: "50"},
@@ -135,6 +185,44 @@ function runMainScriptTests() {
                 {field: "etMaxScambiSessione", start_value: "25", final_value: "20"},
                 {field: "etMaxScambiRuolo", start_value: "2", final_value: "20"},
                 {field: "etNoteMercato", start_value: "These are beautiful notes!", final_value: "These are very bad notes!"},
+
+                // player releases.
+                {field: "cbSvincoloAcquisto", start_value: false, final_value: true},
+                {field: "cbSvincoloAcquisto", start_value: true, final_value: false},
+                {field: "cbSvincoloInizioSi", start_value: false, final_value: true},
+                {field: "cbSvincoloInizioSi", start_value: true, final_value: false},
+                {field: "cbSvincoloInizioNo", start_value: false, final_value: true},
+                {field: "cbSvincoloInizioNo", start_value: true, final_value: false},
+                {field: "cbSvincoloNessun", start_value: false, final_value: true},
+                {field: "cbSvincoloNessun", start_value: true, final_value: false},
+                {field: "cbSvincoloUno", start_value: false, final_value: true},
+                {field: "cbSvincoloUno", start_value: true, final_value: false},
+                {field: "cbSvincoloMeta", start_value: false, final_value: true},
+                {field: "cbSvincoloMeta", start_value: true, final_value: false},
+                {field: "cbSvincoloQuotazione", start_value: false, final_value: true},
+                {field: "cbSvincoloQuotazione", start_value: true, final_value: false},
+                {field: "cbSvincoloAttuale", start_value: false, final_value: true},
+                {field: "cbSvincoloAttuale", start_value: true, final_value: false},
+                {field: "cbSvincoloMedia", start_value: false, final_value: true},
+                {field: "cbSvincoloMedia", start_value: true, final_value: false},
+                {field: "cbPreMercatoSvincolo", start_value: false, final_value: true},
+                {field: "cbPreMercatoSvincolo", start_value: true, final_value: false},
+                {field: "cbPreMercatoPrestito", start_value: false, final_value: true},
+                {field: "cbPreMercatoPrestito", start_value: true, final_value: false},
+                {field: "cbPreMercatoQuotazioneIntera", start_value: false, final_value: true},
+                {field: "cbPreMercatoQuotazioneIntera", start_value: true, final_value: false},
+                {field: "etNoteSvincoli", start_value: "These are beautiful notes!", final_value: "These are very bad notes!"},
+
+                // exchange rules.
+                {field: "cbScambioCreditiSi", start_value: false, final_value: true},
+                {field: "cbScambioCreditiSi", start_value: true, final_value: false},
+                {field: "cbScambioCreditiNo", start_value: false, final_value: true},
+                {field: "cbScambioCreditiNo", start_value: true, final_value: false},
+                {field: "cbScambioQuotazioneA", start_value: false, final_value: true},
+                {field: "cbScambioQuotazioneA", start_value: true, final_value: false},
+                {field: "cbScambioQuotazioneB", start_value: false, final_value: true},
+                {field: "cbScambioQuotazioneB", start_value: true, final_value: false},
+                {field: "etNoteScambi", start_value: "These are beautiful notes!", final_value: "These are very bad notes!"},
             ];
 
             test_cases.forEach(test => {

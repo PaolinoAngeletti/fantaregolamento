@@ -104,8 +104,8 @@ function retrieveSections() {
         CompetitionType,
         TeamRules,
         TransferMarketRules,
-        //PlayerReleaseRules,
-        //ExchangeRules,
+        PlayerReleaseRules,
+        ExchangeRules,
         //AccidentRules,
         //InsertTeamRules,
         //SubstitutionRules,
@@ -147,6 +147,7 @@ function showExchangeSection(toShow) {
     }
 }
 
+// TODO fix unused.
 function applicaModificatore(daApplicare) {
     let x = document.getElementById("punti_modificatore");
     if (x.style.display === "none") {

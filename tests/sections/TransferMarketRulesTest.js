@@ -95,7 +95,7 @@ function runTransferMarketRulesTests() {
             });
         });
 
-        describe("finisched credits notes tests", function () {
+        describe("end credits notes tests", function () {
             it("value inserted is empty", function () {
                 realDomDoc.getElementById("taCreditiFiniti").value = "";
                 const html = TransferMarketRules.retrieveFinishedCreditsManagement();
