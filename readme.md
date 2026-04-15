@@ -1,11 +1,3 @@
-Fare in inglese ma:
-
-
-
-per i test:
-basta avviare il file index.html sotto tests
-viene usato Jasmine
-
 # Fanta Regolamento
 
 ## Public URL
