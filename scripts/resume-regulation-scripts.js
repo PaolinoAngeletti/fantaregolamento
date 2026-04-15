@@ -32,6 +32,6 @@ function loadRegulationFromJson(json, domDoc = document) {
     // import feedback.
     let importElement = Utils.retrieveDomElement("importMessage");
     if (importElement) {
-        importElement.innerText = "Importati " + rulesImportedNr + " elementi";
+        importElement.innerText = "Caricati " + rulesImportedNr + " elementi";
     }
 }

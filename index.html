@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 
 <head>
 	<meta charset="UTF-8">
@@ -36,39 +36,24 @@
 <body>
 	<div class="container">
 		<h1>Crea il tuo Fanta Regolamento</h1>
-
-		<div style="display: flex; gap: 10px;">
-
-			<!-- TODO grafica - load document -->
-			<button id="btnImporta" class="ripple" role="button" onclick="selectLocalPDF()">
-				Importa
-			</button>
-
-			<!-- TODO input file nascosto -->
-			<input type="file" id="fileInput" style="display: none;" />
-
-			<button class="ripple" role="button" onclick="salvaConfigurazione();">
-				Reset
-			</button>
-
-			<!-- validation error area -->
-			<div id="importSection" style="display: inline;">
-				<div class="macro" style="background-color:rgb(204, 85, 0);">
-					<div class="container">
-						<h2 style="color: white;">Importazione</h2>
-					</div>
-					<div class="container">
-						<center>
-							<p id="importMessage" style="color: white;">Error text</p>
-							<br>
-							<button onclick="hideErrorSection()">Ok</button>
-						</center>
-					</div>
-				</div>
-				<br><br>
-			</div>
-		</div>
 	</div>
+
+	<!-- Recharge regulation from PDF -->
+	<div>
+		<!-- Recharge button -->
+		<button id="btnImporta" class="ripple" onclick="selectLocalPDF()">
+			Ricarica regolamento
+		</button>
+
+		<!-- Recharge feedback -->
+		<div class="container centered">
+			<p id="importMessage"></p>
+		</div>
+
+		<!-- recharge input file hidden -->
+		<input type="file" id="fileInput" style="display: none;" />
+	</div>
+	<br>
 
 	<!-- tipo competizione -->
 	<div class="macro">
@@ -873,7 +858,7 @@
 			<form>
 				<label>
 					<input id="cbAmmIgnorata" type="radio" name="radio" checked />
-					<span>L'ammonizione viene ignorata ed il subentrato ottiene voto pieno</span>
+					<span>L'ammonizione viene ignorata e il subentrato ottiene voto pieno</span>
 				</label>
 				<label>
 					<input id="cbAmmScalata" type="radio" name="radio" />
@@ -1306,6 +1291,32 @@
 		</center>
 		<br>
 	</div>
+	<br>
+
+	<!-- document type -->
+	<div class="macro">
+		<div class="container">
+			<h2>Tipologia regolamento</h2>
+		</div>
+		<div class="container">
+			<center>
+				<p>Indica il tipo di documento che preferisci generare.</p>
+			</center>
+		</div>
+		<div class="container">
+			<form id="documentTypeForm">
+				<label>
+					<input id="cbPdf" type="radio" name="document-type" value="pdf" checked />
+					<span>PDF</span>
+				</label>
+
+				<label>
+					<input id="cbHtml" type="radio" name="document-type" value="html" />
+					<span>HTML</span>
+				</label>
+			</form>
+		</div>
+	</div>
 	<br><br>
 
 	<!-- validation error area -->
@@ -1326,8 +1337,7 @@
 	</div>
 
 	<!-- crea regolamento -->
-	<button class="ripple" role="button" onclick="avviaAnteprimaDocumento('pdf');">Avvia creazione regolamento</button>
-	<button class="ripple" role="button" onclick="avviaAnteprimaDocumento('html');">Avvia creazione regolamento</button>
+	<button class="ripple" role="button" onclick="avviaAnteprimaDocumento(document.querySelector('#documentTypeForm input[name=\'document-type\']:checked').value);">Avvia creazione regolamento</button>
 
 	<!-- version -->
 	<br><br>
