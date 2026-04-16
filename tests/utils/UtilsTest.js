@@ -37,22 +37,6 @@ function runUtilsTests() {
             });
         });
 
-        describe("resolveEscapes", function () {
-            it("should replace newline and \\n with <br>", function () {
-                const input = "line1newline\nline2";
-                const expected = "line1newline<br>line2"; // because 'newline' is not actually replaced
-                let result = Utils.resolveEscapes(input);
-                expect(result).toBe(expected);
-            });
-
-            it("should handle only \\n properly", function () {
-                const input = "line1\nline2\nline3";
-                const expected = "line1<br>line2<br>line3";
-                let result = Utils.resolveEscapes(input);
-                expect(result).toBe(expected);
-            });
-        });
-
         describe("isValidString", function () {
             it("should return false for null", function () {
                 expect(Utils.isValidString(null)).toBeFalse();

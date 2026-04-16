@@ -81,14 +81,6 @@ const PlayerReleaseRules = {
     },
 
     estraiEventualiNoteAggiuntive: function () {
-        let toReturn = "";
-        let etNote = Utils.retrieveDomElement("etNoteSvincoli");
-        if (etNote != null) {
-            let noteText = etNote.value;
-            if (noteText.trim() !== "") {
-                toReturn = Utils.resolveEscapes(noteText);
-            }
-        }
-        return toReturn;
+        return Utils.retrieveAdditionalNotes("etNoteSvincoli");
     }
 };

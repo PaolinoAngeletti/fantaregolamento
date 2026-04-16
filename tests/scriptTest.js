@@ -1,6 +1,7 @@
 function runMainScriptTests() {
-    describe("RegulationCreationTest", function () {
-        it("generate a valid and complete HTML document", function () {
+
+    describe("generate a valid content list", function () {
+        it("generate a valid content list", function () {
 
             //setting correct values from verified fields.
             realDomDoc.getElementById("etInizio").value = "1";
@@ -18,29 +19,32 @@ function runMainScriptTests() {
             realDomDoc.getElementById('etSoglie').value = "5";
             realDomDoc.getElementById("etQuota").value = "50";
             realDomDoc.getElementById("cbPenalitaNo").checked = true;
+            realDomDoc.getElementById("cbModificatoreNo").checked = true;
             realDomDoc.getElementById("cb442").checked = true;
+            realDomDoc.getElementById("cbScambiNo").checked = true;
             realDomDoc.getElementById('etNumSostituzioni').value = "3";
+            realDomDoc.getElementById('etNoteMercato').value = "notes";
+            realDomDoc.getElementById('etNoteSvincoli').value = "notes";
+            realDomDoc.getElementById('etNoteScambi').value = "notes";
+            realDomDoc.getElementById('etNoteInfortuni').value = "notes";
+            realDomDoc.getElementById('etNoteFormazione').value = "notes";
+            realDomDoc.getElementById('etNoteSostituzioni').value = "notes";
 
-            const html = createHTMLCode();
-            expect(html).toContain("<!DOCTYPE html>");
-            expect(html).toContain("<html lang='it'>");
-            expect(html).toContain("<head>");
-            expect(html).toContain("<title>Regolamento creato</title>");
-            expect(html).toContain("<body");
-            expect(html).toContain("<h1>Regolamento Fantacalcio</h1>");
-            expect(html).toContain("<h2>1. Tipologia competizione</h2>");
-            expect(html).toContain("<h2>2. Struttura rose</h2>");
-            expect(html).toContain("<h2>3. Gestione mercato</h2>");
-            expect(html).toContain("<h2>4. Gestione svincoli</h2>");
-            expect(html).toContain("<h2>5. Gestione scambi</h2>");
-            expect(html).toContain("<h2>6. Gestione infortuni</h2>");
-            expect(html).toContain("<h2>7. Inserimento formazione</h2>");
-            expect(html).toContain("<h2>8. Gestione sostituzioni</h2>");
-            expect(html).toContain("<h2>9. Calcolo giornate</h2>");
-            expect(html).toContain("<h2>10. Classifica</h2>");
-            expect(html).toContain("<h2>11. Quote squadre e premi finali</h2>");
-            expect(html).toContain("Documento stilato con");
-            expect(html).toContain("</html>");
+            const html = retrieveRegulationContent();
+            let texts = html.map(e => e.text);
+
+            expect(texts).toContain("Regolamento Fantacalcio");
+            expect(texts).toContain("1. Tipologia competizione");
+            expect(texts).toContain("2. Struttura rose");
+            expect(texts).toContain("3. Gestione mercato");
+            expect(texts).toContain("4. Gestione svincoli");
+            expect(texts).toContain("5. Gestione scambi");
+            expect(texts).toContain("6. Gestione infortuni");
+            expect(texts).toContain("7. Inserimento formazione");
+            expect(texts).toContain("8. Gestione sostituzioni");
+            expect(texts).toContain("9. Calcolo giornate");
+            expect(texts).toContain("10. Classifica");
+            expect(texts).toContain("11. Quote squadre e premi finali");
         });
     });
 
@@ -223,6 +227,10 @@ function runMainScriptTests() {
                 {field: "et7724", value: "2"},
                 {field: "et725749", value: "3"},
                 {field: "et75", value: "102"},
+
+                // prices.
+                {field: "etQuota", value: "150"},
+                {field: "taPremi", value: "These are beautiful notes!"},
             ];
 
             test_cases.forEach(test => {
@@ -437,6 +445,10 @@ function runMainScriptTests() {
                 {field: "et7724", start_value: "5", final_value: "2"},
                 {field: "et725749", start_value: "5", final_value: "2"},
                 {field: "et75", start_value: "5", final_value: "2"},
+
+                // prices.
+                {field: "etQuota", start_value: "50", final_value: "150"},
+                {field: "taPremi", start_value: "Primo posto 150 euro", final_value: "Primo posto 200 euro"},
             ];
 
             test_cases.forEach(test => {

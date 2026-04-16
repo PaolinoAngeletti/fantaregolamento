@@ -111,7 +111,7 @@ function retrieveSections() {
         SubstitutionRules,
         ResultCalculationRules,
         RankingDataRules,
-        //FeeAndPrizesRule
+        FeeAndPrizesRule
     ];
 }
 

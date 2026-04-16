@@ -121,14 +121,6 @@ const TransferMarketRules = {
     },
 
     estraiEventualiNoteAggiuntiveMercato: function () {
-        let toReturn = "";
-        let etNoteMercato = Utils.retrieveDomElement("etNoteMercato");
-        if (etNoteMercato != null) {
-            let testoNote = etNoteMercato.value;
-            if (testoNote.trim() !== "") {
-                toReturn = Utils.resolveEscapes(testoNote);
-            }
-        }
-        return toReturn;
+        return Utils.retrieveAdditionalNotes("etNoteMercato");
     }
 };

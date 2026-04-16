@@ -45,14 +45,6 @@ const AccidentRules = {
     },
 
     estraiEventualiNoteAggiuntive: function () {
-        let toReturn = "";
-        let etNote = Utils.retrieveDomElement("etNoteInfortuni");
-        if (etNote != null) {
-            let noteText = etNote.value;
-            if (noteText.trim() !== "") {
-                toReturn = Utils.resolveEscapes(noteText);
-            }
-        }
-        return toReturn;
+        return Utils.retrieveAdditionalNotes("etNoteInfortuni");
     }
 };

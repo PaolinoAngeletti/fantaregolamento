@@ -18,11 +18,6 @@ const Utils = {
         }
     },
 
-    resolveEscapes: function (stringWithEscapes) {
-        stringWithEscapes.replace(/newline/g, "\n");
-        return stringWithEscapes.replace(/\n/g, "<br>");
-    },
-
     isValidString: function (string) {
         return string != null && string.trim() !== "";
     },
@@ -47,9 +42,9 @@ const Utils = {
         let toReturn = "";
         let additionalNotes = Utils.retrieveDomElement(domElement);
         if (additionalNotes != null) {
-            let testoNote = additionalNotes.value;
-            if (testoNote.trim() !== "") {
-                toReturn = this.resolveEscapes(testoNote);
+            let value = additionalNotes.value;
+            if (this.isValidString(value)) {
+                toReturn = value;
             }
         }
         return toReturn;
