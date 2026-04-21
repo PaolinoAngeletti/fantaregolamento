@@ -16,6 +16,7 @@ function loadRequiredScripts() {
         loadScript("utils/FieldValidation.js");
         loadScript("exception/FieldValidationException.js");
         loadScript("exporters/exporter_factory.js");
+        applyVersion();
     });
 }
 
@@ -39,6 +40,24 @@ function loadSectionsScripts() {
     });
 }
 
+function setupDefaultPrizesValue() {
+    const taPremi = Utils.retrieveDomElement("taPremi");
+    taPremi.value = [
+        "Primo posto: - euro",
+        "Secondo posto: - euro",
+        "Terzo posto: - euro"
+    ].join('\n');
+}
+
+function applyVersion() {
+    loadScript("config/config.js", () => {
+        const versionLabel = Utils.retrieveDomElement("lb_version");
+        if (versionLabel && window.APP_VERSION?.version) {
+            versionLabel.innerText = "versione " + window.APP_VERSION.version;
+        }
+    });
+}
+
 function loadScript(fileName, callback) {
     const script = document.createElement('script');
     script.src = fileName;
@@ -49,15 +68,6 @@ function loadScript(fileName, callback) {
         }
     };
     document.head.appendChild(script);
-}
-
-function setupDefaultPrizesValue() {
-    const taPremi = Utils.retrieveDomElement("taPremi");
-    taPremi.value = [
-        "Primo posto: - euro",
-        "Secondo posto: - euro",
-        "Terzo posto: - euro"
-    ].join('\n');
 }
 
 /*
@@ -148,7 +158,7 @@ function showExchangeSection(toShow) {
 }
 
 function applicaModificatore(toShow) {
-    if(toShow) {
+    if (toShow) {
         Utils.showDomElement("punti_modificatore");
     } else {
         Utils.setElementDisplay("punti_modificatore", "none");

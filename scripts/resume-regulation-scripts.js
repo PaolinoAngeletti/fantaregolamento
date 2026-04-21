@@ -5,6 +5,7 @@ function selectLocalPDF() {
             loadRegulationFromJson(dati);
         })
         .catch(error => {
+            showErrorImportFeedback(error);
             console.error("Error during import PDF:", error);
         });
 }
@@ -29,12 +30,7 @@ function loadRegulationFromJson(json, domDoc = document) {
     });
 
     // import feedback.
-    let importElement = Utils.retrieveDomElement("importFeedbackSection");
-    if (importElement) {
-        Utils.showDomElement("importFeedbackSection");
-        let importMessage = Utils.retrieveDomElement("importMessage");
-        importMessage.innerText = "Caricati " + rulesImportedNr + " elementi";
-    }
+    showSuccessImportFeedback(rulesImportedNr);
 }
 
 function reloadRadioValue(domElement, newValue) {
@@ -57,4 +53,34 @@ function reloadTextValue(domElement, newValue) {
 
 function logLoadedElement(domElement) {
     console.log("PDF element loaded: " + domElement.id);
+}
+
+function showSuccessImportFeedback(rulesImportedNr) {
+    let message = "Caricati " + rulesImportedNr + " elementi";
+    showImportFeedback(message, false);
+}
+
+function showErrorImportFeedback(errorMessage) {
+    let message = "File non valido: ti ricordo che la ricarica è valida solo su file generati da Maggio 2025 in poi.\n" + errorMessage;
+    showImportFeedback(message, true);
+}
+
+function showImportFeedback(message, isError) {
+    let importElement = Utils.retrieveDomElement("importFeedbackSection");
+    if (importElement) {
+        Utils.showDomElement("importFeedbackSection");
+        applyBackgroundToSectionFeedback(isError);
+        let importMessage = Utils.retrieveDomElement("importMessage");
+        importMessage.innerText = message;
+    }
+}
+
+function applyBackgroundToSectionFeedback(isError) {
+    let importElement = Utils.retrieveDomElement("sectionContent");
+    importElement.classList.remove("import-success", "import-error");
+    if (isError) {
+        importElement.classList.add("error-section");
+    } else {
+        importElement.classList.add("success-section");
+    }
 }
