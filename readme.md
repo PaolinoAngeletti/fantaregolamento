@@ -13,3 +13,7 @@ You can do it via a random server (e.g. the one in Visual Code - Go Live) or by 
 
 To run the tests, again, simply run the index.html file in the tests' folder.  
 They were developed using the Jasmine framework.
+
+## How to Deploy
+
+To deploy project, you can run deploy.sh file under deployment folder.
