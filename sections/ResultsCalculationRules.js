@@ -1,37 +1,37 @@
 const ResultCalculationRules = {
+
     sectionName: "Calcolo giornate",
 
     produce: function (sectionIndex) {
-        var toReturn = Utils.addSectionTitle(sectionIndex, this.sectionName);
-        toReturn = toReturn + this.estraiPunteggiVittoriaPareggio(sectionIndex);
-        toReturn = toReturn + this.estraiBonusMalus(sectionIndex);
-        toReturn = toReturn + this.estraiLarghezzaSoglie(sectionIndex);
-        toReturn = toReturn + this.estraiAbilitazioneFattoreCampo(sectionIndex);
-        toReturn = toReturn + this.estraiGestioneRinvio(sectionIndex);
-        toReturn = toReturn + this.estraiGestioneModificatore(sectionIndex);
-        return toReturn;
+        let rules = [];
+        rules.push(this.estraiPunteggiVittoriaPareggio());
+        rules.push(this.estraiBonusMalus());
+        rules.push(this.estraiLarghezzaSoglie());
+        rules.push(this.estraiAbilitazioneFattoreCampo());
+        rules.push(this.estraiGestioneRinvio());
+        rules.push(this.estraiGestioneModificatore());
+        return Utils.buildRuleSection(sectionIndex, this.sectionName, rules);
     },
 
-    estraiPunteggiVittoriaPareggio: function (sectionIndex) {
-        var toReturn = "";
+    estraiPunteggiVittoriaPareggio: function () {
         let etVittoria = Utils.retrieveDomElement("etVittoria");
         let etPareggio = Utils.retrieveDomElement("etPareggio");
         let etSconfitta = Utils.retrieveDomElement("etSconfitta");
-        toReturn = toReturn + Utils.addTextRow(sectionIndex, 1, "I punteggi rilevati da una singola partita saranno:");
-        toReturn = toReturn + "Vittoria: " + etVittoria.value + " punti.<br>";
-        toReturn = toReturn + "Pareggio: " + etPareggio.value + " punti.<br>";
-        toReturn = toReturn + "Sconfitta: " + etSconfitta.value + " punti.<br>";
+
+        let toReturn = "I punteggi rilevati da una singola partita saranno: \n\n";
+        toReturn = toReturn + "Vittoria: " + etVittoria.value + " punti.\n";
+        toReturn = toReturn + "Pareggio: " + etPareggio.value + " punti.\n";
+        toReturn = toReturn + "Sconfitta: " + etSconfitta.value + " punti.";
         return toReturn;
     },
 
-    estraiBonusMalus: function (sectionIndex) {
-        var toReturn = "";
-        toReturn = toReturn + Utils.addTextRow(sectionIndex, 2, "I bonus e malus previsti dalla competizione saranno:");
+    estraiBonusMalus: function () {
+        let toReturn = "I bonus e malus previsti dalla competizione saranno: \n\n";
         toReturn = this.verificaSingoloBonus(toReturn, "etGol", "Gol segnato");
         toReturn = this.verificaSingoloBonus(toReturn, "etRigore", "Rigore segnato");
         toReturn = this.verificaSingoloBonus(toReturn, "etRigoreSbagliato", "Rigore sbagliato");
         toReturn = this.verificaSingoloBonus(toReturn, "etAssist", "Assist");
-        toReturn = this.verificaSingoloBonus(toReturn, "etCleansheet", "Porta inviolata");
+        toReturn = this.verificaSingoloBonus(toReturn, "etCleanSheet", "Porta inviolata");
         toReturn = this.verificaSingoloBonus(toReturn, "etGolSubito", "Gol subito (portiere)");
         toReturn = this.verificaSingoloBonus(toReturn, "etRigoreParato", "Rigore parato (portiere)");
         toReturn = this.verificaSingoloBonus(toReturn, "etAmmonizione", "Ammonizione");
@@ -44,31 +44,30 @@ const ResultCalculationRules = {
 
     verificaSingoloBonus: function (toReturn, idBonus, descrizione) {
         let etElemento = Utils.retrieveDomElement(idBonus);
-        toReturn = toReturn + descrizione + ": " + etElemento.value + " punti.<br>";
+        toReturn = toReturn + descrizione + ": " + etElemento.value + " punti.\n";
         return toReturn;
     },
 
-    estraiLarghezzaSoglie: function (sectionIndex) {
+    estraiLarghezzaSoglie: function () {
         let etSoglie = Utils.retrieveDomElement("etSoglie");
         let soglieValue = etSoglie.value;
         FieldValidation.validateInt(this.sectionName, "Soglie gol", soglieValue, false, false);
-
-        return Utils.addTextRow(sectionIndex, 3, "Le soglie per il calcolo del numero di gol saranno ciascuna da " + soglieValue + " punti.");;
+        return "Le soglie per il calcolo del numero di gol saranno ciascuna da " + soglieValue + " punti.";
     },
 
-    estraiAbilitazioneFattoreCampo: function (sectionIndex) {
-        var toReturn = "";
+    estraiAbilitazioneFattoreCampo: function () {
+        let toReturn;
         let etFattoreSi = Utils.retrieveDomElement("cbFattoreSi");
         if (etFattoreSi.checked) {
             toReturn = "E' previsto un fattore campo, ossia giocare in casa oppure fuori casa ha influenza sul calcolo della giornata.";
         } else {
             toReturn = "Non verrà applicato mai nessun fattore campo, ossia giocare in casa oppure fuori casa non ha influenza sul calcolo della giornata.";
         }
-        return Utils.addTextRow(sectionIndex, 4, toReturn);
+        return toReturn;
     },
 
-    estraiGestioneRinvio: function (sectionIndex) {
-        var toReturn = "";
+    estraiGestioneRinvio: function () {
+        let toReturn = "";
         let cbRinvioMai = Utils.retrieveDomElement("cbRinvioMai");
         if (cbRinvioMai.checked) {
             toReturn = "Nel caso in cui una o più partite vengano rinviate per qualsiasi motivo, NON si attenderà MAI la sua conclusione, ma si accederà sempre alle votazioni politiche.";
@@ -88,18 +87,18 @@ const ResultCalculationRules = {
                 }
             }
         }
-        return Utils.addTextRow(sectionIndex, 5, toReturn);
+        return toReturn;
     },
 
-    estraiGestioneModificatore: function (sectionIndex) {
-        var toReturn = "";
+    estraiGestioneModificatore: function () {
+        let toReturn = "";
         let cbModificatoreNo = Utils.retrieveDomElement("cbModificatoreNo");
         if (cbModificatoreNo.checked) {
-            toReturn = Utils.addTextRow(sectionIndex, 6, "Il calcolo della giornata non prevede nessun modificatore di difesa");
+            toReturn = "Il calcolo della giornata non prevede nessun modificatore di difesa";
         } else {
             let cbModificatoreSi = Utils.retrieveDomElement("cbModificatoreSi");
             if (cbModificatoreSi.checked) {
-                toReturn = Utils.addTextRow(sectionIndex, 6, "Il calcolo della giornata prevede il modificatore di difesa, con i seguenti scaglioni:");
+                toReturn = "Il calcolo della giornata prevede il modificatore di difesa, con i seguenti scaglioni: \n\n";
                 toReturn = this.verificaSingoloBonus(toReturn, "et0599", "Da 0 punti a 5,99 punti");
                 toReturn = this.verificaSingoloBonus(toReturn, "et6624", "Da 6 punti a 6,24 punti");
                 toReturn = this.verificaSingoloBonus(toReturn, "et625649", "Da 6,25 punti a 6,49 punti");

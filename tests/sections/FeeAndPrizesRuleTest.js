@@ -6,10 +6,13 @@ function runFeePrizesTests() {
                 realDomDoc.getElementById('taPremi').value = "price-list";
 
                 const result = FeeAndPrizesRule.produce(7);
-                expect(result).toContain("<h2>7. Quote squadre e premi finali");
-                expect(result).toContain("<p>7.1. La quota di partecipazione prevista per ciascuna squadra è di 100 euro.");
-                expect(result).toContain("<p>7.2. I premi totali saranno cosi suddivisi:");
-                expect(result).toContain("price-list");
+                expect(result[0].text).toContain("7. Quote squadre e premi finali");
+                expect(result[0].type).toBe("h2");
+                expect(result[1].text).toContain("7.1. La quota di partecipazione prevista per ciascuna squadra è di 100 euro.");
+                expect(result[1].type).toBe("paragraph");
+                expect(result[2].text).toContain("7.2. I premi totali saranno cosi suddivisi:");
+                expect(result[2].text).toContain("price-list");
+                expect(result[2].type).toBe("paragraph");
             });
         });
 
@@ -29,8 +32,8 @@ function runFeePrizesTests() {
             it('fee value can be zero', () => {
                 realDomDoc.getElementById("etQuota").value = "0";
                 const result = FeeAndPrizesRule.produce();
-                expect(result).toContain("Quote squadre e premi finali");
-                expect(result).toContain("La quota di partecipazione prevista per ciascuna squadra è di 0 euro.");
+                expect(result[0].text).toContain("Quote squadre e premi finali");
+                expect(result[1].text).toContain("La quota di partecipazione prevista per ciascuna squadra è di 0 euro.");
             });
         });
 
@@ -38,9 +41,8 @@ function runFeePrizesTests() {
             it("should skip prize section if taPremi is null", function () {
                 realDomDoc.getElementById("etQuota").value = "50";
                 realDomDoc.getElementById('taPremi').value = "";
-
                 const result = FeeAndPrizesRule.produce();
-                expect(result).not.toContain("I premi totali");
+                expect(result[0].text).not.toContain("I premi totali");
             });
         });
     });

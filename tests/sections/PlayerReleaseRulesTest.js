@@ -1,5 +1,6 @@
 function runReleaseRulesTests() {
     describe("Release rules", function () {
+
         describe("produce test", function () {
             it("produce test", function () {
                 realDomDoc.getElementById("cbSvincoloAcquisto").checked = true;
@@ -9,11 +10,16 @@ function runReleaseRulesTests() {
 
                 const html = PlayerReleaseRules.produce(10);
 
-                expect(html).toContain("<h2>10. Gestione svincoli");
-                expect(html).toContain("<p>10.1. Prevista l'applicazione dello svincolo su acquisto");
-                expect(html).toContain("<p>10.2. In caso di svincolo di giocatori acquistati in mercati precedenti");
-                expect(html).toContain("<p>10.3. Se, durante la competizione, un calciatore viene ceduto in altri campionati");
-                expect(html).toContain("<p>10.4. additional-notes!");
+                expect(html[0].text).toContain("10. Gestione svincoli");
+                expect(html[0].type).toBe("h2");
+                expect(html[1].text).toContain("10.1. Prevista l'applicazione dello svincolo su acquisto");
+                expect(html[1].type).toBe("paragraph");
+                expect(html[2].text).toContain("10.2. In caso di svincolo di giocatori acquistati in mercati precedenti");
+                expect(html[2].type).toBe("paragraph");
+                expect(html[3].text).toContain("10.3. Se, durante la competizione, un calciatore viene ceduto in altri campionati");
+                expect(html[3].type).toBe("paragraph");
+                expect(html[4].text).toContain("10.4. additional-notes!");
+                expect(html[4].type).toBe("paragraph");
             });
         });
 

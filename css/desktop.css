@@ -1,249 +1,264 @@
 *,
 *:after,
 *:before {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 :root {
-  color-scheme: light only;
+    color-scheme: light only;
 }
 
 html,
 body {
-  margin: auto;
-  padding: 0;
-  max-width: 100vw;
-  overflow-x: hidden;
+    margin: auto;
+    padding: 0;
+    max-width: 100vw;
+    overflow-x: hidden;
 }
 
 body {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: "Inter", sans-serif;
-  color: #000021;
-  background-color: #e6e6ef;
-  max-width: max-content;
-  justify-content: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "Inter", sans-serif;
+    color: #000021;
+    background-color: #e6e6ef;
+    max-width: max-content;
+    justify-content: center;
 }
 
 form {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
 }
 
 label {
-  display: flex;
-  cursor: pointer;
-  font-weight: 500;
-  position: relative;
-  overflow: hidden;
-  margin-bottom: 0.375em;
+    display: flex;
+    cursor: pointer;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 0.375em;
 }
 
 label input {
-  position: absolute;
-  left: -9999px;
+    position: absolute;
+    left: -9999px;
 }
 
-label input:checked+span {
-  background-color: #d6d6e5;
+label input:checked + span {
+    background-color: #d6d6e5;
 }
 
-label input:checked+span:before {
-  box-shadow: inset 0 0 0 0.4375em #00005c;
+label input:checked + span:before {
+    box-shadow: inset 0 0 0 0.4375em #00005c;
 }
 
 label span {
-  display: flex;
-  align-items: center;
-  padding: 0.375em 0.75em 0.375em 0.375em;
-  border-radius: 99em;
-  transition: 0.25s ease;
+    display: flex;
+    align-items: center;
+    padding: 0.375em 0.75em 0.375em 0.375em;
+    border-radius: 99em;
+    transition: 0.25s ease;
 }
 
 label span:hover {
-  background-color: #d6d6e5;
+    background-color: #d6d6e5;
 }
 
 label span:before {
-  display: flex;
-  flex-shrink: 0;
-  content: "";
-  background-color: #fff;
-  width: 1.5em;
-  height: 1.5em;
-  border-radius: 50%;
-  margin-right: 0.375em;
-  transition: 0.25s ease;
-  box-shadow: inset 0 0 0 0.125em #00005c;
+    display: flex;
+    flex-shrink: 0;
+    content: "";
+    background-color: #fff;
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+    margin-right: 0.375em;
+    transition: 0.25s ease;
+    box-shadow: inset 0 0 0 0.125em #00005c;
 }
 
 .macro {
-  border: 1px solid gray;
-  border-radius: 25px;
-  background-color: #C5C5CC;
-  padding: 15px 15px;
+    border: 1px solid gray;
+    border-radius: 25px;
+    background-color: #C5C5CC;
+    padding: 15px 15px;
 }
 
 .container {
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .container_pill {
-  margin: 0 auto;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 13px;
+    margin: 0 auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 13px;
 }
 
 .form-group {
-  clear: both;
+    clear: both;
 }
 
 p {
-  margin: 0px;
-  font-weight: 500;
-  line-height: 2;
-  color: #333;
+    margin: 0px;
+    font-weight: 500;
+    line-height: 2;
+    color: #333;
 }
 
 i {
-  color: #333;
-  font-size: 15px;
+    color: #333;
+    font-size: 15px;
 }
 
 input {
-  border-radius: 10px 10px 10px 10px;
-  border: 1px solid #eee;
-  margin-bottom: 15px;
-  width: 100%;
-  height: 40px;
-  float: left;
-  padding: 15px 15px;
+    border-radius: 10px 10px 10px 10px;
+    border: 1px solid #eee;
+    margin-bottom: 15px;
+    width: 100%;
+    height: 40px;
+    float: left;
+    padding: 15px 15px;
 }
 
 ul.ks-cboxtags {
-  list-style: none;
-  padding: 0px;
+    list-style: none;
+    padding: 0px;
 }
 
 ul.ks-cboxtags li {
-  display: inline;
+    display: inline;
 }
 
 ul.ks-cboxtags li label {
-  display: inline-block;
-  background-color: rgba(255, 255, 255, .9);
-  border: 2px solid rgba(139, 139, 139, .3);
-  color: #adadad;
-  border-radius: 25px;
-  white-space: nowrap;
-  margin: 3px 0px;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  transition: all .2s;
+    display: inline-block;
+    background-color: rgba(255, 255, 255, .9);
+    border: 2px solid rgba(139, 139, 139, .3);
+    color: #adadad;
+    border-radius: 25px;
+    white-space: nowrap;
+    margin: 3px 0px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: all .2s;
 }
 
 ul.ks-cboxtags li label {
-  padding: 8px 12px;
-  cursor: pointer;
+    padding: 8px 12px;
+    cursor: pointer;
 }
 
 ul.ks-cboxtags li label::before {
-  display: inline-block;
-  font-style: normal;
-  font-variant: normal;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  font-size: 12px;
-  padding: 2px 6px 2px 2px;
-  transition: transform .3s ease-in-out;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 12px;
+    padding: 2px 6px 2px 2px;
+    transition: transform .3s ease-in-out;
 }
 
-ul.ks-cboxtags li input[type="checkbox"]:checked+label::before {
-  transform: rotate(-360deg);
-  transition: transform .3s ease-in-out;
+ul.ks-cboxtags li input[type="checkbox"]:checked + label::before {
+    transform: rotate(-360deg);
+    transition: transform .3s ease-in-out;
 }
 
-ul.ks-cboxtags li input[type="checkbox"]:checked+label {
-  border: 2px solid #1bdbf8;
-  background-color: #12bbd4;
-  color: #fff;
-  transition: all .2s;
-}
-
-ul.ks-cboxtags li input[type="checkbox"] {
-  display: absolute;
+ul.ks-cboxtags li input[type="checkbox"]:checked + label {
+    border: 2px solid #1bdbf8;
+    background-color: #12bbd4;
+    color: #fff;
+    transition: all .2s;
 }
 
 ul.ks-cboxtags li input[type="checkbox"] {
-  position: absolute;
-  opacity: 0;
+    display: absolute;
 }
 
-ul.ks-cboxtags li input[type="checkbox"]:focus+label {
-  border: 2px solid #e9a1ff;
+ul.ks-cboxtags li input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+}
+
+ul.ks-cboxtags li input[type="checkbox"]:focus + label {
+    border: 2px solid #e9a1ff;
 }
 
 .textarea {
-  display: block;
-  width: 80%;
-  overflow: hidden;
-  resize: vertical;
-  min-height: 100px;
-  line-height: 20px;
-  border: 1px solid #eee;
-  background-color: #fff;
-  border-radius: 20px;
-  padding: 15px 15px;
-  white-space: pre-line;
+    display: block;
+    width: 80%;
+    overflow: hidden;
+    resize: vertical;
+    min-height: 100px;
+    line-height: 20px;
+    border: 1px solid #eee;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 15px 15px;
+    white-space: pre-line;
 }
 
 .textarea[contenteditable]:empty::before {
-  content: "Primo posto : XXX euro";
-  color: gray;
+    content: "Primo posto : XXX euro";
+    color: gray;
 }
 
 button {
-  border: none;
-  border-radius: 16px;
-  padding: 12px 18px;
-  font-size: 16px;
-  text-transform: uppercase;
-  cursor: pointer;
-  color: white;
-  background-color: #00005C;
-  outline: none;
-  max-width: 100%;
-  width: 100%;
-  height: 80px;
+    border: none;
+    border-radius: 16px;
+    padding: 12px 18px;
+    font-size: 16px;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: white;
+    background-color: #00005C;
+    outline: none;
+    max-width: 100%;
+    width: 100%;
+    height: 80px;
 }
 
 .ripple {
-  background-position: center;
-  transition: background 0.8s;
+    background-position: center;
+    transition: background 0.8s;
 }
 
 .ripple:hover {
-  background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
+    background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
 }
 
 .ripple:active {
-  background-color: #6eb9f7;
-  background-size: 100%;
-  transition: background 0s;
+    background-color: #6eb9f7;
+    background-size: 100%;
+    transition: background 0s;
+}
+
+/* added cause center tag deprecation */
+.centered {
+    text-align: center;
+}
+
+.success-section {
+    background-color: forestgreen;
+    color: white;
+}
+
+.error-section {
+    background-color: rgb(204, 85, 0);
+    color: white;
 }

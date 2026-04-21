@@ -24,30 +24,16 @@ function runUtilsTests() {
         describe("addSectionTitle", function () {
             it("should wrap the title in an h2 tag", function () {
                 let result = Utils.addSectionTitle(23, "Test Title");
-                expect(result).toBe("<h2>23. Test Title</h2>");
+                expect(result.text).toBe("23. Test Title");
+                expect(result.type).toBe("h2");
             });
         });
 
         describe("addTextRow", function () {
             it("should wrap the text in a p tag", function () {
                 let result = Utils.addTextRow(10, 4, "Sample text");
-                expect(result).toBe("<p>10.4. Sample text</p>");
-            });
-        });
-
-        describe("resolveEscapes", function () {
-            it("should replace newline and \\n with <br>", function () {
-                const input = "line1newline\nline2";
-                const expected = "line1newline<br>line2"; // because 'newline' is not actually replaced
-                let result = Utils.resolveEscapes(input);
-                expect(result).toBe(expected);
-            });
-
-            it("should handle only \\n properly", function () {
-                const input = "line1\nline2\nline3";
-                const expected = "line1<br>line2<br>line3";
-                let result = Utils.resolveEscapes(input);
-                expect(result).toBe(expected);
+                expect(result.text).toBe("10.4. Sample text");
+                expect(result.type).toBe("paragraph");
             });
         });
 

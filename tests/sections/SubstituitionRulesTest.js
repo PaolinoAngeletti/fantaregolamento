@@ -1,5 +1,6 @@
-function runSubstituionRulesTests() {
+function runSubstitutionRulesTests() {
     describe('SubstitutionRules', () => {
+
         describe('produce', () => {
             it('should produce full substitution section', () => {
                 realDomDoc.getElementById('etNumSostituzioni').value = "0";
@@ -7,14 +8,18 @@ function runSubstituionRulesTests() {
                 realDomDoc.getElementById("etNoteSostituzioni").value = "notes";
 
                 const result = SubstitutionRules.produce(3);
-                expect(result).toContain("<h2>3. Gestione sostituzioni");
-                expect(result).toContain("<p>3.1. Non vi è nessun limite sul numero di sostituzioni");
-                expect(result).toContain("<p>3.2. Nel caso in cui un giocatore SV");
-                expect(result).toContain("<p>3.3. notes");
+                expect(result[0].text).toContain("3. Gestione sostituzioni");
+                expect(result[0].type).toBe("h2");
+                expect(result[1].text).toContain("3.1. Non vi è nessun limite sul numero di sostituzioni");
+                expect(result[1].type).toBe("paragraph");
+                expect(result[2].text).toContain("3.2. Nel caso in cui un giocatore SV");
+                expect(result[2].type).toBe("paragraph");
+                expect(result[3].text).toContain("3.3. notes");
+                expect(result[3].type).toBe("paragraph");
             });
         });
 
-        describe('validate substituions number value', () => {
+        describe('validate substitutions number value', () => {
             it('should return text for no limit substitutions', () => {
                 realDomDoc.getElementById('etNumSostituzioni').value = "0";
                 const result = SubstitutionRules.estraiNumeroCambi();
@@ -55,8 +60,7 @@ function runSubstituionRulesTests() {
             });
 
             it('should return text for ammonizione scalata', () => {
-                realDomDoc.getElementById('cbAmmScalata').checked = true;
-
+                realDomDoc.getElementById('cbAmmCascade').checked = true;
                 const result = SubstitutionRules.estraiGestioneAmmonizioneSenzaVoto();
                 expect(result).toContain("verrà riflesso sul giocatore subentrato");
             });
@@ -65,16 +69,14 @@ function runSubstituionRulesTests() {
         describe("additional note tests", function () {
             it("not add rows for notes empty", function () {
                 realDomDoc.getElementById("etNoteSostituzioni").value = "";
-
                 const html = SubstitutionRules.estraiEventualiNoteAggiuntive();
                 expect(html).toBe("");
             });
 
             it("correctly add rows for notes inserted", function () {
                 realDomDoc.getElementById("etNoteSostituzioni").value = "hello1 hello2-hello3";
-
                 const html = SubstitutionRules.estraiEventualiNoteAggiuntive(8);
-                expect(html).toBe("<p>8.3. hello1 hello2-hello3</p>");
+                expect(html).toBe("hello1 hello2-hello3");
             });
         });
     });

@@ -28,7 +28,7 @@ const ExchangeRules = {
     },
 
     retrieveExchangeEnabling: function () {
-        var toReturn = "";
+        let toReturn;
         if (this.exchangeAreAllowed()) {
             toReturn = "Sono previsti gli scambi di giocatori tra squadre.";
         } else {
@@ -38,7 +38,7 @@ const ExchangeRules = {
     },
 
     estraiAbilitazioneScambioCrediti: function () {
-        var toReturn = "";
+        let toReturn;
         let campoVerifica = Utils.retrieveDomElement("cbScambioCreditiSi");
         if (campoVerifica.checked) {
             toReturn = "Sono permessi gli scambi di crediti tra i partecipanti, esempio si potrà fare Totti per Del Piero + 100 crediti.";
@@ -49,7 +49,7 @@ const ExchangeRules = {
     },
 
     estraiSceltaScambioQuotazioneDopoScambio: function () {
-        var toReturn = "";
+        let toReturn = "";
         if (this.expectedRecoveryCreditsFromTransfer()) {
             let sceltaA = Utils.retrieveDomElement("cbScambioQuotazioneA");
             if (sceltaA.checked) {

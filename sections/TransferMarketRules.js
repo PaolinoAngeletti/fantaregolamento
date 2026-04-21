@@ -19,9 +19,7 @@ const TransferMarketRules = {
         let etCrediti = Utils.retrieveDomElement("etCrediti");
         let creditsNumber = etCrediti.value;
         FieldValidation.validateInt(this.sectionName, "Numero crediti", creditsNumber, false, false);
-
-        var toReturn = "Per il mercato iniziale sono previsti " + creditsNumber + " fantamilioni, utili a comporre la rosa iniziale.";
-        return toReturn;
+        return "Per il mercato iniziale sono previsti " + creditsNumber + " fanta-milioni, utili a comporre la rosa iniziale.";
     },
 
     estraiNumeroCreditiSuccessivi: function () {
@@ -29,8 +27,9 @@ const TransferMarketRules = {
         let numeroCreditiSessione = etCreditiSessione.value;
         FieldValidation.validateInt(this.sectionName, "Numero crediti per sessione", numeroCreditiSessione, false);
 
+        let toReturn;
         if (numeroCreditiSessione > 0) {
-            toReturn = "Per le successive sessioni di mercato sono previsti " + numeroCreditiSessione + " fantamilioni da aggiungere ad ogni squadra, in modo da permettere transazioni per tutti.";
+            toReturn = "Per le successive sessioni di mercato sono previsti " + numeroCreditiSessione + " fanta-milioni da aggiungere ad ogni squadra, in modo da permettere transazioni per tutti.";
         } else {
             toReturn = "Per le successive sessioni di mercato non sono previste aggiunte di crediti, quindi si opererà sempre con il residuo del mercato precedente o comunque risultante da altre operazioni.";
         }
@@ -38,11 +37,11 @@ const TransferMarketRules = {
     },
 
     retrieveFinishedCreditsManagement: function () {
-        var toReturn = "";
+        let toReturn;
         let taFinishedCredits = Utils.retrieveDomElement("taCreditiFiniti");
-        let finishedCredistValue = taFinishedCredits.value;
-        if (Utils.isValidString(finishedCredistValue)) {
-            toReturn = "Nel caso in cui una squadra superi il numero di crediti spendibili, verrà applicata la seguente strategia: " + finishedCredistValue;
+        let finishedCreditsValue = taFinishedCredits.value;
+        if (Utils.isValidString(finishedCreditsValue)) {
+            toReturn = "Nel caso in cui una squadra superi il numero di crediti spendibili, verrà applicata la seguente strategia: " + finishedCreditsValue;
         } else {
             toReturn = "Non è stata specificata nessuna gestione del caso in cui una squadra superi il numero di crediti spendibili per il mercato, per cui questo comportamento verrà deciso il giorno stesso del mercato.";
         }
@@ -50,7 +49,7 @@ const TransferMarketRules = {
     },
 
     retrieveResidualCreditsManagements: function () {
-        var toReturn = null;
+        let toReturn;
         let etResidualEnabled = Utils.retrieveDomElement("cbResiduiSi");
         if (etResidualEnabled.checked) {
             toReturn = "Alla fine di una sessione di mercato, gli eventuali crediti residui verranno utilizzati come base di partenza per la successiva sessione di mercato.";
@@ -61,7 +60,7 @@ const TransferMarketRules = {
     },
 
     estraiAbilitazioneCambioRuolo: function () {
-        var toReturn = "";
+        let toReturn;
         let campoVerifica = Utils.retrieveDomElement("cbCambioRuoloSi");
         if (campoVerifica.checked) {
             toReturn = "Sono permessi i cambi ruolo dei giocatori, ossia tutti i partecipanti possono decidere la modifica del ruolo di uno o più calciatori ignorando quelli messi a disposizione dalla piattaforma usata.";
@@ -72,7 +71,7 @@ const TransferMarketRules = {
     },
 
     estraiNumeroMassimoCambiCompetizione: function () {
-        var toReturn = "";
+        let toReturn;
         let campoCambiMassimi = Utils.retrieveDomElement("etMaxScambiCompetizione");
         let numeroCambi = campoCambiMassimi.value;
         FieldValidation.validateInt(this.sectionName, "Scambi massimi per competizione", numeroCambi, false);
@@ -86,7 +85,7 @@ const TransferMarketRules = {
     },
 
     estraiNumeroMassimoCambiSessione: function () {
-        var toReturn = "";
+        let toReturn;
         let campoCambiMassimi = Utils.retrieveDomElement("etMaxScambiSessione");
         let numeroCambi = campoCambiMassimi.value;
         FieldValidation.validateInt(this.sectionName, "Scambi massimi per sessione", numeroCambi, false);
@@ -104,7 +103,7 @@ const TransferMarketRules = {
     },
 
     estraiNumeroMassimoCambiRuolo: function () {
-        var toReturn = "";
+        let toReturn;
         let campoCambiMassimi = Utils.retrieveDomElement("etMaxScambiRuolo");
         let numeroCambi = campoCambiMassimi.value;
         FieldValidation.validateInt(this.sectionName, "Scambi massimi per ruolo", numeroCambi, false);
@@ -122,14 +121,6 @@ const TransferMarketRules = {
     },
 
     estraiEventualiNoteAggiuntiveMercato: function () {
-        var toReturn = "";
-        let etNoteMercato = Utils.retrieveDomElement("etNoteMercato");
-        if (etNoteMercato != null) {
-            var testoNote = etNoteMercato.value;
-            if (testoNote.trim() !== "") {
-                toReturn = Utils.resolveEscapes(testoNote);
-            }
-        }
-        return toReturn;
+        return Utils.retrieveAdditionalNotes("etNoteMercato");
     }
 };

@@ -1,5 +1,6 @@
 function runResultCalculationTests() {
     describe("ResultCalculationRules", function () {
+
         describe('produce', () => {
             it('should produce full HTML section', () => {
                 realDomDoc.getElementById('etSoglie').value = "2";
@@ -11,13 +12,20 @@ function runResultCalculationTests() {
                 realDomDoc.getElementById("etNoteSostituzioni").value = "notes";
 
                 const result = ResultCalculationRules.produce(3);
-                expect(result).toContain("<h2>3. Calcolo giornate");
-                expect(result).toContain("<p>3.1. I punteggi rilevati da una singola partita saranno:");
-                expect(result).toContain("<p>3.2. I bonus e malus previsti dalla competizione saranno:");
-                expect(result).toContain("<p>3.3. Le soglie per il calcolo del numero di gol saranno ciascuna da 2 punti");
-                expect(result).toContain("<p>3.4. Non verrà applicato mai nessun fattore campo");
-                expect(result).toContain("<p>3.5. Nel caso in cui una o più partite vengano rinviate per qualsiasi motivo");
-                expect(result).toContain("<p>3.6. Il calcolo della giornata non prevede nessun modificatore di difesa");
+                expect(result[0].text).toContain("3. Calcolo giornate");
+                expect(result[0].type).toBe("h2");
+                expect(result[1].text).toContain("3.1. I punteggi rilevati da una singola partita saranno:");
+                expect(result[1].type).toBe("paragraph");
+                expect(result[2].text).toContain("3.2. I bonus e malus previsti dalla competizione saranno:");
+                expect(result[2].type).toBe("paragraph");
+                expect(result[3].text).toContain("3.3. Le soglie per il calcolo del numero di gol saranno ciascuna da 2 punti");
+                expect(result[3].type).toBe("paragraph");
+                expect(result[4].text).toContain("3.4. Non verrà applicato mai nessun fattore campo");
+                expect(result[4].type).toBe("paragraph");
+                expect(result[5].text).toContain("3.5. Nel caso in cui una o più partite vengano rinviate per qualsiasi motivo");
+                expect(result[5].type).toBe("paragraph");
+                expect(result[6].text).toContain("3.6. Il calcolo della giornata non prevede nessun modificatore di difesa");
+                expect(result[6].type).toBe("paragraph");
             });
         });
 
@@ -51,7 +59,7 @@ function runResultCalculationTests() {
                 realDomDoc.getElementById('etRigore').value = "2";
                 realDomDoc.getElementById('etRigoreSbagliato').value = "-2";
                 realDomDoc.getElementById('etAssist').value = "1";
-                realDomDoc.getElementById('etCleansheet').value = "3";
+                realDomDoc.getElementById('etCleanSheet').value = "3";
                 realDomDoc.getElementById('etGolSubito').value = "-4";
                 realDomDoc.getElementById('etRigoreParato').value = "1";
                 realDomDoc.getElementById('etAmmonizione').value = "-0.5";

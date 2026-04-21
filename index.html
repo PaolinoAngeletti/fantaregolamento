@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 
 <head>
 	<meta charset="UTF-8">
@@ -11,8 +11,14 @@
 	<title>FantaRegolamento</title>
 	<link rel="icon" type="image/svg+xml" href="images/logo.png" />
 
-	<!-- javascript -->
+	<!-- PDF libraries -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.9.179/pdf.min.js"></script>
+
+	<!-- internal scripts -->
 	<script src="scripts.js"></script>
+	<script src="scripts/resume-regulation-scripts.js"></script>
 
 	<!-- css -->
 	<link rel="stylesheet" href="css/desktop.css">
@@ -20,6 +26,11 @@
 
 	<!-- google search -->
 	<meta name="google-site-verification" content="2ybLMV58ANAar_-7qemAcQ83ejC_ymY9eKkG-dV7aPk" />
+
+	<script>
+		// Tell to PDF.js where to find the worker.
+		pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.9.179/pdf.worker.min.js';
+	</script>
 </head>
 
 <body>
@@ -27,29 +38,56 @@
 		<h1>Crea il tuo Fanta Regolamento</h1>
 	</div>
 
+	<!-- Recharge regulation from PDF -->
+	<div>
+		<!-- Recharge button -->
+		<button id="btnImporta" class="ripple" onclick="selectLocalPDF()">
+			Ricarica regolamento
+		</button>
+
+		<!-- Recharge feedback -->
+		<div id="importFeedbackSection" style="display: none;">
+			<br>
+			<div id="sectionContent" class="macro success-section">
+				<div class="container">
+					<h2 style="color: white;">Importazione</h2>
+				</div>
+				<div class="container">
+					<center>
+						<p id="importMessage" style="color: white;">Error text</p>
+						<br>
+						<button onclick="hideImportFeedbackSection()">Ok</button>
+					</center>
+				</div>
+			</div>
+		</div>
+
+		<!-- recharge input file hidden -->
+		<input type="file" id="fileInput" style="display: none;" />
+	</div>
+	<br>
+
 	<!-- tipo competizione -->
 	<div class="macro">
 		<div class="container">
 			<h2>Tipo di competizione</h2>
 		</div>
-		<div class="container">
-			<center>
-				<p>Imposta il tipo di competizione da affrontare</p>
-			</center>
+		<div class="container centered">
+			<p>Imposta il tipo di competizione da affrontare</p>
 		</div>
 		<br>
 		<div class="container">
 			<form>
 				<label>
-					<input id="cbCalendario" type="radio" name="radio" checked />
+					<input id="cbCalendario" type="radio" name="radio" checked loadable />
 					<span>Competizione a calendario</span>
 				</label>
 				<label>
-					<input id="cbFormulaUno" type="radio" name="radio" />
+					<input id="cbFormulaUno" type="radio" name="radio" loadable />
 					<span>Competizione a formula 1</span>
 				</label>
 				<label>
-					<input id="cbListone" type="radio" name="radio" />
+					<input id="cbListone" type="radio" name="radio" loadable />
 					<span>Competizione a listone<br>(uno contro tutti)</span>
 				</label>
 			</form>
@@ -58,27 +96,24 @@
 		<div class="container">
 			<h4>Durata competizione</h4>
 		</div>
-		<div class="container">
-			<center>
-				<p>Indica la durata della competizione, impostando la giornata di inizio e fine rispetto al reale
-					campionato</p>
-			</center>
+		<div class="container centered">
+			<p>Indica la durata della competizione, impostando la giornata di inizio e fine rispetto al reale campionato</p>
 		</div>
 		<br>
-		<center>
+		<div class="centered">
 			<p>Inizio</p>
-		</center>
+		</div>
 		<div class="container">
 			<div class="form-group">
-				<input id="etInizio" type="number" data-rule="required" min="1" value="1" />
+				<input id="etInizio" type="number" data-rule="required" min="1" value="1" loadable />
 			</div>
 		</div>
-		<center>
+		<div class="centered">
 			<p>Fine</p>
-		</center>
+		</div>
 		<div class="container">
 			<div class="form-group">
-				<input id="etFine" type="number" data-rule="required" min="1" value="38" />
+				<input id="etFine" type="number" data-rule="required" min="1" value="38" loadable />
 			</div>
 		</div>
 	</div>
@@ -100,7 +135,7 @@
 		</center>
 		<div class="container">
 			<div class="form-group">
-				<input id="etPortieri" type="number" data-rule="required" min="1" value="3" />
+				<input id="etPortieri" type="number" data-rule="required" min="1" value="3" loadable />
 			</div>
 		</div>
 		<center>
@@ -108,7 +143,7 @@
 		</center>
 		<div class="container">
 			<div class="form-group">
-				<input id="etDifensori" type="number" data-rule="required" min="1" value="8" />
+				<input id="etDifensori" type="number" data-rule="required" min="1" value="8" loadable />
 			</div>
 		</div>
 		<center>
@@ -116,7 +151,7 @@
 		</center>
 		<div class="container">
 			<div class="form-group">
-				<input id="etCentrocampisti" type="number" data-rule="required" min="1" value="8" />
+				<input id="etCentrocampisti" type="number" data-rule="required" min="1" value="8" loadable />
 			</div>
 		</div>
 		<center>
@@ -124,7 +159,7 @@
 		</center>
 		<div class="container">
 			<div class="form-group">
-				<input id="etAttaccanti" type="number" data-rule="required" min="1" value="6" />
+				<input id="etAttaccanti" type="number" data-rule="required" min="1" value="6" loadable />
 			</div>
 		</div>
 		<br>
@@ -140,11 +175,11 @@
 		<div class="container">
 			<form>
 				<label>
-					<input id="cbCondivisiSi" type="radio" name="radio" />
+					<input id="cbCondivisiSi" type="radio" name="radio" loadable />
 					<span>Si</span>
 				</label>
 				<label>
-					<input id="cbCondivisiNo" type="radio" name="radio" checked />
+					<input id="cbCondivisiNo" type="radio" name="radio" checked loadable />
 					<span>No</span>
 				</label>
 			</form>
@@ -172,7 +207,7 @@
 		<br>
 		<div class="container">
 			<div class="form-group">
-				<input id="etCrediti" type="number" data-rule="required" min="1" value="500" />
+				<input id="etCrediti" type="number" data-rule="required" min="1" value="500" loadable />
 			</div>
 		</div>
 		<br>
@@ -183,14 +218,14 @@
 		</div>
 		<div class="container">
 			<center>
-				<p>Imposta il numero di fanta milioni che verranno aggiunti ad ogni sessione di mercato per ogni squadra
+				<p>Imposta il numero di fanta-milioni che verranno aggiunti ad ogni sessione di mercato per ogni squadra
 				</p>
 			</center>
 		</div>
 		<br>
 		<div class="container">
 			<div class="form-group">
-				<input id="etCreditiSessione" type="number" data-rule="required" min="0" value="30" />
+				<input id="etCreditiSessione" type="number" data-rule="required" min="0" value="30" loadable />
 			</div>
 		</div>
 		<br>
@@ -207,8 +242,7 @@
 		</div>
 		<br>
 		<center>
-			<textarea id="taCreditiFiniti"
-				class="textarea">Saranno svincolati, partendo dal più costoso, tanti giocatori quanto basta per recuperare un saldo crediti positivo.</textarea>
+			<textarea id="taCreditiFiniti" class="textarea" loadable>Saranno svincolati, partendo dal più costoso, tanti giocatori quanto basta per recuperare un saldo crediti positivo.</textarea>
 		</center>
 		<br>
 
@@ -226,11 +260,11 @@
 		<div class="container">
 			<form>
 				<label>
-					<input id="cbResiduiSi" type="radio" name="radio" checked />
+					<input id="cbResiduiSi" type="radio" name="radio" checked loadable />
 					<span>Si</span>
 				</label>
 				<label>
-					<input id="cbResiduiNo" type="radio" name="radio" />
+					<input id="cbResiduiNo" type="radio" name="radio" loadable />
 					<span>No</span>
 				</label>
 			</form>
@@ -251,11 +285,11 @@
 		<div class="container">
 			<form>
 				<label>
-					<input id="cbCambioRuoloSi" type="radio" name="radio" />
+					<input id="cbCambioRuoloSi" type="radio" name="radio" loadable />
 					<span>Si</span>
 				</label>
 				<label>
-					<input id="cbCambioRuoloNo" type="radio" name="radio" checked />
+					<input id="cbCambioRuoloNo" type="radio" name="radio" checked loadable />
 					<span>No</span>
 				</label>
 			</form>
@@ -277,7 +311,7 @@
 		<br>
 		<div class="container">
 			<div class="form-group">
-				<input id="etMaxScambiCompetizione" type="number" data-rule="required" min="0" value="0" />
+				<input id="etMaxScambiCompetizione" type="number" data-rule="required" min="0" value="0" loadable />
 			</div>
 		</div>
 		<br>
@@ -296,7 +330,7 @@
 		<br>
 		<div class="container">
 			<div class="form-group">
-				<input id="etMaxScambiSessione" type="number" data-rule="required" min="0" value="0" />
+				<input id="etMaxScambiSessione" type="number" data-rule="required" min="0" value="0" loadable />
 			</div>
 		</div>
 		<br>
@@ -316,7 +350,7 @@
 		<div class="container">
 			<div class="form-group">
 				<input id="etMaxScambiRuolo" type="number" data-rule="required" min="0" value="0"
-					oninput="manageRoleMaxChangeNumber(this)" />
+					oninput="manageRoleMaxChangeNumber(this)" loadable />
 			</div>
 		</div>
 		<br>
@@ -332,7 +366,7 @@
 		</div>
 		<br>
 		<center>
-			<textarea id="etNoteMercato" class="textarea"></textarea>
+			<textarea id="etNoteMercato" class="textarea" loadable></textarea>
 		</center>
 		<br>
 	</div>
@@ -357,16 +391,16 @@
 		<div class="container">
 			<form>
 				<label>
-					<input id="cbSvincoloAcquisto" type="radio" name="radio" checked />
+					<input id="cbSvincoloAcquisto" type="radio" name="radio" loadable checked />
 					<span>Svincola un giocatore solo dopo averne acquistato un altro dello stesso ruolo</span>
 				</label>
 				<label>
-					<input id="cbSvincoloInizioSi" type="radio" name="radio" />
+					<input id="cbSvincoloInizioSi" type="radio" name="radio" loadable />
 					<span>Svincola i giocatori prima dell'inizio del mercato<br>Gli svincolati potranno essere
 						acquistati da chi li ha liberati</span>
 				</label>
 				<label>
-					<input id="cbSvincoloInizioNo" type="radio" name="radio" />
+					<input id="cbSvincoloInizioNo" type="radio" name="radio" loadable />
 					<span>Svincola i giocatori prima dell'inizio del mercato<br>Gli svincolati non potranno essere
 						acquistati da chi li ha liberati</span>
 				</label>
@@ -387,28 +421,28 @@
 		<div class="container">
 			<form onchange="verifyCreditsRecoverOnPlayerRelease()">
 				<label>
-					<input id="cbSvincoloNessun" type="radio" name="radio" checked />
+					<input id="cbSvincoloNessun" type="radio" name="radio" loadable checked />
 					<span>Non ricevere nessun credito</span>
 				</label>
 				<label>
-					<input id="cbSvincoloUno" type="radio" name="radio" />
+					<input id="cbSvincoloUno" type="radio" name="radio" loadable />
 					<span>Ricevi un solo credito</span>
 				</label>
 				<label>
-					<input id="cbSvincoloMeta" type="radio" name="radio" />
+					<input id="cbSvincoloMeta" type="radio" name="radio" loadable />
 					<span>Ricevi crediti pari alla metà della quotazione di acquisto</span>
 				</label>
 				<label>
-					<input id="cbSvincoloQuotazione" type="radio" name="radio" />
+					<input id="cbSvincoloQuotazione" type="radio" name="radio" loadable />
 					<span>Ricevi crediti pari alla quotazione di acquisto</span>
 				</label>
 				<label>
-					<input id="cbSvincoloAttuale" type="radio" name="radio" />
+					<input id="cbSvincoloAttuale" type="radio" name="radio" loadable />
 					<span>Ricevi crediti pari alla quotazione attuale</span>
 				</label>
 				<label>
-					<input id="cbSvincoloMedia" type="radio" name="radio" />
-					<span>Ricevi crediti pari alla media tra la quotazione attuale ed il valore di acquisto<br>Esempio
+					<input id="cbSvincoloMedia" type="radio" name="radio" loadable />
+					<span>Ricevi crediti pari alla media tra la quotazione attuale e il valore di acquisto<br>Esempio
 						quotazione attuale 50, spesa 10, ricevi 30</span>
 				</label>
 			</form>
@@ -429,15 +463,15 @@
 		<div class="container">
 			<form onchange="verifyCreditsRecoverOnPlayerRelease()">
 				<label>
-					<input id="cbPreMercatoSvincolo" type="radio" name="radio" checked />
+					<input id="cbPreMercatoSvincolo" type="radio" name="radio" loadable checked />
 					<span>Applica regola scelta per un normale svincolo</span>
 				</label>
 				<label>
-					<input id="cbPreMercatoPrestito" type="radio" name="radio" />
+					<input id="cbPreMercatoPrestito" type="radio" name="radio" loadable />
 					<span>Prendi in prestito uno svincolato fino al prossimo mercato</span>
 				</label>
 				<label>
-					<input id="cbPreMercatoQuotazioneIntera" type="radio" name="radio" />
+					<input id="cbPreMercatoQuotazioneIntera" type="radio" name="radio" loadable />
 					<span>Ricevi l'intera quotazione di acquisto</span>
 				</label>
 			</form>
@@ -455,7 +489,7 @@
 		</div>
 		<br>
 		<center>
-			<textarea id="etNoteSvincoli" class="textarea"></textarea>
+			<textarea id="etNoteSvincoli" class="textarea" loadable></textarea>
 		</center>
 		<br>
 	</div>
@@ -480,11 +514,11 @@
 		<div class="container">
 			<form>
 				<label>
-					<input id="cbScambiSi" type="radio" name="radio" onclick="showExchangeSection(true);" />
+					<input id="cbScambiSi" type="radio" name="radio" onclick="showExchangeSection(true);" loadable />
 					<span>Si</span>
 				</label>
 				<label>
-					<input id="cbScambiNo" type="radio" name="radio" onclick="showExchangeSection(false);" checked />
+					<input id="cbScambiNo" type="radio" name="radio" onclick="showExchangeSection(false);" loadable checked />
 					<span>No</span>
 				</label>
 			</form>
@@ -508,11 +542,11 @@
 			<div class="container">
 				<form>
 					<label>
-						<input id="cbScambioCreditiSi" type="radio" name="radio" />
+						<input id="cbScambioCreditiSi" type="radio" name="radio" loadable />
 						<span>Si</span>
 					</label>
 					<label>
-						<input id="cbScambioCreditiNo" type="radio" name="radio" checked />
+						<input id="cbScambioCreditiNo" type="radio" name="radio" loadable checked />
 						<span>No</span>
 					</label>
 				</form>
@@ -541,11 +575,11 @@
 				<div class="container">
 					<form>
 						<label>
-							<input id="cbScambioQuotazioneA" type="radio" name="radio" checked />
+							<input id="cbScambioQuotazioneA" type="radio" name="radio" loadable checked />
 							<span>Roma recupera 10 crediti, la Juventus recupera 20 crediti.</span>
 						</label>
 						<label>
-							<input id="cbScambioQuotazioneB" type="radio" name="radio" />
+							<input id="cbScambioQuotazioneB" type="radio" name="radio" loadable />
 							<span>Roma recupera 20 crediti, la Juventus recupera 10 crediti.</span>
 						</label>
 					</form>
@@ -564,7 +598,7 @@
 			</div>
 			<br>
 			<center>
-				<textarea id="etNoteScambi" class="textarea"></textarea>
+				<textarea id="etNoteScambi" class="textarea" loadable></textarea>
 			</center>
 		</div>
 		<br>
@@ -588,13 +622,13 @@
 		<div class="container">
 			<form>
 				<label>
-					<input id="cbInfortunioNessun" type="radio" name="radio" checked />
+					<input id="cbInfortunioNessun" type="radio" name="radio" loadable checked />
 					<span>Non applicare nessun prestito, in nessun caso</span>
 				</label>
 				<label>
-					<input id="cbInfortunioPrestito" type="radio" name="radio" />
+					<input id="cbInfortunioPrestito" type="radio" name="radio" loadable />
 					<span>Prevedi il prestito di un calciatore svincolato fino al prossimo mercato<br>Questa regola
-						verrà applicata solo ad infortuni che superano i sei mesi<br>Questa regola verrà applicata solo
+						verrà applicata solo a infortuni che superano i sei mesi<br>Questa regola verrà applicata solo
 						se mancano almeno dieci giornate dalla fine</span>
 				</label>
 			</form>
@@ -612,16 +646,16 @@
 		<div class="container">
 			<form>
 				<label>
-					<input id="cbCovidPolitico" type="radio" name="radio" checked />
+					<input id="cbCovidPolitico" type="radio" name="radio" loadable checked />
 					<span>Un calciatore positivo accederà al 6 politico</span>
 				</label>
 				<label>
-					<input id="cbCovidPanchina" type="radio" name="radio" />
+					<input id="cbCovidPanchina" type="radio" name="radio" loadable />
 					<span>Un calciatore positivo verrà sostituito con il panchinaro previsto<br>Questa opzione può
 						essere pericolosa per multiple positività</span>
 				</label>
 				<label>
-					<input id="cbCovidScaglioni" type="radio" name="radio" />
+					<input id="cbCovidScaglioni" type="radio" name="radio" loadable />
 					<span>Verranno assegnati votazioni politiche con questo schema:
 						<br>PORTIERI
 						<br>Se tutti i portieri sono positivi, si accede ad 1 voto d'ufficio.
@@ -643,7 +677,7 @@
 		</div>
 		<br>
 		<center>
-			<textarea id="etNoteInfortuni" class="textarea"></textarea>
+			<textarea id="etNoteInfortuni" class="textarea" loadable></textarea>
 		</center>
 		<br>
 	</div>
@@ -665,7 +699,7 @@
 		<br>
 		<div class="container">
 			<div class="form-group">
-				<input id="etPanchina" type="text" data-rule="required" value="PP-DDD-CCC-AAA" />
+				<input id="etPanchina" type="text" data-rule="required" value="PP-DDD-CCC-AAA" loadable />
 			</div>
 		</div>
 		<br>
@@ -681,7 +715,7 @@
 		<br>
 		<div class="container">
 			<div class="form-group">
-				<input id="etTolleranza" type="number" data-rule="required" min="1" value="1" />
+				<input id="etTolleranza" type="number" data-rule="required" min="1" value="1" loadable />
 			</div>
 		</div>
 		<div class="container">
@@ -690,15 +724,15 @@
 		<center>
 			<div class="container_pill">
 				<ul class="ks-cboxtags">
-					<li><input type="checkbox" id="cb442" checked><label for="cb442">4-4-2</label></li>
-					<li><input type="checkbox" id="cb433" checked><label for="cb433">4-3-3</label></li>
-					<li><input type="checkbox" id="cb451" checked><label for="cb451">4-5-1</label></li>
-					<li><input type="checkbox" id="cb343" checked><label for="cb343">3-4-3</label></li>
-					<li><input type="checkbox" id="cb352" checked><label for="cb352">3-5-2</label></li>
-					<li><input type="checkbox" id="cb532" checked><label for="cb532">5-3-2</label></li>
-					<li><input type="checkbox" id="cb541" checked><label for="cb541">5-4-1</label></li>
-					<li><input type="checkbox" id="cb631"><label for="cb631">6-3-1</label></li>
-					<li><input type="checkbox" id="cb622"><label for="cb622">6-2-2</label></li>
+					<li><input type="checkbox" id="cb442" loadable checked><label for="cb442">4-4-2</label></li>
+					<li><input type="checkbox" id="cb433" loadable checked><label for="cb433">4-3-3</label></li>
+					<li><input type="checkbox" id="cb451" loadable checked><label for="cb451">4-5-1</label></li>
+					<li><input type="checkbox" id="cb343" loadable checked><label for="cb343">3-4-3</label></li>
+					<li><input type="checkbox" id="cb352" loadable checked><label for="cb352">3-5-2</label></li>
+					<li><input type="checkbox" id="cb532" loadable checked><label for="cb532">5-3-2</label></li>
+					<li><input type="checkbox" id="cb541" loadable checked><label for="cb541">5-4-1</label></li>
+					<li><input type="checkbox" id="cb631" loadable><label for="cb631">6-3-1</label></li>
+					<li><input type="checkbox" id="cb622" loadable><label for="cb622">6-2-2</label></li>
 				</ul>
 			</div>
 		</center>
@@ -715,12 +749,12 @@
 		<div class="container">
 			<form>
 				<label>
-					<input id="cbMancataNulla" type="radio" name="radio" checked />
+					<input id="cbMancataNulla" type="radio" name="radio" loadable checked />
 					<span>Inserimento formazione nulla (punteggio zero)<br>Se mi preoccupo di mettere la squadra, non è
 						bello perdere contro chi si dimentica.</span>
 				</label>
 				<label>
-					<input id="cbMancataPrecedente" type="radio" name="radio" />
+					<input id="cbMancataPrecedente" type="radio" name="radio" loadable />
 					<span>Recupera la formazione della giornata precedente</span>
 				</label>
 			</form>
@@ -740,12 +774,12 @@
 		<div class="container">
 			<form>
 				<label>
-					<input id="cbPenalitaNo" type="radio" name="radio" onclick="showPenaltySection(false);" checked />
+					<input id="cbPenalitaNo" type="radio" name="radio" onclick="showPenaltySection(false);" loadable checked />
 					<span>Non è prevista nessuna penalità per il mancato inserimento della formazione</span>
 				</label>
 				<label>
-					<input id="cbPenalitaSi" type="radio" name="radio" onclick="showPenaltySection(true);" />
-					<span>E' prevista una penalità quando un giocatore non inserisce la formazione.</span>
+					<input id="cbPenalitaYes" type="radio" name="radio" onclick="showPenaltySection(true);" loadable />
+					<span>Prevista una penalità quando un giocatore non inserisce la formazione.</span>
 				</label>
 				<div id="penaltySection" style="display:none;">
 					<br>
@@ -756,8 +790,8 @@
 					</div>
 					<br>
 					<center>
-						<textarea id="taPenalita" class="textarea"
-							placeholder="Esempio: 1 punto di penalizzazione">1 punto di penalizzazione in classifica</textarea>
+						<textarea id="taPenality" class="textarea"
+								  placeholder="Esempio: 1 punto di penalizzazione" loadable>1 punto di penalizzazione in classifica</textarea>
 					</center>
 				</div>
 			</form>
@@ -776,11 +810,11 @@
 		<div class="container">
 			<form>
 				<label>
-					<input id="cbInvisibiliSi" type="radio" name="radio" checked />
+					<input id="cbInvisibiliSi" type="radio" name="radio" loadable checked />
 					<span>Si</span>
 				</label>
 				<label>
-					<input id="cbInvisibiliNo" type="radio" name="radio" />
+					<input id="cbInvisibiliNo" type="radio" name="radio" loadable />
 					<span>No</span>
 				</label>
 			</form>
@@ -796,7 +830,7 @@
 		</div>
 		<br>
 		<center>
-			<textarea id="etNoteFormazione" class="textarea"></textarea>
+			<textarea id="etNoteFormazione" class="textarea" loadable></textarea>
 		</center>
 		<br>
 	</div>
@@ -819,7 +853,7 @@
 		<br>
 		<div class="container">
 			<div class="form-group">
-				<input id="etNumSostituzioni" type="number" data-rule="required" min="0" value="0" />
+				<input id="etNumSostituzioni" type="number" data-rule="required" min="0" value="0" loadable />
 			</div>
 		</div>
 		<br>
@@ -835,11 +869,11 @@
 		<div class="container">
 			<form>
 				<label>
-					<input id="cbAmmIgnorata" type="radio" name="radio" checked />
-					<span>L'ammonizione viene ignorata ed il subentrato ottiene voto pieno</span>
+					<input id="cbAmmIgnorata" type="radio" name="radio" loadable checked />
+					<span>L'ammonizione viene ignorata e il subentrato ottiene voto pieno</span>
 				</label>
 				<label>
-					<input id="cbAmmScalata" type="radio" name="radio" />
+					<input id="cbAmmCascade" type="radio" name="radio" loadable />
 					<span>L'ammonizione viene scalata dal giocatore subentrato</span>
 				</label>
 			</form>
@@ -850,12 +884,12 @@
 		</div>
 		<div class="container">
 			<center>
-				<p>Inserisci eventuali note aggiuntive per la gestione delle sostituizioni.</p>
+				<p>Inserisci eventuali note aggiuntive per la gestione delle sostituzioni.</p>
 			</center>
 		</div>
 		<br>
 		<center>
-			<textarea id="etNoteSostituzioni" class="textarea"></textarea>
+			<textarea id="etNoteSostituzioni" class="textarea" loadable></textarea>
 		</center>
 		<br>
 	</div>
@@ -880,7 +914,7 @@
 		</center>
 		<div class="container">
 			<div class="form-group">
-				<input id="etVittoria" type="number" data-rule="required" value="3" />
+				<input id="etVittoria" type="number" data-rule="required" value="3" loadable />
 			</div>
 		</div>
 		<br>
@@ -889,7 +923,7 @@
 		</center>
 		<div class="container">
 			<div class="form-group">
-				<input id="etPareggio" type="number" data-rule="required" value="1" />
+				<input id="etPareggio" type="number" data-rule="required" value="1" loadable />
 			</div>
 		</div>
 		<br>
@@ -898,7 +932,7 @@
 		</center>
 		<div class="container">
 			<div class="form-group">
-				<input id="etSconfitta" type="number" data-rule="required" value="0" />
+				<input id="etSconfitta" type="number" data-rule="required" value="0" loadable />
 			</div>
 		</div>
 		<br>
@@ -907,7 +941,7 @@
 		</center>
 		<div class="container">
 			<div class="form-group">
-				<input id="etGol" type="number" data-rule="required" value="3" />
+				<input id="etGol" type="number" data-rule="required" value="3" loadable />
 			</div>
 		</div>
 		<br>
@@ -916,7 +950,7 @@
 		</center>
 		<div class="container">
 			<div class="form-group">
-				<input id="etRigore" type="number" data-rule="required" value="3" />
+				<input id="etRigore" type="number" data-rule="required" value="3" loadable />
 			</div>
 		</div>
 		<br>
@@ -925,7 +959,7 @@
 		</center>
 		<div class="container">
 			<div class="form-group">
-				<input id="etRigoreSbagliato" type="number" data-rule="required" value="-3" />
+				<input id="etRigoreSbagliato" type="number" data-rule="required" value="-3" loadable />
 			</div>
 		</div>
 		<br>
@@ -934,7 +968,7 @@
 		</center>
 		<div class="container">
 			<div class="form-group">
-				<input id="etAssist" type="number" data-rule="required" value="1" />
+				<input id="etAssist" type="number" data-rule="required" value="1" loadable />
 			</div>
 		</div>
 		<br>
@@ -943,7 +977,7 @@
 		</center>
 		<div class="container">
 			<div class="form-group">
-				<input id="etCleansheet" type="number" data-rule="required" value="1" />
+				<input id="etCleanSheet" type="number" data-rule="required" value="1" loadable />
 			</div>
 		</div>
 		<br>
@@ -952,7 +986,7 @@
 		</center>
 		<div class="container">
 			<div class="form-group">
-				<input id="etGolSubito" type="number" data-rule="required" value="-1" />
+				<input id="etGolSubito" type="number" data-rule="required" value="-1" loadable />
 			</div>
 		</div>
 		<br>
@@ -961,7 +995,7 @@
 		</center>
 		<div class="container">
 			<div class="form-group">
-				<input id="etRigoreParato" type="number" data-rule="required" value="3" />
+				<input id="etRigoreParato" type="number" data-rule="required" value="3" loadable />
 			</div>
 		</div>
 		<br>
@@ -970,7 +1004,7 @@
 		</center>
 		<div class="container">
 			<div class="form-group">
-				<input id="etAmmonizione" type="number" data-rule="required" value="-0.5" />
+				<input id="etAmmonizione" type="number" data-rule="required" value="-0.5" loadable />
 			</div>
 		</div>
 		<br>
@@ -979,7 +1013,7 @@
 		</center>
 		<div class="container">
 			<div class="form-group">
-				<input id="etEspulsione" type="number" data-rule="required" value="-1" />
+				<input id="etEspulsione" type="number" data-rule="required" value="-1" loadable />
 			</div>
 		</div>
 		<br>
@@ -988,7 +1022,7 @@
 		</center>
 		<div class="container">
 			<div class="form-group">
-				<input id="etAutogol" type="number" data-rule="required" value="-3" />
+				<input id="etAutogol" type="number" data-rule="required" value="-3" loadable />
 			</div>
 		</div>
 		<br>
@@ -997,7 +1031,7 @@
 		</center>
 		<div class="container">
 			<div class="form-group">
-				<input id="etGolVittoria" type="number" data-rule="required" value="0" step="0.5" />
+				<input id="etGolVittoria" type="number" data-rule="required" value="0" step="0.5" loadable />
 			</div>
 		</div>
 		<br>
@@ -1006,7 +1040,7 @@
 		</center>
 		<div class="container">
 			<div class="form-group">
-				<input id="etGolPareggio" type="number" data-rule="required" value="0" step="0.5" />
+				<input id="etGolPareggio" type="number" data-rule="required" value="0" step="0.5" loadable />
 			</div>
 		</div>
 		<br>
@@ -1023,7 +1057,7 @@
 		<br>
 		<div class="container">
 			<div class="form-group">
-				<input id="etSoglie" type="number" data-rule="required" min="1" value="4" />
+				<input id="etSoglie" type="number" data-rule="required" min="1" value="4" loadable />
 			</div>
 		</div>
 		<br>
@@ -1039,11 +1073,11 @@
 		<div class="container">
 			<form>
 				<label>
-					<input id="cbFattoreSi" type="radio" name="radio" />
+					<input id="cbFattoreSi" type="radio" name="radio" loadable />
 					<span>Si</span>
 				</label>
 				<label>
-					<input id="cbFattoreNo" type="radio" name="radio" checked />
+					<input id="cbFattoreNo" type="radio" name="radio" loadable checked />
 					<span>No</span>
 				</label>
 			</form>
@@ -1054,27 +1088,27 @@
 		</div>
 		<div class="container">
 			<center>
-				<p>Indica come gestire eventuali rinvii di partite a date da destinarsi</p>
+				<p>Indica come gestire eventuali rinvii di partite verso date da destinarsi</p>
 			</center>
 		</div>
 		<br>
 		<div class="container">
 			<form>
 				<label>
-					<input id="cbRinvioMai" type="radio" name="radio" />
+					<input id="cbRinvioMai" type="radio" name="radio" loadable />
 					<span>Non aspettare mai, in ogni caso 6 politico</span>
 				</label>
 				<label>
-					<input id="cbRinvioProssima" type="radio" name="radio" checked />
+					<input id="cbRinvioProssima" type="radio" name="radio" loadable checked />
 					<span>Attendi la partita solamente se giocata entro la prossima giornata di campionato</span>
 				</label>
 				<label>
-					<input id="cbRinvioPolitico" type="radio" name="radio" />
+					<input id="cbRinvioPolitico" type="radio" name="radio" loadable />
 					<span>Attendi che la partita venga rigiocata, anche se a mesi di distanza<br>Se un giocatore non
 						potrà, per qualsiasi motivo, giocare la partita rinviata, accederà al 6 politico</span>
 				</label>
 				<label>
-					<input id="cbRinvioPanchina" type="radio" name="radio" />
+					<input id="cbRinvioPanchina" type="radio" name="radio" loadable />
 					<span>Attendi che la partita venga rigiocata, anche se a mesi di distanza<br>Se un giocatore non
 						potrà, per qualsiasi motivo, giocare la partita rinviata, entrerà la sostituzione</span>
 				</label>
@@ -1093,12 +1127,11 @@
 		<div class="container">
 			<form>
 				<label>
-					<input id="cbModificatoreNo" type="radio" name="radio" onclick="applicaModificatore(false);"
-						checked />
+					<input id="cbModificatoreNo" type="radio" name="radio" onclick="applicaModificatore(false);" loadable checked />
 					<span>Non applicare</span>
 				</label>
 				<label>
-					<input id="cbModificatoreSi" type="radio" name="radio" onclick="applicaModificatore(true);" />
+					<input id="cbModificatoreSi" type="radio" name="radio" onclick="applicaModificatore(true);" loadable />
 					<span>Applica il modificatore</span>
 				</label>
 			</form>
@@ -1120,7 +1153,7 @@
 			</center>
 			<div class="container">
 				<div class="form-group">
-					<input id="et0599" type="number" data-rule="required" min="0" value="0" />
+					<input id="et0599" type="number" data-rule="required" min="0" value="0" loadable />
 				</div>
 			</div>
 			<br>
@@ -1129,7 +1162,7 @@
 			</center>
 			<div class="container">
 				<div class="form-group">
-					<input id="et6624" type="number" data-rule="required" min="0" value="0.5" />
+					<input id="et6624" type="number" data-rule="required" min="0" value="0.5" loadable />
 				</div>
 			</div>
 			<br>
@@ -1138,7 +1171,7 @@
 			</center>
 			<div class="container">
 				<div class="form-group">
-					<input id="et625649" type="number" data-rule="required" min="0" value="1" />
+					<input id="et625649" type="number" data-rule="required" min="0" value="1" loadable />
 				</div>
 			</div>
 			<br>
@@ -1147,7 +1180,7 @@
 			</center>
 			<div class="container">
 				<div class="form-group">
-					<input id="et65674" type="number" data-rule="required" min="0" value="1.5" />
+					<input id="et65674" type="number" data-rule="required" min="0" value="1.5" loadable />
 				</div>
 			</div>
 			<br>
@@ -1156,7 +1189,7 @@
 			</center>
 			<div class="container">
 				<div class="form-group">
-					<input id="et675699" type="number" data-rule="required" min="0" value="2" />
+					<input id="et675699" type="number" data-rule="required" min="0" value="2" loadable />
 				</div>
 			</div>
 			<br>
@@ -1165,7 +1198,7 @@
 			</center>
 			<div class="container">
 				<div class="form-group">
-					<input id="et7724" type="number" data-rule="required" min="0" value="2.5" />
+					<input id="et7724" type="number" data-rule="required" min="0" value="2.5" loadable />
 				</div>
 			</div>
 			<br>
@@ -1174,7 +1207,7 @@
 			</center>
 			<div class="container">
 				<div class="form-group">
-					<input id="et725749" type="number" data-rule="required" min="0" value="3" />
+					<input id="et725749" type="number" data-rule="required" min="0" value="3" loadable />
 				</div>
 			</div>
 			<br>
@@ -1183,7 +1216,7 @@
 			</center>
 			<div class="container">
 				<div class="form-group">
-					<input id="et75" type="number" data-rule="required" min="0" value="3.5" />
+					<input id="et75" type="number" data-rule="required" min="0" value="3.5" loadable />
 				</div>
 			</div>
 		</div>
@@ -1232,7 +1265,7 @@
 		</div>
 		<div class="container">
 			<center>
-				<p>In caso di parità perfetta, verrano sommati i premi previsti e divisi per le squadre che rilevano la
+				<p>In caso di parità perfetta, verranno sommati i premi previsti e divisi per le squadre che rilevano la
 					perfetta parità.</p>
 			</center>
 		</div>
@@ -1253,7 +1286,7 @@
 		<br>
 		<div class="container">
 			<div class="form-group">
-				<input id="etQuota" type="number" data-rule="required" min="1" value="100" />
+				<input id="etQuota" type="number" data-rule="required" min="1" value="100" loadable />
 			</div>
 		</div>
 		<br>
@@ -1265,15 +1298,41 @@
 		</div>
 		<br>
 		<center>
-			<textarea id="taPremi" class="textarea"></textarea>
+			<textarea id="taPremi" class="textarea" loadable></textarea>
 		</center>
 		<br>
+	</div>
+	<br>
+
+	<!-- document type -->
+	<div class="macro">
+		<div class="container">
+			<h2>Tipologia regolamento</h2>
+		</div>
+		<div class="container">
+			<center>
+				<p>Indica il tipo di documento che preferisci generare.</p>
+			</center>
+		</div>
+		<div class="container">
+			<form id="documentTypeForm">
+				<label>
+					<input id="cbPdf" type="radio" name="document-type" value="pdf" checked />
+					<span>PDF</span>
+				</label>
+
+				<label>
+					<input id="cbHtml" type="radio" name="document-type" value="html" />
+					<span>HTML</span>
+				</label>
+			</form>
+		</div>
 	</div>
 	<br><br>
 
 	<!-- validation error area -->
 	<div id="errorSection" style="display: none;">
-		<div class="macro" style="background-color:rgb(204, 85, 0);">
+		<div class="macro error-section">
 			<div class="container">
 				<h2 style="color: white;">Errore</h2>
 			</div>
@@ -1289,11 +1348,11 @@
 	</div>
 
 	<!-- crea regolamento -->
-	<button class="ripple" role="button" onclick="avviaAnteprimaDocumento();">Avvia creazione regolamento</button>
+	<button class="ripple" role="button" onclick="avviaAnteprimaDocumento(document.querySelector('#documentTypeForm input[name=\'document-type\']:checked').value);">Avvia creazione regolamento</button>
 
 	<!-- version -->
 	<br><br>
-	<center><i>versione 1.19.1</i></center>
+	<center><i id="lb_version">versione</i></center>
 
 	<!-- fine -->
 	<br><br><br>
