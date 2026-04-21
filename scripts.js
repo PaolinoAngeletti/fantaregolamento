@@ -168,6 +168,10 @@ function showErrorSection(message) {
     Utils.retrieveDomElement("errorMessage").innerHTML = message;
 }
 
+function hideImportFeedbackSection() {
+    Utils.setElementDisplay("importFeedbackSection", "none");
+}
+
 function hideErrorSection() {
     Utils.setElementDisplay("errorSection", "none");
 }
