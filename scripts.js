@@ -196,4 +196,9 @@ function manageRoleMaxChangeNumber(etMaxScambiRuolo) {
 function verifyCreditsRecoverOnPlayerRelease() {
     let result = ExchangeRules.expectedRecoveryCreditsFromTransfer();
     Utils.setElementVisibility("creditsExchangeWithPlayersSection", result);
+
+    // view section by defect or excess
+    const halfReturn = Utils.retrieveDomElement("cbSvincoloMeta");
+    const averageReturn = Utils.retrieveDomElement("cbSvincoloMedia");
+    Utils.setElementVisibility("defectOrExcessSection", halfReturn.checked || averageReturn.checked);
 }

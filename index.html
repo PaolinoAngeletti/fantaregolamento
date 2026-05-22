@@ -386,9 +386,9 @@
 			<h4>Modalità svincolo durante il mercato</h4>
 		</div>
 		<div class="container">
-			<center>
+			<div class="centered">
 				<p>Indica come gestire gli svincoli liberi durante una sessione di mercato generica</p>
-			</center>
+			</div>
 		</div>
 		<br>
 		<div class="container">
@@ -416,9 +416,9 @@
 			<h4>Svincolo giocatori</h4>
 		</div>
 		<div class="container">
-			<center>
+			<div class="centered">
 				<p>Indica come gestire lo svincolo di un giocatore da parte di una qualsiasi squadra</p>
-			</center>
+			</div>
 		</div>
 		<br>
 		<div class="container">
@@ -452,15 +452,44 @@
 		</div>
 		<br>
 
+		<!-- by defect or excess return -->
+		<div id="defectOrExcessSection">
+			<div class="container">
+				<h4>Gestione crediti decimali</h4>
+			</div>
+			<div class="container">
+				<div class="centered">
+					<p>Indica come gestire svincoli con valore decimale.<br>
+						<i>Esempio: Devo ricevere 1,5 crediti<br>
+						Per difetto: Ricevo 1 credito<br>
+						Per eccesso: Ricevo 2 crediti</i></p>
+				</div>
+			</div>
+			<br>
+			<div class="container">
+				<form>
+					<label>
+						<input id="cbDifetto" type="radio" name="radio" loadable />
+						<span>Per difetto</span>
+					</label>
+					<label>
+						<input id="cbEccesso" type="radio" name="radio" checked loadable />
+						<span>Per eccesso</span>
+					</label>
+				</form>
+			</div>
+			<br>
+		</div>
+
 		<!-- cessione altro campionato -->
 		<div class="container">
 			<h4>Gestione cessioni giocatori</h4>
 		</div>
 		<div class="container">
-			<center>
+			<div class="centered">
 				<p>Indica come vanno gestite le eventuali cessioni di giocatori in altri campionati, nazionali o
 					internazionali</p>
-			</center>
+			</div>
 		</div>
 		<br>
 		<div class="container">
