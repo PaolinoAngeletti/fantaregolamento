@@ -27,6 +27,9 @@
 	<!-- google search -->
 	<meta name="google-site-verification" content="2ybLMV58ANAar_-7qemAcQ83ejC_ymY9eKkG-dV7aPk" />
 
+	<!-- QR-code generator -->
+	<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
 	<script>
 		// Tell to PDF.js where to find the worker.
 		pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.9.179/pdf.worker.min.js';
@@ -1320,12 +1323,17 @@
 					<input id="cbPdf" type="radio" name="document-type" value="pdf" checked />
 					<span>PDF</span>
 				</label>
-
 				<label>
 					<input id="cbHtml" type="radio" name="document-type" value="html" />
 					<span>HTML</span>
 				</label>
 			</form>
+		</div>
+		<div class="centered">
+			<p>Nota che alcuni browser, per questioni di sicurezza, bloccano l'apertura di PDF.<br>
+				Questo avviene in particolare su dispositivi mobile.<br>
+				Se rilevi questo problema, prova da PC oppure prova a generare HTML e poi "Stampa su PDF".<br>
+				Con HTML però non potrai ricaricare il regolamento.</p>
 		</div>
 	</div>
 	<br><br>

@@ -22,6 +22,7 @@ function loadRequiredScripts() {
 
 function loadImages() {
     loadScript("images/logoBase64.js");
+    loadScript("scripts/qr-code-generator.js");
 }
 
 function loadSectionsScripts() {
@@ -141,11 +142,11 @@ function retrieveMetadataForReload(domDoc = document) {
     return result;
 }
 
-// TODO valutare di aggiungere in QR code della pagina web invece del link
 function retrieveAdvertisingContent() {
     return Utils.addText([
         Utils.addText(logoBase64, "image"),
-        Utils.addText("Documento stilato con FantaRegolamento", "italic")
+        Utils.addText("Documento stilato con FantaRegolamento", "italic"),
+        Utils.addText("https://paolinoangeletti.github.io/fantaregolamento/", "qr-code"),
     ], "center");
 }
 

@@ -1,2 +1,5 @@
 # GIT files
 /.idea/
+
+# IDE files
+/node_modules/
