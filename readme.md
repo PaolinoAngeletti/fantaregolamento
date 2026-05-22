@@ -16,4 +16,5 @@ They were developed using the Jasmine framework.
 
 ## How to Deploy
 
-To deploy project, you can run deploy.sh file under deployment folder.
+To deploy project, you can run deploy.sh file under deployment folder.  
+Command: sh deploy.sh [patch, minor, major]
