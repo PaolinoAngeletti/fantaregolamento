@@ -3,6 +3,7 @@ const PlayerReleaseRules = {
         let rules = [];
         rules.push(this.estraiGestioneSvincoliMercato());
         rules.push(this.estraiGestioneSvincoli());
+        rules.push(this.estraiGestioneDecimali());
         rules.push(this.estraiGestioneCessioniAltroCampionato());
         rules.push(this.estraiEventualiNoteAggiuntive());
         return Utils.buildRuleSection(sectionIndex, "Gestione svincoli", rules);
@@ -59,6 +60,29 @@ const PlayerReleaseRules = {
             }
         }
         return toReturn;
+    },
+
+    estraiGestioneDecimali: function () {
+        let toReturn = "";
+        if (this.expectedDefectOrExcessRule()) {
+            toReturn = "In caso di svincoli che generano valori decimali, verrà applicato un ritorno credito per ";
+            let cbEccesso = Utils.retrieveDomElement("cbEccesso");
+            if (cbEccesso.checked) {
+                toReturn = toReturn + "eccesso, esempio: lo svincolo produce un recupero di 1,5 crediti, realmente ricevo 2 crediti.";
+            } else {
+                let cbDifetto = Utils.retrieveDomElement("cbDifetto");
+                if (cbDifetto.checked) {
+                    toReturn = toReturn + "difetto, esempio: lo svincolo produce un recupero di 1,5 crediti, realmente ricevo 1 credito.";
+                }
+            }
+        }
+        return toReturn;
+    },
+
+    expectedDefectOrExcessRule: function () {
+        const halfReturn = Utils.retrieveDomElement("cbSvincoloMeta");
+        const averageReturn = Utils.retrieveDomElement("cbSvincoloMedia");
+        return halfReturn.checked || averageReturn.checked;
     },
 
     estraiGestioneCessioniAltroCampionato: function () {

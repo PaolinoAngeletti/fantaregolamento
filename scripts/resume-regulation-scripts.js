@@ -39,6 +39,7 @@ function reloadRadioValue(domElement, newValue) {
     }
     logLoadedElement(domElement);
     domElement.checked = newValue;
+    domElement.dispatchEvent(new Event("change", { bubbles: true }));
     return 1;
 }
 

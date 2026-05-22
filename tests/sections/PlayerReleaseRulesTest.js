@@ -4,7 +4,7 @@ function runReleaseRulesTests() {
         describe("produce test", function () {
             it("produce test", function () {
                 realDomDoc.getElementById("cbSvincoloAcquisto").checked = true;
-                realDomDoc.getElementById("cbSvincoloNessun").checked = true;
+                realDomDoc.getElementById("cbSvincoloMeta").checked = true;
                 realDomDoc.getElementById("cbPreMercatoPrestito").checked = true;
                 realDomDoc.getElementById("etNoteSvincoli").value = "additional-notes!";
 
@@ -16,10 +16,12 @@ function runReleaseRulesTests() {
                 expect(html[1].type).toBe("paragraph");
                 expect(html[2].text).toContain("10.2. In caso di svincolo di giocatori acquistati in mercati precedenti");
                 expect(html[2].type).toBe("paragraph");
-                expect(html[3].text).toContain("10.3. Se, durante la competizione, un calciatore viene ceduto in altri campionati");
+                expect(html[3].text).toContain("10.3. In caso di svincoli che generano valori decimali");
                 expect(html[3].type).toBe("paragraph");
-                expect(html[4].text).toContain("10.4. additional-notes!");
+                expect(html[4].text).toContain("10.4. Se, durante la competizione, un calciatore viene ceduto in altri campionati");
                 expect(html[4].type).toBe("paragraph");
+                expect(html[5].text).toContain("10.5. additional-notes!");
+                expect(html[5].type).toBe("paragraph");
             });
         });
 
@@ -83,6 +85,24 @@ function runReleaseRulesTests() {
 
                 const html = PlayerReleaseRules.estraiGestioneSvincoli();
                 expect(html).toContain("media tra la quotazione attuale");
+            });
+        });
+
+        describe("decimal values tests", function () {
+            it("defect radio test", function () {
+                realDomDoc.getElementById("cbSvincoloMeta").checked = true;
+                realDomDoc.getElementById("cbEccesso").checked = true;
+
+                const html = PlayerReleaseRules.estraiGestioneDecimali();
+                expect(html).toContain("per eccesso, esempio");
+            });
+
+            it("excess radio test", function () {
+                realDomDoc.getElementById("cbSvincoloMedia").checked = true;
+                realDomDoc.getElementById("cbDifetto").checked = true;
+
+                const html = PlayerReleaseRules.estraiGestioneDecimali();
+                expect(html).toContain("per difetto, esempio");
             });
         });
 

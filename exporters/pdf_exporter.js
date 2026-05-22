@@ -45,7 +45,7 @@ async function manageRow(pdf, row, x, y) {
     const type = row.type;
 
     if (type === "center") {
-        // text will contains container's elements.
+        // text will contain container's elements.
         for (const row of text) {
             let rowInfo = retrieveRowInfo(row);
             let xCentered = retrieveRowCenterCoordinate(pdf, row, rowInfo);
@@ -56,7 +56,9 @@ async function manageRow(pdf, row, x, y) {
 
     let rowInfo = retrieveRowInfo(row);
     if (type === "image") {
-        y = writeImageToPDF(pdf, text, rowInfo, x, y);
+        y = await writeImageToPDF(pdf, text, rowInfo, x, y);
+    } else if (type === "qr-code") {
+        y = await writeQrCodeToPDF(pdf, text, rowInfo, x, y);
     } else {
         y = writeTextToPDF(pdf, text, rowInfo, x, y);
     }
@@ -101,6 +103,9 @@ function retrieveRowInfo(row) {
     } else if (type === "image") {
         result.width = row.width || 100;
         result.height = row.height || 100;
+    } else if (type === "qr-code") {
+        result.width = row.width || 75;
+        result.height = row.height || 75;
     } else {
         throw new Error("Invalid value type: " + type);
     }
@@ -111,7 +116,7 @@ function retrieveRowInfo(row) {
 function retrieveRowCenterCoordinate(pdf, row, rowInfo) {
     let xCentered;
     const pageWidth = pdf.internal.pageSize.getWidth();
-    if (row.type === "image") {
+    if (row.type === "image" || row.type === "qr-code") {
         xCentered = (pageWidth - rowInfo.width) / 2;
     } else {
         xCentered = (pageWidth - pdf.getTextWidth(row.text)) / 2;
@@ -146,8 +151,25 @@ function writeTextToPDF(pdf, text, rowInfo, x, y) {
 
 async function writeImageToPDF(pdf, text, rowInfo, x, y) {
     const pngImage = await svgToPngBase64(text);
+    y = checkPageBreak(pdf, y, rowInfo.height);
     pdf.addImage(pngImage, rowInfo.format || "JPEG", x, y, rowInfo.width, rowInfo.height);
     return y + rowInfo.height + 20;
+}
+
+async function writeQrCodeToPDF(pdf, text, rowInfo, x, y) {
+    const qrContent = await window.generateQrCode(text);
+    y = checkPageBreak(pdf, y, rowInfo.height);
+    pdf.addImage(qrContent, rowInfo.format || "JPEG", x, y, rowInfo.width, rowInfo.height);
+    return y + rowInfo.height + 20;
+}
+
+function checkPageBreak(pdf, y, height) {
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    if (y + height > pageHeight - 40) {
+        pdf.addPage();
+        return 40;
+    }
+    return y;
 }
 
 async function svgToPngBase64(svgBase64) {
@@ -207,7 +229,7 @@ export async function loadJSONFromPDF() {
                 if (!file) return reject("No file selected");
 
                 const arrayBuffer = await file.arrayBuffer();
-                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+                const pdf = await pdfjsLib.getDocument({data: arrayBuffer}).promise;
                 const attachments = await pdf.getAttachments();
                 if (!attachments || !attachments['config.json']) {
                     return reject(new Error('config.json not found'));
