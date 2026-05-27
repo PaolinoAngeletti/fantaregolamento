@@ -1,1 +1,1 @@
-window.APP_VERSION = { version: '2.5.2' };
+window.APP_VERSION = { version: '2.5.3' };
