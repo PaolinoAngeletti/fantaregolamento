@@ -337,6 +337,10 @@ function runMainScriptTests() {
                 },
 
                 // exchange rules.
+                {field: "cbScambiSi", start_value: true, final_value: false},
+                {field: "cbScambiSi", start_value: false, final_value: true, should_appear: ["exchangeSection"]},
+                {field: "cbScambiNo", start_value: true, final_value: false, should_hide: ["exchangeSection"]},
+                {field: "cbScambiNo", start_value: false, final_value: true, should_hide: ["exchangeSection"]},
                 {field: "cbScambioCreditiSi", start_value: false, final_value: true},
                 {field: "cbScambioCreditiSi", start_value: true, final_value: false},
                 {field: "cbScambioCreditiNo", start_value: false, final_value: true},
@@ -460,10 +464,12 @@ function runMainScriptTests() {
             ];
 
             test_cases.forEach(test => {
-                it(`${test.field} loading = ${test.final_value} from = ${test.start_value}`, () => {
+                it(`${test.field} final-value = ${test.final_value} start-value = ${test.start_value}`, () => {
                     let field = test.field;
                     let start_value = test.start_value;
                     let final_value = test.final_value;
+                    let should_hide = test.should_hide;
+                    let should_appear = test.should_appear;
 
                     // field setup.
                     let element = realDomDoc.getElementById(test.field);
@@ -485,6 +491,21 @@ function runMainScriptTests() {
                         expect(element.checked).toBe(final_value);
                     } else {
                         expect(element.value).toBe(final_value);
+                    }
+
+                    if (should_appear && Array.isArray(should_appear) && should_appear.length > 0) {
+                        for (let elementId of should_appear) {
+                            let element = realDomDoc.getElementById(elementId);
+                            expect(element.hidden).toBe(false);
+                            expect(window.getComputedStyle(element).display).toBe("block");
+                        }
+                    }
+
+                    if (should_hide && Array.isArray(should_hide) && should_hide.length > 0) {
+                        for (let elementId of should_hide) {
+                            let element = realDomDoc.getElementById(elementId);
+                            expect(window.getComputedStyle(element).display).toBe("none");
+                        }
                     }
                 });
             });

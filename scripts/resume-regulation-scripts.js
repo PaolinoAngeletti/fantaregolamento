@@ -39,7 +39,10 @@ function reloadRadioValue(domElement, newValue) {
     }
     logLoadedElement(domElement);
     domElement.checked = newValue;
+
+    // event listener propagation.
     domElement.dispatchEvent(new Event("change", { bubbles: true }));
+
     return 1;
 }
 
@@ -49,6 +52,13 @@ function reloadTextValue(domElement, newValue) {
     }
     logLoadedElement(domElement);
     domElement.value = newValue;
+
+    // adapting text area height to its content.
+    if ("textarea" === domElement.type) {
+        domElement.style.height = "auto";
+        domElement.style.height = domElement.scrollHeight + "px";
+    }
+
     return 1;
 }
 
