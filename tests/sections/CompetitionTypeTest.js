@@ -42,6 +42,13 @@ function runCompetitionTypeTests() {
                 expect(result.text).toContain("competizione a listone");
                 expect(result.type).toBe("paragraph");
             });
+
+            it("estraiTipoCompetizione = buste chiuse", function () {
+                realDomDoc.getElementById("cbBusta").checked = true;
+                const result = CompetitionType.estraiTipoCompetizione();
+                expect(result.text).toContain("competizione a buste chiuse");
+                expect(result.type).toBe("paragraph");
+            });
         });
 
         describe("start&end competition tests", function () {

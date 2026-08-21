@@ -10,17 +10,22 @@ const CompetitionType = {
     },
 
     estraiTipoCompetizione: function (sectionIndex) {
-        let toReturn = "";
         let cbListone = Utils.retrieveDomElement("cbListone");
         let cbCalendario = Utils.retrieveDomElement("cbCalendario");
         let cbFormulaUno = Utils.retrieveDomElement("cbFormulaUno");
+        let cbBustaChiusa = Utils.retrieveDomElement("cbBusta");
+
+        let toReturn = "";
         if (cbCalendario.checked) {
             toReturn = "La competizione sarà una classica competizione a calendario.";
         } else if (cbFormulaUno.checked) {
             toReturn = "La competizione sarà una competizione con stile Formula Uno, in cui ad ogni giornata ci saranno una griglia dei migliori punteggi da cui trarre i punti da aggiungere in classifica.";
         } else if (cbListone.checked) {
             toReturn = "La competizione sarà una competizione a listone, in cui ogni squadra potrà comporre la propria rosa usando i crediti massimi previsti.";
+        } else if (cbBustaChiusa.checked) {
+            toReturn = "La competizione sarà una competizione a buste chiuse, ossia ogni squadra avanzerà una offerta nascosta per i calciatori, che sarà resa pubblica solamente quando anche le altre squadre avranno ultimato le proprie offerte. Ovviamente vincerà l'offerta più alta.";
         }
+
         return Utils.addTextRow(sectionIndex, 1, toReturn);
     },
 

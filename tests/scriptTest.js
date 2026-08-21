@@ -61,6 +61,8 @@ function runMainScriptTests() {
                 {field: "cbFormulaUno", value: false},
                 {field: "cbListone", value: true},
                 {field: "cbListone", value: false},
+                {field: "cbBusta", value: true},
+                {field: "cbBusta", value: false},
                 {field: "etInizio", value: "45"},
                 {field: "etFine", value: "10"},
 
@@ -267,6 +269,8 @@ function runMainScriptTests() {
                 {field: "cbFormulaUno", start_value: true, final_value: false},
                 {field: "cbListone", start_value: false, final_value: true},
                 {field: "cbListone", start_value: true, final_value: false},
+                {field: "cbBusta", start_value: false, final_value: true},
+                {field: "cbBusta", start_value: true, final_value: false},
                 {field: "etInizio", start_value: "5", final_value: "20"},
                 {field: "etFine", start_value: "10", final_value: "4"},
 
