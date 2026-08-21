@@ -2,9 +2,7 @@
 Document on-load procedures.
 */
 
-window.addEventListener('DOMContentLoaded', setup);
-
-function setup() {
+function setupApplication() {
     loadRequiredScripts();
 }
 
