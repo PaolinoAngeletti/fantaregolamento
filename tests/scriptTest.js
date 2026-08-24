@@ -516,5 +516,19 @@ function runMainScriptTests() {
 
         })
 
+        describe("fields relationship tests", function () {
+
+            it("max-change-role should update max-change-session", function () {
+                let txtRole = realDomDoc.getElementById("etMaxScambiRuolo");
+                let txtSession = realDomDoc.getElementById("etMaxScambiSessione");
+
+                txtRole.value = "15";
+                txtRole.dispatchEvent(new Event("input", {bubbles: true}));
+
+                expect(txtSession.value).toBe("60");
+            })
+
+        });
+
     });
 }

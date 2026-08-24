@@ -28,6 +28,12 @@ class CustomHtmlElement extends HTMLElement {
         return result;
     }
 
+    buildItalicElement() {
+        const result = this.buildHtmlElement("i");
+        result.textContent = this.retrieveInnerText();
+        return result;
+    }
+
     buildLabelElement() {
         return this.buildHtmlElement("label");
     }
@@ -44,6 +50,7 @@ class CustomHtmlElement extends HTMLElement {
         if (this.hasAttribute("min")) input.min = this.getAttribute("min");
         if (this.hasAttribute("value")) input.value = this.getAttribute("value");
         if (this.hasAttribute("loadable")) input.setAttribute("loadable", "");
+        if (this.hasAttribute("oninput")) input.setAttribute("oninput", this.getAttribute("oninput"));
 
         return input;
     }
@@ -62,8 +69,17 @@ class CustomHtmlElement extends HTMLElement {
 
     buildH3Element(text) {
         const result = this.buildHtmlElement("h3");
-        result.textContent = text;
+        result.innerText = text;
         return result;
+    }
+
+    buildTextAreaElement() {
+        const textarea = this.buildHtmlElement("textarea");
+        textarea.id = this.id;
+        textarea.value = this.retrieveInnerText();
+        textarea.classList.add("textarea");
+        if (this.hasAttribute("loadable")) textarea.setAttribute("loadable", "");
+        return textarea;
     }
 
     buildHtmlElement(elementType) {

@@ -185,6 +185,17 @@ function hideErrorSection() {
     Utils.setElementDisplay("errorSection", "none");
 }
 
+/**
+ * Keeps the maximum number of changes allowed in a market session aligned
+ * with the maximum number allowed for each role.
+ *
+ * The session limit is calculated by multiplying the per-role value by the
+ * four supported player roles (goalkeeper, defender, midfielder and striker).
+ *
+ * @param {HTMLInputElement} etMaxScambiRuolo Input containing the maximum
+ *     number of changes allowed for a single role.
+ * @returns {void}
+ */
 function manageRoleMaxChangeNumber(etMaxScambiRuolo) {
     let rolesNumber = 4;
     let maxChangeNr = etMaxScambiRuolo.value;
