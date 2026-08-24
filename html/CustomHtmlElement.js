@@ -30,7 +30,7 @@ class CustomHtmlElement extends HTMLElement {
 
     buildItalicElement() {
         const result = this.buildHtmlElement("i");
-        result.textContent = this.retrieveInnerText();
+        result.innerText = this.retrieveInnerText();
         return result;
     }
 
@@ -57,7 +57,7 @@ class CustomHtmlElement extends HTMLElement {
 
     buildSpanElement(text) {
         const span = this.buildHtmlElement("span");
-        span.textContent = text;
+        span.innerText = text;
         return span;
     }
 

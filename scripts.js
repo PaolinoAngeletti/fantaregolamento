@@ -202,11 +202,25 @@ function manageRoleMaxChangeNumber(etMaxScambiRuolo) {
     Utils.retrieveDomElement("etMaxScambiSessione").value = maxChangeNr * rolesNumber;
 }
 
+/**
+ * Updates the visibility of the player-release recovery section.
+ *
+ * The section is shown when the competition enables either half-value or
+ * average-value credit recovery; otherwise, it remains hidden.
+ *
+ * @returns {void}
+ */
 function verifyCreditsRecoverOnPlayerRelease() {
+    verificaAbilitazioneScambioCrediti();
+    verificaPresenzaRecuperoCreditiDecimale();
+}
+
+function verificaAbilitazioneScambioCrediti() {
     let result = ExchangeRules.expectedRecoveryCreditsFromTransfer();
     Utils.setElementVisibility("creditsExchangeWithPlayersSection", result);
+}
 
-    // view section by defect or excess
+function verificaPresenzaRecuperoCreditiDecimale() {
     const halfReturn = Utils.retrieveDomElement("cbSvincoloMeta");
     const averageReturn = Utils.retrieveDomElement("cbSvincoloMedia");
     Utils.setElementVisibility("defectOrExcessSection", halfReturn.checked || averageReturn.checked);

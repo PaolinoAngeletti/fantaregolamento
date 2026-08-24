@@ -516,19 +516,90 @@ function runMainScriptTests() {
 
         })
 
-        describe("fields relationship tests", function () {
+    });
 
-            it("max-change-role should update max-change-session", function () {
-                let txtRole = realDomDoc.getElementById("etMaxScambiRuolo");
-                let txtSession = realDomDoc.getElementById("etMaxScambiSessione");
+    describe("fields relationship tests", function () {
 
-                txtRole.value = "15";
-                txtRole.dispatchEvent(new Event("input", {bubbles: true}));
+        it("max-change-role should update max-change-session", function () {
+            let txtRole = realDomDoc.getElementById("etMaxScambiRuolo");
+            let txtSession = realDomDoc.getElementById("etMaxScambiSessione");
 
-                expect(txtSession.value).toBe("60");
-            })
+            txtRole.value = "15";
+            txtRole.dispatchEvent(new Event("input", {bubbles: true}));
 
-        });
+            expect(txtSession.value).toBe("60");
+        })
+
+        it("when credit recovery from an unbinding operation is expected, the credit exchange div is displayed (test 1)", function () {
+            let btnNessun = realDomDoc.getElementById("cbSvincoloNessun");
+            btnNessun.checked = false;
+            btnNessun.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let elementToDisplay = realDomDoc.getElementById("creditsExchangeWithPlayersSection");
+            checkElementDisplay(elementToDisplay, true);
+        })
+
+        it("when credit recovery from an unbinding operation is expected, the credit exchange div is displayed (test 2)", function () {
+            let btnNessun = realDomDoc.getElementById("cbSvincoloNessun");
+            btnNessun.checked = true;
+            btnNessun.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let btnQuotazione = realDomDoc.getElementById("cbPreMercatoQuotazioneIntera");
+            btnQuotazione.checked = true;
+            btnQuotazione.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let elementToDisplay = realDomDoc.getElementById("creditsExchangeWithPlayersSection");
+            checkElementDisplay(elementToDisplay, true);
+        })
+
+        it("when credit recovery from an unbinding operation is not expected, the credit exchange div is not displayed", function () {
+            let btnNessun = realDomDoc.getElementById("cbSvincoloNessun");
+            btnNessun.checked = true;
+            btnNessun.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let btnQuotazione = realDomDoc.getElementById("cbPreMercatoQuotazioneIntera");
+            btnQuotazione.checked = false;
+            btnQuotazione.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let elementToDisplay = realDomDoc.getElementById("creditsExchangeWithPlayersSection");
+            checkElementDisplay(elementToDisplay, false);
+        })
+
+        it("when the debt recovery amount involves decimals, the designated box must be displayed - cbSvincoloMeta", function () {
+            let btnHalf = realDomDoc.getElementById("cbSvincoloMeta");
+            btnHalf.checked = true;
+            btnHalf.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let elementToDisplay = realDomDoc.getElementById("defectOrExcessSection");
+            checkElementDisplay(elementToDisplay, true);
+        })
+
+        it("when the debt recovery amount involves decimals, the designated box must be displayed - cbSvincoloMedia", function () {
+            let btnAverage = realDomDoc.getElementById("cbSvincoloMedia");
+            btnAverage.checked = true;
+            btnAverage.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let elementToDisplay = realDomDoc.getElementById("defectOrExcessSection");
+            checkElementDisplay(elementToDisplay, true);
+        })
+
+        it("when the debt recovery amount cannot be decimal, the designated box must be hidden", function () {
+            let btnHalf = realDomDoc.getElementById("cbSvincoloMeta");
+            btnHalf.checked = false;
+            btnHalf.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let btnAverage = realDomDoc.getElementById("cbSvincoloMedia");
+            btnAverage.checked = false;
+            btnAverage.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let elementToDisplay = realDomDoc.getElementById("defectOrExcessSection");
+            checkElementDisplay(elementToDisplay, false);
+        })
 
     });
+
+    function checkElementDisplay(element, shouldDisplay) {
+        let value = shouldDisplay ? "block" : "none";
+        expect(window.getComputedStyle(element).display).toBe(value);
+    }
 }

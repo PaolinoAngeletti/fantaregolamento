@@ -395,157 +395,153 @@
 
 	</rule-section>
 
-	<!-- svincoli -->
-	<div class="macro">
-		<div class="container">
-			<h2>Gestione svincoli</h2>
-		</div>
+	<!-- sezione svincoli -->
+	<rule-section>
+		<section-title>
+			Gestione svincoli
+		</section-title>
 
 		<!-- modalità svincoli -->
-		<div class="container">
-			<h4>Modalità svincolo durante il mercato</h4>
-		</div>
-		<div class="container">
-			<div class="centered">
-				<p>Indica come gestire gli svincoli liberi durante una sessione di mercato generica</p>
-			</div>
-		</div>
-		<br>
-		<div class="container">
-			<form>
-				<label>
-					<input id="cbSvincoloAcquisto" type="radio" name="radio" loadable checked />
-					<span>Svincola un giocatore solo dopo averne acquistato un altro dello stesso ruolo</span>
-				</label>
-				<label>
-					<input id="cbSvincoloInizioSi" type="radio" name="radio" loadable />
-					<span>Svincola i giocatori prima dell'inizio del mercato<br>Gli svincolati potranno essere
-						acquistati da chi li ha liberati</span>
-				</label>
-				<label>
-					<input id="cbSvincoloInizioNo" type="radio" name="radio" loadable />
-					<span>Svincola i giocatori prima dell'inizio del mercato<br>Gli svincolati non potranno essere
-						acquistati da chi li ha liberati</span>
-				</label>
-			</form>
-		</div>
-		<br>
+		<rule>
+			<rule-title>
+				Svincolo durante il mercato
+			</rule-title>
+
+			<rule-description>
+				Indica come gestire gli svincoli liberi durante una sessione di mercato generica.
+			</rule-description>
+
+			<rule-values>
+				<form>
+					<rule-radio-opt id="cbSvincoloAcquisto" type="radio" name="radio" loadable checked>
+						Svincola un giocatore solo dopo averne acquistato un altro dello stesso ruolo
+					</rule-radio-opt>
+
+					<rule-radio-opt id="cbSvincoloInizioSi" type="radio" name="radio" loadable>
+						Svincola i giocatori prima dell'inizio del mercato.
+						Gli svincolati potranno essere acquistati da chi li ha liberati.
+					</rule-radio-opt>
+
+					<rule-radio-opt id="cbSvincoloInizioNo" type="radio" name="radio" loadable>
+						Svincola i giocatori prima dell'inizio del mercato.
+						Gli svincolati non potranno essere acquistati da chi li ha liberati.
+					</rule-radio-opt>
+				</form>
+			</rule-values>
+		</rule>
 
 		<!-- svincoli generici -->
-		<div class="container">
-			<h4>Svincolo giocatori</h4>
-		</div>
-		<div class="container">
-			<div class="centered">
-				<p>Indica come gestire lo svincolo di un giocatore da parte di una qualsiasi squadra</p>
-			</div>
-		</div>
-		<br>
-		<div class="container">
-			<form onchange="verifyCreditsRecoverOnPlayerRelease()">
-				<label>
-					<input id="cbSvincoloNessun" type="radio" name="radio" loadable checked />
-					<span>Non ricevere nessun credito</span>
-				</label>
-				<label>
-					<input id="cbSvincoloUno" type="radio" name="radio" loadable />
-					<span>Ricevi un solo credito</span>
-				</label>
-				<label>
-					<input id="cbSvincoloMeta" type="radio" name="radio" loadable />
-					<span>Ricevi crediti pari alla metà della quotazione di acquisto</span>
-				</label>
-				<label>
-					<input id="cbSvincoloQuotazione" type="radio" name="radio" loadable />
-					<span>Ricevi crediti pari alla quotazione di acquisto</span>
-				</label>
-				<label>
-					<input id="cbSvincoloAttuale" type="radio" name="radio" loadable />
-					<span>Ricevi crediti pari alla quotazione attuale</span>
-				</label>
-				<label>
-					<input id="cbSvincoloMedia" type="radio" name="radio" loadable />
-					<span>Ricevi crediti pari alla media tra la quotazione attuale e il valore di acquisto<br>Esempio
-						quotazione attuale 50, spesa 10, ricevi 30</span>
-				</label>
-			</form>
-		</div>
-		<br>
+		<rule>
+			<rule-title>
+				Recupero crediti
+			</rule-title>
+
+			<rule-description>
+				Indica come gestire lo svincolo di un giocatore da parte di una qualsiasi squadra
+			</rule-description>
+
+			<rule-values>
+				<form onchange="verifyCreditsRecoverOnPlayerRelease()">
+					<rule-radio-opt id="cbSvincoloNessun" type="radio" name="radio" loadable checked>
+						Non ricevere nessun credito
+					</rule-radio-opt>
+
+					<rule-radio-opt id="cbSvincoloUno" type="radio" name="radio" loadable>
+						Ricevi un solo credito
+					</rule-radio-opt>
+
+					<rule-radio-opt id="cbSvincoloMeta" type="radio" name="radio" loadable>
+						Ricevi crediti pari alla metà della quotazione di acquisto
+					</rule-radio-opt>
+
+					<rule-radio-opt id="cbSvincoloQuotazione" type="radio" name="radio" loadable>
+						Ricevi crediti pari alla quotazione di acquisto
+					</rule-radio-opt>
+
+					<rule-radio-opt id="cbSvincoloAttuale" type="radio" name="radio" loadable>
+						Ricevi crediti pari alla quotazione attuale
+					</rule-radio-opt>
+
+					<rule-radio-opt id="cbSvincoloMedia" type="radio" name="radio" loadable>
+						Ricevi crediti pari alla media tra la quotazione attuale e il valore di acquisto
+						Esempio quotazione attuale 50, spesa 10, ricevi 30
+					</rule-radio-opt>
+				</form>
+			</rule-values>
+		</rule>
 
 		<!-- by defect or excess return -->
-		<div id="defectOrExcessSection">
-			<div class="container">
-				<h4>Gestione crediti decimali</h4>
-			</div>
-			<div class="container">
-				<div class="centered">
-					<p>Indica come gestire svincoli con valore decimale.<br>
-						<i>Esempio: Devo ricevere 1,5 crediti<br>
-						Per difetto: Ricevo 1 credito<br>
-						Per eccesso: Ricevo 2 crediti</i></p>
-				</div>
-			</div>
-			<br>
-			<div class="container">
+		<rule id="defectOrExcessSection">
+			<rule-title>
+				Gestione crediti decimali
+			</rule-title>
+
+			<rule-description>
+				Indica come gestire svincoli con valore decimale.
+			</rule-description>
+
+			<rule-note>
+				Esempio: Devo ricevere 1,5 crediti
+                Per difetto: Ricevo 1 credito
+                Per eccesso: Ricevo 2 crediti
+			</rule-note>
+
+			<rule-values>
 				<form>
-					<label>
-						<input id="cbDifetto" type="radio" name="radio" loadable />
-						<span>Per difetto</span>
-					</label>
-					<label>
-						<input id="cbEccesso" type="radio" name="radio" checked loadable />
-						<span>Per eccesso</span>
-					</label>
+					<rule-radio-opt id="cbDifetto" type="radio" name="radio" loadable>
+						Per difetto
+					</rule-radio-opt>
+
+					<rule-radio-opt id="cbEccesso" type="radio" name="radio" checked loadable>
+						Per eccesso
+					</rule-radio-opt>
 				</form>
-			</div>
-			<br>
-		</div>
+			</rule-values>
+		</rule>
 
-		<!-- cessione altro campionato -->
-		<div class="container">
-			<h4>Gestione cessioni giocatori</h4>
-		</div>
-		<div class="container">
-			<div class="centered">
-				<p>Indica come vanno gestite le eventuali cessioni di giocatori in altri campionati, nazionali o
-					internazionali</p>
-			</div>
-		</div>
-		<br>
-		<div class="container">
-			<form onchange="verifyCreditsRecoverOnPlayerRelease()">
-				<label>
-					<input id="cbPreMercatoSvincolo" type="radio" name="radio" loadable checked />
-					<span>Applica regola scelta per un normale svincolo</span>
-				</label>
-				<label>
-					<input id="cbPreMercatoPrestito" type="radio" name="radio" loadable />
-					<span>Prendi in prestito uno svincolato fino al prossimo mercato</span>
-				</label>
-				<label>
-					<input id="cbPreMercatoQuotazioneIntera" type="radio" name="radio" loadable />
-					<span>Ricevi l'intera quotazione di acquisto</span>
-				</label>
-			</form>
-		</div>
-		<br>
+        <!-- cessione altro campionato -->
+        <rule>
+            <rule-title>
+                Gestione cessioni giocatori
+            </rule-title>
 
-		<!-- note svincoli -->
-		<div class="container">
-			<h4>Regole non previste</h4>
-		</div>
-		<div class="container">
-			<center>
-				<p>Inserisci eventuali note aggiuntive per la gestione di svincoli giocatori.</p>
-			</center>
-		</div>
-		<br>
-		<center>
-			<textarea id="etNoteSvincoli" class="textarea" loadable></textarea>
-		</center>
-		<br>
-	</div>
-	<br>
+            <rule-description>
+                Indica come vanno gestite le eventuali cessioni di giocatori in altri campionati, nazionali o internazionali.
+            </rule-description>
+
+            <rule-values>
+                <form onchange="verifyCreditsRecoverOnPlayerRelease()">
+                    <rule-radio-opt id="cbPreMercatoSvincolo" type="radio" name="radio" loadable checked>
+                        Applica regola scelta per un normale svincolo
+                    </rule-radio-opt>
+
+                    <rule-radio-opt id="cbPreMercatoPrestito" type="radio" name="radio" loadable>
+                        Prendi in prestito uno svincolato fino al prossimo mercato
+                    </rule-radio-opt>
+
+                    <rule-radio-opt id="cbPreMercatoQuotazioneIntera" type="radio" name="radio" loadable>
+                        Ricevi l'intera quotazione di acquisto
+                    </rule-radio-opt>
+                </form>
+            </rule-values>
+        </rule>
+
+        <!-- note svincoli -->
+        <rule>
+            <rule-title>
+                Regole non previste
+            </rule-title>
+
+            <rule-description>
+                Inserisci eventuali note aggiuntive per la gestione di svincoli giocatori.
+            </rule-description>
+
+            <rule-values>
+                <rule-text-area id="etNoteSvincoli" class="textarea" loadable></rule-text-area>
+            </rule-values>
+        </rule>
+
+	</rule-section>
 
 	<!-- scambi -->
 	<div class="macro">
