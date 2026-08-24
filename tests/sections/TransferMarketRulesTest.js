@@ -1,5 +1,6 @@
 function runTransferMarketRulesTests() {
     describe("Transfer market rules", function () {
+
         describe("produce test", function () {
             it("generates correct HTML", function () {
                 realDomDoc.getElementById("etCrediti").value = "100";
@@ -19,25 +20,55 @@ function runTransferMarketRulesTests() {
 
                 expect(html[0].text).toContain("7. Gestione mercato");
                 expect(html[0].type).toBe("h2");
-                expect(html[1].text).toContain("7.1. Per il mercato iniziale sono previsti 100 fanta-milioni");
+                expect(html[1].text).toContain("7.1. L'asta verrà eseguita");
                 expect(html[1].type).toBe("paragraph");
-                expect(html[2].text).toContain("7.2. Per le successive sessioni di mercato sono previsti 30");
+                expect(html[2].text).toContain("7.2. Per il mercato iniziale sono previsti 100 fanta-milioni");
                 expect(html[2].type).toBe("paragraph");
-                expect(html[3].text).toContain("7.3. Non è stata specificata nessuna gestione del caso in cui una squadra superi il numero di crediti spendibili");
+                expect(html[3].text).toContain("7.3. Per le successive sessioni di mercato sono previsti 30");
                 expect(html[3].type).toBe("paragraph");
-                expect(html[4].text).toContain("7.4. Alla fine di una sessione di mercato, gli eventuali crediti residui");
+                expect(html[4].text).toContain("7.4. Non è stata specificata nessuna gestione del caso in cui una squadra superi il numero di crediti spendibili");
                 expect(html[4].type).toBe("paragraph");
-                expect(html[5].text).toContain("7.5. Sono permessi i cambi ruolo dei giocatori");
+                expect(html[5].text).toContain("7.5. Alla fine di una sessione di mercato, gli eventuali crediti residui");
                 expect(html[5].type).toBe("paragraph");
-                expect(html[6].text).toContain("7.6. Previsto limite di cambi massimi per l'intera competizione");
+                expect(html[6].text).toContain("7.6. Sono permessi i cambi ruolo dei giocatori");
                 expect(html[6].type).toBe("paragraph");
-                expect(html[7].text).toContain("7.7. Previsto limite di cambi massimi per una singola sessione di mercato");
+                expect(html[7].text).toContain("7.7. Previsto limite di cambi massimi per l'intera competizione");
                 expect(html[7].type).toBe("paragraph");
-                expect(html[8].text).toContain("7.8. Previsto limite di cambi massimi per ruolo");
+                expect(html[8].text).toContain("7.8. Previsto limite di cambi massimi per una singola sessione di mercato");
                 expect(html[8].type).toBe("paragraph");
-                expect(html[9].text).toContain("7.9. notes");
+                expect(html[9].text).toContain("7.9. Previsto limite di cambi massimi per ruolo");
                 expect(html[9].type).toBe("paragraph");
+                expect(html[10].text).toContain("7.10. notes");
+                expect(html[10].type).toBe("paragraph");
             });
+        });
+
+        describe("market type values test", function () {
+
+            it("alphabetic order checked", function () {
+                checkTextOnSelection("cbAlfabetico", "alfabetico crescente");
+            });
+
+            it("chiamata checked", function () {
+                checkTextOnSelection("cbChiamata", "a chiamata", "non ci saranno vincoli di ruolo");
+            });
+
+            it("chiamata for role checked", function () {
+                checkTextOnSelection("cbChiamataRuolo", "a chiamata", "in ordine di ruolo");
+            });
+
+            it("random checked", function () {
+                checkTextOnSelection("cbRandom", "random", "non ci saranno vincoli di ruolo");
+            });
+
+            it("random for role checked", function () {
+                checkTextOnSelection("cbRandomRuolo", "random", "in ordine di ruolo");
+            });
+
+            it("tornate checked", function () {
+                checkTextOnSelection("cbTornata", "a tornate");
+            });
+
         });
 
         describe("credits number tests", function () {
@@ -241,4 +272,12 @@ function runTransferMarketRulesTests() {
             });
         });
     });
+
+    function checkTextOnSelection(toSelect, ...shouldContainsText) {
+        realDomDoc.getElementById(toSelect).checked = true;
+        const result = TransferMarketRules.estraiTipologiaMercato();
+        for (let text of shouldContainsText) {
+            expect(result).toContain(text);
+        }
+    }
 }

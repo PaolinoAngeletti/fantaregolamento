@@ -38,6 +38,13 @@ const Utils = {
         }
     },
 
+    selectCheckbox(checkboxId) {
+        let element = this.retrieveDomElement(checkboxId);
+        if (element) {
+            element.click();
+        }
+    },
+
     retrieveAdditionalNotes: function (domElement) {
         let toReturn = "";
         let additionalNotes = Utils.retrieveDomElement(domElement);
@@ -73,5 +80,15 @@ const Utils = {
             });
         }
         return toReturn;
+    },
+
+    getSelectedRadioId(formId) {
+        const form = this.retrieveDomElement(formId);
+        if (!form) {
+            return null;
+        }
+
+        const selected = form.querySelector('input[type="radio"]:checked');
+        return selected ? selected.id : null;
     }
 };

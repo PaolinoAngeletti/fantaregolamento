@@ -82,7 +82,7 @@
 		</div>
 		<br>
 		<div class="container">
-			<form>
+			<form onchange="handleBusteChiuseSelection()">
 				<label>
 					<input id="cbCalendario" type="radio" name="radio" checked loadable />
 					<span>Calendario</span>
@@ -202,6 +202,43 @@
 		<div class="container">
 			<h2>Gestione mercato</h2>
 		</div>
+
+		<div class="container">
+			<h4>Tipologia mercato</h4>
+		</div>
+		<div class="container centered">
+			<p>Imposta il tipo di mercato e l'ordine di estrazione dei calciatori con cui verranno composte le rose</p>
+		</div>
+		<br>
+		<div class="container">
+			<form id="fTipoMercato">
+				<label>
+					<input id="cbAlfabetico" type="radio" name="radio" loadable />
+					<span>Alfabetico per ruolo</span>
+				</label>
+				<label>
+					<input id="cbChiamata" type="radio" name="radio" loadable />
+					<span>Chiamata</span>
+				</label>
+				<label>
+					<input id="cbChiamataRuolo" type="radio" name="radio" loadable />
+					<span>Chiamata per ruolo</span>
+				</label>
+				<label>
+					<input id="cbRandom" type="radio" name="radio" loadable />
+					<span>Random</span>
+				</label>
+				<label>
+					<input id="cbRandomRuolo" type="radio" name="radio" checked loadable />
+					<span>Random per ruolo</span>
+				</label>
+				<label id="btnTornata">
+					<input id="cbTornata" type="radio" name="radio" loadable />
+					<span>Tornate</span>
+				</label>
+			</form>
+		</div>
+		<br>
 
 		<!-- numero crediti -->
 		<div class="container">

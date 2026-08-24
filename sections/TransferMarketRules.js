@@ -3,6 +3,7 @@ const TransferMarketRules = {
 
     produce: function (sectionIndex) {
         let rules = [];
+        rules.push(this.estraiTipologiaMercato());
         rules.push(this.estraiNumeroCrediti());
         rules.push(this.estraiNumeroCreditiSuccessivi());
         rules.push(this.retrieveFinishedCreditsManagement());
@@ -13,6 +14,30 @@ const TransferMarketRules = {
         rules.push(this.estraiNumeroMassimoCambiRuolo());
         rules.push(this.estraiEventualiNoteAggiuntiveMercato());
         return Utils.buildRuleSection(sectionIndex, this.sectionName, rules);
+    },
+
+    estraiTipologiaMercato: function () {
+        const noRuoloRule = "Inoltre, non ci saranno vincoli di ruolo, ossia si potrà acquistare un attaccante prima di un portiere.";
+        const ruoloRule = "E' previsto però un vincolo di ruolo, ossia i calciatori dovranno essere acquistati in ordine di ruolo, ossia P-D-C-A.";
+
+        const randomRule = "L'asta verrà eseguita estraendo i calciatori in maniera random, ossia non ci sarà nessun ordine prefissato. ";
+        const chiamataRule = "L'asta verrà eseguita estraendo i calciatori a chiamata, ossia ogni squadra, a turno, deciderà su quale giocatore effettuare l'asta. ";
+
+        let valueId = Utils.getSelectedRadioId("fTipoMercato");
+        if ("cbAlfabetico" === valueId) {
+            return "L'asta verrà eseguita estraendo i calciatori in ordine alfabetico crescente, ossia dalla A alla Z.";
+        } else if ("cbChiamata" === valueId) {
+            return chiamataRule + noRuoloRule;
+        } else if ("cbChiamataRuolo" === valueId) {
+            return chiamataRule + ruoloRule;
+        } else if ("cbTornata" === valueId) {
+            return "L'asta verrà eseguita con la modalità a tornate. In ogni tornata, ogni squadra potrà offrire per qualsiasi giocatore voglia, indipendentemente dal ruolo. Alla fine della tornata, verranno assegnati i calciatori, e si proseguirà con la successiva tornata con i giocatori che risultano ancora svincolati dopo le tornate precedenti. Il numero di tornate dipenderà dal completamento di tutte le squadre.";
+        } else if ("cbRandom" === valueId) {
+            return randomRule + noRuoloRule;
+        } else {
+            // default: random ruolo
+            return randomRule + ruoloRule;
+        }
     },
 
     estraiNumeroCrediti: function () {

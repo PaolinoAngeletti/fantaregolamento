@@ -10,7 +10,7 @@ function loadRequiredScripts() {
     loadScript("utils/Utils.js", () => {
         loadImages();
         loadSectionsScripts();
-        setupDefaultPrizesValue();
+        runUiScripts();
         loadScript("utils/FieldValidation.js");
         loadScript("exception/FieldValidationException.js");
         loadScript("exporters/exporter_factory.js");
@@ -37,6 +37,11 @@ function loadSectionsScripts() {
     loadScript("sections/ExchangeRules.js", () => {
         verifyCreditsRecoverOnPlayerRelease();
     });
+}
+
+function runUiScripts() {
+    handleBusteChiuseSelection()
+    setupDefaultPrizesValue();
 }
 
 function setupDefaultPrizesValue() {
@@ -153,6 +158,20 @@ function showExchangeSection(toShow) {
         Utils.showDomElement("exchangeSection");
     } else {
         Utils.setElementDisplay("exchangeSection", "none");
+    }
+}
+
+function handleBusteChiuseSelection() {
+    let btnMode = Utils.retrieveDomElement("cbBusta");
+    if (btnMode) {
+        // show button only if specific competition mode is selected.
+        Utils.setElementVisibility("btnTornata", btnMode.checked);
+
+        // if button was previously selected, selection will be moved to default button.
+        let btnTornata = Utils.retrieveDomElement("cbTornata");
+        if (btnTornata.checked) {
+            Utils.selectCheckbox("cbRandomRuolo");
+        }
     }
 }
 
