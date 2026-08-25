@@ -99,7 +99,7 @@
         </rule-description>
 
         <rule-values>
-            <form onchange="handleBusteChiuseSelection()>
+            <form onchange="handleBusteChiuseSelection()">
                 <rule-radio-opt id="cbCalendario" checked loadable>
                     Calendario
                 </rule-radio-opt>
@@ -214,42 +214,46 @@
         Gestione mercato
     </section-title>
 
-		<div class="container">
-			<h4>Tipologia mercato</h4>
-		</div>
-		<div class="container centered">
-			<p>Imposta il tipo di mercato e l'ordine di estrazione dei calciatori con cui verranno composte le rose</p>
-		</div>
-		<br>
-		<div class="container">
-			<form id="fTipoMercato">
-				<label>
-					<input id="cbAlfabetico" type="radio" name="radio" loadable />
-					<span>Alfabetico per ruolo</span>
-				</label>
-				<label>
-					<input id="cbChiamata" type="radio" name="radio" loadable />
-					<span>Chiamata</span>
-				</label>
-				<label>
-					<input id="cbChiamataRuolo" type="radio" name="radio" loadable />
-					<span>Chiamata per ruolo</span>
-				</label>
-				<label>
-					<input id="cbRandom" type="radio" name="radio" loadable />
-					<span>Random</span>
-				</label>
-				<label>
-					<input id="cbRandomRuolo" type="radio" name="radio" checked loadable />
-					<span>Random per ruolo</span>
-				</label>
-				<label id="btnTornata">
-					<input id="cbTornata" type="radio" name="radio" loadable />
-					<span>Tornate</span>
-				</label>
-			</form>
-		</div>
-		<br>
+    <!-- tipologia mercato -->
+    <rule>
+        <rule-title>
+            Tipologia mercato
+        </rule-title>
+
+        <rule-description>
+            Imposta il tipo di mercato e l'ordine di estrazione dei calciatori con cui verranno composte le rose
+        </rule-description>
+
+        <rule-values>
+            <form id="fTipoMercato">
+                <rule-radio-opt id="cbAlfabetico" type="radio" name="radio" loadable>
+                    Alfabetico per ruolo
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbChiamata" type="radio" name="radio" loadable>
+                    Chiamata
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbChiamataRuolo" type="radio" name="radio" loadable>
+                    Chiamata per ruolo
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbRandom" type="radio" name="radio" loadable>
+                    Random
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbRandomRuolo" type="radio" name="radio" checked loadable>
+                    Random per ruolo
+                </rule-radio-opt>
+
+                <div id="btnTornata">
+                    <rule-radio-opt id="cbTornata" type="radio" name="radio" loadable>
+                        Tornate
+                    </rule-radio-opt>
+                </div>
+            </form>
+        </rule-values>
+    </rule>
 
     <!-- numero crediti -->
     <rule>
