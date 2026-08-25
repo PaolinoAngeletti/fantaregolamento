@@ -1,7 +1,7 @@
 class RuleDescriptionCustomElement extends CustomHtmlElement {
 
     render() {
-        const text = this.retrieveInnerText();
+        const text = this.retrieveInnerContent();
         const result = this.buildParagraphElement(text);
         result.classList.add("rule-description");
         this.replaceWith(result);

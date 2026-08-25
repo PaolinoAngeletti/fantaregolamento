@@ -11,8 +11,23 @@ class CustomHtmlElement extends HTMLElement {
         throw new Error("render() must be implemented");
     }
 
+    retrieveInnerContent() {
+        const contentType = this.getAttribute("data-content-type");
+        if ("html" === contentType) {
+            return this.innerHTML.trim();
+        }
+        return this.retrieveInnerText();
+    }
+
+    /**
+     * Returns the custom element's text content as a normalized single-line
+     * string, collapsing consecutive whitespace and removing surrounding
+     * whitespace.
+     *
+     * @returns {string} The normalized inner text.
+     */
     retrieveInnerText() {
-        return this.textContent.trim();
+        return this.textContent.replace(/\s+/g, " ").trim();
     }
 
     buildDiv(isContainer = false, isCentered = false) {
@@ -30,7 +45,7 @@ class CustomHtmlElement extends HTMLElement {
 
     buildItalicElement() {
         const result = this.buildHtmlElement("i");
-        result.innerText = this.retrieveInnerText();
+        result.innerText = this.retrieveInnerContent();
         return result;
     }
 

@@ -312,6 +312,33 @@
         </rule-values>
     </rule>
 
+    <!-- gestione stessi crediti finali -->
+    <rule>
+        <rule-title>
+            Gestione stessi crediti finali
+        </rule-title>
+
+        <rule-description>
+            Indica come gestire il caso in cui più squadre siano interessate allo stesso giocatore ma hanno gli stessi
+            crediti finali.
+        </rule-description>
+
+        <rule-values>
+            <form id="fGestioneStessiCrediti">
+                <rule-radio-opt id="cbCreditiNoAcquisto" type="radio" name="radio" checked loadable>
+                    Le squadre non potranno accedere al giocatore per l’intero mercato.
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbCreditiSvincoloLoop" type="radio" name="radio" data-content-type="html" loadable>
+                    Ciascuna squadra deve svincolare al buio un giocatore (recuperando un numero di crediti in base alla
+                    regola prevista).
+                    Fatto ciò, si procederà all'asta.
+                    Questo potrebbe creare un loop, che verrà gestito applicando questa stessa regola più volte.
+                </rule-radio-opt>
+            </form>
+        </rule-values>
+    </rule>
+
     <!-- gestione fine crediti -->
     <rule>
         <rule-title>
@@ -484,12 +511,12 @@
                     Svincola un giocatore solo dopo averne acquistato un altro dello stesso ruolo
                 </rule-radio-opt>
 
-                <rule-radio-opt id="cbSvincoloInizioSi" type="radio" name="radio" loadable>
+                <rule-radio-opt id="cbSvincoloInizioSi" type="radio" name="radio" data-content-type="html" loadable>
                     Svincola i giocatori prima dell'inizio del mercato.
                     Gli svincolati potranno essere acquistati da chi li ha liberati.
                 </rule-radio-opt>
 
-                <rule-radio-opt id="cbSvincoloInizioNo" type="radio" name="radio" loadable>
+                <rule-radio-opt id="cbSvincoloInizioNo" type="radio" name="radio" data-content-type="html" loadable>
                     Svincola i giocatori prima dell'inizio del mercato.
                     Gli svincolati non potranno essere acquistati da chi li ha liberati.
                 </rule-radio-opt>
@@ -529,7 +556,7 @@
                     Ricevi crediti pari alla quotazione attuale
                 </rule-radio-opt>
 
-                <rule-radio-opt id="cbSvincoloMedia" type="radio" name="radio" loadable>
+                <rule-radio-opt id="cbSvincoloMedia" type="radio" name="radio" data-content-type="html" loadable>
                     Ricevi crediti pari alla media tra la quotazione attuale e il valore di acquisto
                     Esempio quotazione attuale 50, spesa 10, ricevi 30
                 </rule-radio-opt>
@@ -547,7 +574,7 @@
             Indica come gestire svincoli con valore decimale.
         </rule-description>
 
-        <rule-note>
+        <rule-note data-content-type="html">
             Esempio: Devo ricevere 1,5 crediti
             Per difetto: Ricevo 1 credito
             Per eccesso: Ricevo 2 crediti
@@ -740,7 +767,7 @@
                     Non applicare nessun prestito, in nessun caso
                 </rule-radio-opt>
 
-                <rule-radio-opt id="cbInfortunioPrestito" type="radio" name="radio" loadable>
+                <rule-radio-opt id="cbInfortunioPrestito" type="radio" name="radio" data-content-type="html" loadable>
                     Prevedi il prestito di un calciatore svincolato fino al prossimo mercato.
                     Questa regola verrà applicata solo a infortuni che superano i sei mesi.
                     Questa regola verrà applicata solo se mancano almeno dieci giornate dalla fine.
@@ -765,12 +792,12 @@
                     Un calciatore positivo accederà al 6 politico
                 </rule-radio-opt>
 
-                <rule-radio-opt id="cbCovidPanchina" type="radio" name="radio" loadable>
+                <rule-radio-opt id="cbCovidPanchina" type="radio" name="radio" data-content-type="html" loadable>
                     Un calciatore positivo verrà sostituito con il panchinaro previsto.
                     Questa opzione può essere pericolosa per multiple positività
                 </rule-radio-opt>
 
-                <rule-radio-opt id="cbCovidScaglioni" type="radio" name="radio" loadable>
+                <rule-radio-opt id="cbCovidScaglioni" type="radio" name="radio" data-content-type="html" loadable>
                     Verranno assegnati votazioni politiche con questo schema:
                     PORTIERI
                     Se tutti i portieri sono positivi, si accede ad 1 voto d'ufficio.
@@ -879,7 +906,7 @@
 
         <rule-values>
             <form>
-                <rule-radio-opt id="cbMancataNulla" type="radio" name="radio" loadable checked>
+                <rule-radio-opt id="cbMancataNulla" type="radio" name="radio" data-content-type="html" loadable checked>
                     Inserimento formazione nulla (punteggio zero).
                     Se mi preoccupo di mettere la squadra, non è bello perdere contro chi si dimentica.
                 </rule-radio-opt>
@@ -1127,7 +1154,7 @@
             Indica l'intervallo di larghezza di ciascuna soglia gol prevista.
         </rule-description>
 
-        <rule-note>
+        <rule-note data-content-type="html">
             Nota che più il valore è alto, più la probabilità di pareggi aumenterà.
             Esempi:
             Soglia da 4:
@@ -1186,13 +1213,13 @@
                     Attendi la partita solamente se giocata entro la prossima giornata di campionato
                 </rule-radio-opt>
 
-                <rule-radio-opt id="cbRinvioPolitico" type="radio" name="radio" loadable>
+                <rule-radio-opt id="cbRinvioPolitico" type="radio" name="radio" data-content-type="html" loadable>
                     Attendi che la partita venga rigiocata, anche se a mesi di distanza.
                     Se un giocatore non potrà, per qualsiasi motivo, giocare la partita rinviata, accederà al 6
                     politico.
                 </rule-radio-opt>
 
-                <rule-radio-opt id="cbRinvioPanchina" type="radio" name="radio" loadable>
+                <rule-radio-opt id="cbRinvioPanchina" type="radio" name="radio" data-content-type="html" loadable>
                     Attendi che la partita venga rigiocata, anche se a mesi di distanza.
                     Se un giocatore non potrà, per qualsiasi motivo, giocare la partita rinviata, entrerà la
                     sostituzione.
@@ -1286,7 +1313,7 @@
             Criteri classifica
         </rule-title>
 
-        <rule-description>
+        <rule-description data-content-type="html">
             La classifica verrà calcolata in base al seguente ordine:
             1. Punti in classifica
             2. Somma punti totale
@@ -1359,7 +1386,7 @@
             Indica il tipo di documento che preferisci generare.
         </rule-description>
 
-        <rule-note>
+        <rule-note data-content-type="html">
             Nota che alcuni browser, per questioni di sicurezza, bloccano l'apertura di PDF.
             Questo avviene in particolare su dispositivi mobile.
             Se rilevi questo problema, prova da PC oppure prova a generare HTML e poi "Stampa su PDF".

@@ -29,20 +29,22 @@ function runTransferMarketRulesTests() {
                 expect(html[3].type).toBe("paragraph");
                 expect(html[4].text).toContain("7.4. Per le successive sessioni di mercato sono previsti 30");
                 expect(html[4].type).toBe("paragraph");
-                expect(html[5].text).toContain("7.5. Non è stata specificata nessuna gestione del caso in cui una squadra superi il numero di crediti spendibili");
+                expect(html[5].text).toContain("7.5. Se durante l'asta, più squadre sono interessate allo stesso giocatore ma hanno gli stessi crediti finali");
                 expect(html[5].type).toBe("paragraph");
-                expect(html[6].text).toContain("7.6. Alla fine di una sessione di mercato, gli eventuali crediti residui");
+                expect(html[6].text).toContain("7.6. Non è stata specificata nessuna gestione del caso in cui una squadra superi il numero di crediti spendibili");
                 expect(html[6].type).toBe("paragraph");
-                expect(html[7].text).toContain("7.7. Sono permessi i cambi ruolo dei giocatori");
+                expect(html[7].text).toContain("7.7. Alla fine di una sessione di mercato, gli eventuali crediti residui");
                 expect(html[7].type).toBe("paragraph");
-                expect(html[8].text).toContain("7.8. Previsto limite di cambi massimi per l'intera competizione");
+                expect(html[8].text).toContain("7.8. Sono permessi i cambi ruolo dei giocatori");
                 expect(html[8].type).toBe("paragraph");
-                expect(html[9].text).toContain("7.9. Previsto limite di cambi massimi per una singola sessione di mercato");
+                expect(html[9].text).toContain("7.9. Previsto limite di cambi massimi per l'intera competizione");
                 expect(html[9].type).toBe("paragraph");
-                expect(html[10].text).toContain("7.10. Previsto limite di cambi massimi per ruolo");
+                expect(html[10].text).toContain("7.10. Previsto limite di cambi massimi per una singola sessione di mercato");
                 expect(html[10].type).toBe("paragraph");
-                expect(html[11].text).toContain("7.11. notes");
+                expect(html[11].text).toContain("7.11. Previsto limite di cambi massimi per ruolo");
                 expect(html[11].type).toBe("paragraph");
+                expect(html[12].text).toContain("7.12. notes");
+                expect(html[12].type).toBe("paragraph");
             });
         });
 
@@ -289,6 +291,22 @@ function runTransferMarketRulesTests() {
                 expect(html).toContain("pari alla quotazione attuale");
             });
         });
+
+        describe("same final credits tests", function () {
+
+            it("option selected = no one can acquire the player", function () {
+                realDomDoc.getElementById("cbCreditiNoAcquisto").checked = true;
+                const html = TransferMarketRules.estraiGestioneStessiCreditiFinali();
+                expect(html).toContain("nessuna di esse potrà acquisire il calciatore");
+            });
+
+            it("option selected = free a player", function () {
+                realDomDoc.getElementById("cbCreditiSvincoloLoop").checked = true;
+                const html = TransferMarketRules.estraiGestioneStessiCreditiFinali();
+                expect(html).toContain("svincolando al buio un qualsiasi giocatore");
+            });
+        });
+
     });
 
     function checkTextOnSelection(toSelect, ...shouldContainsText) {

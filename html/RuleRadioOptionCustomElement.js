@@ -3,7 +3,7 @@ class RuleRadioOptionCustomElement extends CustomHtmlElement {
     render() {
         const label = this.buildLabelElement();
         const input = this.buildInputElement();
-        const span = this.buildSpanElement(this.retrieveInnerText());
+        const span = this.buildSpanElement(this.retrieveInnerContent());
 
         label.appendChild(input);
         label.appendChild(span);
