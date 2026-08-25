@@ -77,6 +77,18 @@ function runMainScriptTests() {
                 {field: "cbCondivisiNo", value: false},
 
                 // transfer market rules.
+                {field: "cbAlfabetico", value: true},
+                {field: "cbAlfabetico", value: false},
+                {field: "cbChiamata", value: true},
+                {field: "cbChiamata", value: false},
+                {field: "cbChiamataRuolo", value: true},
+                {field: "cbChiamataRuolo", value: false},
+                {field: "cbRandom", value: true},
+                {field: "cbRandom", value: false},
+                {field: "cbRandomRuolo", value: true},
+                {field: "cbRandomRuolo", value: false},
+                {field: "cbTornata", value: true},
+                {field: "cbTornata", value: false},
                 {field: "etCrediti", value: "750"},
                 {field: "etCreditiSessione", value: "100"},
                 {field: "taCreditiFiniti", value: "10"},
@@ -263,14 +275,14 @@ function runMainScriptTests() {
             let test_cases = [
 
                 // competition type.
-                {field: "cbCalendario", start_value: false, final_value: true},
-                {field: "cbCalendario", start_value: true, final_value: false},
-                {field: "cbFormulaUno", start_value: false, final_value: true},
-                {field: "cbFormulaUno", start_value: true, final_value: false},
-                {field: "cbListone", start_value: false, final_value: true},
-                {field: "cbListone", start_value: true, final_value: false},
-                {field: "cbBusta", start_value: false, final_value: true},
-                {field: "cbBusta", start_value: true, final_value: false},
+                {field: "cbCalendario", start_value: false, final_value: true, should_hide: ["btnTornata"]},
+                {field: "cbCalendario", start_value: true, final_value: false, should_hide: ["btnTornata"]},
+                {field: "cbFormulaUno", start_value: false, final_value: true, should_hide: ["btnTornata"]},
+                {field: "cbFormulaUno", start_value: true, final_value: false, should_hide: ["btnTornata"]},
+                {field: "cbListone", start_value: false, final_value: true, should_hide: ["btnTornata"]},
+                {field: "cbListone", start_value: true, final_value: false, should_hide: ["btnTornata"]},
+                {field: "cbBusta", start_value: false, final_value: true, should_appear: ["btnTornata"]},
+                {field: "cbBusta", start_value: true, final_value: false, should_hide: ["btnTornata"]},
                 {field: "etInizio", start_value: "5", final_value: "20"},
                 {field: "etFine", start_value: "10", final_value: "4"},
 
@@ -285,6 +297,18 @@ function runMainScriptTests() {
                 {field: "cbCondivisiSi", start_value: true, final_value: false},
 
                 // transfer market rules.
+                {field: "cbAlfabetico", start_value: true, final_value: false},
+                {field: "cbAlfabetico", start_value: false, final_value: true},
+                {field: "cbChiamata", start_value: true, final_value: false},
+                {field: "cbChiamata", start_value: false, final_value: true},
+                {field: "cbChiamataRuolo", start_value: true, final_value: false},
+                {field: "cbChiamataRuolo", start_value: false, final_value: true},
+                {field: "cbRandom", start_value: true, final_value: false},
+                {field: "cbRandom", start_value: false, final_value: true},
+                {field: "cbRandomRuolo", start_value: true, final_value: false},
+                {field: "cbRandomRuolo", start_value: false, final_value: true},
+                {field: "cbTornata", start_value: true, final_value: false},
+                {field: "cbTornata", start_value: false, final_value: true},
                 {field: "etCrediti", start_value: "750", final_value: "100"},
                 {field: "etCreditiSessione", start_value: "100", final_value: "150"},
                 {field: "taCreditiFiniti", start_value: "10", final_value: "50"},
@@ -473,7 +497,7 @@ function runMainScriptTests() {
             ];
 
             test_cases.forEach(test => {
-                it(`${test.field} final-value = ${test.final_value} start-value = ${test.start_value}`, () => {
+                it(`${test.field} start-value = ${test.start_value} final-value = ${test.final_value}`, () => {
                     let field = test.field;
                     let start_value = test.start_value;
                     let final_value = test.final_value;
@@ -657,6 +681,39 @@ function runMainScriptTests() {
 
             let elementToDisplay = realDomDoc.getElementById("punti_modificatore");
             checkElementDisplay(elementToDisplay, false);
+        })
+
+    });
+
+    function checkElementDisplay(element, shouldDisplay) {
+        let value = shouldDisplay ? "block" : "none";
+        expect(window.getComputedStyle(element).display).toBe(value);
+    }
+
+    describe("fields relationship tests", function () {
+
+        it("cbBusta selection", function () {
+            let cbBusta = realDomDoc.getElementById("cbBusta");
+            let btnTornata = realDomDoc.getElementById("btnTornata");
+
+            cbBusta.checked = false;
+            Utils.setElementVisibility("btnTornata", false);
+
+            cbBusta.click();
+            checkElementDisplay(btnTornata, true);
+        })
+
+        it("cbBusta unselection", function () {
+            let cbBusta = realDomDoc.getElementById("cbBusta");
+            let btnTornata = realDomDoc.getElementById("btnTornata");
+            let cbCalendario = realDomDoc.getElementById("cbCalendario");
+
+            cbBusta.checked = true;
+            cbCalendario.checked = false;
+            Utils.setElementVisibility("btnTornata", true);
+
+            cbCalendario.click();
+            checkElementDisplay(btnTornata, false);
         })
 
     });
