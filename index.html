@@ -2,1413 +2,1351 @@
 <html lang="it">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="color-scheme" content="light only">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="color-scheme" content="light only">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
-	<!-- title and icon -->
-	<title>FantaRegolamento</title>
-	<link rel="icon" type="image/svg+xml" href="images/logo.png" />
+    <!-- title and icon -->
+    <title>FantaRegolamento</title>
+    <link rel="icon" type="image/svg+xml" href="images/logo.png"/>
 
-	<!-- PDF libraries -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.9.179/pdf.min.js"></script>
+    <!-- PDF libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.9.179/pdf.min.js"></script>
 
-	<!-- internal scripts -->
-	<script src="scripts.js"></script>
-	<script src="scripts/resume-regulation-scripts.js"></script>
+    <!-- internal scripts -->
+    <script src="scripts.js"></script>
+    <script src="scripts/resume-regulation-scripts.js"></script>
 
-	<!-- html custom elements -->
-	<script src="html/CustomHtmlElement.js"></script>
-	<script src="html/RuleTextCustomElement.js"></script>
-	<script src="html/RuleNoteCustomElement.js"></script>
-	<script src="html/RuleTitleCustomElement.js"></script>
-	<script src="html/SectionTitleCustomElement.js"></script>
-	<script src="html/RuleTextAreaCustomElement.js"></script>
-	<script src="html/RuleRadioOptionCustomElement.js"></script>
-	<script src="html/RuleDescriptionCustomElement.js"></script>
+    <!-- html custom elements -->
+    <script src="html/CustomHtmlElement.js"></script>
+    <script src="html/RuleTextCustomElement.js"></script>
+    <script src="html/RuleNoteCustomElement.js"></script>
+    <script src="html/RuleTitleCustomElement.js"></script>
+    <script src="html/SectionTitleCustomElement.js"></script>
+    <script src="html/RuleTextAreaCustomElement.js"></script>
+    <script src="html/RuleRadioOptionCustomElement.js"></script>
+    <script src="html/RuleDescriptionCustomElement.js"></script>
 
-	<!-- css -->
-	<link rel="stylesheet" href="css/desktop.css">
-	<link rel="stylesheet" href="css/mobile.css">
+    <!-- css -->
+    <link rel="stylesheet" href="css/desktop.css">
+    <link rel="stylesheet" href="css/mobile.css">
 
-	<!-- google search -->
-	<meta name="google-site-verification" content="2ybLMV58ANAar_-7qemAcQ83ejC_ymY9eKkG-dV7aPk" />
+    <!-- google search -->
+    <meta name="google-site-verification" content="2ybLMV58ANAar_-7qemAcQ83ejC_ymY9eKkG-dV7aPk"/>
 
-	<!-- QR-code generator -->
-	<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <!-- QR-code generator -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 
-	<script>
-		setupApplication();
+    <script>
+        setupApplication();
 
-		// Tell to PDF.js where to find the worker.
-		pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.9.179/pdf.worker.min.js';
-	</script>
+        // Tell to PDF.js where to find the worker.
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.9.179/pdf.worker.min.js';
+    </script>
 </head>
 
 <body>
-	<div class="container">
-		<h1>Crea il tuo Fanta Regolamento</h1>
-	</div>
-
-	<!-- Recharge regulation from PDF -->
-	<div>
-		<!-- Recharge button -->
-		<button id="btnImporta" class="ripple" onclick="selectLocalPDF()">
-			Ricarica regolamento
-		</button>
-
-		<!-- Recharge feedback -->
-		<div id="importFeedbackSection" style="display: none;">
-			<br>
-			<div id="sectionContent" class="macro success-section">
-				<div class="container">
-					<h2 style="color: white;">Importazione</h2>
-				</div>
-				<div class="container">
-					<center>
-						<p id="importMessage" style="color: white;">Error text</p>
-						<br>
-						<button onclick="hideImportFeedbackSection()">Ok</button>
-					</center>
-				</div>
-			</div>
-		</div>
-
-		<!-- recharge input file hidden -->
-		<input type="file" id="fileInput" style="display: none;" />
-	</div>
-	<br>
-
-	<!-- sezione competizione -->
-	<rule-section>
-
-		<section-title>
-			Gestione competizione
-		</section-title>
-
-		<!-- tipo competizione -->
-		<rule>
-
-			<rule-title>
-				Tipo di competizione
-			</rule-title>
-
-			<rule-description>
-				Imposta il tipo di competizione da affrontare
-			</rule-description>
-
-			<rule-values>
-				<form>
-					<rule-radio-opt id="cbCalendario" checked loadable>
-						Calendario
-					</rule-radio-opt>
-
-					<rule-radio-opt id="cbFormulaUno" loadable>
-						Formula 1
-					</rule-radio-opt>
-
-					<rule-radio-opt id="cbListone" loadable>
-						Listone
-					</rule-radio-opt>
-
-					<rule-radio-opt id="cbBusta" loadable>
-						Busta chiusa
-					</rule-radio-opt>
-				</form>
-			</rule-values>
-
-		</rule>
-
-		<!-- durata competizione -->
-		<rule>
-
-			<rule-title>
-				Durata competizione
-			</rule-title>
-
-			<rule-description>
-				Indica la durata della competizione, impostando la giornata di inizio e fine rispetto al reale campionato.
-			</rule-description>
-
-			<rule-values>
-				<rule-text id="etInizio" type="number" data-rule="required" min="1" value="1" loadable>
-					Inizio
-				</rule-text>
-
-				<rule-text id="etFine" type="number" data-rule="required" min="1" value="38" loadable>
-					Fine
-				</rule-text>
-			</rule-values>
-
-		</rule>
-
-	</rule-section>
-
-	<!-- sezione rose -->
-	<rule-section>
-
-		<section-title>
-			Gestione rose
-		</section-title>
-
-		<!-- struttura rose -->
-		<rule>
-			<rule-title>
-				Struttura rose
-			</rule-title>
-
-			<rule-description>
-				Imposta il numero di giocatori necessari per la competizione.
-			</rule-description>
-
-			<rule-values>
-				<rule-text id="etPortieri" type="number" data-rule="required" min="1" value="3" loadable>
-					Portieri
-				</rule-text>
-
-				<rule-text id="etDifensori" type="number" data-rule="required" min="1" value="8" loadable>
-					Difensori
-				</rule-text>
-
-				<rule-text id="etCentrocampisti" type="number" data-rule="required" min="1" value="8" loadable>
-					Centrocampisti
-				</rule-text>
-
-				<rule-text id="etAttaccanti" type="number" data-rule="required" min="1" value="6" loadable>
-					Attaccanti
-				</rule-text>
-			</rule-values>
-
-		</rule>
-
-		<!-- giocatori condivisi -->
-		<rule>
-			<rule-title>
-				Giocatori condivisi
-			</rule-title>
-
-			<rule-description>
-				Indica se sono permessi giocatori condivisi tra più squadre.
-			</rule-description>
-
-			<rule-values>
-				<form>
-					<rule-radio-opt id="cbCondivisiSi" loadable>
-						Si
-					</rule-radio-opt>
-
-					<rule-radio-opt id="cbCondivisiNo" checked loadable>
-						No
-					</rule-radio-opt>
-				</form>
-			</rule-values>
-		</rule>
-
-	</rule-section>
-
-	<!-- sezione mercato -->
-	<rule-section>
-
-		<section-title>
-			Gestione mercato
-		</section-title>
-
-		<!-- numero crediti -->
-		<rule>
-			<rule-title>
-				Numero crediti
-			</rule-title>
-
-			<rule-description>
-				Imposta il numero di fanta milioni che ogni squadra avrà a disposizione per completare la propria rosa.
-			</rule-description>
-
-			<rule-values>
-				<rule-text id="etCrediti" type="number" data-rule="required" min="1" value="500" loadable>
-					Crediti iniziali
-				</rule-text>
-			</rule-values>
-		</rule>
-
-		<!-- crediti aggiuntivi -->
-		<rule>
-			<rule-title>
-				Crediti aggiuntivi per sessione
-			</rule-title>
-
-			<rule-description>
-				Imposta il numero di fanta-milioni che verranno aggiunti a ogni sessione di mercato per ogni squadra.
-			</rule-description>
-
-			<rule-values>
-				<rule-text id="etCreditiSessione" type="number" data-rule="required" min="0" value="30" loadable>
-					Crediti aggiuntivi
-				</rule-text>
-			</rule-values>
-		</rule>
-
-		<!-- gestione fine crediti -->
-		<rule>
-			<rule-title>
-				Gestione fine crediti
-			</rule-title>
-
-			<rule-description>
-				Indica come verrà gestita l'eventuale situazione in cui una squadra spende più crediti di quelli previsti.
-			</rule-description>
-
-			<rule-values>
-				<rule-text-area id="taCreditiFiniti" loadable>
-					Saranno svincolati, partendo dal più costoso, tanti giocatori quanto basta per recuperare un saldo crediti positivo.
-				</rule-text-area>
-			</rule-values>
-		</rule>
-
-		<!-- gestione crediti residui -->
-		<rule>
-			<rule-title>
-				Gestione crediti residui
-			</rule-title>
-
-			<rule-description>
-				Indica se i crediti residui da una sessione di mercato verranno usati come base di partenza per la successiva sessione di mercato.
-			</rule-description>
-
-			<rule-values>
-				<form>
-					<rule-radio-opt id="cbResiduiSi" type="radio" name="radio" checked loadable>
-						Si
-					</rule-radio-opt>
-
-					<rule-radio-opt id="cbResiduiNo" type="radio" name="radio" loadable>
-						No
-					</rule-radio-opt>
-				</form>
-			</rule-values>
-		</rule>
-
-		<!-- cambio ruolo -->
-		<rule>
-			<rule-title>
-				Cambio ruolo
-			</rule-title>
-
-			<rule-description>
-				Indica se supportare il cambio ruolo (esempio un attaccante che tutti decidono di rendere un centrocampista).
-			</rule-description>
-
-			<rule-values>
-				<form>
-					<rule-radio-opt id="cbCambioRuoloSi" type="radio" name="radio" loadable >
-						Si
-					</rule-radio-opt>
-					<rule-radio-opt id="cbCambioRuoloNo" type="radio" name="radio" checked loadable >
-						No
-					</rule-radio-opt>
-				</form>
-			</rule-values>
-		</rule>
-
-		<!-- scambi massimi competizione -->
-		<rule>
-			<rule-title>
-				Numero scambi massimi
-				Competizione
-			</rule-title>
-
-			<rule-description>
-				Imposta il numero massimo di giocatori che è possibile modificare durante l'intera competizione.
-			</rule-description>
-
-			<rule-note>
-				Inserisci il valore zero per non impostare nessun limite.
-			</rule-note>
-
-			<rule-values>
-				<rule-text id="etMaxScambiCompetizione" type="number" data-rule="required" min="0" value="0" loadable>
-					Scambi massimi competizione
-				</rule-text>
-			</rule-values>
-		</rule>
-
-		<!-- scambi massimi sessione -->
-		<rule>
-			<rule-title>
-				Numero scambi massimi
-				Singola sessione
-			</rule-title>
-
-			<rule-description>
-				Imposta il numero massimo di giocatori che è possibile modificare durante una singola sessione di mercato.
-			</rule-description>
-
-			<rule-note>
-				Inserisci il valore zero per non impostare nessun limite.
-			</rule-note>
-
-			<rule-values>
-				<rule-text id="etMaxScambiSessione" type="number" data-rule="required" min="0" value="0" loadable>
-					Scambi massimi sessione
-				</rule-text>
-			</rule-values>
-		</rule>
-
-		<!-- scambi massimi ruolo -->
-		<rule>
-			<rule-title>
-				Numero scambi massimi
-				Per ruolo
-			</rule-title>
-
-			<rule-description>
-				Imposta il numero massimo di giocatori che è possibile modificare per ruolo durante una singola sessione di mercato.
-			</rule-description>
-
-			<rule-note>
-				Inserisci il valore zero per non impostare nessun limite.
-			</rule-note>
-
-			<rule-values>
-				<rule-text id="etMaxScambiRuolo" type="number" data-rule="required" min="0" value="0" oninput="manageRoleMaxChangeNumber(this)" loadable>
-					Scambi massimi ruolo
-				</rule-text>
-			</rule-values>
-		</rule>
-
-		<!-- note mercato -->
-		<rule>
-			<rule-title>
-				Regole non previste
-			</rule-title>
-
-			<rule-description>
-				Inserisci eventuali note aggiuntive per le sessioni di mercato.
-			</rule-description>
-
-			<rule-values>
-				<rule-text-area id="etNoteMercato" loadable></rule-text-area>
-			</rule-values>
-		</rule>
-
-	</rule-section>
-
-	<!-- sezione svincoli -->
-	<rule-section>
-		<section-title>
-			Gestione svincoli
-		</section-title>
-
-		<!-- modalità svincoli -->
-		<rule>
-			<rule-title>
-				Svincolo durante il mercato
-			</rule-title>
-
-			<rule-description>
-				Indica come gestire gli svincoli liberi durante una sessione di mercato generica.
-			</rule-description>
-
-			<rule-values>
-				<form>
-					<rule-radio-opt id="cbSvincoloAcquisto" type="radio" name="radio" loadable checked>
-						Svincola un giocatore solo dopo averne acquistato un altro dello stesso ruolo
-					</rule-radio-opt>
-
-					<rule-radio-opt id="cbSvincoloInizioSi" type="radio" name="radio" loadable>
-						Svincola i giocatori prima dell'inizio del mercato.
-						Gli svincolati potranno essere acquistati da chi li ha liberati.
-					</rule-radio-opt>
-
-					<rule-radio-opt id="cbSvincoloInizioNo" type="radio" name="radio" loadable>
-						Svincola i giocatori prima dell'inizio del mercato.
-						Gli svincolati non potranno essere acquistati da chi li ha liberati.
-					</rule-radio-opt>
-				</form>
-			</rule-values>
-		</rule>
-
-		<!-- svincoli generici -->
-		<rule>
-			<rule-title>
-				Recupero crediti
-			</rule-title>
-
-			<rule-description>
-				Indica come gestire lo svincolo di un giocatore da parte di una qualsiasi squadra
-			</rule-description>
-
-			<rule-values>
-				<form onchange="verifyCreditsRecoverOnPlayerRelease()">
-					<rule-radio-opt id="cbSvincoloNessun" type="radio" name="radio" loadable checked>
-						Non ricevere nessun credito
-					</rule-radio-opt>
-
-					<rule-radio-opt id="cbSvincoloUno" type="radio" name="radio" loadable>
-						Ricevi un solo credito
-					</rule-radio-opt>
-
-					<rule-radio-opt id="cbSvincoloMeta" type="radio" name="radio" loadable>
-						Ricevi crediti pari alla metà della quotazione di acquisto
-					</rule-radio-opt>
-
-					<rule-radio-opt id="cbSvincoloQuotazione" type="radio" name="radio" loadable>
-						Ricevi crediti pari alla quotazione di acquisto
-					</rule-radio-opt>
-
-					<rule-radio-opt id="cbSvincoloAttuale" type="radio" name="radio" loadable>
-						Ricevi crediti pari alla quotazione attuale
-					</rule-radio-opt>
-
-					<rule-radio-opt id="cbSvincoloMedia" type="radio" name="radio" loadable>
-						Ricevi crediti pari alla media tra la quotazione attuale e il valore di acquisto
-						Esempio quotazione attuale 50, spesa 10, ricevi 30
-					</rule-radio-opt>
-				</form>
-			</rule-values>
-		</rule>
-
-		<!-- by defect or excess return -->
-		<rule id="defectOrExcessSection">
-			<rule-title>
-				Gestione crediti decimali
-			</rule-title>
-
-			<rule-description>
-				Indica come gestire svincoli con valore decimale.
-			</rule-description>
-
-			<rule-note>
-				Esempio: Devo ricevere 1,5 crediti
-                Per difetto: Ricevo 1 credito
-                Per eccesso: Ricevo 2 crediti
-			</rule-note>
-
-			<rule-values>
-				<form>
-					<rule-radio-opt id="cbDifetto" type="radio" name="radio" loadable>
-						Per difetto
-					</rule-radio-opt>
-
-					<rule-radio-opt id="cbEccesso" type="radio" name="radio" checked loadable>
-						Per eccesso
-					</rule-radio-opt>
-				</form>
-			</rule-values>
-		</rule>
-
-        <!-- cessione altro campionato -->
+<div class="container">
+    <h1>Crea il tuo Fanta Regolamento</h1>
+</div>
+
+<!-- Recharge regulation from PDF -->
+<div>
+    <!-- Recharge button -->
+    <button id="btnImporta" class="ripple" onclick="selectLocalPDF()">
+        Ricarica regolamento
+    </button>
+
+    <!-- Recharge feedback -->
+    <div id="importFeedbackSection" style="display: none;">
+        <br>
+        <div id="sectionContent" class="macro success-section">
+            <div class="container">
+                <h2 style="color: white;">Importazione</h2>
+            </div>
+            <div class="container centered">
+                <p id="importMessage" style="color: white;">Error text</p>
+                <br>
+                <button onclick="hideImportFeedbackSection()">Ok</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- recharge input file hidden -->
+    <input type="file" id="fileInput" style="display: none;"/>
+</div>
+<br>
+
+<!-- sezione competizione -->
+<rule-section>
+
+    <section-title>
+        Gestione competizione
+    </section-title>
+
+    <!-- tipo competizione -->
+    <rule>
+
+        <rule-title>
+            Tipo di competizione
+        </rule-title>
+
+        <rule-description>
+            Imposta il tipo di competizione da affrontare
+        </rule-description>
+
+        <rule-values>
+            <form>
+                <rule-radio-opt id="cbCalendario" checked loadable>
+                    Calendario
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbFormulaUno" loadable>
+                    Formula 1
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbListone" loadable>
+                    Listone
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbBusta" loadable>
+                    Busta chiusa
+                </rule-radio-opt>
+            </form>
+        </rule-values>
+
+    </rule>
+
+    <!-- durata competizione -->
+    <rule>
+
+        <rule-title>
+            Durata competizione
+        </rule-title>
+
+        <rule-description>
+            Indica la durata della competizione, impostando la giornata di inizio e fine rispetto al reale campionato.
+        </rule-description>
+
+        <rule-values>
+            <rule-text id="etInizio" type="number" data-rule="required" min="1" value="1" loadable>
+                Inizio
+            </rule-text>
+
+            <rule-text id="etFine" type="number" data-rule="required" min="1" value="38" loadable>
+                Fine
+            </rule-text>
+        </rule-values>
+
+    </rule>
+
+</rule-section>
+
+<!-- sezione rose -->
+<rule-section>
+
+    <section-title>
+        Gestione rose
+    </section-title>
+
+    <!-- struttura rose -->
+    <rule>
+        <rule-title>
+            Struttura rose
+        </rule-title>
+
+        <rule-description>
+            Imposta il numero di giocatori necessari per la competizione.
+        </rule-description>
+
+        <rule-values>
+            <rule-text id="etPortieri" type="number" data-rule="required" min="1" value="3" loadable>
+                Portieri
+            </rule-text>
+
+            <rule-text id="etDifensori" type="number" data-rule="required" min="1" value="8" loadable>
+                Difensori
+            </rule-text>
+
+            <rule-text id="etCentrocampisti" type="number" data-rule="required" min="1" value="8" loadable>
+                Centrocampisti
+            </rule-text>
+
+            <rule-text id="etAttaccanti" type="number" data-rule="required" min="1" value="6" loadable>
+                Attaccanti
+            </rule-text>
+        </rule-values>
+
+    </rule>
+
+    <!-- giocatori condivisi -->
+    <rule>
+        <rule-title>
+            Giocatori condivisi
+        </rule-title>
+
+        <rule-description>
+            Indica se sono permessi giocatori condivisi tra più squadre.
+        </rule-description>
+
+        <rule-values>
+            <form>
+                <rule-radio-opt id="cbCondivisiSi" loadable>
+                    Si
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbCondivisiNo" checked loadable>
+                    No
+                </rule-radio-opt>
+            </form>
+        </rule-values>
+    </rule>
+
+</rule-section>
+
+<!-- sezione mercato -->
+<rule-section>
+
+    <section-title>
+        Gestione mercato
+    </section-title>
+
+    <!-- numero crediti -->
+    <rule>
+        <rule-title>
+            Numero crediti
+        </rule-title>
+
+        <rule-description>
+            Imposta il numero di fanta milioni che ogni squadra avrà a disposizione per completare la propria rosa.
+        </rule-description>
+
+        <rule-values>
+            <rule-text id="etCrediti" type="number" data-rule="required" min="1" value="500" loadable>
+                Crediti iniziali
+            </rule-text>
+        </rule-values>
+    </rule>
+
+    <!-- crediti aggiuntivi -->
+    <rule>
+        <rule-title>
+            Crediti aggiuntivi per sessione
+        </rule-title>
+
+        <rule-description>
+            Imposta il numero di fanta-milioni che verranno aggiunti a ogni sessione di mercato per ogni squadra.
+        </rule-description>
+
+        <rule-values>
+            <rule-text id="etCreditiSessione" type="number" data-rule="required" min="0" value="30" loadable>
+                Crediti aggiuntivi
+            </rule-text>
+        </rule-values>
+    </rule>
+
+    <!-- gestione fine crediti -->
+    <rule>
+        <rule-title>
+            Gestione fine crediti
+        </rule-title>
+
+        <rule-description>
+            Indica come verrà gestita l'eventuale situazione in cui una squadra spende più crediti di quelli previsti.
+        </rule-description>
+
+        <rule-values>
+            <rule-text-area id="taCreditiFiniti" loadable>
+                Saranno svincolati, partendo dal più costoso, tanti giocatori quanto basta per recuperare un saldo
+                crediti positivo.
+            </rule-text-area>
+        </rule-values>
+    </rule>
+
+    <!-- gestione crediti residui -->
+    <rule>
+        <rule-title>
+            Gestione crediti residui
+        </rule-title>
+
+        <rule-description>
+            Indica se i crediti residui da una sessione di mercato verranno usati come base di partenza per la
+            successiva sessione di mercato.
+        </rule-description>
+
+        <rule-values>
+            <form>
+                <rule-radio-opt id="cbResiduiSi" type="radio" name="radio" checked loadable>
+                    Si
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbResiduiNo" type="radio" name="radio" loadable>
+                    No
+                </rule-radio-opt>
+            </form>
+        </rule-values>
+    </rule>
+
+    <!-- cambio ruolo -->
+    <rule>
+        <rule-title>
+            Cambio ruolo
+        </rule-title>
+
+        <rule-description>
+            Indica se supportare il cambio ruolo (esempio un attaccante che tutti decidono di rendere un
+            centrocampista).
+        </rule-description>
+
+        <rule-values>
+            <form>
+                <rule-radio-opt id="cbCambioRuoloSi" type="radio" name="radio" loadable>
+                    Si
+                </rule-radio-opt>
+                <rule-radio-opt id="cbCambioRuoloNo" type="radio" name="radio" checked loadable>
+                    No
+                </rule-radio-opt>
+            </form>
+        </rule-values>
+    </rule>
+
+    <!-- scambi massimi competizione -->
+    <rule>
+        <rule-title>
+            Numero scambi massimi
+            Competizione
+        </rule-title>
+
+        <rule-description>
+            Imposta il numero massimo di giocatori che è possibile modificare durante l'intera competizione.
+        </rule-description>
+
+        <rule-note>
+            Inserisci il valore zero per non impostare nessun limite.
+        </rule-note>
+
+        <rule-values>
+            <rule-text id="etMaxScambiCompetizione" type="number" data-rule="required" min="0" value="0" loadable>
+                Scambi massimi competizione
+            </rule-text>
+        </rule-values>
+    </rule>
+
+    <!-- scambi massimi sessione -->
+    <rule>
+        <rule-title>
+            Numero scambi massimi
+            Singola sessione
+        </rule-title>
+
+        <rule-description>
+            Imposta il numero massimo di giocatori che è possibile modificare durante una singola sessione di mercato.
+        </rule-description>
+
+        <rule-note>
+            Inserisci il valore zero per non impostare nessun limite.
+        </rule-note>
+
+        <rule-values>
+            <rule-text id="etMaxScambiSessione" type="number" data-rule="required" min="0" value="0" loadable>
+                Scambi massimi sessione
+            </rule-text>
+        </rule-values>
+    </rule>
+
+    <!-- scambi massimi ruolo -->
+    <rule>
+        <rule-title>
+            Numero scambi massimi
+            Per ruolo
+        </rule-title>
+
+        <rule-description>
+            Imposta il numero massimo di giocatori che è possibile modificare per ruolo durante una singola sessione di
+            mercato.
+        </rule-description>
+
+        <rule-note>
+            Inserisci il valore zero per non impostare nessun limite.
+        </rule-note>
+
+        <rule-values>
+            <rule-text id="etMaxScambiRuolo" type="number" data-rule="required" min="0" value="0"
+                       oninput="manageRoleMaxChangeNumber(this)" loadable>
+                Scambi massimi ruolo
+            </rule-text>
+        </rule-values>
+    </rule>
+
+    <!-- note mercato -->
+    <rule>
+        <rule-title>
+            Regole non previste
+        </rule-title>
+
+        <rule-description>
+            Inserisci eventuali note aggiuntive per le sessioni di mercato.
+        </rule-description>
+
+        <rule-values>
+            <rule-text-area id="etNoteMercato" loadable></rule-text-area>
+        </rule-values>
+    </rule>
+
+</rule-section>
+
+<!-- sezione svincoli -->
+<rule-section>
+    <section-title>
+        Gestione svincoli
+    </section-title>
+
+    <!-- modalità svincoli -->
+    <rule>
+        <rule-title>
+            Svincolo durante il mercato
+        </rule-title>
+
+        <rule-description>
+            Indica come gestire gli svincoli liberi durante una sessione di mercato generica.
+        </rule-description>
+
+        <rule-values>
+            <form>
+                <rule-radio-opt id="cbSvincoloAcquisto" type="radio" name="radio" loadable checked>
+                    Svincola un giocatore solo dopo averne acquistato un altro dello stesso ruolo
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbSvincoloInizioSi" type="radio" name="radio" loadable>
+                    Svincola i giocatori prima dell'inizio del mercato.
+                    Gli svincolati potranno essere acquistati da chi li ha liberati.
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbSvincoloInizioNo" type="radio" name="radio" loadable>
+                    Svincola i giocatori prima dell'inizio del mercato.
+                    Gli svincolati non potranno essere acquistati da chi li ha liberati.
+                </rule-radio-opt>
+            </form>
+        </rule-values>
+    </rule>
+
+    <!-- svincoli generici -->
+    <rule>
+        <rule-title>
+            Recupero crediti
+        </rule-title>
+
+        <rule-description>
+            Indica come gestire lo svincolo di un giocatore da parte di una qualsiasi squadra
+        </rule-description>
+
+        <rule-values>
+            <form onchange="verifyCreditsRecoverOnPlayerRelease()">
+                <rule-radio-opt id="cbSvincoloNessun" type="radio" name="radio" loadable checked>
+                    Non ricevere nessun credito
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbSvincoloUno" type="radio" name="radio" loadable>
+                    Ricevi un solo credito
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbSvincoloMeta" type="radio" name="radio" loadable>
+                    Ricevi crediti pari alla metà della quotazione di acquisto
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbSvincoloQuotazione" type="radio" name="radio" loadable>
+                    Ricevi crediti pari alla quotazione di acquisto
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbSvincoloAttuale" type="radio" name="radio" loadable>
+                    Ricevi crediti pari alla quotazione attuale
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbSvincoloMedia" type="radio" name="radio" loadable>
+                    Ricevi crediti pari alla media tra la quotazione attuale e il valore di acquisto
+                    Esempio quotazione attuale 50, spesa 10, ricevi 30
+                </rule-radio-opt>
+            </form>
+        </rule-values>
+    </rule>
+
+    <!-- by defect or excess return -->
+    <rule id="defectOrExcessSection">
+        <rule-title>
+            Gestione crediti decimali
+        </rule-title>
+
+        <rule-description>
+            Indica come gestire svincoli con valore decimale.
+        </rule-description>
+
+        <rule-note>
+            Esempio: Devo ricevere 1,5 crediti
+            Per difetto: Ricevo 1 credito
+            Per eccesso: Ricevo 2 crediti
+        </rule-note>
+
+        <rule-values>
+            <form>
+                <rule-radio-opt id="cbDifetto" type="radio" name="radio" loadable>
+                    Per difetto
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbEccesso" type="radio" name="radio" checked loadable>
+                    Per eccesso
+                </rule-radio-opt>
+            </form>
+        </rule-values>
+    </rule>
+
+    <!-- cessione altro campionato -->
+    <rule>
+        <rule-title>
+            Gestione cessioni giocatori
+        </rule-title>
+
+        <rule-description>
+            Indica come vanno gestite le eventuali cessioni di giocatori in altri campionati, nazionali o
+            internazionali.
+        </rule-description>
+
+        <rule-values>
+            <form onchange="verifyCreditsRecoverOnPlayerRelease()">
+                <rule-radio-opt id="cbPreMercatoSvincolo" type="radio" name="radio" loadable checked>
+                    Applica regola scelta per un normale svincolo
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbPreMercatoPrestito" type="radio" name="radio" loadable>
+                    Prendi in prestito uno svincolato fino al prossimo mercato
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbPreMercatoQuotazioneIntera" type="radio" name="radio" loadable>
+                    Ricevi l'intera quotazione di acquisto
+                </rule-radio-opt>
+            </form>
+        </rule-values>
+    </rule>
+
+    <!-- note svincoli -->
+    <rule>
+        <rule-title>
+            Regole non previste
+        </rule-title>
+
+        <rule-description>
+            Inserisci eventuali note aggiuntive per la gestione di svincoli giocatori.
+        </rule-description>
+
+        <rule-values>
+            <rule-text-area id="etNoteSvincoli" class="textarea" loadable></rule-text-area>
+        </rule-values>
+    </rule>
+
+</rule-section>
+
+<!-- sezione scambi -->
+<rule-section>
+    <section-title>
+        Gestione scambi
+    </section-title>
+
+    <!-- consenti scambi -->
+    <rule>
+        <rule-title>
+            Scambi consentiti
+        </rule-title>
+
+        <rule-description>
+            Indica se la tua competizione prevede la possibilità di scambiare giocatori tra squadre.
+        </rule-description>
+
+        <rule-values>
+            <form>
+                <rule-radio-opt id="cbScambiSi" type="radio" name="radio" onchange="showExchangeSection(true);"
+                                loadable>
+                    Si
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbScambiNo" type="radio" name="radio" onchange="showExchangeSection(false);"
+                                loadable checked>
+                    No
+                </rule-radio-opt>
+            </form>
+        </rule-values>
+    </rule>
+
+    <!-- sezione scambi consentiti -->
+    <div id="exchangeSection" style="display:none;">
+
+        <!-- scambio crediti -->
         <rule>
             <rule-title>
-                Gestione cessioni giocatori
+                Scambio crediti
             </rule-title>
 
             <rule-description>
-                Indica come vanno gestite le eventuali cessioni di giocatori in altri campionati, nazionali o internazionali.
+                Indica se saranno permessi gli scambi di crediti tra partecipanti (esempio Totti per Del Piero più 50
+                fanta milioni)
             </rule-description>
 
             <rule-values>
-                <form onchange="verifyCreditsRecoverOnPlayerRelease()">
-                    <rule-radio-opt id="cbPreMercatoSvincolo" type="radio" name="radio" loadable checked>
-                        Applica regola scelta per un normale svincolo
+                <form>
+                    <rule-radio-opt id="cbScambioCreditiSi" type="radio" name="radio" loadable>
+                        Si
                     </rule-radio-opt>
 
-                    <rule-radio-opt id="cbPreMercatoPrestito" type="radio" name="radio" loadable>
-                        Prendi in prestito uno svincolato fino al prossimo mercato
-                    </rule-radio-opt>
-
-                    <rule-radio-opt id="cbPreMercatoQuotazioneIntera" type="radio" name="radio" loadable>
-                        Ricevi l'intera quotazione di acquisto
+                    <rule-radio-opt id="cbScambioCreditiNo" type="radio" name="radio" loadable checked>
+                        No
                     </rule-radio-opt>
                 </form>
             </rule-values>
         </rule>
 
-        <!-- note svincoli -->
+        <!-- scambio quotazioni -->
+        <rule id="creditsExchangeWithPlayersSection">
+            <rule-title>
+                Scambio quotazioni
+            </rule-title>
+
+            <rule-description>
+                Dato che la tua competizione prevede il recupero di crediti da uno svincolo, indica come
+                gestire questa particolare situazione:
+                Supponiamo che uno svincolo faccia recuperare l'intera quotazione di acquisto.
+                La Roma compra Totti a 10, la Juventus compra Del Piero a 20.
+                Se si fa uno scambio Totti con Del Piero, avremo che la Roma ha Del Piero e la Juventus
+                ha Totti.
+                Nel caso in cui sia Totti che Del Piero vengano svincolati, quanti crediti recupera
+                ciascuna squadra?
+            </rule-description>
+
+            <rule-values>
+                <form>
+                    <rule-radio-opt id="cbScambioQuotazioneA" type="radio" name="radio" loadable checked>
+                        Roma recupera 10 crediti, la Juventus recupera 20 crediti.
+                    </rule-radio-opt>
+
+                    <rule-radio-opt id="cbScambioQuotazioneB" type="radio" name="radio" loadable>
+                        Roma recupera 20 crediti, la Juventus recupera 10 crediti.
+                    </rule-radio-opt>
+                </form>
+            </rule-values>
+        </rule>
+
+        <!-- note scambi -->
         <rule>
             <rule-title>
                 Regole non previste
             </rule-title>
 
             <rule-description>
-                Inserisci eventuali note aggiuntive per la gestione di svincoli giocatori.
+                Inserisci eventuali note aggiuntive per la gestione di scambi giocatori.
             </rule-description>
 
             <rule-values>
-                <rule-text-area id="etNoteSvincoli" class="textarea" loadable></rule-text-area>
+                <rule-text-area id="etNoteScambi" loadable></rule-text-area>
             </rule-values>
         </rule>
 
-	</rule-section>
+    </div>
 
-	<!-- scambi -->
-	<div class="macro">
-		<div class="container">
-			<h2>Gestione scambi</h2>
-		</div>
+</rule-section>
 
-		<!-- consenti scambi -->
-		<div class="container">
-			<h4>Scambi consentiti</h4>
-		</div>
-		<div class="container">
-			<center>
-				<p>Indica se la tua competizione prevede la possibilità di scambiare giocatori tra squadre</p>
-			</center>
-		</div>
-		<br>
-		<div class="container">
-			<form>
-				<label>
-					<input id="cbScambiSi" type="radio" name="radio" onchange="showExchangeSection(true);" loadable />
-					<span>Si</span>
-				</label>
-				<label>
-					<input id="cbScambiNo" type="radio" name="radio" onchange="showExchangeSection(false);" loadable checked />
-					<span>No</span>
-				</label>
-			</form>
-		</div>
+<!-- sezione infortuni -->
+<rule-section>
+    <section-title>
+        Gestione infortuni
+    </section-title>
 
-		<!-- sezione scambi -->
-		<div id="exchangeSection" style="display:none;">
-			<br>
+    <!-- gestione infortunio -->
+    <rule>
+        <rule-title>
+            Infortunio giocatore
+        </rule-title>
 
-			<!-- scambio crediti -->
-			<div class="container">
-				<h4>Scambio crediti</h4>
-			</div>
-			<div class="container">
-				<center>
-					<p>Indica se saranno permessi gli scambi di crediti tra partecipanti (esempio Totti per Del Piero
-						più 50 fanta milioni)</p>
-				</center>
-			</div>
-			<br>
-			<div class="container">
-				<form>
-					<label>
-						<input id="cbScambioCreditiSi" type="radio" name="radio" loadable />
-						<span>Si</span>
-					</label>
-					<label>
-						<input id="cbScambioCreditiNo" type="radio" name="radio" loadable checked />
-						<span>No</span>
-					</label>
-				</form>
-			</div>
-			<br>
+        <rule-description>
+            Indica come gestire gli infortuni di calciatori durante la stagione
+        </rule-description>
 
-			<!-- scambio quotazioni -->
-			<div id="creditsExchangeWithPlayersSection">
-				<div class="container">
-					<h4>Scambio quotazioni</h4>
-				</div>
-				<div class="container">
-					<center>
-						<p>Dato che la tua competizione prevede il recupero di crediti da uno svincolo, indica come
-							gestire questa particolare situazione:
-							<br>Supponiamo che uno svincolo faccia recuperare l'intera quotazione di acquisto.
-							<br>La Roma compra Totti a 10, la Juventus compra Del Piero a 20.
-							<br>Se si fa uno scambio Totti con Del Piero, avremo che la Roma ha Del Piero e la Juventus
-							ha Totti.
-							<br>Nel caso in cui sia Totti che Del Piero vengano svincolati, quanti crediti recupera
-							ciascuna squadra?
-						</p>
-					</center>
-				</div>
-				<br>
-				<div class="container">
-					<form>
-						<label>
-							<input id="cbScambioQuotazioneA" type="radio" name="radio" loadable checked />
-							<span>Roma recupera 10 crediti, la Juventus recupera 20 crediti.</span>
-						</label>
-						<label>
-							<input id="cbScambioQuotazioneB" type="radio" name="radio" loadable />
-							<span>Roma recupera 20 crediti, la Juventus recupera 10 crediti.</span>
-						</label>
-					</form>
-				</div>
-				<br>
-			</div>
+        <rule-values>
+            <form>
+                <rule-radio-opt id="cbInfortunioNessun" type="radio" name="radio" loadable checked>
+                    Non applicare nessun prestito, in nessun caso
+                </rule-radio-opt>
 
-			<!-- note scambi -->
-			<div class="container">
-				<h4>Regole non previste</h4>
-			</div>
-			<div class="container">
-				<center>
-					<p>Inserisci eventuali note aggiuntive per la gestione di scambi giocatori.</p>
-				</center>
-			</div>
-			<br>
-			<center>
-				<textarea id="etNoteScambi" class="textarea" loadable></textarea>
-			</center>
-		</div>
-		<br>
-	</div>
-	<br>
+                <rule-radio-opt id="cbInfortunioPrestito" type="radio" name="radio" loadable>
+                    Prevedi il prestito di un calciatore svincolato fino al prossimo mercato.
+                    Questa regola verrà applicata solo a infortuni che superano i sei mesi.
+                    Questa regola verrà applicata solo se mancano almeno dieci giornate dalla fine.
+                </rule-radio-opt>
+            </form>
+        </rule-values>
+    </rule>
 
-	<!-- infortuni -->
-	<div class="macro">
-		<div class="container">
-			<h2>Gestione infortuni</h2>
-		</div>
-		<div class="container">
-			<h4>Infortunio giocatore</h4>
-		</div>
-		<div class="container">
-			<center>
-				<p>Indica come gestire gli infortuni di calciatori durante la stagione</p>
-			</center>
-		</div>
-		<br>
-		<div class="container">
-			<form>
-				<label>
-					<input id="cbInfortunioNessun" type="radio" name="radio" loadable checked />
-					<span>Non applicare nessun prestito, in nessun caso</span>
-				</label>
-				<label>
-					<input id="cbInfortunioPrestito" type="radio" name="radio" loadable />
-					<span>Prevedi il prestito di un calciatore svincolato fino al prossimo mercato<br>Questa regola
-						verrà applicata solo a infortuni che superano i sei mesi<br>Questa regola verrà applicata solo
-						se mancano almeno dieci giornate dalla fine</span>
-				</label>
-			</form>
-		</div>
-		<br>
-		<div class="container">
-			<h4>Gestione COVID-19</h4>
-		</div>
-		<div class="container">
-			<center>
-				<p>Indica come gestire eventuali positività da COVID-19</p>
-			</center>
-		</div>
-		<br>
-		<div class="container">
-			<form>
-				<label>
-					<input id="cbCovidPolitico" type="radio" name="radio" loadable checked />
-					<span>Un calciatore positivo accederà al 6 politico</span>
-				</label>
-				<label>
-					<input id="cbCovidPanchina" type="radio" name="radio" loadable />
-					<span>Un calciatore positivo verrà sostituito con il panchinaro previsto<br>Questa opzione può
-						essere pericolosa per multiple positività</span>
-				</label>
-				<label>
-					<input id="cbCovidScaglioni" type="radio" name="radio" loadable />
-					<span>Verranno assegnati votazioni politiche con questo schema:
-						<br>PORTIERI
-						<br>Se tutti i portieri sono positivi, si accede ad 1 voto d'ufficio.
-						<br>GIOCATORI DI MOVIMENTO
-						<br>Se si hanno 3 calciatori positivi si può accedere ad un voto d’ufficio.
-						<br>Se i calciatori positivi sono almeno 5, i voti d’ufficio a cui si può accedere diventano 2.
-						<br>Ovviamente, il conteggio dei positivi va raggruppato per ruolo, e non per rosa
-						completa.</span>
-				</label>
-			</form>
-		</div>
-		<div class="container">
-			<h4>Regole non previste</h4>
-		</div>
-		<div class="container">
-			<center>
-				<p>Inserisci eventuali note aggiuntive per la gestione di infortuni giocatori.</p>
-			</center>
-		</div>
-		<br>
-		<center>
-			<textarea id="etNoteInfortuni" class="textarea" loadable></textarea>
-		</center>
-		<br>
-	</div>
-	<br>
+    <!-- gestione covid o simili -->
+    <rule>
+        <rule-title>
+            Gestione COVID-19 (o simili)
+        </rule-title>
 
-	<!-- inserimento formazione -->
-	<div class="macro">
-		<div class="container">
-			<h2>Inserimento formazione</h2>
-		</div>
-		<div class="container">
-			<h4>Struttura panchina</h4>
-		</div>
-		<div class="container">
-			<center>
-				<p>Indica la struttura e l'ordinamento della panchina</p>
-			</center>
-		</div>
-		<br>
-		<div class="container">
-			<div class="form-group">
-				<input id="etPanchina" type="text" data-rule="required" value="PP-DDD-CCC-AAA" loadable />
-			</div>
-		</div>
-		<br>
-		<div class="container">
-			<h4>Tolleranza ritardo</h4>
-		</div>
-		<div class="container">
-			<center>
-				<p>Imposta il numero di minuti entro cui bisogna inserire la formazione prima dell'inizio della giornata
-				</p>
-			</center>
-		</div>
-		<br>
-		<div class="container">
-			<div class="form-group">
-				<input id="etTolleranza" type="number" data-rule="required" min="1" value="1" loadable />
-			</div>
-		</div>
-		<div class="container">
-			<h4>Moduli supportati</h4>
-		</div>
-		<center>
-			<div class="container_pill">
-				<ul class="ks-cboxtags">
-					<li><input type="checkbox" id="cb442" loadable checked><label for="cb442">4-4-2</label></li>
-					<li><input type="checkbox" id="cb433" loadable checked><label for="cb433">4-3-3</label></li>
-					<li><input type="checkbox" id="cb451" loadable checked><label for="cb451">4-5-1</label></li>
-					<li><input type="checkbox" id="cb343" loadable checked><label for="cb343">3-4-3</label></li>
-					<li><input type="checkbox" id="cb352" loadable checked><label for="cb352">3-5-2</label></li>
-					<li><input type="checkbox" id="cb532" loadable checked><label for="cb532">5-3-2</label></li>
-					<li><input type="checkbox" id="cb541" loadable checked><label for="cb541">5-4-1</label></li>
-					<li><input type="checkbox" id="cb631" loadable><label for="cb631">6-3-1</label></li>
-					<li><input type="checkbox" id="cb622" loadable><label for="cb622">6-2-2</label></li>
-				</ul>
-			</div>
-		</center>
-		<div class="container">
-			<h4>Mancato inserimento</h4>
-		</div>
-		<div class="container">
-			<center>
-				<p>Decidi come gestire la situazione in cui un partecipante non inserisce la formazione per una giornata
-				</p>
-			</center>
-		</div>
-		<br>
-		<div class="container">
-			<form>
-				<label>
-					<input id="cbMancataNulla" type="radio" name="radio" loadable checked />
-					<span>Inserimento formazione nulla (punteggio zero)<br>Se mi preoccupo di mettere la squadra, non è
-						bello perdere contro chi si dimentica.</span>
-				</label>
-				<label>
-					<input id="cbMancataPrecedente" type="radio" name="radio" loadable />
-					<span>Recupera la formazione della giornata precedente</span>
-				</label>
-			</form>
-		</div>
-		<br>
-		<div class="container">
-			<h4>Penalità mancato inserimento</h4>
-		</div>
-		<div class="container">
-			<center>
-				<p>Indica se è prevista una penalità nel caso in cui un giocatore non inserisca la formazione per una
-					specifica giornata
-				</p>
-			</center>
-		</div>
-		<br>
-		<div class="container">
-			<form>
-				<label>
-					<input id="cbPenalitaNo" type="radio" name="radio" onclick="showPenaltySection(false);" loadable checked />
-					<span>Non è prevista nessuna penalità per il mancato inserimento della formazione</span>
-				</label>
-				<label>
-					<input id="cbPenalitaYes" type="radio" name="radio" onclick="showPenaltySection(true);" loadable />
-					<span>Prevista una penalità quando un giocatore non inserisce la formazione.</span>
-				</label>
-				<div id="penaltySection" style="display:none;">
-					<br>
-					<div class="container">
-						<center>
-							<p>Indica la penalità da applicare:</p>
-						</center>
-					</div>
-					<br>
-					<center>
-						<textarea id="taPenality" class="textarea"
-								  placeholder="Esempio: 1 punto di penalizzazione" loadable>1 punto di penalizzazione in classifica</textarea>
-					</center>
-				</div>
-			</form>
-		</div>
-		<br>
-		<div class="container">
-			<h4>Formazioni invisibili</h4>
-		</div>
-		<div class="container">
-			<center>
-				<p>Decidi se permettere le formazioni invisibili, ossia che appariranno solamente con l'inizio della
-					giornata</p>
-			</center>
-		</div>
-		<br>
-		<div class="container">
-			<form>
-				<label>
-					<input id="cbInvisibiliSi" type="radio" name="radio" loadable checked />
-					<span>Si</span>
-				</label>
-				<label>
-					<input id="cbInvisibiliNo" type="radio" name="radio" loadable />
-					<span>No</span>
-				</label>
-			</form>
-		</div>
-		<br>
-		<div class="container">
-			<h4>Regole non previste</h4>
-		</div>
-		<div class="container">
-			<center>
-				<p>Inserisci eventuali note aggiuntive per l'inserimento delle formazioni.</p>
-			</center>
-		</div>
-		<br>
-		<center>
-			<textarea id="etNoteFormazione" class="textarea" loadable></textarea>
-		</center>
-		<br>
-	</div>
-	<br>
+        <rule-description>
+            Indica come gestire eventuali positività da COVID-19 o di situazioni similari.
+        </rule-description>
 
-	<!-- sostituzioni -->
-	<div class="macro">
-		<div class="container">
-			<h2>Gestione sostituzioni</h2>
-		</div>
-		<div class="container">
-			<h4>Numero sostituzioni</h4>
-		</div>
-		<div class="container">
-			<center>
-				<p>Indica il numero massimo di sostituzioni consentite per ciascuna giornata</p>
-				<br><i>Inserisci il valore zero per non impostare nessun limite.</i>
-			</center>
-		</div>
-		<br>
-		<div class="container">
-			<div class="form-group">
-				<input id="etNumSostituzioni" type="number" data-rule="required" min="0" value="0" loadable />
-			</div>
-		</div>
-		<br>
-		<div class="container">
-			<h4>Subentrato senza voto ammonito</h4>
-		</div>
-		<div class="container">
-			<center>
-				<p>Indica come gestire un giocatore senza voto ammonito</p>
-			</center>
-		</div>
-		<br>
-		<div class="container">
-			<form>
-				<label>
-					<input id="cbAmmIgnorata" type="radio" name="radio" loadable checked />
-					<span>L'ammonizione viene ignorata e il subentrato ottiene voto pieno</span>
-				</label>
-				<label>
-					<input id="cbAmmCascade" type="radio" name="radio" loadable />
-					<span>L'ammonizione viene scalata dal giocatore subentrato</span>
-				</label>
-			</form>
-		</div>
-		<br>
-		<div class="container">
-			<h4>Regole non previste</h4>
-		</div>
-		<div class="container">
-			<center>
-				<p>Inserisci eventuali note aggiuntive per la gestione delle sostituzioni.</p>
-			</center>
-		</div>
-		<br>
-		<center>
-			<textarea id="etNoteSostituzioni" class="textarea" loadable></textarea>
-		</center>
-		<br>
-	</div>
-	<br>
+        <rule-values>
+            <form>
+                <rule-radio-opt id="cbCovidPolitico" type="radio" name="radio" loadable checked>
+                    Un calciatore positivo accederà al 6 politico
+                </rule-radio-opt>
 
-	<!-- calcolo giornate -->
-	<div class="macro">
-		<div class="container">
-			<h2>Calcolo giornate</h2>
-		</div>
-		<div class="container">
-			<h4>Punteggio calcolo</h4>
-		</div>
-		<div class="container">
-			<center>
-				<p>Indica i valori con cui eseguire il calcolo delle giornate</p>
-			</center>
-		</div>
-		<br>
-		<center>
-			<p>Vittoria</p>
-		</center>
-		<div class="container">
-			<div class="form-group">
-				<input id="etVittoria" type="number" data-rule="required" value="3" loadable />
-			</div>
-		</div>
-		<br>
-		<center>
-			<p>Pareggio</p>
-		</center>
-		<div class="container">
-			<div class="form-group">
-				<input id="etPareggio" type="number" data-rule="required" value="1" loadable />
-			</div>
-		</div>
-		<br>
-		<center>
-			<p>Sconfitta</p>
-		</center>
-		<div class="container">
-			<div class="form-group">
-				<input id="etSconfitta" type="number" data-rule="required" value="0" loadable />
-			</div>
-		</div>
-		<br>
-		<center>
-			<p>Gol segnato</p>
-		</center>
-		<div class="container">
-			<div class="form-group">
-				<input id="etGol" type="number" data-rule="required" value="3" loadable />
-			</div>
-		</div>
-		<br>
-		<center>
-			<p>Rigore segnato</p>
-		</center>
-		<div class="container">
-			<div class="form-group">
-				<input id="etRigore" type="number" data-rule="required" value="3" loadable />
-			</div>
-		</div>
-		<br>
-		<center>
-			<p>Rigore sbagliato</p>
-		</center>
-		<div class="container">
-			<div class="form-group">
-				<input id="etRigoreSbagliato" type="number" data-rule="required" value="-3" loadable />
-			</div>
-		</div>
-		<br>
-		<center>
-			<p>Assist</p>
-		</center>
-		<div class="container">
-			<div class="form-group">
-				<input id="etAssist" type="number" data-rule="required" value="1" loadable />
-			</div>
-		</div>
-		<br>
-		<center>
-			<p>Porta inviolata (portiere)</p>
-		</center>
-		<div class="container">
-			<div class="form-group">
-				<input id="etCleanSheet" type="number" data-rule="required" value="1" loadable />
-			</div>
-		</div>
-		<br>
-		<center>
-			<p>Gol subito (portiere)</p>
-		</center>
-		<div class="container">
-			<div class="form-group">
-				<input id="etGolSubito" type="number" data-rule="required" value="-1" loadable />
-			</div>
-		</div>
-		<br>
-		<center>
-			<p>Rigore parato (portiere)</p>
-		</center>
-		<div class="container">
-			<div class="form-group">
-				<input id="etRigoreParato" type="number" data-rule="required" value="3" loadable />
-			</div>
-		</div>
-		<br>
-		<center>
-			<p>Ammonizione</p>
-		</center>
-		<div class="container">
-			<div class="form-group">
-				<input id="etAmmonizione" type="number" data-rule="required" value="-0.5" loadable />
-			</div>
-		</div>
-		<br>
-		<center>
-			<p>Espulsione</p>
-		</center>
-		<div class="container">
-			<div class="form-group">
-				<input id="etEspulsione" type="number" data-rule="required" value="-1" loadable />
-			</div>
-		</div>
-		<br>
-		<center>
-			<p>Autogol</p>
-		</center>
-		<div class="container">
-			<div class="form-group">
-				<input id="etAutogol" type="number" data-rule="required" value="-3" loadable />
-			</div>
-		</div>
-		<br>
-		<center>
-			<p>Gol decisivo vittoria</p>
-		</center>
-		<div class="container">
-			<div class="form-group">
-				<input id="etGolVittoria" type="number" data-rule="required" value="0" step="0.5" loadable />
-			</div>
-		</div>
-		<br>
-		<center>
-			<p>Gol decisivo pareggio</p>
-		</center>
-		<div class="container">
-			<div class="form-group">
-				<input id="etGolPareggio" type="number" data-rule="required" value="0" step="0.5" loadable />
-			</div>
-		</div>
-		<br>
-		<div class="container">
-			<h4>Soglie gol</h4>
-		</div>
-		<div class="container">
-			<center>
-				<p>Indica l'intervallo di larghezza di ciascuna soglia gol prevista<br>Nota che più il valore è alto,
-					più la probabilità di pareggi aumenterà, esempi:<br>Soglia da 4: 66 - 69.5 (1 goal), 70 - 73.5 (2
-					goal), ..<br>Soglia da 5: 66 - 70.5 (1 goal), 71 - 75.5 (2 goal), ..</p>
-			</center>
-		</div>
-		<br>
-		<div class="container">
-			<div class="form-group">
-				<input id="etSoglie" type="number" data-rule="required" min="1" value="4" loadable />
-			</div>
-		</div>
-		<br>
-		<div class="container">
-			<h4>Fattore campo</h4>
-		</div>
-		<div class="container">
-			<center>
-				<p>Indica se applicare il fattore campo nel calcolo giornate</p>
-			</center>
-		</div>
-		<br>
-		<div class="container">
-			<form>
-				<label>
-					<input id="cbFattoreSi" type="radio" name="radio" loadable />
-					<span>Si</span>
-				</label>
-				<label>
-					<input id="cbFattoreNo" type="radio" name="radio" loadable checked />
-					<span>No</span>
-				</label>
-			</form>
-		</div>
-		<br>
-		<div class="container">
-			<h4>Rinvio partite</h4>
-		</div>
-		<div class="container">
-			<center>
-				<p>Indica come gestire eventuali rinvii di partite verso date da destinarsi</p>
-			</center>
-		</div>
-		<br>
-		<div class="container">
-			<form>
-				<label>
-					<input id="cbRinvioMai" type="radio" name="radio" loadable />
-					<span>Non aspettare mai, in ogni caso 6 politico</span>
-				</label>
-				<label>
-					<input id="cbRinvioProssima" type="radio" name="radio" loadable checked />
-					<span>Attendi la partita solamente se giocata entro la prossima giornata di campionato</span>
-				</label>
-				<label>
-					<input id="cbRinvioPolitico" type="radio" name="radio" loadable />
-					<span>Attendi che la partita venga rigiocata, anche se a mesi di distanza<br>Se un giocatore non
-						potrà, per qualsiasi motivo, giocare la partita rinviata, accederà al 6 politico</span>
-				</label>
-				<label>
-					<input id="cbRinvioPanchina" type="radio" name="radio" loadable />
-					<span>Attendi che la partita venga rigiocata, anche se a mesi di distanza<br>Se un giocatore non
-						potrà, per qualsiasi motivo, giocare la partita rinviata, entrerà la sostituzione</span>
-				</label>
-			</form>
-		</div>
-		<br>
-		<div class="container">
-			<h4>Modificatore di difesa</h4>
-		</div>
-		<div class="container">
-			<center>
-				<p>Indica se applicare il calcolo aggiuntivo dato dal modificatore di difesa</p>
-			</center>
-		</div>
-		<br>
-		<div class="container">
-			<form>
-				<label>
-					<input id="cbModificatoreNo" type="radio" name="radio" onclick="applicaModificatore(false);" loadable checked />
-					<span>Non applicare</span>
-				</label>
-				<label>
-					<input id="cbModificatoreSi" type="radio" name="radio" onclick="applicaModificatore(true);" loadable />
-					<span>Applica il modificatore</span>
-				</label>
-			</form>
-		</div>
-		<div id="punti_modificatore" style="display:none;">
-			<br>
-			<div class="container">
-				<h4>Punti modificatore</h4>
-			</div>
-			<div class="container">
-				<center>
-					<p>Indica gli scaglioni con cui eseguire il calcolo del modificatore in base alla media della difesa
-					</p>
-				</center>
-			</div>
-			<br>
-			<center>
-				<p>da 0 a 5.99</p>
-			</center>
-			<div class="container">
-				<div class="form-group">
-					<input id="et0599" type="number" data-rule="required" min="0" value="0" loadable />
-				</div>
-			</div>
-			<br>
-			<center>
-				<p>da 6 a 6.24</p>
-			</center>
-			<div class="container">
-				<div class="form-group">
-					<input id="et6624" type="number" data-rule="required" min="0" value="0.5" loadable />
-				</div>
-			</div>
-			<br>
-			<center>
-				<p>da 6.25 a 6.49</p>
-			</center>
-			<div class="container">
-				<div class="form-group">
-					<input id="et625649" type="number" data-rule="required" min="0" value="1" loadable />
-				</div>
-			</div>
-			<br>
-			<center>
-				<p>da 6.5 a 6.74</p>
-			</center>
-			<div class="container">
-				<div class="form-group">
-					<input id="et65674" type="number" data-rule="required" min="0" value="1.5" loadable />
-				</div>
-			</div>
-			<br>
-			<center>
-				<p>da 6.75 a 6.99</p>
-			</center>
-			<div class="container">
-				<div class="form-group">
-					<input id="et675699" type="number" data-rule="required" min="0" value="2" loadable />
-				</div>
-			</div>
-			<br>
-			<center>
-				<p>da 7 a 7.24</p>
-			</center>
-			<div class="container">
-				<div class="form-group">
-					<input id="et7724" type="number" data-rule="required" min="0" value="2.5" loadable />
-				</div>
-			</div>
-			<br>
-			<center>
-				<p>da 7.25 a 7.49</p>
-			</center>
-			<div class="container">
-				<div class="form-group">
-					<input id="et725749" type="number" data-rule="required" min="0" value="3" loadable />
-				</div>
-			</div>
-			<br>
-			<center>
-				<p>da 7.5 a salire</p>
-			</center>
-			<div class="container">
-				<div class="form-group">
-					<input id="et75" type="number" data-rule="required" min="0" value="3.5" loadable />
-				</div>
-			</div>
-		</div>
-	</div>
-	<br>
+                <rule-radio-opt id="cbCovidPanchina" type="radio" name="radio" loadable>
+                    Un calciatore positivo verrà sostituito con il panchinaro previsto.
+                    Questa opzione può essere pericolosa per multiple positività
+                </rule-radio-opt>
 
-	<!-- classifica -->
-	<div class="macro">
-		<div class="container">
-			<h2>Classifica</h2>
-		</div>
-		<div class="container">
-			<center>
-				<p>La classifica verrà calcolata in base al seguente criterio</p>
-			</center>
-		</div>
-		<div class="container">
-			<center>
-				<p>1. Punti in classifica</p>
-			</center>
-		</div>
-		<div class="container">
-			<center>
-				<p>2. Somma punti totale</p>
-			</center>
-		</div>
-		<div class="container">
-			<center>
-				<p>3. Differenza reti</p>
-			</center>
-		</div>
-		<div class="container">
-			<center>
-				<p>4. Gol fatti</p>
-			</center>
-		</div>
-		<div class="container">
-			<center>
-				<p>5. Gol subiti</p>
-			</center>
-		</div>
-		<div class="container">
-			<center>
-				<p>6. Classifica avulsa</p>
-			</center>
-		</div>
-		<div class="container">
-			<center>
-				<p>In caso di parità perfetta, verranno sommati i premi previsti e divisi per le squadre che rilevano la
-					perfetta parità.</p>
-			</center>
-		</div>
-		<br>
-	</div>
-	<br>
+                <rule-radio-opt id="cbCovidScaglioni" type="radio" name="radio" loadable>
+                    Verranno assegnati votazioni politiche con questo schema:
+                    PORTIERI
+                    Se tutti i portieri sono positivi, si accede ad 1 voto d'ufficio.
+                    GIOCATORI DI MOVIMENTO
+                    Se si hanno 3 calciatori positivi si può accedere ad un voto d’ufficio.
+                    Se i calciatori positivi sono almeno 5, i voti d’ufficio a cui si può accedere diventano 2.
+                    Ovviamente, il conteggio dei positivi va raggruppato per ruolo, e non per rosa completa.
+                </rule-radio-opt>
+            </form>
+        </rule-values>
+    </rule>
 
-	<!-- quota e premi finali -->
-	<div class="macro">
-		<div class="container">
-			<h2>Quota e premi finali</h2>
-		</div>
-		<div class="container">
-			<center>
-				<p>Inserisci la quota di iscrizione prevista per ciascun partecipante</p>
-			</center>
-		</div>
-		<br>
-		<div class="container">
-			<div class="form-group">
-				<input id="etQuota" type="number" data-rule="required" min="1" value="100" loadable />
-			</div>
-		</div>
-		<br>
-		<div class="container">
-			<center>
-				<p>Inserisci una descrizione testuale che indichi la ripartizione dei premi finali.<br>
-					Sfrutta questo spazio anche per descrivere eventuali competizioni aggiuntive o altro.</p>
-			</center>
-		</div>
-		<br>
-		<center>
-			<textarea id="taPremi" class="textarea" loadable></textarea>
-		</center>
-		<br>
-	</div>
-	<br>
+    <!-- note infortuni -->
+    <rule>
+        <rule-title>
+            Regole non previste
+        </rule-title>
 
-	<!-- document type -->
-	<div class="macro">
-		<div class="container">
-			<h2>Tipologia regolamento</h2>
-		</div>
-		<div class="container">
-			<center>
-				<p>Indica il tipo di documento che preferisci generare.</p>
-			</center>
-		</div>
-		<div class="container">
-			<form id="documentTypeForm">
-				<label>
-					<input id="cbPdf" type="radio" name="document-type" value="pdf" checked />
-					<span>PDF</span>
-				</label>
-				<label>
-					<input id="cbHtml" type="radio" name="document-type" value="html" />
-					<span>HTML</span>
-				</label>
-			</form>
-		</div>
-		<div class="centered">
-			<p>Nota che alcuni browser, per questioni di sicurezza, bloccano l'apertura di PDF.<br>
-				Questo avviene in particolare su dispositivi mobile.<br>
-				Se rilevi questo problema, prova da PC oppure prova a generare HTML e poi "Stampa su PDF".<br>
-				Con HTML però non potrai ricaricare il regolamento.</p>
-		</div>
-	</div>
-	<br><br>
+        <rule-description>
+            Inserisci eventuali note aggiuntive per la gestione di infortuni giocatori.
+        </rule-description>
 
-	<!-- validation error area -->
-	<div id="errorSection" style="display: none;">
-		<div class="macro error-section">
-			<div class="container">
-				<h2 style="color: white;">Errore</h2>
-			</div>
-			<div class="container">
-				<center>
-					<p id="errorMessage" style="color: white;">Error text</p>
-					<br>
-					<button onclick="hideErrorSection()">Ok</button>
-				</center>
-			</div>
-		</div>
-		<br><br>
-	</div>
+        <rule-values>
+            <rule-text-area id="etNoteInfortuni" loadable></rule-text-area>
+        </rule-values>
+    </rule>
 
-	<!-- crea regolamento -->
-	<button class="ripple" role="button" onclick="avviaAnteprimaDocumento(document.querySelector('#documentTypeForm input[name=\'document-type\']:checked').value);">Avvia creazione regolamento</button>
+</rule-section>
 
-	<!-- version -->
-	<br><br>
-	<center><i id="lb_version">versione</i></center>
+<!-- sezione formazione -->
+<rule-section>
+    <section-title>
+        Inserimento formazione
+    </section-title>
 
-	<!-- fine -->
-	<br><br><br>
+    <!-- struttura panchina -->
+    <rule>
+        <rule-title>
+            Struttura panchina
+        </rule-title>
+
+        <rule-description>
+            Indica la struttura e l'ordinamento della panchina
+        </rule-description>
+
+        <rule-values>
+            <rule-text id="etPanchina" type="text" data-rule="required" value="PP-DDD-CCC-AAA" loadable>
+                Struttura panchina
+            </rule-text>
+        </rule-values>
+    </rule>
+
+    <!-- tolleranza ritardo -->
+    <rule>
+        <rule-title>
+            Tolleranza ritardo
+        </rule-title>
+
+        <rule-description>
+            Imposta il numero di minuti entro cui bisogna inserire la formazione prima dell'inizio della giornata
+        </rule-description>
+
+        <rule-values>
+            <rule-text id="etTolleranza" type="number" data-rule="required" min="1" value="1" loadable>
+                Minuti tolleranza
+            </rule-text>
+        </rule-values>
+    </rule>
+
+    <!-- moduli supportati -->
+    <rule>
+        <rule-title>
+            Moduli supportati
+        </rule-title>
+
+        <rule-description>
+            Seleziona i moduli supportati nella competizione.
+        </rule-description>
+
+        <rule-values>
+            <div class="container_pill">
+                <ul class="ks-cboxtags">
+                    <li><input type="checkbox" id="cb442" loadable checked><label for="cb442">4-4-2</label></li>
+                    <li><input type="checkbox" id="cb433" loadable checked><label for="cb433">4-3-3</label></li>
+                    <li><input type="checkbox" id="cb451" loadable checked><label for="cb451">4-5-1</label></li>
+                    <li><input type="checkbox" id="cb343" loadable checked><label for="cb343">3-4-3</label></li>
+                    <li><input type="checkbox" id="cb352" loadable checked><label for="cb352">3-5-2</label></li>
+                    <li><input type="checkbox" id="cb532" loadable checked><label for="cb532">5-3-2</label></li>
+                    <li><input type="checkbox" id="cb541" loadable checked><label for="cb541">5-4-1</label></li>
+                    <li><input type="checkbox" id="cb631" loadable><label for="cb631">6-3-1</label></li>
+                    <li><input type="checkbox" id="cb622" loadable><label for="cb622">6-2-2</label></li>
+                </ul>
+            </div>
+        </rule-values>
+    </rule>
+
+    <!-- mancato inserimento -->
+    <rule>
+        <rule-title>
+            Mancato inserimento
+        </rule-title>
+
+        <rule-description>
+            Decidi come gestire la situazione in cui un partecipante non inserisce la formazione per una giornata
+        </rule-description>
+
+        <rule-values>
+            <form>
+                <rule-radio-opt id="cbMancataNulla" type="radio" name="radio" loadable checked>
+                    Inserimento formazione nulla (punteggio zero).
+                    Se mi preoccupo di mettere la squadra, non è bello perdere contro chi si dimentica.
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbMancataPrecedente" type="radio" name="radio" loadable>
+                    Recupera la formazione della giornata precedente.
+                </rule-radio-opt>
+            </form>
+        </rule-values>
+    </rule>
+
+    <!-- penalità mancato inserimento -->
+    <rule>
+        <rule-title>
+            Penalità mancato inserimento
+        </rule-title>
+
+        <rule-description>
+            Indica se è prevista una penalità nel caso in cui un giocatore non inserisca la formazione per una specifica
+            giornata
+        </rule-description>
+
+        <rule-values>
+            <form>
+                <rule-radio-opt id="cbPenalitaNo" type="radio" name="radio" onchange="showPenaltySection(false);"
+                                loadable checked>
+                    Non è prevista nessuna penalità per il mancato inserimento della formazione
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbPenalitaYes" type="radio" name="radio" onchange="showPenaltySection(true);"
+                                loadable>
+                    Prevista una penalità quando un giocatore non inserisce la formazione.
+                </rule-radio-opt>
+
+                <div id="penaltySection" style="display:none;">
+                    <br>
+
+                    <rule-description>
+                        Indica la penalità da applicare:
+                    </rule-description>
+
+                    <rule-values>
+                        <rule-text-area id="taPenality" placeholder="Esempio: 1 punto di penalizzazione" loadable>
+                            1 punto di penalizzazione in classifica
+                        </rule-text-area>
+                    </rule-values>
+                </div>
+            </form>
+        </rule-values>
+    </rule>
+
+    <!-- formazioni invisibili -->
+    <rule>
+        <rule-title>
+            Formazioni invisibili
+        </rule-title>
+
+        <rule-description>
+            Decidi se permettere le formazioni invisibili, ossia che appariranno solamente con l'inizio della giornata.
+        </rule-description>
+
+        <rule-values>
+            <form>
+                <rule-radio-opt id="cbInvisibiliSi" type="radio" name="radio" loadable checked>
+                    Si
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbInvisibiliNo" type="radio" name="radio" loadable>
+                    No
+                </rule-radio-opt>
+            </form>
+        </rule-values>
+    </rule>
+
+    <!-- note formazione -->
+    <rule>
+        <rule-title>
+            Regole non previste
+        </rule-title>
+
+        <rule-description>
+            Inserisci eventuali note aggiuntive per l'inserimento delle formazioni.
+        </rule-description>
+
+        <rule-values>
+            <rule-text-area id="etNoteFormazione" loadable></rule-text-area>
+        </rule-values>
+    </rule>
+
+</rule-section>
+
+<!-- sezione sostituzioni -->
+<rule-section>
+    <section-title>
+        Gestione sostituzioni
+    </section-title>
+
+    <!-- numero sostituzioni -->
+    <rule>
+        <rule-title>
+            Numero sostituzioni
+        </rule-title>
+
+        <rule-description>
+            Indica il numero massimo di sostituzioni consentite per ciascuna giornata.
+        </rule-description>
+
+        <rule-note>
+            Inserisci il valore zero per non impostare nessun limite.
+        </rule-note>
+
+        <rule-values>
+            <rule-text id="etNumSostituzioni" type="number" data-rule="required" min="0" value="0" loadable>
+                Numero sostituzioni
+            </rule-text>
+        </rule-values>
+    </rule>
+
+    <!-- subentrato sv -->
+    <rule>
+        <rule-title>
+            Subentrato senza voto ammonito
+        </rule-title>
+
+        <rule-description>
+            Indica come gestire un giocatore senza voto ammonito
+        </rule-description>
+
+        <rule-values>
+            <form>
+                <rule-radio-opt id="cbAmmIgnorata" type="radio" name="radio" loadable checked>
+                    L'ammonizione viene ignorata e il subentrato ottiene voto pieno
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbAmmCascade" type="radio" name="radio" loadable>
+                    L'ammonizione viene scalata dal giocatore subentrato
+                </rule-radio-opt>
+            </form>
+        </rule-values>
+    </rule>
+
+    <!-- note sostituzioni -->
+    <rule>
+        <rule-title>
+            Regole non previste
+        </rule-title>
+
+        <rule-description>
+            Inserisci eventuali note aggiuntive per la gestione delle sostituzioni.
+        </rule-description>
+
+        <rule-values>
+            <rule-text-area id="etNoteSostituzioni" loadable></rule-text-area>
+        </rule-values>
+    </rule>
+
+</rule-section>
+
+<!-- sezione calcolo giornate -->
+<rule-section>
+    <section-title>
+        Calcolo giornate
+    </section-title>
+
+    <!-- calcolo punteggio -->
+    <rule>
+        <rule-title>
+            Punteggio calcolo
+        </rule-title>
+
+        <rule-description>
+            Indica i valori con cui eseguire il calcolo delle giornate
+        </rule-description>
+
+        <rule-values>
+            <rule-text id="etVittoria" type="number" data-rule="required" value="3" loadable>
+                Vittoria
+            </rule-text>
+
+            <rule-text id="etPareggio" type="number" data-rule="required" value="1" loadable>
+                Pareggio
+            </rule-text>
+
+            <rule-text id="etSconfitta" type="number" data-rule="required" value="0" loadable>
+                Sconfitta
+            </rule-text>
+
+            <rule-text id="etGol" type="number" data-rule="required" value="3" loadable>
+                Gol segnato
+            </rule-text>
+
+            <rule-text id="etRigore" type="number" data-rule="required" value="3" loadable>
+                Rigore segnato
+            </rule-text>
+
+            <rule-text id="etRigoreSbagliato" type="number" data-rule="required" value="-3" loadable>
+                Rigore sbagliato
+            </rule-text>
+
+            <rule-text id="etAssist" type="number" data-rule="required" value="1" loadable>
+                Assist
+            </rule-text>
+
+            <rule-text id="etCleanSheet" type="number" data-rule="required" value="1" loadable>
+                Porta inviolata (portiere)
+            </rule-text>
+
+            <rule-text id="etGolSubito" type="number" data-rule="required" value="-1" loadable>
+                Gol subito (portiere)
+            </rule-text>
+
+            <rule-text id="etRigoreParato" type="number" data-rule="required" value="3" loadable>
+                Rigore parato (portiere)
+            </rule-text>
+
+            <rule-text id="etAmmonizione" type="number" data-rule="required" value="-0.5" loadable>
+                Ammonizione
+            </rule-text>
+
+            <rule-text id="etEspulsione" type="number" data-rule="required" value="-1" loadable>
+                Espulsione
+            </rule-text>
+
+            <rule-text id="etAutogol" type="number" data-rule="required" value="-3" loadable>
+                Autogol
+            </rule-text>
+
+            <rule-text id="etGolVittoria" type="number" data-rule="required" value="0" step="0.5" loadable>
+                Gol decisivo vittoria
+            </rule-text>
+
+            <rule-text id="etGolPareggio" type="number" data-rule="required" value="0" step="0.5" loadable>
+                Gol decisivo pareggio
+            </rule-text>
+        </rule-values>
+    </rule>
+
+    <!-- soglie gol -->
+    <rule>
+        <rule-title>
+            Soglie gol
+        </rule-title>
+
+        <rule-description>
+            Indica l'intervallo di larghezza di ciascuna soglia gol prevista.
+        </rule-description>
+
+        <rule-note>
+            Nota che più il valore è alto, più la probabilità di pareggi aumenterà.
+            Esempi:
+            Soglia da 4:
+            66 - 69.5 (1 goal), 70 - 73.5 (2 goal)
+            Soglia da 5:
+            66 - 70.5 (1 goal), 71 - 75.5 (2 goal)
+        </rule-note>
+
+        <rule-values>
+            <rule-text id="etSoglie" type="number" data-rule="required" min="1" value="4" loadable>
+                Larghezza soglie
+            </rule-text>
+        </rule-values>
+    </rule>
+
+    <!-- fattore campo -->
+    <rule>
+        <rule-title>
+            Fattore campo
+        </rule-title>
+
+        <rule-description>
+            Indica se applicare il fattore campo nel calcolo giornate.
+        </rule-description>
+
+        <rule-values>
+            <form>
+                <rule-radio-opt id="cbFattoreSi" type="radio" name="radio" loadable>
+                    Si
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbFattoreNo" type="radio" name="radio" loadable checked>
+                    No
+                </rule-radio-opt>
+            </form>
+        </rule-values>
+    </rule>
+
+    <!-- rinvio partite -->
+    <rule>
+        <rule-title>
+            Rinvio partite
+        </rule-title>
+
+        <rule-description>
+            Indica come gestire eventuali rinvii di partite verso date da destinarsi.
+        </rule-description>
+
+        <rule-values>
+            <form>
+                <rule-radio-opt id="cbRinvioMai" type="radio" name="radio" loadable>
+                    Non aspettare mai, in ogni caso 6 politico
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbRinvioProssima" type="radio" name="radio" loadable checked>
+                    Attendi la partita solamente se giocata entro la prossima giornata di campionato
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbRinvioPolitico" type="radio" name="radio" loadable>
+                    Attendi che la partita venga rigiocata, anche se a mesi di distanza.
+                    Se un giocatore non potrà, per qualsiasi motivo, giocare la partita rinviata, accederà al 6
+                    politico.
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbRinvioPanchina" type="radio" name="radio" loadable>
+                    Attendi che la partita venga rigiocata, anche se a mesi di distanza.
+                    Se un giocatore non potrà, per qualsiasi motivo, giocare la partita rinviata, entrerà la
+                    sostituzione.
+                </rule-radio-opt>
+            </form>
+        </rule-values>
+    </rule>
+
+    <!-- modificatore difesa -->
+    <rule>
+        <rule-title>
+            Modificatore di difesa
+        </rule-title>
+
+        <rule-description>
+            Indica se applicare il calcolo aggiuntivo dato dal modificatore di difesa
+        </rule-description>
+
+        <rule-values>
+            <form>
+                <rule-radio-opt id="cbModificatoreNo" type="radio" name="radio" onchange="applicaModificatore(false);"
+                                loadable checked>
+                    Non applicare
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbModificatoreSi" type="radio" name="radio" onchange="applicaModificatore(true);"
+                                loadable>
+                    Applica il modificatore
+                </rule-radio-opt>
+            </form>
+
+            <div id="punti_modificatore" style="display:none;">
+                <br>
+
+                <rule-title>
+                    Punti modificatore
+                </rule-title>
+
+                <rule-description>
+                    Indica gli scaglioni con cui eseguire il calcolo del modificatore in base alla media della difesa
+                </rule-description>
+
+                <rule-values>
+                    <rule-text id="et0599" type="number" data-rule="required" min="0" value="0" loadable>
+                        da 0 a 5.99
+                    </rule-text>
+
+                    <rule-text id="et6624" type="number" data-rule="required" min="0" value="0.5" loadable>
+                        da 6 a 6.24
+                    </rule-text>
+
+                    <rule-text id="et625649" type="number" data-rule="required" min="0" value="1" loadable>
+                        da 6.25 a 6.49
+                    </rule-text>
+
+                    <rule-text id="et65674" type="number" data-rule="required" min="0" value="1.5" loadable>
+                        da 6.5 a 6.74
+                    </rule-text>
+
+                    <rule-text id="et675699" type="number" data-rule="required" min="0" value="2" loadable>
+                        da 6.75 a 6.99
+                    </rule-text>
+
+                    <rule-text id="et7724" type="number" data-rule="required" min="0" value="2.5" loadable>
+                        da 7 a 7.24
+                    </rule-text>
+
+                    <rule-text id="et725749" type="number" data-rule="required" min="0" value="3" loadable>
+                        da 7.25 a 7.49
+                    </rule-text>
+
+                    <rule-text id="et75" type="number" data-rule="required" min="0" value="3.5" loadable>
+                        da 7.5 a salire
+                    </rule-text>
+                </rule-values>
+            </div>
+        </rule-values>
+    </rule>
+
+</rule-section>
+
+<!-- sezione classifica -->
+<rule-section>
+    <section-title>
+        Classifica
+    </section-title>
+
+    <!-- ordine classifica -->
+    <rule>
+        <rule-title>
+            Criteri classifica
+        </rule-title>
+
+        <rule-description>
+            La classifica verrà calcolata in base al seguente ordine:
+            1. Punti in classifica
+            2. Somma punti totale
+            3. Differenza reti
+            4. Gol fatti
+            5. Gol subiti
+            6. Classifica avulsa
+        </rule-description>
+
+        <rule-note>
+            In caso di parità perfetta, verranno sommati i premi previsti e divisi per le squadre che rilevano la
+            perfetta parità.
+        </rule-note>
+    </rule>
+</rule-section>
+
+<!-- sezione quota e premi finali -->
+<rule-section>
+    <section-title>
+        Quota e premi finali
+    </section-title>
+
+    <!-- quota -->
+    <rule>
+        <rule-title>
+            Quota partecipazione
+        </rule-title>
+
+        <rule-description>
+            Inserisci la quota di iscrizione prevista per ciascun partecipante.
+        </rule-description>
+
+        <rule-values>
+            <rule-text id="etQuota" type="number" data-rule="required" min="1" value="100" loadable>
+                Quota per squadra
+            </rule-text>
+        </rule-values>
+    </rule>
+
+    <!-- ripartizione premi -->
+    <rule>
+        <rule-title>
+            Divisione premi
+        </rule-title>
+
+        <rule-description>
+            Inserisci una descrizione testuale che indichi la ripartizione dei premi finali.
+        </rule-description>
+
+        <rule-note>
+            Sfrutta questo spazio anche per descrivere eventuali competizioni aggiuntive o altro.
+        </rule-note>
+
+        <rule-values>
+            <rule-text-area id="taPremi" loadable></rule-text-area>
+        </rule-values>
+    </rule>
+
+</rule-section>
+
+<!-- sezione tipo documento -->
+<rule-section>
+    <section-title>
+        Tipologia regolamento
+    </section-title>
+
+    <!-- tipo documento -->
+    <rule>
+        <rule-description>
+            Indica il tipo di documento che preferisci generare.
+        </rule-description>
+
+        <rule-note>
+            Nota che alcuni browser, per questioni di sicurezza, bloccano l'apertura di PDF.
+            Questo avviene in particolare su dispositivi mobile.
+            Se rilevi questo problema, prova da PC oppure prova a generare HTML e poi "Stampa su PDF".
+            Con HTML però non potrai ricaricare il regolamento.
+        </rule-note>
+
+        <rule-values>
+            <form id="documentTypeForm">
+                <rule-radio-opt id="cbPdf" type="radio" name="document-type" value="pdf" checked>
+                    PDF
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbHtml" type="radio" name="document-type" value="html">
+                    HTML
+                </rule-radio-opt>
+            </form>
+        </rule-values>
+    </rule>
+</rule-section>
+
+<!-- validation error area -->
+<div id="errorSection" style="display: none;">
+    <div class="macro error-section">
+        <div class="container">
+            <h2 style="color: white;">Errore</h2>
+        </div>
+        <div class="container">
+            <div style="text-align: center">
+                <p id="errorMessage" style="color: white;">Error text</p>
+                <br>
+                <button onclick="hideErrorSection()">Ok</button>
+            </div>
+        </div>
+    </div>
+    <br><br>
+</div>
+
+<!-- crea regolamento -->
+<button class="ripple" role="button"
+        onclick="avviaAnteprimaDocumento(document.querySelector('#documentTypeForm input[name=\'document-type\']:checked').value);">
+    Avvia creazione regolamento
+</button>
+
+<!-- version -->
+<br><br>
+<div class="centered">
+    <i id="lb_version">versione</i>
+</div>
+
+<!-- fine -->
+<br><br><br>
 </body>
 
 </html>

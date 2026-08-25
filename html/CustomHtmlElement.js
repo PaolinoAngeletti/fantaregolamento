@@ -24,7 +24,7 @@ class CustomHtmlElement extends HTMLElement {
 
     buildParagraphElement(text) {
         const result = this.buildHtmlElement("p");
-        result.textContent = text;
+        result.innerText = text;
         return result;
     }
 
@@ -51,6 +51,7 @@ class CustomHtmlElement extends HTMLElement {
         if (this.hasAttribute("value")) input.value = this.getAttribute("value");
         if (this.hasAttribute("loadable")) input.setAttribute("loadable", "");
         if (this.hasAttribute("oninput")) input.setAttribute("oninput", this.getAttribute("oninput"));
+        if (this.hasAttribute("onchange")) input.setAttribute("onchange", this.getAttribute("onchange"));
 
         return input;
     }

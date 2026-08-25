@@ -401,9 +401,9 @@ function runMainScriptTests() {
                 {field: "cbMancataNulla", start_value: true, final_value: false},
                 {field: "cbMancataPrecedente", start_value: false, final_value: true},
                 {field: "cbMancataPrecedente", start_value: true, final_value: false},
-                {field: "cbPenalitaNo", start_value: false, final_value: true},
+                {field: "cbPenalitaNo", start_value: false, final_value: true, should_hide: ["penaltySection"]},
                 {field: "cbPenalitaNo", start_value: true, final_value: false},
-                {field: "cbPenalitaYes", start_value: false, final_value: true},
+                {field: "cbPenalitaYes", start_value: false, final_value: true, should_appear: ["penaltySection"]},
                 {field: "cbPenalitaYes", start_value: true, final_value: false},
                 {field: "taPenality", start_value: "text-1", final_value: "text-2"},
                 {field: "cbInvisibiliSi", start_value: false, final_value: true},
@@ -449,9 +449,14 @@ function runMainScriptTests() {
                 {field: "cbRinvioPolitico", start_value: true, final_value: false},
                 {field: "cbRinvioPanchina", start_value: false, final_value: true},
                 {field: "cbRinvioPanchina", start_value: true, final_value: false},
-                {field: "cbModificatoreNo", start_value: false, final_value: true},
+                {field: "cbModificatoreNo", start_value: false, final_value: true, should_hide: ["punti_modificatore"]},
                 {field: "cbModificatoreNo", start_value: true, final_value: false},
-                {field: "cbModificatoreSi", start_value: false, final_value: true},
+                {
+                    field: "cbModificatoreSi",
+                    start_value: false,
+                    final_value: true,
+                    should_appear: ["punti_modificatore"]
+                },
                 {field: "cbModificatoreSi", start_value: true, final_value: false},
                 {field: "et0599", start_value: "5", final_value: "2"},
                 {field: "et6624", start_value: "5", final_value: "2"},
@@ -593,6 +598,64 @@ function runMainScriptTests() {
             btnAverage.dispatchEvent(new Event("change", {bubbles: true}));
 
             let elementToDisplay = realDomDoc.getElementById("defectOrExcessSection");
+            checkElementDisplay(elementToDisplay, false);
+        })
+
+        it("when exchanges are enabled, the dedicated section should be displayed", function () {
+            let cbScambiSi = realDomDoc.getElementById("cbScambiSi");
+            cbScambiSi.checked = true;
+            cbScambiSi.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let elementToDisplay = realDomDoc.getElementById("exchangeSection");
+            checkElementDisplay(elementToDisplay, true);
+        })
+
+        it("when exchanges are disabled, the dedicated section should be hidden", function () {
+            let cbScambiSi = realDomDoc.getElementById("cbScambiSi");
+            cbScambiSi.checked = false;
+            cbScambiSi.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let cbScambiNo = realDomDoc.getElementById("cbScambiNo");
+            cbScambiNo.checked = true;
+            cbScambiNo.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let elementToDisplay = realDomDoc.getElementById("exchangeSection");
+            checkElementDisplay(elementToDisplay, false);
+        })
+
+        it("when penalities are enabled, the dedicated section should be displayed", function () {
+            let cbPenalitaYes = realDomDoc.getElementById("cbPenalitaYes");
+            cbPenalitaYes.checked = true;
+            cbPenalitaYes.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let elementToDisplay = realDomDoc.getElementById("penaltySection");
+            checkElementDisplay(elementToDisplay, true);
+        })
+
+        it("when penalities are disabled, the dedicated section should be hidden", function () {
+            let cbPenalitaNo = realDomDoc.getElementById("cbPenalitaNo");
+            cbPenalitaNo.checked = true;
+            cbPenalitaNo.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let elementToDisplay = realDomDoc.getElementById("penaltySection");
+            checkElementDisplay(elementToDisplay, false);
+        })
+
+        it("when modificatore is enabled, dedicated section should be displayed", function () {
+            let cbModificatoreSi = realDomDoc.getElementById("cbModificatoreSi");
+            cbModificatoreSi.checked = true;
+            cbModificatoreSi.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let elementToDisplay = realDomDoc.getElementById("punti_modificatore");
+            checkElementDisplay(elementToDisplay, true);
+        })
+
+        it("when modificatore is disabled, dedicated section should be hidden", function () {
+            let cbModificatoreNo = realDomDoc.getElementById("cbModificatoreNo");
+            cbModificatoreNo.checked = true;
+            cbModificatoreNo.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let elementToDisplay = realDomDoc.getElementById("punti_modificatore");
             checkElementDisplay(elementToDisplay, false);
         })
 
