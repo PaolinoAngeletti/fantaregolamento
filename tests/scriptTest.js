@@ -90,6 +90,10 @@ function runMainScriptTests() {
                 {field: "cbTornata", value: true},
                 {field: "cbTornata", value: false},
                 {field: "etCrediti", value: "750"},
+                {field: "cbOffMinUno", value: false},
+                {field: "cbOffMinUno", value: true},
+                {field: "cbOffMinValAtt", value: false},
+                {field: "cbOffMinValAtt", value: true},
                 {field: "etCreditiSessione", value: "100"},
                 {field: "taCreditiFiniti", value: "10"},
                 {field: "cbResiduiSi", value: false},
@@ -310,6 +314,10 @@ function runMainScriptTests() {
                 {field: "cbTornata", start_value: true, final_value: false},
                 {field: "cbTornata", start_value: false, final_value: true},
                 {field: "etCrediti", start_value: "750", final_value: "100"},
+                {field: "cbOffMinUno", start_value: true, final_value: false},
+                {field: "cbOffMinUno", start_value: false, final_value: true},
+                {field: "cbOffMinValAtt", start_value: true, final_value: false},
+                {field: "cbOffMinValAtt", start_value: false, final_value: true},
                 {field: "etCreditiSessione", start_value: "100", final_value: "150"},
                 {field: "taCreditiFiniti", start_value: "10", final_value: "50"},
                 {field: "cbResiduiSi", start_value: false, final_value: true},
@@ -549,6 +557,30 @@ function runMainScriptTests() {
 
     describe("fields relationship tests", function () {
 
+        it("cbBusta selection", function () {
+            let cbBusta = realDomDoc.getElementById("cbBusta");
+            let btnTornata = realDomDoc.getElementById("btnTornata");
+
+            cbBusta.checked = false;
+            Utils.setElementVisibility("btnTornata", false);
+
+            cbBusta.click();
+            checkElementDisplay(btnTornata, true);
+        })
+
+        it("cbBusta unselection", function () {
+            let cbBusta = realDomDoc.getElementById("cbBusta");
+            let btnTornata = realDomDoc.getElementById("btnTornata");
+            let cbCalendario = realDomDoc.getElementById("cbCalendario");
+
+            cbBusta.checked = true;
+            cbCalendario.checked = false;
+            Utils.setElementVisibility("btnTornata", true);
+
+            cbCalendario.click();
+            checkElementDisplay(btnTornata, false);
+        })
+
         it("max-change-role should update max-change-session", function () {
             let txtRole = realDomDoc.getElementById("etMaxScambiRuolo");
             let txtSession = realDomDoc.getElementById("etMaxScambiSessione");
@@ -681,39 +713,6 @@ function runMainScriptTests() {
 
             let elementToDisplay = realDomDoc.getElementById("punti_modificatore");
             checkElementDisplay(elementToDisplay, false);
-        })
-
-    });
-
-    function checkElementDisplay(element, shouldDisplay) {
-        let value = shouldDisplay ? "block" : "none";
-        expect(window.getComputedStyle(element).display).toBe(value);
-    }
-
-    describe("fields relationship tests", function () {
-
-        it("cbBusta selection", function () {
-            let cbBusta = realDomDoc.getElementById("cbBusta");
-            let btnTornata = realDomDoc.getElementById("btnTornata");
-
-            cbBusta.checked = false;
-            Utils.setElementVisibility("btnTornata", false);
-
-            cbBusta.click();
-            checkElementDisplay(btnTornata, true);
-        })
-
-        it("cbBusta unselection", function () {
-            let cbBusta = realDomDoc.getElementById("cbBusta");
-            let btnTornata = realDomDoc.getElementById("btnTornata");
-            let cbCalendario = realDomDoc.getElementById("cbCalendario");
-
-            cbBusta.checked = true;
-            cbCalendario.checked = false;
-            Utils.setElementVisibility("btnTornata", true);
-
-            cbCalendario.click();
-            checkElementDisplay(btnTornata, false);
         })
 
     });

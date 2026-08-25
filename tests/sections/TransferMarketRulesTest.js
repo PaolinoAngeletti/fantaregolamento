@@ -4,6 +4,7 @@ function runTransferMarketRulesTests() {
         describe("produce test", function () {
             it("generates correct HTML", function () {
                 realDomDoc.getElementById("etCrediti").value = "100";
+                realDomDoc.getElementById("cbOffMinUno").checked = true;
                 realDomDoc.getElementById("etCreditiSessione").value = "30";
                 realDomDoc.getElementById("etCentrocampisti").value = "8";
                 realDomDoc.getElementById("etMaxScambiCompetizione").value = "3";
@@ -24,22 +25,24 @@ function runTransferMarketRulesTests() {
                 expect(html[1].type).toBe("paragraph");
                 expect(html[2].text).toContain("7.2. Per il mercato iniziale sono previsti 100 fanta-milioni");
                 expect(html[2].type).toBe("paragraph");
-                expect(html[3].text).toContain("7.3. Per le successive sessioni di mercato sono previsti 30");
+                expect(html[3].text).toContain("7.3. Non è prevista nessuna offerta minima per i calciatori");
                 expect(html[3].type).toBe("paragraph");
-                expect(html[4].text).toContain("7.4. Non è stata specificata nessuna gestione del caso in cui una squadra superi il numero di crediti spendibili");
+                expect(html[4].text).toContain("7.4. Per le successive sessioni di mercato sono previsti 30");
                 expect(html[4].type).toBe("paragraph");
-                expect(html[5].text).toContain("7.5. Alla fine di una sessione di mercato, gli eventuali crediti residui");
+                expect(html[5].text).toContain("7.5. Non è stata specificata nessuna gestione del caso in cui una squadra superi il numero di crediti spendibili");
                 expect(html[5].type).toBe("paragraph");
-                expect(html[6].text).toContain("7.6. Sono permessi i cambi ruolo dei giocatori");
+                expect(html[6].text).toContain("7.6. Alla fine di una sessione di mercato, gli eventuali crediti residui");
                 expect(html[6].type).toBe("paragraph");
-                expect(html[7].text).toContain("7.7. Previsto limite di cambi massimi per l'intera competizione");
+                expect(html[7].text).toContain("7.7. Sono permessi i cambi ruolo dei giocatori");
                 expect(html[7].type).toBe("paragraph");
-                expect(html[8].text).toContain("7.8. Previsto limite di cambi massimi per una singola sessione di mercato");
+                expect(html[8].text).toContain("7.8. Previsto limite di cambi massimi per l'intera competizione");
                 expect(html[8].type).toBe("paragraph");
-                expect(html[9].text).toContain("7.9. Previsto limite di cambi massimi per ruolo");
+                expect(html[9].text).toContain("7.9. Previsto limite di cambi massimi per una singola sessione di mercato");
                 expect(html[9].type).toBe("paragraph");
-                expect(html[10].text).toContain("7.10. notes");
+                expect(html[10].text).toContain("7.10. Previsto limite di cambi massimi per ruolo");
                 expect(html[10].type).toBe("paragraph");
+                expect(html[11].text).toContain("7.11. notes");
+                expect(html[11].type).toBe("paragraph");
             });
         });
 
@@ -269,6 +272,21 @@ function runTransferMarketRulesTests() {
                 realDomDoc.getElementById("etNoteMercato").value = "hello1 hello2-hello3";
                 const html = TransferMarketRules.estraiEventualiNoteAggiuntiveMercato();
                 expect(html).toBe("hello1 hello2-hello3");
+            });
+        });
+
+        describe("minimal offer tests", function () {
+
+            it("minimal offer = 1", function () {
+                realDomDoc.getElementById("cbOffMinUno").checked = true;
+                const html = TransferMarketRules.estraiOffertaMinima();
+                expect(html).toContain("nessuna offerta minima");
+            });
+
+            it("minimal offer = actual value", function () {
+                realDomDoc.getElementById("cbOffMinValAtt").checked = true;
+                const html = TransferMarketRules.estraiOffertaMinima();
+                expect(html).toContain("pari alla quotazione attuale");
             });
         });
     });

@@ -5,6 +5,7 @@ const TransferMarketRules = {
         let rules = [];
         rules.push(this.estraiTipologiaMercato());
         rules.push(this.estraiNumeroCrediti());
+        rules.push(this.estraiOffertaMinima());
         rules.push(this.estraiNumeroCreditiSuccessivi());
         rules.push(this.retrieveFinishedCreditsManagement());
         rules.push(this.retrieveResidualCreditsManagements());
@@ -45,6 +46,15 @@ const TransferMarketRules = {
         let creditsNumber = etCrediti.value;
         FieldValidation.validateInt(this.sectionName, "Numero crediti", creditsNumber, false, false);
         return "Per il mercato iniziale sono previsti " + creditsNumber + " fanta-milioni, utili a comporre la rosa iniziale.";
+    },
+
+    estraiOffertaMinima: function () {
+        let valueId = Utils.getSelectedRadioId("fOffertaMinima");
+        if ("cbOffMinValAtt" === valueId) {
+            return "Prevista una offerta minima per i calciatori pari alla quotazione attuale di quel momento.";
+        } else {
+            return "Non è prevista nessuna offerta minima per i calciatori, per cui le aste potranno partire dal valore 1.";
+        }
     },
 
     estraiNumeroCreditiSuccessivi: function () {
