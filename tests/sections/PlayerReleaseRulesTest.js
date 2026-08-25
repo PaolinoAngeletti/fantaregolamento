@@ -73,6 +73,12 @@ function runReleaseRulesTests() {
                 expect(html).toContain("crediti pari alla quotazione di acquisto");
             });
 
+            it("generated correctly release with: metà quotazione attuale", function () {
+                realDomDoc.getElementById("cbSvincoloMetaAttuale").checked = true;
+                const html = PlayerReleaseRules.estraiGestioneSvincoli();
+                expect(html).toContain("crediti pari alla metà della quotazione attuale");
+            });
+
             it("generated correctly release with: quotazione attuale", function () {
                 realDomDoc.getElementById("cbSvincoloAttuale").checked = true;
 

@@ -535,7 +535,7 @@
         </rule-description>
 
         <rule-values>
-            <form onchange="verifyCreditsRecoverOnPlayerRelease()">
+            <form id="fCreditiSvincolo" onchange="verifyCreditsRecoverOnPlayerRelease()">
                 <rule-radio-opt id="cbSvincoloNessun" type="radio" name="radio" loadable checked>
                     Non ricevere nessun credito
                 </rule-radio-opt>
@@ -550,6 +550,10 @@
 
                 <rule-radio-opt id="cbSvincoloQuotazione" type="radio" name="radio" loadable>
                     Ricevi crediti pari alla quotazione di acquisto
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbSvincoloMetaAttuale" type="radio" name="radio" loadable>
+                    Ricevi crediti pari alla metà della quotazione attuale
                 </rule-radio-opt>
 
                 <rule-radio-opt id="cbSvincoloAttuale" type="radio" name="radio" loadable>

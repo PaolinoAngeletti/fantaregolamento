@@ -30,34 +30,22 @@ const PlayerReleaseRules = {
 
     estraiGestioneSvincoli: function () {
         let toReturn = "In caso di svincolo di giocatori acquistati in mercati precedenti, ";
-        let cbNessunCredito = Utils.retrieveDomElement("cbSvincoloNessun");
-        if (cbNessunCredito.checked) {
-            toReturn = toReturn + "non verrà recuperato alcun credito.";
+
+        let valueId = Utils.getSelectedRadioId("fCreditiSvincolo");
+        if ("cbSvincoloUno" === valueId) {
+            toReturn = toReturn + "la squadra riceverà un solo credito in ogni caso, solamente per permettere eventuali acquisti a quotazione uno di svincolati.";
+        } else if ("cbSvincoloMeta" === valueId) {
+            toReturn = toReturn + "la squadra riceverà crediti pari alla metà della quotazione di acquisto.";
+        } else if ("cbSvincoloQuotazione" === valueId) {
+            toReturn = toReturn + "la squadra riceverà crediti pari alla quotazione di acquisto.";
+        } else if ("cbSvincoloMetaAttuale" === valueId) {
+            toReturn = toReturn + "la squadra riceverà crediti pari alla metà della quotazione attuale del calciatore.";
+        } else if ("cbSvincoloAttuale" === valueId) {
+            toReturn = toReturn + "la squadra riceverà crediti pari alla quotazione attuale del calciatore.";
+        } else if ("cbSvincoloMedia" === valueId) {
+            toReturn = toReturn + "la squadra riceverà un numero di crediti pari alla media tra la quotazione attuale del giocatore e il suo valore di acquisto. Esempio se la quotazione attuale è 50 e la spesa per l'acquisto è stata di 10, allora i crediti ricevuti saranno 30 (50 + 10 / 2)";
         } else {
-            let cbUnCredito = Utils.retrieveDomElement("cbSvincoloUno");
-            if (cbUnCredito.checked) {
-                toReturn = toReturn + "la squadra riceverà un solo credito in ogni caso, solamente per permettere eventuali acquisti a quotazione uno di svincolati.";
-            } else {
-                let cbMeta = Utils.retrieveDomElement("cbSvincoloMeta");
-                if (cbMeta.checked) {
-                    toReturn = toReturn + "la squadra riceverà crediti pari alla metà della quotazione di acquisto.";
-                } else {
-                    let cbQuotazione = Utils.retrieveDomElement("cbSvincoloQuotazione");
-                    if (cbQuotazione.checked) {
-                        toReturn = toReturn + "la squadra riceverà crediti pari alla quotazione di acquisto.";
-                    } else {
-                        let cbSvincoloAttuale = Utils.retrieveDomElement("cbSvincoloAttuale");
-                        if (cbSvincoloAttuale.checked) {
-                            toReturn = toReturn + "la squadra riceverà crediti pari alla quotazione attuale del calciatore.";
-                        } else {
-                            let cbMedia = Utils.retrieveDomElement("cbSvincoloMedia");
-                            if (cbMedia.checked) {
-                                toReturn = toReturn + "la squadra riceverà un numero di crediti pari alla media tra la quotazione attuale del giocatore e il suo valore di acquisto. Esempio se la quotazione attuale è 50 e la spesa per l'acquisto è stata di 10, allora i crediti ricevuti saranno 30 (50 + 10 / 2)";
-                            }
-                        }
-                    }
-                }
-            }
+            toReturn = toReturn + "non verrà recuperato alcun credito.";
         }
         return toReturn;
     },
