@@ -2,6 +2,7 @@ const PlayerReleaseRules = {
     produce: function (sectionIndex) {
         let rules = [];
         rules.push(this.estraiGestioneSvincoliMercato());
+        rules.push(this.estraiAbilitazioneRiacquisto());
         rules.push(this.estraiGestioneSvincoli());
         rules.push(this.estraiGestioneDecimali());
         rules.push(this.estraiGestioneCessioniAltroCampionato());
@@ -11,14 +12,21 @@ const PlayerReleaseRules = {
 
     estraiGestioneSvincoliMercato: function () {
         let valueId = Utils.getSelectedRadioId("fSvincolo");
-        if ("cbSvincoloInizioSi" === valueId) {
-            return "Ad ogni sessione di mercato, una squadra interessata ad acquistare dovrà comunicare in anticipo i giocatori da svincolare, potendo poi però partecipare all'asta anche di giocatori svincolati da se stesso.";
-        } else if ("cbSvincoloInizioNo" === valueId) {
-            return "Ad ogni sessione di mercato, una squadra interessata ad acquistare dovrà comunicare in anticipo i giocatori da svincolare, NON potendo poi però partecipare all'asta anche di giocatori svincolati da se stesso.";
+        if ("cbSvincoloInizio" === valueId) {
+            return "Ad ogni sessione di mercato, una squadra interessata ad acquistare dovrà comunicare in anticipo i giocatori da svincolare.";
         } else if ("cbSvincoloAcquisto" === valueId) {
             return "Prevista l'applicazione dello svincolo su acquisto, ossia ogni partecipante dovrà comunicare lo svincolo solamente dopo aver eseguito un acquisto. Per la gestione del singolo svincolo invece vi è una regola specifica.";
         } else {
-            return "Durante una sessione di mercato non sarà possibile svincolare i calciatori già acquistati, ma sarà possibile farlo solamente a fine mercato dopo che tutti i partecipanti avranno completato le proprie rose.";
+            return "Durante una sessione di mercato sarà possibile svincolare i calciatori acquistati solo a fine mercato, dopo che tutti i partecipanti avranno completato le proprie rose.";
+        }
+    },
+
+    estraiAbilitazioneRiacquisto: function () {
+        let valueId = Utils.getSelectedRadioId("fRiacquisto");
+        if ("cbRiacquistoSi" === valueId) {
+            return "Durante una sessione di mercato, sarà possibile ri-acquistare giocatori precedentemente svincolati dalla squadra stessa.";
+        } else {
+            return "Durante una sessione di mercato, NON sarà possibile ri-acquistare giocatori precedentemente svincolati dalla squadra stessa. Ovviamente, in una successiva sessione di mercato, tali giocatori potranno essere ri-acquistati senza vincoli.";
         }
     },
 

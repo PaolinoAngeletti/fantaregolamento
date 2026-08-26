@@ -4,6 +4,7 @@ function runReleaseRulesTests() {
         describe("produce test", function () {
             it("produce test", function () {
                 realDomDoc.getElementById("cbSvincoloAcquisto").checked = true;
+                realDomDoc.getElementById("cbRiacquistoNo").checked = true;
                 realDomDoc.getElementById("cbSvincoloMeta").checked = true;
                 realDomDoc.getElementById("cbPreMercatoPrestito").checked = true;
                 realDomDoc.getElementById("etNoteSvincoli").value = "additional-notes!";
@@ -14,34 +15,25 @@ function runReleaseRulesTests() {
                 expect(html[0].type).toBe("h2");
                 expect(html[1].text).toContain("10.1. Prevista l'applicazione dello svincolo su acquisto");
                 expect(html[1].type).toBe("paragraph");
-                expect(html[2].text).toContain("10.2. In caso di svincolo di giocatori acquistati in mercati precedenti");
+                expect(html[2].text).toContain("10.2. Durante una sessione di mercato, NON sarà possibile ri-acquistare");
                 expect(html[2].type).toBe("paragraph");
-                expect(html[3].text).toContain("10.3. In caso di svincoli che generano valori decimali");
+                expect(html[3].text).toContain("10.3. In caso di svincolo di giocatori acquistati in mercati precedenti");
                 expect(html[3].type).toBe("paragraph");
-                expect(html[4].text).toContain("10.4. Se, durante la competizione, un calciatore viene ceduto in altri campionati");
+                expect(html[4].text).toContain("10.4. In caso di svincoli che generano valori decimali");
                 expect(html[4].type).toBe("paragraph");
-                expect(html[5].text).toContain("10.5. additional-notes!");
+                expect(html[5].text).toContain("10.5. Se, durante la competizione, un calciatore viene ceduto in altri campionati");
                 expect(html[5].type).toBe("paragraph");
+                expect(html[6].text).toContain("10.6. additional-notes!");
+                expect(html[6].type).toBe("paragraph");
             });
         });
 
         describe("release modes test", function () {
 
-            it("generates the option correctly svincoloInizioSi", function () {
-                realDomDoc.getElementById("cbSvincoloAcquisto").checked = false;
-                realDomDoc.getElementById("cbSvincoloInizioSi").checked = true;
-
+            it("generates the option correctly svincoloInizio", function () {
+                realDomDoc.getElementById("cbSvincoloInizio").checked = true;
                 const html = PlayerReleaseRules.estraiGestioneSvincoliMercato();
-                expect(html).toContain("potendo poi però partecipare all'asta anche di giocatori svincolati da se stesso");
-            });
-
-            it("generates the option correctly svincoloInizioNo", function () {
-                realDomDoc.getElementById("cbSvincoloAcquisto").checked = false;
-                realDomDoc.getElementById("cbSvincoloInizioSi").checked = false;
-                realDomDoc.getElementById("cbSvincoloInizioNo").checked = true;
-
-                const html = PlayerReleaseRules.estraiGestioneSvincoliMercato();
-                expect(html).toContain("NON potendo poi però partecipare all'asta anche di giocatori svincolati da se stesso");
+                expect(html).toContain("dovrà comunicare in anticipo i giocatori da svincolare");
             });
 
             it("generates the option correctly cbSvincoloAcquisto", function () {
@@ -54,6 +46,23 @@ function runReleaseRulesTests() {
                 realDomDoc.getElementById("cbSvincoloFine").checked = true;
                 const html = PlayerReleaseRules.estraiGestioneSvincoliMercato();
                 expect(html).toContain("solamente a fine mercato");
+            });
+
+        });
+
+        describe("ri-acquisto giocatori options tests", function () {
+
+            it("under test = cbRiacquistoSi", function () {
+                realDomDoc.getElementById("cbRiacquistoSi").checked = true;
+                const html = PlayerReleaseRules.estraiAbilitazioneRiacquisto();
+                expect(html).not.toContain("NON");
+                expect(html).toContain("sarà possibile ri-acquistare giocatori precedentemente svincolati");
+            });
+
+            it("under test = cbRiacquistoNo", function () {
+                realDomDoc.getElementById("cbRiacquistoNo").checked = true;
+                const html = PlayerReleaseRules.estraiAbilitazioneRiacquisto();
+                expect(html).toContain("NON sarà possibile ri-acquistare giocatori precedentemente svincolati");
             });
 
         });

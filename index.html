@@ -507,14 +507,8 @@
 
         <rule-values>
             <form id="fSvincolo">
-                <rule-radio-opt id="cbSvincoloInizioSi" type="radio" name="radio" data-content-type="html" loadable>
+                <rule-radio-opt id="cbSvincoloInizio" type="radio" name="radio" loadable>
                     Svincola i giocatori prima dell'inizio del mercato.
-                    Gli svincolati potranno essere acquistati da chi li ha liberati.
-                </rule-radio-opt>
-
-                <rule-radio-opt id="cbSvincoloInizioNo" type="radio" name="radio" data-content-type="html" loadable>
-                    Svincola i giocatori prima dell'inizio del mercato.
-                    Gli svincolati non potranno essere acquistati da chi li ha liberati.
                 </rule-radio-opt>
 
                 <rule-radio-opt id="cbSvincoloAcquisto" type="radio" name="radio" loadable>
@@ -523,6 +517,29 @@
 
                 <rule-radio-opt id="cbSvincoloFine" type="radio" name="radio" loadable checked>
                     Svincola un giocatore solo a fine mercato dopo il completamento delle rose
+                </rule-radio-opt>
+            </form>
+        </rule-values>
+    </rule>
+
+    <!-- riacquisto svincolati -->
+    <rule>
+        <rule-title>
+            Riacquisto svincolati
+        </rule-title>
+
+        <rule-description>
+            Indica se permettere il ri-acquisto di calciatori svincolati durante lo stesso mercato.
+        </rule-description>
+
+        <rule-values>
+            <form id="fRiacquisto">
+                <rule-radio-opt id="cbRiacquistoSi" type="radio" name="radio" loadable>
+                    Permetti ri-acquisto
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbRiacquistoNo" type="radio" name="radio" checked loadable>
+                    Non permettere ri-acquisto
                 </rule-radio-opt>
             </form>
         </rule-values>
