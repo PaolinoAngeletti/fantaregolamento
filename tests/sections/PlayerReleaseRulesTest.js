@@ -26,6 +26,7 @@ function runReleaseRulesTests() {
         });
 
         describe("release modes test", function () {
+
             it("generates the option correctly svincoloInizioSi", function () {
                 realDomDoc.getElementById("cbSvincoloAcquisto").checked = false;
                 realDomDoc.getElementById("cbSvincoloInizioSi").checked = true;
@@ -42,6 +43,19 @@ function runReleaseRulesTests() {
                 const html = PlayerReleaseRules.estraiGestioneSvincoliMercato();
                 expect(html).toContain("NON potendo poi però partecipare all'asta anche di giocatori svincolati da se stesso");
             });
+
+            it("generates the option correctly cbSvincoloAcquisto", function () {
+                realDomDoc.getElementById("cbSvincoloAcquisto").checked = true;
+                const html = PlayerReleaseRules.estraiGestioneSvincoliMercato();
+                expect(html).toContain("lo svincolo solamente dopo aver eseguito un acquisto");
+            });
+
+            it("generates the option correctly cbSvincoloFine", function () {
+                realDomDoc.getElementById("cbSvincoloFine").checked = true;
+                const html = PlayerReleaseRules.estraiGestioneSvincoliMercato();
+                expect(html).toContain("solamente a fine mercato");
+            });
+
         });
 
         describe("player release tests", function () {

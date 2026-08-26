@@ -506,11 +506,7 @@
         </rule-description>
 
         <rule-values>
-            <form>
-                <rule-radio-opt id="cbSvincoloAcquisto" type="radio" name="radio" loadable checked>
-                    Svincola un giocatore solo dopo averne acquistato un altro dello stesso ruolo
-                </rule-radio-opt>
-
+            <form id="fSvincolo">
                 <rule-radio-opt id="cbSvincoloInizioSi" type="radio" name="radio" data-content-type="html" loadable>
                     Svincola i giocatori prima dell'inizio del mercato.
                     Gli svincolati potranno essere acquistati da chi li ha liberati.
@@ -519,6 +515,14 @@
                 <rule-radio-opt id="cbSvincoloInizioNo" type="radio" name="radio" data-content-type="html" loadable>
                     Svincola i giocatori prima dell'inizio del mercato.
                     Gli svincolati non potranno essere acquistati da chi li ha liberati.
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbSvincoloAcquisto" type="radio" name="radio" loadable>
+                    Svincola un giocatore solo dopo averne acquistato un altro dello stesso ruolo
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbSvincoloFine" type="radio" name="radio" loadable checked>
+                    Svincola un giocatore solo a fine mercato dopo il completamento delle rose
                 </rule-radio-opt>
             </form>
         </rule-values>

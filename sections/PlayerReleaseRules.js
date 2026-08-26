@@ -10,22 +10,16 @@ const PlayerReleaseRules = {
     },
 
     estraiGestioneSvincoliMercato: function () {
-        let toReturn = "";
-        let campoSvincolo = Utils.retrieveDomElement("cbSvincoloAcquisto");
-        if (campoSvincolo.checked) {
-            toReturn = "Prevista l'applicazione dello svincolo su acquisto, ossia ogni partecipante dovrà comunicare lo svincolo solamente dopo aver eseguito un acquisto. Per la gestione del singolo svincolo invece vi è una regola specifica.";
+        let valueId = Utils.getSelectedRadioId("fSvincolo");
+        if ("cbSvincoloInizioSi" === valueId) {
+            return "Ad ogni sessione di mercato, una squadra interessata ad acquistare dovrà comunicare in anticipo i giocatori da svincolare, potendo poi però partecipare all'asta anche di giocatori svincolati da se stesso.";
+        } else if ("cbSvincoloInizioNo" === valueId) {
+            return "Ad ogni sessione di mercato, una squadra interessata ad acquistare dovrà comunicare in anticipo i giocatori da svincolare, NON potendo poi però partecipare all'asta anche di giocatori svincolati da se stesso.";
+        } else if ("cbSvincoloAcquisto" === valueId) {
+            return "Prevista l'applicazione dello svincolo su acquisto, ossia ogni partecipante dovrà comunicare lo svincolo solamente dopo aver eseguito un acquisto. Per la gestione del singolo svincolo invece vi è una regola specifica.";
         } else {
-            campoSvincolo = Utils.retrieveDomElement("cbSvincoloInizioSi");
-            if (campoSvincolo.checked) {
-                toReturn = "Ad ogni sessione di mercato, una squadra interessata ad acquistare dovrà comunicare in anticipo i giocatori da svincolare, potendo poi però partecipare all'asta anche di giocatori svincolati da se stesso.";
-            } else {
-                campoSvincolo = Utils.retrieveDomElement("cbSvincoloInizioNo");
-                if (campoSvincolo.checked) {
-                    toReturn = "Ad ogni sessione di mercato, una squadra interessata ad acquistare dovrà comunicare in anticipo i giocatori da svincolare, NON potendo poi però partecipare all'asta anche di giocatori svincolati da se stesso.";
-                }
-            }
+            return "Durante una sessione di mercato non sarà possibile svincolare i calciatori già acquistati, ma sarà possibile farlo solamente a fine mercato dopo che tutti i partecipanti avranno completato le proprie rose.";
         }
-        return toReturn;
     },
 
     estraiGestioneSvincoli: function () {
