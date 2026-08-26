@@ -45,7 +45,7 @@ function runReleaseRulesTests() {
             it("generates the option correctly cbSvincoloFine", function () {
                 realDomDoc.getElementById("cbSvincoloFine").checked = true;
                 const html = PlayerReleaseRules.estraiGestioneSvincoliMercato();
-                expect(html).toContain("solamente a fine mercato");
+                expect(html).toContain("svincolare i calciatori acquistati solo a fine mercato");
             });
 
         });

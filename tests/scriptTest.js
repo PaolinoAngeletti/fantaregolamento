@@ -1,6 +1,7 @@
 function runMainScriptTests() {
 
-    describe("generate a valid content list", function () {
+    describe("script test - generate a valid content list", function () {
+
         it("generate a valid content list", function () {
 
             //setting correct values from verified fields.
@@ -17,7 +18,6 @@ function runMainScriptTests() {
             realDomDoc.getElementById("etMaxScambiRuolo").value = "0";
             realDomDoc.getElementById("etTolleranza").value = "10";
             realDomDoc.getElementById('etSoglie').value = "5";
-            realDomDoc.getElementById("etQuota").value = "50";
             realDomDoc.getElementById("cbPenalitaNo").checked = true;
             realDomDoc.getElementById("cbModificatoreNo").checked = true;
             realDomDoc.getElementById("cb442").checked = true;
@@ -29,6 +29,8 @@ function runMainScriptTests() {
             realDomDoc.getElementById('etNoteInfortuni').value = "notes";
             realDomDoc.getElementById('etNoteFormazione').value = "notes";
             realDomDoc.getElementById('etNoteSostituzioni').value = "notes";
+            realDomDoc.getElementById("cbQuotaFissa").checked = true;
+            realDomDoc.getElementById("etQuota").value = "50";
 
             const html = retrieveRegulationContent();
             let texts = html.map(e => e.text);
@@ -261,7 +263,12 @@ function runMainScriptTests() {
                 {field: "et75", value: "102"},
 
                 // prices.
+                {field: "cbQuotaFissa", value: false},
+                {field: "cbQuotaFissa", value: true},
+                {field: "cbQuotaVariabile", value: false},
+                {field: "cbQuotaVariabile", value: true},
                 {field: "etQuota", value: "150"},
+                {field: "taQuotaVariabile", value: "Quota variabile"},
                 {field: "taPremi", value: "These are beautiful notes!"},
             ];
 
@@ -520,7 +527,36 @@ function runMainScriptTests() {
                 {field: "et75", start_value: "5", final_value: "2"},
 
                 // prices.
+                {
+                    field: "cbQuotaFissa",
+                    start_value: true,
+                    final_value: false,
+                    should_appear: ["dFixedPrice"],
+                    should_hide: ["dVariablePrice"]
+                },
+                {
+                    field: "cbQuotaFissa",
+                    start_value: false,
+                    final_value: true,
+                    should_appear: ["dFixedPrice"],
+                    should_hide: ["dVariablePrice"]
+                },
+                {
+                    field: "cbQuotaVariabile",
+                    start_value: true,
+                    final_value: false,
+                    should_appear: ["dFixedPrice"],
+                    should_hide: ["dVariablePrice"]
+                },
+                {
+                    field: "cbQuotaVariabile",
+                    start_value: false,
+                    final_value: true,
+                    should_appear: ["dFixedPrice"],
+                    should_hide: ["dVariablePrice"]
+                },
                 {field: "etQuota", start_value: "50", final_value: "150"},
+                {field: "taQuotaVariabile", start_value: "serie A serie B", final_value: "serie C serie D"},
                 {field: "taPremi", start_value: "Primo posto 150 euro", final_value: "Primo posto 200 euro"},
             ];
 
@@ -733,6 +769,30 @@ function runMainScriptTests() {
 
             let elementToDisplay = realDomDoc.getElementById("punti_modificatore");
             checkElementDisplay(elementToDisplay, false);
+        })
+
+        it("when fixed price is selected, variable text area should be hidden", function () {
+            let cbQuotaFissa = realDomDoc.getElementById("cbQuotaFissa");
+            cbQuotaFissa.checked = true;
+            cbQuotaFissa.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let dFixedPrice = realDomDoc.getElementById("dFixedPrice");
+            checkElementDisplay(dFixedPrice, true);
+
+            let dVariablePrice = realDomDoc.getElementById("dVariablePrice");
+            checkElementDisplay(dVariablePrice, false);
+        })
+
+        it("when variable price is selected, variable text area should be displayed", function () {
+            let cbQuotaVariabile = realDomDoc.getElementById("cbQuotaVariabile");
+            cbQuotaVariabile.checked = true;
+            cbQuotaVariabile.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let dFixedPrice = realDomDoc.getElementById("dFixedPrice");
+            checkElementDisplay(dFixedPrice, true);
+
+            let dVariablePrice = realDomDoc.getElementById("dVariablePrice");
+            checkElementDisplay(dVariablePrice, false);
         })
 
     });

@@ -1372,9 +1372,34 @@
         </rule-description>
 
         <rule-values>
-            <rule-text id="etQuota" type="number" data-rule="required" min="1" value="100" loadable>
-                Quota per squadra
-            </rule-text>
+            <form id="fPrizeType">
+                <rule-radio-opt id="cbQuotaFissa" type="radio" onchange="handlePrizeTypeValue('fixed')" checked loadable>
+                    Fissa
+                </rule-radio-opt>
+
+                <rule-radio-opt id="cbQuotaVariabile" type="radio" onchange="handlePrizeTypeValue('variable')" loadable>
+                    Variabile
+                </rule-radio-opt>
+            </form>
+            <br>
+
+            <div id="dFixedPrice">
+                <rule-text id="etQuota" type="number" data-rule="required" min="1" value="100" loadable>
+                    Quota per squadra fissa
+                </rule-text>
+            </div>
+
+            <div id="dVariablePrice" style="display: none;">
+
+                <rule-note data-content-type="html">
+                    Esempio: la tua competizione prevede più divisioni, e ciascuna di essa prevede una quota diversa.
+                    Usa il campo sotto per indicare le quote variabili che la tua competizione prevede.
+                </rule-note>
+
+                <rule-values>
+                    <rule-text-area id="taQuotaVariabile" loadable></rule-text-area>
+                </rule-values>
+            </div>
         </rule-values>
     </rule>
 

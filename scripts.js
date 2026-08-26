@@ -244,3 +244,24 @@ function verificaPresenzaRecuperoCreditiDecimale() {
     const averageReturn = Utils.retrieveDomElement("cbSvincoloMedia");
     Utils.setElementVisibility("defectOrExcessSection", halfReturn.checked || averageReturn.checked);
 }
+
+function handlePrizeTypeValue(value) {
+    const dFixedPrice = Utils.retrieveDomElement("dFixedPrice");
+    const dVariablePrice = Utils.retrieveDomElement("dVariablePrice");
+    if ("variable" === value) {
+        switchContainer(dFixedPrice, dVariablePrice);
+    } else if ("fixed" === value) {
+        switchContainer(dVariablePrice, dFixedPrice);
+    }
+}
+
+function switchContainer(hideElement, showElement) {
+    hideElement.classList.add("hidden");
+    setTimeout(() => {
+        hideElement.style.display = "none";
+        showElement.style.display = "block";
+        requestAnimationFrame(() => {
+            showElement.classList.remove("hidden");
+        });
+    }, 200);
+}
