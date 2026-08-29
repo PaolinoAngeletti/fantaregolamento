@@ -71,13 +71,14 @@ const Utils = {
      */
     buildRuleSection: function (sectionIndex, sectionTitle, rulesList) {
         let toReturn = [];
+        let ruleIndex = 1;
         if (rulesList) {
             toReturn.push(this.addSectionTitle(sectionIndex, sectionTitle));
-            rulesList.forEach((element, index) => {
-                if (this.isValidString(element)) {
-                    toReturn.push(this.addTextRow(sectionIndex, index + 1, element))
+            rulesList.forEach(rule => {
+                if (this.isValidString(rule)) {
+                    toReturn.push(this.addTextRow(sectionIndex, ruleIndex++, rule))
                 }
-            });
+            })
         }
         return toReturn;
     },

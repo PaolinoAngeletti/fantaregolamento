@@ -2,6 +2,7 @@ function runExchangeRulesTests() {
     describe("Exchange rules", function () {
 
         describe("produce test", function () {
+
             it("generates correct HTML", function () {
                 realDomDoc.getElementById("cbSvincoloNessun").checked = false;
                 realDomDoc.getElementById("cbScambiSi").checked = true;
@@ -22,6 +23,23 @@ function runExchangeRulesTests() {
                 expect(html[4].text).toContain("22.4. additional-notes");
                 expect(html[4].type).toBe("paragraph");
             });
+
+            it("generates correct HTML - no credit swap with players and no notes", function () {
+                realDomDoc.getElementById("cbSvincoloNessun").checked = true;
+                realDomDoc.getElementById("cbScambiSi").checked = true;
+                realDomDoc.getElementById("cbScambioCreditiNo").checked = true;
+                realDomDoc.getElementById("cbPreMercatoQuotazioneIntera").checked = false;
+                realDomDoc.getElementById("etNoteScambi").value = "";
+
+                const html = ExchangeRules.produce(12);
+
+                expect(html[0].text).toContain("12. Gestione scambi");
+                expect(html[1].text).toContain("12.1. Sono previsti gli scambi di giocatori");
+                expect(html[2].text).toContain("12.2. Non sono permessi gli scambi di crediti tra i partecipanti");
+                expect(html[3]).toBe(undefined);
+                expect(html[4]).toBe(undefined);
+            });
+
         });
 
         describe("allowed exchange tests", function () {

@@ -2,6 +2,7 @@ function runReleaseRulesTests() {
     describe("Release rules", function () {
 
         describe("produce test", function () {
+
             it("produce test", function () {
                 realDomDoc.getElementById("cbSvincoloAcquisto").checked = true;
                 realDomDoc.getElementById("cbRiacquistoNo").checked = true;
@@ -26,6 +27,25 @@ function runReleaseRulesTests() {
                 expect(html[6].text).toContain("10.6. additional-notes!");
                 expect(html[6].type).toBe("paragraph");
             });
+
+            it("produce test - no decimal rule and no notes", function () {
+                realDomDoc.getElementById("cbSvincoloFine").checked = true;
+                realDomDoc.getElementById("cbRiacquistoSi").checked = true;
+                realDomDoc.getElementById("cbSvincoloAttuale").checked = true;
+                realDomDoc.getElementById("cbPreMercatoQuotazioneIntera").checked = true;
+                realDomDoc.getElementById("etNoteSvincoli").value = "";
+
+                const html = PlayerReleaseRules.produce(24);
+
+                expect(html[0].text).toContain("24. Gestione svincoli");
+                expect(html[1].text).toContain("24.1. Durante una sessione di mercato sarà possibile svincolare");
+                expect(html[2].text).toContain("24.2. Durante una sessione di mercato, sarà possibile ri-acquistare");
+                expect(html[3].text).toContain("24.3. In caso di svincolo di giocatori acquistati in mercati precedenti");
+                expect(html[4].text).toContain("24.4. Se, durante la competizione, un calciatore viene ceduto in altri campionati");
+                expect(html[5]).toBe(undefined);
+                expect(html[6]).toBe(undefined);
+            });
+
         });
 
         describe("release modes test", function () {
