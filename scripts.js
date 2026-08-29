@@ -2,9 +2,7 @@
 Document on-load procedures.
 */
 
-window.addEventListener('DOMContentLoaded', setup);
-
-function setup() {
+function setupApplication() {
     loadRequiredScripts();
 }
 
@@ -12,7 +10,7 @@ function loadRequiredScripts() {
     loadScript("utils/Utils.js", () => {
         loadImages();
         loadSectionsScripts();
-        setupDefaultPrizesValue();
+        runUiScripts();
         loadScript("utils/FieldValidation.js");
         loadScript("exception/FieldValidationException.js");
         loadScript("exporters/exporter_factory.js");
@@ -39,6 +37,11 @@ function loadSectionsScripts() {
     loadScript("sections/ExchangeRules.js", () => {
         verifyCreditsRecoverOnPlayerRelease();
     });
+}
+
+function runUiScripts() {
+    handleBusteChiuseSelection()
+    setupDefaultPrizesValue();
 }
 
 function setupDefaultPrizesValue() {
@@ -158,6 +161,20 @@ function showExchangeSection(toShow) {
     }
 }
 
+function handleBusteChiuseSelection() {
+    let btnMode = Utils.retrieveDomElement("cbBusta");
+    if (btnMode) {
+        // show button only if specific competition mode is selected.
+        Utils.setElementVisibility("btnTornata", btnMode.checked);
+
+        // if button was previously selected, selection will be moved to default button.
+        let btnTornata = Utils.retrieveDomElement("cbTornata");
+        if (btnTornata.checked) {
+            Utils.selectCheckbox("cbRandomRuolo");
+        }
+    }
+}
+
 function applicaModificatore(toShow) {
     if (toShow) {
         Utils.showDomElement("punti_modificatore");
@@ -187,18 +204,64 @@ function hideErrorSection() {
     Utils.setElementDisplay("errorSection", "none");
 }
 
+/**
+ * Keeps the maximum number of changes allowed in a market session aligned
+ * with the maximum number allowed for each role.
+ *
+ * The session limit is calculated by multiplying the per-role value by the
+ * four supported player roles (goalkeeper, defender, midfielder and striker).
+ *
+ * @param {HTMLInputElement} etMaxScambiRuolo Input containing the maximum
+ *     number of changes allowed for a single role.
+ * @returns {void}
+ */
 function manageRoleMaxChangeNumber(etMaxScambiRuolo) {
     let rolesNumber = 4;
     let maxChangeNr = etMaxScambiRuolo.value;
     Utils.retrieveDomElement("etMaxScambiSessione").value = maxChangeNr * rolesNumber;
 }
 
+/**
+ * Updates the visibility of the player-release recovery section.
+ *
+ * The section is shown when the competition enables either half-value or
+ * average-value credit recovery; otherwise, it remains hidden.
+ *
+ * @returns {void}
+ */
 function verifyCreditsRecoverOnPlayerRelease() {
+    verificaAbilitazioneScambioCrediti();
+    verificaPresenzaRecuperoCreditiDecimale();
+}
+
+function verificaAbilitazioneScambioCrediti() {
     let result = ExchangeRules.expectedRecoveryCreditsFromTransfer();
     Utils.setElementVisibility("creditsExchangeWithPlayersSection", result);
+}
 
-    // view section by defect or excess
+function verificaPresenzaRecuperoCreditiDecimale() {
     const halfReturn = Utils.retrieveDomElement("cbSvincoloMeta");
     const averageReturn = Utils.retrieveDomElement("cbSvincoloMedia");
     Utils.setElementVisibility("defectOrExcessSection", halfReturn.checked || averageReturn.checked);
+}
+
+function handlePrizeTypeValue(value) {
+    const dFixedPrice = Utils.retrieveDomElement("dFixedPrice");
+    const dVariablePrice = Utils.retrieveDomElement("dVariablePrice");
+    if ("variable" === value) {
+        switchContainer(dFixedPrice, dVariablePrice);
+    } else if ("fixed" === value) {
+        switchContainer(dVariablePrice, dFixedPrice);
+    }
+}
+
+function switchContainer(hideElement, showElement) {
+    hideElement.classList.add("hidden");
+    setTimeout(() => {
+        hideElement.style.display = "none";
+        showElement.style.display = "block";
+        requestAnimationFrame(() => {
+            showElement.classList.remove("hidden");
+        });
+    }, 200);
 }

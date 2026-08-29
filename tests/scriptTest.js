@@ -1,6 +1,7 @@
 function runMainScriptTests() {
 
-    describe("generate a valid content list", function () {
+    describe("script test - generate a valid content list", function () {
+
         it("generate a valid content list", function () {
 
             //setting correct values from verified fields.
@@ -17,7 +18,6 @@ function runMainScriptTests() {
             realDomDoc.getElementById("etMaxScambiRuolo").value = "0";
             realDomDoc.getElementById("etTolleranza").value = "10";
             realDomDoc.getElementById('etSoglie').value = "5";
-            realDomDoc.getElementById("etQuota").value = "50";
             realDomDoc.getElementById("cbPenalitaNo").checked = true;
             realDomDoc.getElementById("cbModificatoreNo").checked = true;
             realDomDoc.getElementById("cb442").checked = true;
@@ -29,6 +29,8 @@ function runMainScriptTests() {
             realDomDoc.getElementById('etNoteInfortuni').value = "notes";
             realDomDoc.getElementById('etNoteFormazione').value = "notes";
             realDomDoc.getElementById('etNoteSostituzioni').value = "notes";
+            realDomDoc.getElementById("cbQuotaFissa").checked = true;
+            realDomDoc.getElementById("etQuota").value = "50";
 
             const html = retrieveRegulationContent();
             let texts = html.map(e => e.text);
@@ -61,6 +63,8 @@ function runMainScriptTests() {
                 {field: "cbFormulaUno", value: false},
                 {field: "cbListone", value: true},
                 {field: "cbListone", value: false},
+                {field: "cbBusta", value: true},
+                {field: "cbBusta", value: false},
                 {field: "etInizio", value: "45"},
                 {field: "etFine", value: "10"},
 
@@ -75,8 +79,28 @@ function runMainScriptTests() {
                 {field: "cbCondivisiNo", value: false},
 
                 // transfer market rules.
+                {field: "cbAlfabetico", value: true},
+                {field: "cbAlfabetico", value: false},
+                {field: "cbChiamata", value: true},
+                {field: "cbChiamata", value: false},
+                {field: "cbChiamataRuolo", value: true},
+                {field: "cbChiamataRuolo", value: false},
+                {field: "cbRandom", value: true},
+                {field: "cbRandom", value: false},
+                {field: "cbRandomRuolo", value: true},
+                {field: "cbRandomRuolo", value: false},
+                {field: "cbTornata", value: true},
+                {field: "cbTornata", value: false},
                 {field: "etCrediti", value: "750"},
+                {field: "cbOffMinUno", value: false},
+                {field: "cbOffMinUno", value: true},
+                {field: "cbOffMinValAtt", value: false},
+                {field: "cbOffMinValAtt", value: true},
                 {field: "etCreditiSessione", value: "100"},
+                {field: "cbCreditiNoAcquisto", value: false},
+                {field: "cbCreditiNoAcquisto", value: true},
+                {field: "cbCreditiSvincoloLoop", value: false},
+                {field: "cbCreditiSvincoloLoop", value: true},
                 {field: "taCreditiFiniti", value: "10"},
                 {field: "cbResiduiSi", value: false},
                 {field: "cbResiduiSi", value: true},
@@ -94,10 +118,14 @@ function runMainScriptTests() {
                 // player releases.
                 {field: "cbSvincoloAcquisto", value: false},
                 {field: "cbSvincoloAcquisto", value: true},
-                {field: "cbSvincoloInizioSi", value: false},
-                {field: "cbSvincoloInizioSi", value: true},
-                {field: "cbSvincoloInizioNo", value: false},
-                {field: "cbSvincoloInizioNo", value: true},
+                {field: "cbSvincoloInizio", value: false},
+                {field: "cbSvincoloInizio", value: true},
+                {field: "cbSvincoloFine", value: false},
+                {field: "cbSvincoloFine", value: true},
+                {field: "cbRiacquistoSi", value: false},
+                {field: "cbRiacquistoSi", value: true},
+                {field: "cbRiacquistoNo", value: false},
+                {field: "cbRiacquistoNo", value: true},
                 {field: "cbSvincoloNessun", value: false},
                 {field: "cbSvincoloNessun", value: true},
                 {field: "cbSvincoloUno", value: false},
@@ -106,6 +134,8 @@ function runMainScriptTests() {
                 {field: "cbSvincoloMeta", value: true},
                 {field: "cbSvincoloQuotazione", value: false},
                 {field: "cbSvincoloQuotazione", value: true},
+                {field: "cbSvincoloMetaAttuale", value: false},
+                {field: "cbSvincoloMetaAttuale", value: true},
                 {field: "cbSvincoloAttuale", value: false},
                 {field: "cbSvincoloAttuale", value: true},
                 {field: "cbSvincoloMedia", value: false},
@@ -233,7 +263,12 @@ function runMainScriptTests() {
                 {field: "et75", value: "102"},
 
                 // prices.
+                {field: "cbQuotaFissa", value: false},
+                {field: "cbQuotaFissa", value: true},
+                {field: "cbQuotaVariabile", value: false},
+                {field: "cbQuotaVariabile", value: true},
                 {field: "etQuota", value: "150"},
+                {field: "taQuotaVariabile", value: "Quota variabile"},
                 {field: "taPremi", value: "These are beautiful notes!"},
             ];
 
@@ -261,12 +296,14 @@ function runMainScriptTests() {
             let test_cases = [
 
                 // competition type.
-                {field: "cbCalendario", start_value: false, final_value: true},
-                {field: "cbCalendario", start_value: true, final_value: false},
-                {field: "cbFormulaUno", start_value: false, final_value: true},
-                {field: "cbFormulaUno", start_value: true, final_value: false},
-                {field: "cbListone", start_value: false, final_value: true},
-                {field: "cbListone", start_value: true, final_value: false},
+                {field: "cbCalendario", start_value: false, final_value: true, should_hide: ["btnTornata"]},
+                {field: "cbCalendario", start_value: true, final_value: false, should_hide: ["btnTornata"]},
+                {field: "cbFormulaUno", start_value: false, final_value: true, should_hide: ["btnTornata"]},
+                {field: "cbFormulaUno", start_value: true, final_value: false, should_hide: ["btnTornata"]},
+                {field: "cbListone", start_value: false, final_value: true, should_hide: ["btnTornata"]},
+                {field: "cbListone", start_value: true, final_value: false, should_hide: ["btnTornata"]},
+                {field: "cbBusta", start_value: false, final_value: true, should_appear: ["btnTornata"]},
+                {field: "cbBusta", start_value: true, final_value: false, should_hide: ["btnTornata"]},
                 {field: "etInizio", start_value: "5", final_value: "20"},
                 {field: "etFine", start_value: "10", final_value: "4"},
 
@@ -281,8 +318,28 @@ function runMainScriptTests() {
                 {field: "cbCondivisiSi", start_value: true, final_value: false},
 
                 // transfer market rules.
+                {field: "cbAlfabetico", start_value: true, final_value: false},
+                {field: "cbAlfabetico", start_value: false, final_value: true},
+                {field: "cbChiamata", start_value: true, final_value: false},
+                {field: "cbChiamata", start_value: false, final_value: true},
+                {field: "cbChiamataRuolo", start_value: true, final_value: false},
+                {field: "cbChiamataRuolo", start_value: false, final_value: true},
+                {field: "cbRandom", start_value: true, final_value: false},
+                {field: "cbRandom", start_value: false, final_value: true},
+                {field: "cbRandomRuolo", start_value: true, final_value: false},
+                {field: "cbRandomRuolo", start_value: false, final_value: true},
+                {field: "cbTornata", start_value: true, final_value: false},
+                {field: "cbTornata", start_value: false, final_value: true},
                 {field: "etCrediti", start_value: "750", final_value: "100"},
+                {field: "cbOffMinUno", start_value: true, final_value: false},
+                {field: "cbOffMinUno", start_value: false, final_value: true},
+                {field: "cbOffMinValAtt", start_value: true, final_value: false},
+                {field: "cbOffMinValAtt", start_value: false, final_value: true},
                 {field: "etCreditiSessione", start_value: "100", final_value: "150"},
+                {field: "cbCreditiNoAcquisto", start_value: true, final_value: false},
+                {field: "cbCreditiNoAcquisto", start_value: false, final_value: true},
+                {field: "cbCreditiSvincoloLoop", start_value: true, final_value: false},
+                {field: "cbCreditiSvincoloLoop", start_value: false, final_value: true},
                 {field: "taCreditiFiniti", start_value: "10", final_value: "50"},
                 {field: "cbResiduiSi", start_value: false, final_value: true},
                 {field: "cbResiduiSi", start_value: true, final_value: false},
@@ -304,10 +361,14 @@ function runMainScriptTests() {
                 // player releases.
                 {field: "cbSvincoloAcquisto", start_value: false, final_value: true},
                 {field: "cbSvincoloAcquisto", start_value: true, final_value: false},
-                {field: "cbSvincoloInizioSi", start_value: false, final_value: true},
-                {field: "cbSvincoloInizioSi", start_value: true, final_value: false},
-                {field: "cbSvincoloInizioNo", start_value: false, final_value: true},
-                {field: "cbSvincoloInizioNo", start_value: true, final_value: false},
+                {field: "cbSvincoloInizio", start_value: false, final_value: true},
+                {field: "cbSvincoloInizio", start_value: true, final_value: false},
+                {field: "cbSvincoloFine", start_value: false, final_value: true},
+                {field: "cbSvincoloFine", start_value: true, final_value: false},
+                {field: "cbRiacquistoSi", start_value: false, final_value: true},
+                {field: "cbRiacquistoSi", start_value: true, final_value: false},
+                {field: "cbRiacquistoNo", start_value: false, final_value: true},
+                {field: "cbRiacquistoNo", start_value: true, final_value: false},
                 {field: "cbSvincoloNessun", start_value: false, final_value: true},
                 {field: "cbSvincoloNessun", start_value: true, final_value: false},
                 {field: "cbSvincoloUno", start_value: false, final_value: true},
@@ -316,6 +377,8 @@ function runMainScriptTests() {
                 {field: "cbSvincoloMeta", start_value: true, final_value: false},
                 {field: "cbSvincoloQuotazione", start_value: false, final_value: true},
                 {field: "cbSvincoloQuotazione", start_value: true, final_value: false},
+                {field: "cbSvincoloMetaAttuale", start_value: false, final_value: true},
+                {field: "cbSvincoloMetaAttuale", start_value: true, final_value: false},
                 {field: "cbSvincoloAttuale", start_value: false, final_value: true},
                 {field: "cbSvincoloAttuale", start_value: true, final_value: false},
                 {field: "cbSvincoloMedia", start_value: false, final_value: true},
@@ -397,9 +460,9 @@ function runMainScriptTests() {
                 {field: "cbMancataNulla", start_value: true, final_value: false},
                 {field: "cbMancataPrecedente", start_value: false, final_value: true},
                 {field: "cbMancataPrecedente", start_value: true, final_value: false},
-                {field: "cbPenalitaNo", start_value: false, final_value: true},
+                {field: "cbPenalitaNo", start_value: false, final_value: true, should_hide: ["penaltySection"]},
                 {field: "cbPenalitaNo", start_value: true, final_value: false},
-                {field: "cbPenalitaYes", start_value: false, final_value: true},
+                {field: "cbPenalitaYes", start_value: false, final_value: true, should_appear: ["penaltySection"]},
                 {field: "cbPenalitaYes", start_value: true, final_value: false},
                 {field: "taPenality", start_value: "text-1", final_value: "text-2"},
                 {field: "cbInvisibiliSi", start_value: false, final_value: true},
@@ -445,9 +508,14 @@ function runMainScriptTests() {
                 {field: "cbRinvioPolitico", start_value: true, final_value: false},
                 {field: "cbRinvioPanchina", start_value: false, final_value: true},
                 {field: "cbRinvioPanchina", start_value: true, final_value: false},
-                {field: "cbModificatoreNo", start_value: false, final_value: true},
+                {field: "cbModificatoreNo", start_value: false, final_value: true, should_hide: ["punti_modificatore"]},
                 {field: "cbModificatoreNo", start_value: true, final_value: false},
-                {field: "cbModificatoreSi", start_value: false, final_value: true},
+                {
+                    field: "cbModificatoreSi",
+                    start_value: false,
+                    final_value: true,
+                    should_appear: ["punti_modificatore"]
+                },
                 {field: "cbModificatoreSi", start_value: true, final_value: false},
                 {field: "et0599", start_value: "5", final_value: "2"},
                 {field: "et6624", start_value: "5", final_value: "2"},
@@ -459,12 +527,41 @@ function runMainScriptTests() {
                 {field: "et75", start_value: "5", final_value: "2"},
 
                 // prices.
+                {
+                    field: "cbQuotaFissa",
+                    start_value: true,
+                    final_value: false,
+                    should_appear: ["dFixedPrice"],
+                    should_hide: ["dVariablePrice"]
+                },
+                {
+                    field: "cbQuotaFissa",
+                    start_value: false,
+                    final_value: true,
+                    should_appear: ["dFixedPrice"],
+                    should_hide: ["dVariablePrice"]
+                },
+                {
+                    field: "cbQuotaVariabile",
+                    start_value: true,
+                    final_value: false,
+                    should_appear: ["dFixedPrice"],
+                    should_hide: ["dVariablePrice"]
+                },
+                {
+                    field: "cbQuotaVariabile",
+                    start_value: false,
+                    final_value: true,
+                    should_appear: ["dFixedPrice"],
+                    should_hide: ["dVariablePrice"]
+                },
                 {field: "etQuota", start_value: "50", final_value: "150"},
+                {field: "taQuotaVariabile", start_value: "serie A serie B", final_value: "serie C serie D"},
                 {field: "taPremi", start_value: "Primo posto 150 euro", final_value: "Primo posto 200 euro"},
             ];
 
             test_cases.forEach(test => {
-                it(`${test.field} final-value = ${test.final_value} start-value = ${test.start_value}`, () => {
+                it(`${test.field} start-value = ${test.start_value} final-value = ${test.final_value}`, () => {
                     let field = test.field;
                     let start_value = test.start_value;
                     let final_value = test.final_value;
@@ -513,4 +610,195 @@ function runMainScriptTests() {
         })
 
     });
+
+    describe("fields relationship tests", function () {
+
+        it("cbBusta selection", function () {
+            let cbBusta = realDomDoc.getElementById("cbBusta");
+            let btnTornata = realDomDoc.getElementById("btnTornata");
+
+            cbBusta.checked = false;
+            Utils.setElementVisibility("btnTornata", false);
+
+            cbBusta.click();
+            checkElementDisplay(btnTornata, true);
+        })
+
+        it("cbBusta unselection", function () {
+            let cbBusta = realDomDoc.getElementById("cbBusta");
+            let btnTornata = realDomDoc.getElementById("btnTornata");
+            let cbCalendario = realDomDoc.getElementById("cbCalendario");
+
+            cbBusta.checked = true;
+            cbCalendario.checked = false;
+            Utils.setElementVisibility("btnTornata", true);
+
+            cbCalendario.click();
+            checkElementDisplay(btnTornata, false);
+        })
+
+        it("max-change-role should update max-change-session", function () {
+            let txtRole = realDomDoc.getElementById("etMaxScambiRuolo");
+            let txtSession = realDomDoc.getElementById("etMaxScambiSessione");
+
+            txtRole.value = "15";
+            txtRole.dispatchEvent(new Event("input", {bubbles: true}));
+
+            expect(txtSession.value).toBe("60");
+        })
+
+        it("when credit recovery from an unbinding operation is expected, the credit exchange div is displayed (test 1)", function () {
+            let btnNessun = realDomDoc.getElementById("cbSvincoloNessun");
+            btnNessun.checked = false;
+            btnNessun.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let elementToDisplay = realDomDoc.getElementById("creditsExchangeWithPlayersSection");
+            checkElementDisplay(elementToDisplay, true);
+        })
+
+        it("when credit recovery from an unbinding operation is expected, the credit exchange div is displayed (test 2)", function () {
+            let btnNessun = realDomDoc.getElementById("cbSvincoloNessun");
+            btnNessun.checked = true;
+            btnNessun.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let btnQuotazione = realDomDoc.getElementById("cbPreMercatoQuotazioneIntera");
+            btnQuotazione.checked = true;
+            btnQuotazione.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let elementToDisplay = realDomDoc.getElementById("creditsExchangeWithPlayersSection");
+            checkElementDisplay(elementToDisplay, true);
+        })
+
+        it("when credit recovery from an unbinding operation is not expected, the credit exchange div is not displayed", function () {
+            let btnNessun = realDomDoc.getElementById("cbSvincoloNessun");
+            btnNessun.checked = true;
+            btnNessun.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let btnQuotazione = realDomDoc.getElementById("cbPreMercatoQuotazioneIntera");
+            btnQuotazione.checked = false;
+            btnQuotazione.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let elementToDisplay = realDomDoc.getElementById("creditsExchangeWithPlayersSection");
+            checkElementDisplay(elementToDisplay, false);
+        })
+
+        it("when the debt recovery amount involves decimals, the designated box must be displayed - cbSvincoloMeta", function () {
+            let btnHalf = realDomDoc.getElementById("cbSvincoloMeta");
+            btnHalf.checked = true;
+            btnHalf.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let elementToDisplay = realDomDoc.getElementById("defectOrExcessSection");
+            checkElementDisplay(elementToDisplay, true);
+        })
+
+        it("when the debt recovery amount involves decimals, the designated box must be displayed - cbSvincoloMedia", function () {
+            let btnAverage = realDomDoc.getElementById("cbSvincoloMedia");
+            btnAverage.checked = true;
+            btnAverage.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let elementToDisplay = realDomDoc.getElementById("defectOrExcessSection");
+            checkElementDisplay(elementToDisplay, true);
+        })
+
+        it("when the debt recovery amount cannot be decimal, the designated box must be hidden", function () {
+            let btnHalf = realDomDoc.getElementById("cbSvincoloMeta");
+            btnHalf.checked = false;
+            btnHalf.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let btnAverage = realDomDoc.getElementById("cbSvincoloMedia");
+            btnAverage.checked = false;
+            btnAverage.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let elementToDisplay = realDomDoc.getElementById("defectOrExcessSection");
+            checkElementDisplay(elementToDisplay, false);
+        })
+
+        it("when exchanges are enabled, the dedicated section should be displayed", function () {
+            let cbScambiSi = realDomDoc.getElementById("cbScambiSi");
+            cbScambiSi.checked = true;
+            cbScambiSi.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let elementToDisplay = realDomDoc.getElementById("exchangeSection");
+            checkElementDisplay(elementToDisplay, true);
+        })
+
+        it("when exchanges are disabled, the dedicated section should be hidden", function () {
+            let cbScambiSi = realDomDoc.getElementById("cbScambiSi");
+            cbScambiSi.checked = false;
+            cbScambiSi.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let cbScambiNo = realDomDoc.getElementById("cbScambiNo");
+            cbScambiNo.checked = true;
+            cbScambiNo.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let elementToDisplay = realDomDoc.getElementById("exchangeSection");
+            checkElementDisplay(elementToDisplay, false);
+        })
+
+        it("when penalities are enabled, the dedicated section should be displayed", function () {
+            let cbPenalitaYes = realDomDoc.getElementById("cbPenalitaYes");
+            cbPenalitaYes.checked = true;
+            cbPenalitaYes.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let elementToDisplay = realDomDoc.getElementById("penaltySection");
+            checkElementDisplay(elementToDisplay, true);
+        })
+
+        it("when penalities are disabled, the dedicated section should be hidden", function () {
+            let cbPenalitaNo = realDomDoc.getElementById("cbPenalitaNo");
+            cbPenalitaNo.checked = true;
+            cbPenalitaNo.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let elementToDisplay = realDomDoc.getElementById("penaltySection");
+            checkElementDisplay(elementToDisplay, false);
+        })
+
+        it("when modificatore is enabled, dedicated section should be displayed", function () {
+            let cbModificatoreSi = realDomDoc.getElementById("cbModificatoreSi");
+            cbModificatoreSi.checked = true;
+            cbModificatoreSi.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let elementToDisplay = realDomDoc.getElementById("punti_modificatore");
+            checkElementDisplay(elementToDisplay, true);
+        })
+
+        it("when modificatore is disabled, dedicated section should be hidden", function () {
+            let cbModificatoreNo = realDomDoc.getElementById("cbModificatoreNo");
+            cbModificatoreNo.checked = true;
+            cbModificatoreNo.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let elementToDisplay = realDomDoc.getElementById("punti_modificatore");
+            checkElementDisplay(elementToDisplay, false);
+        })
+
+        it("when fixed price is selected, variable text area should be hidden", function () {
+            let cbQuotaFissa = realDomDoc.getElementById("cbQuotaFissa");
+            cbQuotaFissa.checked = true;
+            cbQuotaFissa.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let dFixedPrice = realDomDoc.getElementById("dFixedPrice");
+            checkElementDisplay(dFixedPrice, true);
+
+            let dVariablePrice = realDomDoc.getElementById("dVariablePrice");
+            checkElementDisplay(dVariablePrice, false);
+        })
+
+        it("when variable price is selected, variable text area should be displayed", function () {
+            let cbQuotaVariabile = realDomDoc.getElementById("cbQuotaVariabile");
+            cbQuotaVariabile.checked = true;
+            cbQuotaVariabile.dispatchEvent(new Event("change", {bubbles: true}));
+
+            let dFixedPrice = realDomDoc.getElementById("dFixedPrice");
+            checkElementDisplay(dFixedPrice, true);
+
+            let dVariablePrice = realDomDoc.getElementById("dVariablePrice");
+            checkElementDisplay(dVariablePrice, false);
+        })
+
+    });
+
+    function checkElementDisplay(element, shouldDisplay) {
+        let value = shouldDisplay ? "block" : "none";
+        expect(window.getComputedStyle(element).display).toBe(value);
+    }
 }

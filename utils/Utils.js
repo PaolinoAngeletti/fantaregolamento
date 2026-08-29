@@ -38,6 +38,13 @@ const Utils = {
         }
     },
 
+    selectCheckbox(checkboxId) {
+        let element = this.retrieveDomElement(checkboxId);
+        if (element) {
+            element.click();
+        }
+    },
+
     retrieveAdditionalNotes: function (domElement) {
         let toReturn = "";
         let additionalNotes = Utils.retrieveDomElement(domElement);
@@ -64,14 +71,25 @@ const Utils = {
      */
     buildRuleSection: function (sectionIndex, sectionTitle, rulesList) {
         let toReturn = [];
+        let ruleIndex = 1;
         if (rulesList) {
             toReturn.push(this.addSectionTitle(sectionIndex, sectionTitle));
-            rulesList.forEach((element, index) => {
-                if (this.isValidString(element)) {
-                    toReturn.push(this.addTextRow(sectionIndex, index + 1, element))
+            rulesList.forEach(rule => {
+                if (this.isValidString(rule)) {
+                    toReturn.push(this.addTextRow(sectionIndex, ruleIndex++, rule))
                 }
-            });
+            })
         }
         return toReturn;
+    },
+
+    getSelectedRadioId(formId) {
+        const form = this.retrieveDomElement(formId);
+        if (!form) {
+            return null;
+        }
+
+        const selected = form.querySelector('input[type="radio"]:checked');
+        return selected ? selected.id : null;
     }
 };

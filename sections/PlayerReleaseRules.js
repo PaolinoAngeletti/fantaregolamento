@@ -2,6 +2,7 @@ const PlayerReleaseRules = {
     produce: function (sectionIndex) {
         let rules = [];
         rules.push(this.estraiGestioneSvincoliMercato());
+        rules.push(this.estraiAbilitazioneRiacquisto());
         rules.push(this.estraiGestioneSvincoli());
         rules.push(this.estraiGestioneDecimali());
         rules.push(this.estraiGestioneCessioniAltroCampionato());
@@ -10,54 +11,43 @@ const PlayerReleaseRules = {
     },
 
     estraiGestioneSvincoliMercato: function () {
-        let toReturn = "";
-        let campoSvincolo = Utils.retrieveDomElement("cbSvincoloAcquisto");
-        if (campoSvincolo.checked) {
-            toReturn = "Prevista l'applicazione dello svincolo su acquisto, ossia ogni partecipante dovrà comunicare lo svincolo solamente dopo aver eseguito un acquisto. Per la gestione del singolo svincolo invece vi è una regola specifica.";
+        let valueId = Utils.getSelectedRadioId("fSvincolo");
+        if ("cbSvincoloInizio" === valueId) {
+            return "Ad ogni sessione di mercato, una squadra interessata ad acquistare dovrà comunicare in anticipo i giocatori da svincolare.";
+        } else if ("cbSvincoloAcquisto" === valueId) {
+            return "Prevista l'applicazione dello svincolo su acquisto, ossia ogni partecipante dovrà comunicare lo svincolo solamente dopo aver eseguito un acquisto. Per la gestione del singolo svincolo invece vi è una regola specifica.";
         } else {
-            campoSvincolo = Utils.retrieveDomElement("cbSvincoloInizioSi");
-            if (campoSvincolo.checked) {
-                toReturn = "Ad ogni sessione di mercato, una squadra interessata ad acquistare dovrà comunicare in anticipo i giocatori da svincolare, potendo poi però partecipare all'asta anche di giocatori svincolati da se stesso.";
-            } else {
-                campoSvincolo = Utils.retrieveDomElement("cbSvincoloInizioNo");
-                if (campoSvincolo.checked) {
-                    toReturn = "Ad ogni sessione di mercato, una squadra interessata ad acquistare dovrà comunicare in anticipo i giocatori da svincolare, NON potendo poi però partecipare all'asta anche di giocatori svincolati da se stesso.";
-                }
-            }
+            return "Durante una sessione di mercato sarà possibile svincolare i calciatori acquistati solo a fine mercato, dopo che tutti i partecipanti avranno completato le proprie rose.";
         }
-        return toReturn;
+    },
+
+    estraiAbilitazioneRiacquisto: function () {
+        let valueId = Utils.getSelectedRadioId("fRiacquisto");
+        if ("cbRiacquistoSi" === valueId) {
+            return "Durante una sessione di mercato, sarà possibile ri-acquistare giocatori precedentemente svincolati dalla squadra stessa.";
+        } else {
+            return "Durante una sessione di mercato, NON sarà possibile ri-acquistare giocatori precedentemente svincolati dalla squadra stessa. Ovviamente, in una successiva sessione di mercato, tali giocatori potranno essere ri-acquistati senza vincoli.";
+        }
     },
 
     estraiGestioneSvincoli: function () {
         let toReturn = "In caso di svincolo di giocatori acquistati in mercati precedenti, ";
-        let cbNessunCredito = Utils.retrieveDomElement("cbSvincoloNessun");
-        if (cbNessunCredito.checked) {
-            toReturn = toReturn + "non verrà recuperato alcun credito.";
+
+        let valueId = Utils.getSelectedRadioId("fCreditiSvincolo");
+        if ("cbSvincoloUno" === valueId) {
+            toReturn = toReturn + "la squadra riceverà un solo credito in ogni caso, solamente per permettere eventuali acquisti a quotazione uno di svincolati.";
+        } else if ("cbSvincoloMeta" === valueId) {
+            toReturn = toReturn + "la squadra riceverà crediti pari alla metà della quotazione di acquisto.";
+        } else if ("cbSvincoloQuotazione" === valueId) {
+            toReturn = toReturn + "la squadra riceverà crediti pari alla quotazione di acquisto.";
+        } else if ("cbSvincoloMetaAttuale" === valueId) {
+            toReturn = toReturn + "la squadra riceverà crediti pari alla metà della quotazione attuale del calciatore.";
+        } else if ("cbSvincoloAttuale" === valueId) {
+            toReturn = toReturn + "la squadra riceverà crediti pari alla quotazione attuale del calciatore.";
+        } else if ("cbSvincoloMedia" === valueId) {
+            toReturn = toReturn + "la squadra riceverà un numero di crediti pari alla media tra la quotazione attuale del giocatore e il suo valore di acquisto. Esempio se la quotazione attuale è 50 e la spesa per l'acquisto è stata di 10, allora i crediti ricevuti saranno 30 (50 + 10 / 2)";
         } else {
-            let cbUnCredito = Utils.retrieveDomElement("cbSvincoloUno");
-            if (cbUnCredito.checked) {
-                toReturn = toReturn + "la squadra riceverà un solo credito in ogni caso, solamente per permettere eventuali acquisti a quotazione uno di svincolati.";
-            } else {
-                let cbMeta = Utils.retrieveDomElement("cbSvincoloMeta");
-                if (cbMeta.checked) {
-                    toReturn = toReturn + "la squadra riceverà crediti pari alla metà della quotazione di acquisto.";
-                } else {
-                    let cbQuotazione = Utils.retrieveDomElement("cbSvincoloQuotazione");
-                    if (cbQuotazione.checked) {
-                        toReturn = toReturn + "la squadra riceverà crediti pari alla quotazione di acquisto.";
-                    } else {
-                        let cbSvincoloAttuale = Utils.retrieveDomElement("cbSvincoloAttuale");
-                        if (cbSvincoloAttuale.checked) {
-                            toReturn = toReturn + "la squadra riceverà crediti pari alla quotazione attuale del calciatore.";
-                        } else {
-                            let cbMedia = Utils.retrieveDomElement("cbSvincoloMedia");
-                            if (cbMedia.checked) {
-                                toReturn = toReturn + "la squadra riceverà un numero di crediti pari alla media tra la quotazione attuale del giocatore e il suo valore di acquisto. Esempio se la quotazione attuale è 50 e la spesa per l'acquisto è stata di 10, allora i crediti ricevuti saranno 30 (50 + 10 / 2)";
-                            }
-                        }
-                    }
-                }
-            }
+            toReturn = toReturn + "non verrà recuperato alcun credito.";
         }
         return toReturn;
     },

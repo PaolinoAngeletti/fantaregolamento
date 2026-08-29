@@ -1,7 +1,9 @@
 function runFeePrizesTests() {
     describe("Fee&Prizes section", function () {
+
         describe("produce test", function () {
             it("should produce correct output with quota and prizes", function () {
+                realDomDoc.getElementById("cbQuotaFissa").checked = true;
                 realDomDoc.getElementById("etQuota").value = "100";
                 realDomDoc.getElementById('taPremi').value = "price-list";
 
@@ -18,6 +20,7 @@ function runFeePrizesTests() {
 
         describe("fee value unit test", function () {
             it('fee value cannot be negative', () => {
+                realDomDoc.getElementById("cbQuotaFissa").checked = true;
                 realDomDoc.getElementById("etQuota").value = "-1";
                 try {
                     FeeAndPrizesRule.estraiQuotaSquadra();
@@ -30,6 +33,7 @@ function runFeePrizesTests() {
             });
 
             it('fee value can be zero', () => {
+                realDomDoc.getElementById("cbQuotaFissa").checked = true;
                 realDomDoc.getElementById("etQuota").value = "0";
                 const result = FeeAndPrizesRule.produce();
                 expect(result[0].text).toContain("Quote squadre e premi finali");
@@ -37,13 +41,50 @@ function runFeePrizesTests() {
             });
         });
 
+        describe("price type tests", function () {
+
+            it('fixed price button test', () => {
+                realDomDoc.getElementById("cbQuotaFissa").checked = true;
+                realDomDoc.getElementById("etQuota").value = "560";
+
+                let result = FeeAndPrizesRule.estraiQuotaSquadra();
+                expect(result).toContain("La quota di partecipazione prevista per ciascuna squadra è di 560 euro");
+            });
+
+            it('variable price button test with valid text content', () => {
+                realDomDoc.getElementById("cbQuotaVariabile").checked = true;
+                realDomDoc.getElementById("taQuotaVariabile").value = "Ecco i premi richiesti:";
+
+                let result = FeeAndPrizesRule.estraiQuotaSquadra();
+                expect(result).toContain("Ecco i premi richiesti:");
+            });
+
+            it('variable price button test with empty text content', () => {
+                realDomDoc.getElementById("cbQuotaVariabile").checked = true;
+                realDomDoc.getElementById("taQuotaVariabile").value = "";
+
+                try {
+                    FeeAndPrizesRule.estraiQuotaSquadra();
+                    fail("Should be thrown an exception");
+                } catch (error) {
+                    expect(error.message).toContain("Quote squadre e premi finali");
+                    expect(error.message).toContain("Quota");
+                    expect(error.message).toContain(FieldValidation.NO_EMPTY_ERR);
+                }
+            });
+
+        });
+
         describe("prizes textarea test", function () {
+
             it("should skip prize section if taPremi is null", function () {
+                realDomDoc.getElementById("cbQuotaFissa").checked = true;
                 realDomDoc.getElementById("etQuota").value = "50";
-                realDomDoc.getElementById('taPremi').value = "";
+                realDomDoc.getElementById("taPremi").value = "";
                 const result = FeeAndPrizesRule.produce();
                 expect(result[0].text).not.toContain("I premi totali");
             });
+
         });
     });
 }

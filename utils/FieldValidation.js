@@ -6,10 +6,10 @@ const FieldValidation = {
     NO_EMPTY_ERR: "Non sono ammessi valori vuoti",
 
     validateInt: function (sectionName, fieldName, value, negativeAllowed = false, zeroAllowed = true, maxAllowed = null) {
-        var errorMessage = null;
+        let errorMessage = null;
         if (!negativeAllowed && value < 0) {
             errorMessage = this.NO_NEGATIVE_ERR;
-        } else if (!zeroAllowed && value == 0) {
+        } else if (!zeroAllowed && Number(value) === 0) {
             errorMessage = this.NO_ZERO_ERR
         } else if (maxAllowed != null && value > maxAllowed) {
             errorMessage = this.EXCEED_MAX_ERR + "[" + maxAllowed + "]";

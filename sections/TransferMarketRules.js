@@ -3,8 +3,11 @@ const TransferMarketRules = {
 
     produce: function (sectionIndex) {
         let rules = [];
+        rules.push(this.estraiTipologiaMercato());
         rules.push(this.estraiNumeroCrediti());
+        rules.push(this.estraiOffertaMinima());
         rules.push(this.estraiNumeroCreditiSuccessivi());
+        rules.push(this.estraiGestioneStessiCreditiFinali());
         rules.push(this.retrieveFinishedCreditsManagement());
         rules.push(this.retrieveResidualCreditsManagements());
         rules.push(this.estraiAbilitazioneCambioRuolo());
@@ -15,11 +18,44 @@ const TransferMarketRules = {
         return Utils.buildRuleSection(sectionIndex, this.sectionName, rules);
     },
 
+    estraiTipologiaMercato: function () {
+        const noRuoloRule = "Inoltre, non ci saranno vincoli di ruolo, ossia si potrà acquistare un attaccante prima di un portiere.";
+        const ruoloRule = "E' previsto però un vincolo di ruolo, ossia i calciatori dovranno essere acquistati in ordine di ruolo, ossia P-D-C-A.";
+
+        const randomRule = "L'asta verrà eseguita estraendo i calciatori in maniera random, ossia non ci sarà nessun ordine prefissato. ";
+        const chiamataRule = "L'asta verrà eseguita estraendo i calciatori a chiamata, ossia ogni squadra, a turno, deciderà su quale giocatore effettuare l'asta. ";
+
+        let valueId = Utils.getSelectedRadioId("fTipoMercato");
+        if ("cbAlfabetico" === valueId) {
+            return "L'asta verrà eseguita estraendo i calciatori in ordine alfabetico crescente, ossia dalla A alla Z.";
+        } else if ("cbChiamata" === valueId) {
+            return chiamataRule + noRuoloRule;
+        } else if ("cbChiamataRuolo" === valueId) {
+            return chiamataRule + ruoloRule;
+        } else if ("cbTornata" === valueId) {
+            return "L'asta verrà eseguita con la modalità a tornate. In ogni tornata, ogni squadra potrà offrire per qualsiasi giocatore voglia, indipendentemente dal ruolo. Alla fine della tornata, verranno assegnati i calciatori, e si proseguirà con la successiva tornata con i giocatori che risultano ancora svincolati dopo le tornate precedenti. Il numero di tornate dipenderà dal completamento di tutte le squadre.";
+        } else if ("cbRandom" === valueId) {
+            return randomRule + noRuoloRule;
+        } else {
+            // default: random ruolo
+            return randomRule + ruoloRule;
+        }
+    },
+
     estraiNumeroCrediti: function () {
         let etCrediti = Utils.retrieveDomElement("etCrediti");
         let creditsNumber = etCrediti.value;
         FieldValidation.validateInt(this.sectionName, "Numero crediti", creditsNumber, false, false);
         return "Per il mercato iniziale sono previsti " + creditsNumber + " fanta-milioni, utili a comporre la rosa iniziale.";
+    },
+
+    estraiOffertaMinima: function () {
+        let valueId = Utils.getSelectedRadioId("fOffertaMinima");
+        if ("cbOffMinValAtt" === valueId) {
+            return "Prevista una offerta minima per i calciatori pari alla quotazione attuale di quel momento.";
+        } else {
+            return "Non è prevista nessuna offerta minima per i calciatori, per cui le aste potranno partire dal valore 1.";
+        }
     },
 
     estraiNumeroCreditiSuccessivi: function () {
@@ -34,6 +70,17 @@ const TransferMarketRules = {
             toReturn = "Per le successive sessioni di mercato non sono previste aggiunte di crediti, quindi si opererà sempre con il residuo del mercato precedente o comunque risultante da altre operazioni.";
         }
         return toReturn;
+    },
+
+    estraiGestioneStessiCreditiFinali: function () {
+        const baseRule = "Se durante l'asta, più squadre sono interessate allo stesso giocatore ma hanno gli stessi crediti finali, ";
+
+        let valueId = Utils.getSelectedRadioId("fGestioneStessiCrediti");
+        if ("cbCreditiSvincoloLoop" === valueId) {
+            return baseRule + "allora si procederà svincolando al buio un qualsiasi giocatore dello stesso ruolo (recuperando un numero di crediti in base alla regola prevista) e procedendo cosi all'asta per il giocatore desiderato. Se dopo lo svincolo, i crediti saranno ancora uguali, si procederà in loop con questa regola svincolando un nuovo giocatore. Se una squadra non ha giocatori da svincolare per lo stesso ruolo del giocatore da acquistare, allora dovrà ritirarsi dall'asta.";
+        } else {
+            return baseRule + "allora nessuna di esse potrà acquisire il calciatore, che rimarrà ovviamente nella lista degli svincolati.";
+        }
     },
 
     retrieveFinishedCreditsManagement: function () {
