@@ -213,27 +213,7 @@ async function attachJSONtoPDF(pdfBytes, metadata) {
 function openPDFPreview(pdfWithAttachment) {
     const blob = new Blob([pdfWithAttachment], {type: 'application/pdf'});
     const url = URL.createObjectURL(blob);
-
-    // vecchio
-    //window.open(url, "_blank");
-
-    // try1 ok safari ma carica stessa pagina
-    //window.location.href = url;
-
-    // try2 rompe safari e brave
-    // const newWindow = window.open();
-    // if (newWindow) {
-    //     newWindow.location.href = url;
-    // }
-
-    //try 3
-    const link = document.createElement('a');
-    link.href = url;
-    link.target = '_blank';
-
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
+    window.open(url, "_blank");
 }
 
 export async function loadJSONFromPDF() {
