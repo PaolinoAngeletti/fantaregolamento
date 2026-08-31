@@ -220,11 +220,20 @@ function openPDFPreview(pdfWithAttachment) {
     // try1 ok safari ma carica stessa pagina
     //window.location.href = url;
 
-    // try2
-    const newWindow = window.open();
-    if (newWindow) {
-        newWindow.location.href = url;
-    }
+    // try2 rompe safari e brave
+    // const newWindow = window.open();
+    // if (newWindow) {
+    //     newWindow.location.href = url;
+    // }
+
+    //try 3
+    const link = document.createElement('a');
+    link.href = url;
+    link.target = '_blank';
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
 }
 
 export async function loadJSONFromPDF() {
