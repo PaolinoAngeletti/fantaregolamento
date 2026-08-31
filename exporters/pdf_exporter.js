@@ -213,7 +213,11 @@ async function attachJSONtoPDF(pdfBytes, metadata) {
 function openPDFPreview(pdfWithAttachment) {
     const blob = new Blob([pdfWithAttachment], {type: 'application/pdf'});
     const url = URL.createObjectURL(blob);
-    window.open(url, "_blank");
+
+    console.log(window.location.protocol);
+
+    //window.open(url, "_blank");
+    window.location.href = url;
 }
 
 export async function loadJSONFromPDF() {

@@ -2,18 +2,17 @@ const CompetitionType = {
     sectionName: "Tipologia competizione",
 
     produce: function (sectionIndex) {
-        let toReturn = [];
-        toReturn.push(Utils.addSectionTitle(sectionIndex, this.sectionName));
-        toReturn.push(this.estraiTipoCompetizione(sectionIndex));
-        toReturn.push(this.estraiDurataCompetizione(sectionIndex));
-        return toReturn;
+        let rules = [];
+        rules.push(this.estraiTipoCompetizione());
+        rules.push(this.estraiDurataCompetizione());
+        rules.push(this.estraiSistemaRuoli());
+        return Utils.buildRuleSection(sectionIndex, this.sectionName, rules);
     },
 
-    estraiTipoCompetizione: function (sectionIndex) {
+    estraiTipoCompetizione: function () {
         let cbListone = Utils.retrieveDomElement("cbListone");
         let cbCalendario = Utils.retrieveDomElement("cbCalendario");
         let cbFormulaUno = Utils.retrieveDomElement("cbFormulaUno");
-        let cbBustaChiusa = Utils.retrieveDomElement("cbBusta");
 
         let toReturn = "";
         if (cbCalendario.checked) {
@@ -22,14 +21,11 @@ const CompetitionType = {
             toReturn = "La competizione sarà una competizione con stile Formula Uno, in cui ad ogni giornata ci saranno una griglia dei migliori punteggi da cui trarre i punti da aggiungere in classifica.";
         } else if (cbListone.checked) {
             toReturn = "La competizione sarà una competizione a listone, in cui ogni squadra potrà comporre la propria rosa usando i crediti massimi previsti.";
-        } else if (cbBustaChiusa.checked) {
-            toReturn = "La competizione sarà una competizione a buste chiuse, ossia ogni squadra avanzerà una offerta nascosta per i calciatori, che sarà resa pubblica solamente quando anche le altre squadre avranno ultimato le proprie offerte. Ovviamente vincerà l'offerta più alta.";
         }
-
-        return Utils.addTextRow(sectionIndex, 1, toReturn);
+        return toReturn;
     },
 
-    estraiDurataCompetizione: function (sectionIndex) {
+    estraiDurataCompetizione: function () {
         let etFine = Utils.retrieveDomElement("etFine");
         let etInizio = Utils.retrieveDomElement("etInizio");
 
@@ -39,7 +35,15 @@ const CompetitionType = {
         FieldValidation.validateInt(this.sectionName, "Inizio competizione", startValue, false, false, 38);
         FieldValidation.compareMinorToMajor(this.sectionName, "Inizio competizione", "Fine competizione", startValue, endValue);
 
-        let toReturn = "L'inizio e la fine della competizione corrisponderanno rispettivamente con la giornata " + startValue + " e con la giornata " + endValue + " del campionato reale.";
-        return Utils.addTextRow(sectionIndex, 2, toReturn);
+        return "L'inizio e la fine della competizione corrisponderanno rispettivamente con la giornata " + startValue + " e con la giornata " + endValue + " del campionato reale.";
+    },
+
+    estraiSistemaRuoli: function () {
+        let valueId = Utils.getSelectedRadioId("fSistemaGioco");
+        if ("cbMantra" === valueId) {
+            return "La competizione verrà svolta applicando le regole della modalità Mantra.";
+        } else {
+            return "La competizione verrà svolta applicando le regole della modalità Classic, per cui verranno utilizzati i ruoli P-D-C-A.";
+        }
     }
 };

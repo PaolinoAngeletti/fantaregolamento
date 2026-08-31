@@ -63,10 +63,12 @@ function runMainScriptTests() {
                 {field: "cbFormulaUno", value: false},
                 {field: "cbListone", value: true},
                 {field: "cbListone", value: false},
-                {field: "cbBusta", value: true},
-                {field: "cbBusta", value: false},
                 {field: "etInizio", value: "45"},
                 {field: "etFine", value: "10"},
+                {field: "cbClassic", value: true},
+                {field: "cbClassic", value: false},
+                {field: "cbMantra", value: true},
+                {field: "cbMantra", value: false},
 
                 // team rules.
                 {field: "etPortieri", value: "5"},
@@ -79,6 +81,10 @@ function runMainScriptTests() {
                 {field: "cbCondivisiNo", value: false},
 
                 // transfer market rules.
+                {field: "cbAsta", value: true},
+                {field: "cbAsta", value: false},
+                {field: "cbBusta", value: true},
+                {field: "cbBusta", value: false},
                 {field: "cbAlfabetico", value: true},
                 {field: "cbAlfabetico", value: false},
                 {field: "cbChiamata", value: true},
@@ -296,16 +302,18 @@ function runMainScriptTests() {
             let test_cases = [
 
                 // competition type.
-                {field: "cbCalendario", start_value: false, final_value: true, should_hide: ["btnTornata"]},
-                {field: "cbCalendario", start_value: true, final_value: false, should_hide: ["btnTornata"]},
-                {field: "cbFormulaUno", start_value: false, final_value: true, should_hide: ["btnTornata"]},
-                {field: "cbFormulaUno", start_value: true, final_value: false, should_hide: ["btnTornata"]},
-                {field: "cbListone", start_value: false, final_value: true, should_hide: ["btnTornata"]},
-                {field: "cbListone", start_value: true, final_value: false, should_hide: ["btnTornata"]},
-                {field: "cbBusta", start_value: false, final_value: true, should_appear: ["btnTornata"]},
-                {field: "cbBusta", start_value: true, final_value: false, should_hide: ["btnTornata"]},
+                {field: "cbCalendario", start_value: false, final_value: true},
+                {field: "cbCalendario", start_value: true, final_value: false},
+                {field: "cbFormulaUno", start_value: false, final_value: true},
+                {field: "cbFormulaUno", start_value: true, final_value: false},
+                {field: "cbListone", start_value: false, final_value: true},
+                {field: "cbListone", start_value: true, final_value: false},
                 {field: "etInizio", start_value: "5", final_value: "20"},
                 {field: "etFine", start_value: "10", final_value: "4"},
+                {field: "cbClassic", start_value: false, final_value: true},
+                {field: "cbClassic", start_value: true, final_value: false},
+                {field: "cbMantra", start_value: false, final_value: true},
+                {field: "cbMantra", start_value: true, final_value: false},
 
                 // team rules.
                 {field: "etPortieri", start_value: "5", final_value: "10"},
@@ -318,6 +326,10 @@ function runMainScriptTests() {
                 {field: "cbCondivisiSi", start_value: true, final_value: false},
 
                 // transfer market rules.
+                {field: "cbAsta", start_value: false, final_value: true, should_hide: ["btnTornata"]},
+                {field: "cbAsta", start_value: true, final_value: false, should_hide: ["btnTornata"]},
+                {field: "cbBusta", start_value: false, final_value: true, should_appear: ["btnTornata"]},
+                {field: "cbBusta", start_value: true, final_value: false, should_hide: ["btnTornata"]},
                 {field: "cbAlfabetico", start_value: true, final_value: false},
                 {field: "cbAlfabetico", start_value: false, final_value: true},
                 {field: "cbChiamata", start_value: true, final_value: false},
@@ -627,13 +639,13 @@ function runMainScriptTests() {
         it("cbBusta unselection", function () {
             let cbBusta = realDomDoc.getElementById("cbBusta");
             let btnTornata = realDomDoc.getElementById("btnTornata");
-            let cbCalendario = realDomDoc.getElementById("cbCalendario");
+            let cbAsta = realDomDoc.getElementById("cbAsta");
 
             cbBusta.checked = true;
-            cbCalendario.checked = false;
+            cbAsta.checked = false;
             Utils.setElementVisibility("btnTornata", true);
 
-            cbCalendario.click();
+            cbAsta.click();
             checkElementDisplay(btnTornata, false);
         })
 
