@@ -214,10 +214,17 @@ function openPDFPreview(pdfWithAttachment) {
     const blob = new Blob([pdfWithAttachment], {type: 'application/pdf'});
     const url = URL.createObjectURL(blob);
 
-    console.log(window.location.protocol);
-
+    // vecchio
     //window.open(url, "_blank");
-    window.location.href = url;
+
+    // try1 ok safari ma carica stessa pagina
+    //window.location.href = url;
+
+    // try2
+    const newWindow = window.open();
+    if (newWindow) {
+        newWindow.location.href = url;
+    }
 }
 
 export async function loadJSONFromPDF() {
