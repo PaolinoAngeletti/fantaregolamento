@@ -4,6 +4,7 @@ const TransferMarketRules = {
     produce: function (sectionIndex) {
         let rules = [];
         rules.push(this.estraiTipologiaMercato());
+        rules.push(this.estraiOrdineMercato());
         rules.push(this.estraiNumeroCrediti());
         rules.push(this.estraiOffertaMinima());
         rules.push(this.estraiNumeroCreditiSuccessivi());
@@ -19,13 +20,22 @@ const TransferMarketRules = {
     },
 
     estraiTipologiaMercato: function () {
+        let valueId = Utils.getSelectedRadioId("fTipoMercato");
+        if ("cbBusta" === valueId) {
+            return "Il mercato verrà svolto a buste chiuse, ossia ogni squadra avanzerà una offerta nascosta per i calciatori, che sarà resa pubblica solamente quando anche le altre squadre avranno ultimato le proprie offerte. Ovviamente vincerà l'offerta più alta.";
+        } else {
+            return "Il mercato verrà svolto con la classica asta, in cui ogni offerta sarà pubblica a tutte le altre squadre."
+        }
+    },
+
+    estraiOrdineMercato: function () {
         const noRuoloRule = "Inoltre, non ci saranno vincoli di ruolo, ossia si potrà acquistare un attaccante prima di un portiere.";
         const ruoloRule = "E' previsto però un vincolo di ruolo, ossia i calciatori dovranno essere acquistati in ordine di ruolo, ossia P-D-C-A.";
 
         const randomRule = "L'asta verrà eseguita estraendo i calciatori in maniera random, ossia non ci sarà nessun ordine prefissato. ";
         const chiamataRule = "L'asta verrà eseguita estraendo i calciatori a chiamata, ossia ogni squadra, a turno, deciderà su quale giocatore effettuare l'asta. ";
 
-        let valueId = Utils.getSelectedRadioId("fTipoMercato");
+        let valueId = Utils.getSelectedRadioId("fOrdineMercato");
         if ("cbAlfabetico" === valueId) {
             return "L'asta verrà eseguita estraendo i calciatori in ordine alfabetico crescente, ossia dalla A alla Z.";
         } else if ("cbChiamata" === valueId) {
