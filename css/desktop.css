@@ -85,13 +85,18 @@ rule-section {
     margin-bottom: 2em;
 }
 
-rule {
+.rule {
     display: block;
     border: 1px solid gray;
     border-radius: 25px;
     background-color: #C5C5CC;
     padding: 15px 15px;
     margin-bottom: 1em;
+}
+
+.rule > button {
+    width: auto;
+    margin-top: 1em;
 }
 
 .rule-title {

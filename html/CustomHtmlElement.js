@@ -11,6 +11,11 @@ class CustomHtmlElement extends HTMLElement {
         throw new Error("render() must be implemented");
     }
 
+    // todo duplicato.
+    isValidString (string) {
+        return string != null && string.trim() !== "";
+    }
+
     retrieveInnerContent() {
         const contentType = this.getAttribute("data-content-type");
         if ("html" === contentType) {
