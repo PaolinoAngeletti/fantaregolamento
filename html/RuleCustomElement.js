@@ -5,6 +5,8 @@ class RuleCustomElement extends CustomHtmlElement {
         result.classList.add("rule");
         result.append(...this.childNodes);
 
+        //todo fare metodo centralizzato addNoteSection
+
         const noteContainer = this.buildDiv(true, true);
         noteContainer.style.display = "none";
 
@@ -24,7 +26,7 @@ class RuleCustomElement extends CustomHtmlElement {
             }
 
             noteContainer.style.display = "none";
-            button.style.display = "flex";
+            button.style.display = "";
         });
 
         noteContainer.appendChild(textArea);
